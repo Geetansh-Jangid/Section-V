@@ -88,7 +88,7 @@ export const RootLayout: React.FC<LayoutProps> = ({
                 <span>⌘K Search</span>
               </button>
               <a
-                href={linksData.githubRepoUrl}
+                href="https://github.com/Geetansh-Jangid/Section-V"
                 target="_blank"
                 rel="noreferrer"
                 className="flex items-center gap-1 text-neutral-400 hover:text-white transition-colors"

@@ -68,7 +68,7 @@ export const QuickLinks: React.FC = () => {
       <div className="mt-3 pt-3 border-t border-[#1c1c1c] flex items-center justify-between text-[11px] text-neutral-500">
         <span>Single Sign-On with Institute Email</span>
         <a 
-          href={linksData.githubRepoUrl} 
+          href="https://github.com/Geetansh-Jangid/Section-V" 
           target="_blank" 
           rel="noreferrer" 
           className="hover:text-neutral-300 transition-colors flex items-center gap-1"

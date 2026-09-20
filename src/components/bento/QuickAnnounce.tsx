@@ -91,48 +91,48 @@ export const QuickAnnounce: React.FC<QuickAnnounceProps> = () => {
               exit={{ opacity: 0, scale: 0.95, y: 10 }}
               transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
               data-modal-card="true"
-              className="w-full max-w-md bg-[#0f0f0f] border border-[#262626] rounded-xl p-5 shadow-2xl"
+              className="w-full max-w-[calc(100vw-1.5rem)] sm:max-w-lg md:max-w-xl lg:max-w-2xl bg-[#0f0f0f] border border-[#262626] rounded-2xl p-5 sm:p-7 shadow-2xl max-h-[90vh] overflow-y-auto my-auto"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="flex items-center justify-between pb-3 border-b border-[#222222]">
-                <span className="text-xs font-mono uppercase text-neutral-400">
+              <div className="flex items-center justify-between pb-3.5 border-b border-[#222222]">
+                <span className="text-xs sm:text-sm font-mono uppercase text-neutral-400 font-semibold tracking-wide">
                   {selectedNotice.category} Notice · {selectedNotice.date}
                 </span>
                 <button
                   type="button"
                   onClick={() => setSelectedNotice(null)}
-                  className="p-1 text-neutral-400 hover:text-white rounded transition-colors"
+                  className="p-1.5 text-neutral-400 hover:text-white rounded-lg hover:bg-[#1a1a1a] transition-colors cursor-pointer"
                   aria-label="Close"
                 >
-                  <X className="w-4 h-4" />
+                  <X className="w-4 h-4 sm:w-5 sm:h-5" />
                 </button>
               </div>
 
-              <div className="pt-3 space-y-3">
-                <h3 className="text-sm font-semibold text-white">
+              <div className="pt-4 space-y-4">
+                <h3 className="text-base sm:text-lg font-bold text-white tracking-tight">
                   {selectedNotice.title}
                 </h3>
-                <p className="text-xs text-neutral-300 leading-relaxed">
+                <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed">
                   {selectedNotice.summary || "Official section circular published by department authorities."}
                 </p>
 
-                <div className="flex flex-wrap gap-1.5 pt-2">
+                <div className="flex flex-wrap gap-2 pt-2">
                   {selectedNotice.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="px-2 py-0.5 rounded text-[10px] font-mono bg-[#181818] border border-[#282828] text-neutral-400"
+                      className="px-2.5 py-1 rounded-md text-xs font-mono bg-[#181818] border border-[#282828] text-neutral-300"
                     >
                       #{tag}
                     </span>
                   ))}
                 </div>
 
-                <div className="pt-3 border-t border-[#222222] flex justify-between items-center text-xs text-neutral-500">
-                  <span>Signed: {selectedNotice.author}</span>
+                <div className="pt-4 border-t border-[#222222] flex flex-wrap justify-between items-center gap-3 text-xs sm:text-sm text-neutral-400">
+                  <span className="font-medium">Signed: {selectedNotice.author}</span>
                   <button
                     type="button"
                     onClick={() => setSelectedNotice(null)}
-                    className="px-3 py-1.5 rounded bg-white text-black font-semibold hover:bg-neutral-200 transition-colors"
+                    className="px-4 py-2 rounded-lg bg-white text-black font-semibold hover:bg-neutral-200 transition-colors cursor-pointer text-xs sm:text-sm"
                   >
                     Close
                   </button>

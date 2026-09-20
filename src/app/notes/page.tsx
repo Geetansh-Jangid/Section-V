@@ -304,34 +304,34 @@ export const NotesPage: React.FC<NotesPageProps> = ({ onOpenContributeModal }) =
               exit={{ opacity: 0, scale: 0.95, y: 10 }}
               transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
               data-modal-card="true"
-              className="w-full max-w-2xl bg-[#0f0f0f] border border-[#262626] rounded-xl p-5 shadow-2xl max-h-[80vh] flex flex-col"
+              className="w-full max-w-[calc(100vw-1.5rem)] sm:max-w-2xl md:max-w-3xl lg:max-w-4xl xl:max-w-5xl bg-[#0f0f0f] border border-[#262626] rounded-2xl p-5 sm:p-7 shadow-2xl max-h-[90vh] sm:max-h-[86vh] flex flex-col my-auto"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="flex items-center justify-between pb-3 border-b border-[#222222]">
-                <h3 className="text-sm font-semibold text-white">
+              <div className="flex items-center justify-between pb-3.5 border-b border-[#222222]">
+                <h3 className="text-base sm:text-lg font-bold text-white tracking-tight">
                   Syllabus Outline: {activeSubject.subjectName} ({activeSubject.subjectCode})
                 </h3>
                 <button
                   type="button"
                   onClick={() => setShowMarkdownViewer(false)}
-                  className="p-1 text-neutral-400 hover:text-white rounded transition-colors"
+                  className="p-1.5 text-neutral-400 hover:text-white rounded-lg hover:bg-[#1a1a1a] transition-colors cursor-pointer"
                   aria-label="Close"
                 >
-                  <X className="w-4 h-4" />
+                  <X className="w-4 h-4 sm:w-5 sm:h-5" />
                 </button>
               </div>
 
-              <div className="flex-1 overflow-y-auto py-4 text-xs text-neutral-300 space-y-4 font-mono">
-                <div className="p-3 bg-[#141414] rounded border border-[#222222]">
-                  <p className="font-bold text-white mb-2"># {activeSubject.subjectName} Course Structure</p>
+              <div className="flex-1 overflow-y-auto py-4 text-xs sm:text-sm text-neutral-300 space-y-4 font-mono">
+                <div className="p-3.5 sm:p-4 bg-[#141414] rounded-xl border border-[#222222]">
+                  <p className="font-bold text-white mb-2 text-sm sm:text-base"># {activeSubject.subjectName} Course Structure</p>
                   <p>Faculty: {activeSubject.faculty}</p>
                   <p>Credits: {activeSubject.credits} | Lecture Hours: 4/week</p>
                 </div>
 
                 {activeSubject.units.map((u) => (
-                  <div key={u.unitNumber} className="space-y-1">
-                    <p className="font-bold text-white">## Unit {u.unitNumber}: {u.title}</p>
-                    <ul className="list-disc pl-5 text-neutral-400 space-y-0.5">
+                  <div key={u.unitNumber} className="space-y-1.5">
+                    <p className="font-bold text-white text-xs sm:text-sm">## Unit {u.unitNumber}: {u.title}</p>
+                    <ul className="list-disc pl-5 text-neutral-400 space-y-1">
                       {u.topics.map((t, idx) => (
                         <li key={idx}>{t}</li>
                       ))}
@@ -340,11 +340,11 @@ export const NotesPage: React.FC<NotesPageProps> = ({ onOpenContributeModal }) =
                 ))}
               </div>
 
-              <div className="pt-3 border-t border-[#222222] flex justify-end">
+              <div className="pt-3.5 border-t border-[#222222] flex justify-end">
                 <button
                   type="button"
                   onClick={() => setShowMarkdownViewer(false)}
-                  className="px-3 py-1.5 rounded bg-white text-black font-semibold hover:bg-neutral-200 transition-colors"
+                  className="px-4 py-2 rounded-lg bg-white text-black font-semibold hover:bg-neutral-200 transition-colors cursor-pointer text-xs sm:text-sm"
                 >
                   Close
                 </button>

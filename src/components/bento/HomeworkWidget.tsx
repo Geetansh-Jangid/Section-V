@@ -135,41 +135,41 @@ export const HomeworkWidget: React.FC = () => {
               exit={{ opacity: 0, scale: 0.95, y: 10 }}
               transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
               data-modal-card="true"
-              className="w-full max-w-sm bg-[#0f0f0f] border border-[#262626] rounded-xl p-5 shadow-2xl"
+              className="w-full max-w-[calc(100vw-1.5rem)] sm:max-w-md md:max-w-lg lg:max-w-xl bg-[#0f0f0f] border border-[#262626] rounded-2xl p-5 sm:p-7 shadow-2xl max-h-[90vh] overflow-y-auto my-auto"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="flex items-center justify-between pb-3 border-b border-[#222222]">
-                <h3 className="text-sm font-semibold text-white">Add Lab / Assignment Task</h3>
+              <div className="flex items-center justify-between pb-3.5 border-b border-[#222222]">
+                <h3 className="text-base sm:text-lg font-bold text-white tracking-tight">Add Lab / Assignment Task</h3>
                 <button
                   type="button"
                   onClick={() => setShowAddModal(false)}
-                  className="p-1 text-neutral-400 hover:text-white rounded transition-colors"
+                  className="p-1.5 text-neutral-400 hover:text-white rounded-lg hover:bg-[#1a1a1a] transition-colors cursor-pointer"
                   aria-label="Close"
                 >
-                  <X className="w-4 h-4" />
+                  <X className="w-4 h-4 sm:w-5 sm:h-5" />
                 </button>
               </div>
 
-              <form onSubmit={handleCreate} className="space-y-3 pt-3 text-xs">
+              <form onSubmit={handleCreate} className="space-y-4 pt-4 text-xs sm:text-sm">
                 <div>
-                  <label className="text-neutral-400 block mb-1">Task Title</label>
+                  <label className="text-neutral-300 block mb-1.5 font-medium">Task Title</label>
                   <input
                     type="text"
                     required
                     value={newTitle}
                     onChange={(e) => setNewTitle(e.target.value)}
                     placeholder="e.g. PPS Lab 3 File Printout"
-                    className="w-full px-3 py-2 rounded bg-[#161616] border border-[#262626] text-white focus:outline-none focus:border-neutral-400"
+                    className="w-full px-3.5 py-2.5 rounded-lg bg-[#161616] border border-[#262626] text-white focus:outline-none focus:border-neutral-400 text-xs sm:text-sm"
                   />
                 </div>
 
-                <div className="grid grid-cols-2 gap-2">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
-                    <label className="text-neutral-400 block mb-1">Subject</label>
+                    <label className="text-neutral-300 block mb-1.5 font-medium">Subject</label>
                     <select
                       value={newSubject}
                       onChange={(e) => setNewSubject(e.target.value)}
-                      className="w-full px-2 py-2 rounded bg-[#161616] border border-[#262626] text-white focus:outline-none"
+                      className="w-full px-3.5 py-2.5 rounded-lg bg-[#161616] border border-[#262626] text-white focus:outline-none text-xs sm:text-sm"
                     >
                       <option value="M">M (Maths)</option>
                       <option value="DE">DE (Digital Electronics)</option>
@@ -180,27 +180,27 @@ export const HomeworkWidget: React.FC = () => {
                     </select>
                   </div>
                   <div>
-                    <label className="text-neutral-400 block mb-1">Due Date</label>
+                    <label className="text-neutral-300 block mb-1.5 font-medium">Due Date</label>
                     <input
                       type="date"
                       value={newDueDate}
                       onChange={(e) => setNewDueDate(e.target.value)}
-                      className="w-full px-2 py-2 rounded bg-[#161616] border border-[#262626] text-white focus:outline-none"
+                      className="w-full px-3.5 py-2.5 rounded-lg bg-[#161616] border border-[#262626] text-white focus:outline-none text-xs sm:text-sm"
                     />
                   </div>
                 </div>
 
-                <div className="flex justify-end gap-2 pt-2 border-t border-[#222222]">
+                <div className="flex justify-end gap-2.5 pt-3 border-t border-[#222222]">
                   <button
                     type="button"
                     onClick={() => setShowAddModal(false)}
-                    className="px-3 py-1.5 rounded bg-[#161616] border border-[#262626] text-neutral-300 hover:text-white transition-colors"
+                    className="px-4 py-2 rounded-lg bg-[#161616] border border-[#262626] text-neutral-300 hover:text-white transition-colors cursor-pointer text-xs sm:text-sm"
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
-                    className="px-3 py-1.5 rounded bg-white text-black font-semibold hover:bg-neutral-200 transition-colors"
+                    className="px-4 py-2 rounded-lg bg-white text-black font-semibold hover:bg-neutral-200 transition-colors cursor-pointer text-xs sm:text-sm"
                   >
                     Save Task
                   </button>

@@ -89,11 +89,11 @@ export const Navbar: React.FC<NavbarProps> = ({
             {/* Quick Cmd+K Search trigger */}
             <button
               onClick={onOpenCommand}
-              className="flex items-center gap-2 px-2.5 py-1.5 rounded-md bg-[#0f0f0f] border border-[#222222] text-xs text-neutral-400 hover:text-white hover:border-[#333333] transition-colors cursor-pointer"
+              className="h-8 inline-flex items-center gap-2 px-2.5 rounded-md bg-[#0f0f0f] border border-[#222222] text-xs text-neutral-400 hover:text-white hover:border-[#333333] transition-colors cursor-pointer select-none"
             >
-              <Search className="w-3.5 h-3.5" />
+              <Search className="w-3.5 h-3.5 shrink-0" />
               <span className="hidden sm:inline text-[11px]">Search...</span>
-              <kbd className="px-1.5 py-0.5 text-[10px] font-mono bg-[#1a1a1a] border border-[#2a2a2a] rounded text-neutral-400">
+              <kbd className="px-1.5 py-0.5 text-[10px] font-mono leading-none bg-[#1a1a1a] border border-[#2a2a2a] rounded text-neutral-400">
                 ⌘K
               </kbd>
             </button>
@@ -101,9 +101,9 @@ export const Navbar: React.FC<NavbarProps> = ({
             {/* Contribute PR button */}
             <button
               onClick={onOpenContribute}
-              className="hidden sm:flex items-center gap-1.5 px-2.5 py-1.5 rounded-md bg-[#0f0f0f] border border-[#222222] text-xs font-medium text-neutral-300 hover:text-white hover:border-[#333333] transition-colors cursor-pointer"
+              className="hidden sm:inline-flex h-8 items-center gap-1.5 px-3 rounded-md bg-[#0f0f0f] border border-[#222222] text-xs font-medium text-neutral-300 hover:text-white hover:border-[#333333] transition-colors cursor-pointer select-none"
             >
-              <GitPullRequest className="w-3.5 h-3.5 text-neutral-400" />
+              <GitPullRequest className="w-3.5 h-3.5 text-neutral-400 shrink-0" />
               <span className="text-[11px]">Contribute</span>
             </button>
 
@@ -111,19 +111,19 @@ export const Navbar: React.FC<NavbarProps> = ({
             <button
               onClick={toggleTheme}
               aria-label="Toggle theme"
-              className="p-1.5 rounded-md bg-[#0f0f0f] border border-[#222222] text-neutral-400 hover:text-white hover:border-[#333333] transition-colors cursor-pointer"
+              className="h-8 w-8 inline-flex items-center justify-center rounded-md bg-[#0f0f0f] border border-[#222222] text-neutral-400 hover:text-white hover:border-[#333333] transition-colors cursor-pointer select-none"
               title={`Switch to ${theme === 'dark' ? 'Light' : 'Dark'} mode`}
             >
-              {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+              {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4 text-neutral-300" />}
             </button>
 
             {/* Hamburger Menu Toggle - Shown at < 1200px as explicitly requested */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-label="Toggle navigation menu"
-              className="min-[1200px]:hidden p-1.5 rounded-md bg-[#0f0f0f] border border-[#222222] text-neutral-300 hover:text-white hover:border-[#333333] cursor-pointer"
+              className="min-[1200px]:hidden h-8 w-8 inline-flex items-center justify-center rounded-md bg-[#0f0f0f] border border-[#222222] text-neutral-300 hover:text-white hover:border-[#333333] cursor-pointer select-none"
             >
-              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              {mobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
             </button>
           </div>
         </div>

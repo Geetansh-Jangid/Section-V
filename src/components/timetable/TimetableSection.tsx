@@ -491,82 +491,82 @@ export const TimetableSection: React.FC<TimetableSectionProps> = ({
               exit={{ opacity: 0, scale: 0.95, y: 10 }}
               transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
               data-modal-card="true"
-              className="w-full max-w-md bg-[#0f0f0f] border border-[#262626] rounded-xl p-5 shadow-2xl"
+              className="w-full max-w-[calc(100vw-1.5rem)] sm:max-w-lg md:max-w-xl lg:max-w-2xl bg-[#0f0f0f] border border-[#262626] rounded-2xl p-5 sm:p-7 shadow-2xl max-h-[90vh] overflow-y-auto my-auto"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="flex items-center justify-between pb-3 border-b border-[#222222]">
+              <div className="flex items-center justify-between pb-3.5 border-b border-[#222222]">
                 <div>
-                  <h3 className="text-sm font-semibold text-white">
+                  <h3 className="text-base sm:text-lg font-bold text-white tracking-tight">
                     Schedule Override: {editingItem.subjectCode}
                   </h3>
-                  <p className="text-xs text-neutral-400 mt-0.5">
+                  <p className="text-xs sm:text-sm text-neutral-400 mt-0.5">
                     Set proxy faculty or announce cancellation
                   </p>
                 </div>
                 <button
                   type="button"
                   onClick={() => setEditingItem(null)}
-                  className="p-1 text-neutral-400 hover:text-white rounded transition-colors"
+                  className="p-1.5 text-neutral-400 hover:text-white rounded-lg hover:bg-[#1a1a1a] transition-colors cursor-pointer"
                   aria-label="Close"
                 >
-                  <X className="w-4 h-4" />
+                  <X className="w-4 h-4 sm:w-5 sm:h-5" />
                 </button>
               </div>
 
-              <form onSubmit={handleSaveOverride} className="space-y-4 pt-4 text-xs">
+              <form onSubmit={handleSaveOverride} className="space-y-4 pt-4 text-xs sm:text-sm">
                 <div>
-                  <label className="text-neutral-400 block mb-1">Subject</label>
-                  <div className="p-2 rounded bg-[#161616] border border-[#262626] text-neutral-200">
+                  <label className="text-neutral-300 block mb-1.5 font-medium">Subject</label>
+                  <div className="p-3 rounded-lg bg-[#161616] border border-[#262626] text-neutral-200 font-medium">
                     {editingItem.subjectName} ({editingItem.subjectCode})
                   </div>
                 </div>
 
                 <div>
-                  <label className="text-neutral-400 block mb-1">Proxy Faculty</label>
+                  <label className="text-neutral-300 block mb-1.5 font-medium">Proxy Faculty</label>
                   <input
                     type="text"
                     value={proxyFacultyInput}
                     onChange={(e) => setProxyFacultyInput(e.target.value)}
                     placeholder={`Default: ${editingItem.faculty}`}
-                    className="w-full px-3 py-2 rounded bg-[#161616] border border-[#262626] text-white placeholder-neutral-600 focus:outline-none focus:border-neutral-400"
+                    className="w-full px-3.5 py-2.5 rounded-lg bg-[#161616] border border-[#262626] text-white placeholder-neutral-500 focus:outline-none focus:border-neutral-400 text-xs sm:text-sm"
                   />
                 </div>
 
                 <div>
-                  <label className="text-neutral-400 block mb-1">Room Change</label>
+                  <label className="text-neutral-300 block mb-1.5 font-medium">Room Change</label>
                   <input
                     type="text"
                     value={roomChangeInput}
                     onChange={(e) => setRoomChangeInput(e.target.value)}
                     placeholder={`Default: ${editingItem.room}`}
-                    className="w-full px-3 py-2 rounded bg-[#161616] border border-[#262626] text-white placeholder-neutral-600 focus:outline-none focus:border-neutral-400 font-mono"
+                    className="w-full px-3.5 py-2.5 rounded-lg bg-[#161616] border border-[#262626] text-white placeholder-neutral-500 focus:outline-none focus:border-neutral-400 font-mono text-xs sm:text-sm"
                   />
                 </div>
 
-                <div className="flex items-center gap-2 pt-1">
+                <div className="flex items-center gap-2.5 pt-1">
                   <input
                     type="checkbox"
                     id="cancelled-checkbox"
                     checked={isCancelledInput}
                     onChange={(e) => setIsCancelledInput(e.target.checked)}
-                    className="rounded bg-[#161616] border-[#333333] text-white"
+                    className="rounded bg-[#161616] border-[#333333] text-white w-4 h-4"
                   />
-                  <label htmlFor="cancelled-checkbox" className="text-neutral-300 font-medium">
+                  <label htmlFor="cancelled-checkbox" className="text-neutral-200 font-medium cursor-pointer">
                     Mark this session as Cancelled
                   </label>
                 </div>
 
-                <div className="flex items-center justify-end gap-2 pt-3 border-t border-[#222222]">
+                <div className="flex items-center justify-end gap-2.5 pt-3 border-t border-[#222222]">
                   <button
                     type="button"
                     onClick={() => setEditingItem(null)}
-                    className="px-3 py-1.5 rounded bg-[#161616] border border-[#262626] text-neutral-300 hover:text-white transition-colors"
+                    className="px-4 py-2 rounded-lg bg-[#161616] border border-[#262626] text-neutral-300 hover:text-white transition-colors cursor-pointer text-xs sm:text-sm"
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
-                    className="px-3 py-1.5 rounded bg-white text-black font-semibold hover:bg-neutral-200 transition-colors"
+                    className="px-4 py-2 rounded-lg bg-white text-black font-semibold hover:bg-neutral-200 transition-colors cursor-pointer text-xs sm:text-sm"
                   >
                     Save Override
                   </button>

@@ -61,29 +61,29 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
             exit={{ opacity: 0, scale: 0.96, y: -10 }}
             transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
             data-modal-card="true"
-            className="w-full max-w-xl"
+            className="w-full max-w-[calc(100vw-1.5rem)] sm:max-w-xl md:max-w-2xl lg:max-w-3xl"
             onClick={(e) => e.stopPropagation()}
           >
             <Command 
               label="Command Menu"
-              className="rounded-xl bg-[#0c0c0c] border border-[#262626] shadow-2xl overflow-hidden text-neutral-200"
+              className="rounded-2xl bg-[#0c0c0c] border border-[#262626] shadow-2xl overflow-hidden text-neutral-200"
             >
-          <div className="flex items-center gap-3 px-4 border-b border-[#1f1f1f]">
-            <Search className="w-4 h-4 text-neutral-400 shrink-0" />
+          <div className="flex items-center gap-3 px-4 sm:px-5 border-b border-[#1f1f1f]">
+            <Search className="w-4 h-4 sm:w-5 sm:h-5 text-neutral-400 shrink-0" />
             <Command.Input
               value={search}
               onValueChange={setSearch}
               placeholder="Search sections, subjects, faculty cabins, or tabs..."
-              className="w-full py-3.5 bg-transparent text-xs text-white placeholder-neutral-500 outline-none"
+              className="w-full py-3.5 sm:py-4 bg-transparent text-xs sm:text-sm text-white placeholder-neutral-500 outline-none"
               autoFocus
             />
-            <kbd className="hidden sm:inline-block px-1.5 py-0.5 text-[10px] font-mono text-neutral-500 bg-[#141414] border border-[#222222] rounded">
+            <kbd className="hidden sm:inline-block px-2 py-0.5 text-[10px] font-mono text-neutral-500 bg-[#141414] border border-[#222222] rounded">
               ESC
             </kbd>
           </div>
 
-          <Command.List className="max-h-72 overflow-y-auto p-2">
-            <Command.Empty className="py-6 text-center text-xs text-neutral-500">
+          <Command.List className="max-h-80 sm:max-h-96 overflow-y-auto p-2 sm:p-2.5">
+            <Command.Empty className="py-8 text-center text-xs sm:text-sm text-neutral-500">
               No matching results.
             </Command.Empty>
 
@@ -94,9 +94,9 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
                   onNavigate('dashboard');
                   onOpenChange(false);
                 }}
-                className="flex items-center gap-2.5 px-3 py-2 rounded-md text-xs cursor-pointer hover:bg-[#181818] hover:text-white transition-colors"
+                className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs sm:text-sm cursor-pointer hover:bg-[#181818] hover:text-white transition-colors"
               >
-                <Home className="w-3.5 h-3.5 text-neutral-400" />
+                <Home className="w-4 h-4 text-neutral-400 shrink-0" />
                 <span>Overview & Timetable</span>
               </Command.Item>
 
@@ -105,9 +105,9 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
                   onNavigate('timetable');
                   onOpenChange(false);
                 }}
-                className="flex items-center gap-2.5 px-3 py-2 rounded-md text-xs cursor-pointer hover:bg-[#181818] hover:text-white transition-colors"
+                className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs sm:text-sm cursor-pointer hover:bg-[#181818] hover:text-white transition-colors"
               >
-                <Calendar className="w-3.5 h-3.5 text-neutral-400" />
+                <Calendar className="w-4 h-4 text-neutral-400 shrink-0" />
                 <span>Timetable (V1 & V2 Filters)</span>
               </Command.Item>
 
@@ -116,9 +116,9 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
                   onNavigate('attendance');
                   onOpenChange(false);
                 }}
-                className="flex items-center gap-2.5 px-3 py-2 rounded-md text-xs cursor-pointer hover:bg-[#181818] hover:text-white transition-colors"
+                className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs sm:text-sm cursor-pointer hover:bg-[#181818] hover:text-white transition-colors"
               >
-                <ShieldCheck className="w-3.5 h-3.5 text-neutral-400" />
+                <ShieldCheck className="w-4 h-4 text-neutral-400 shrink-0" />
                 <span>75% Attendance Calculator</span>
               </Command.Item>
 
@@ -127,9 +127,9 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
                   onNavigate('notes');
                   onOpenChange(false);
                 }}
-                className="flex items-center gap-2.5 px-3 py-2 rounded-md text-xs cursor-pointer hover:bg-[#181818] hover:text-white transition-colors"
+                className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs sm:text-sm cursor-pointer hover:bg-[#181818] hover:text-white transition-colors"
               >
-                <BookOpen className="w-3.5 h-3.5 text-neutral-400" />
+                <BookOpen className="w-4 h-4 text-neutral-400 shrink-0" />
                 <span>Subject Notes & Question Papers</span>
               </Command.Item>
 
@@ -138,9 +138,9 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
                   onNavigate('faculty');
                   onOpenChange(false);
                 }}
-                className="flex items-center gap-2.5 px-3 py-2 rounded-md text-xs cursor-pointer hover:bg-[#181818] hover:text-white transition-colors"
+                className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs sm:text-sm cursor-pointer hover:bg-[#181818] hover:text-white transition-colors"
               >
-                <Users className="w-3.5 h-3.5 text-neutral-400" />
+                <Users className="w-4 h-4 text-neutral-400 shrink-0" />
                 <span>Faculty Directory & Class Representatives</span>
               </Command.Item>
             </Command.Group>
@@ -154,13 +154,13 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
                     onNavigate('notes');
                     onOpenChange(false);
                   }}
-                  className="flex items-center justify-between px-3 py-2 rounded-md text-xs cursor-pointer hover:bg-[#181818] hover:text-white transition-colors"
+                  className="flex items-center justify-between px-3 py-2.5 rounded-lg text-xs sm:text-sm cursor-pointer hover:bg-[#181818] hover:text-white transition-colors"
                 >
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2.5">
                     <span className="font-mono text-neutral-400">{note.subjectCode}</span>
                     <span>{note.subjectName}</span>
                   </div>
-                  <span className="text-[10px] text-neutral-500 font-mono">{note.faculty}</span>
+                  <span className="text-[11px] text-neutral-500 font-mono">{note.faculty}</span>
                 </Command.Item>
               ))}
             </Command.Group>
@@ -174,10 +174,10 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
                     onNavigate('faculty');
                     onOpenChange(false);
                   }}
-                  className="flex items-center justify-between px-3 py-2 rounded-md text-xs cursor-pointer hover:bg-[#181818] hover:text-white transition-colors"
+                  className="flex items-center justify-between px-3 py-2.5 rounded-lg text-xs sm:text-sm cursor-pointer hover:bg-[#181818] hover:text-white transition-colors"
                 >
                   <span>{fac.name}</span>
-                  <span className="text-[10px] text-neutral-400 font-mono">{fac.cabin}</span>
+                  <span className="text-[11px] text-neutral-400 font-mono">{fac.cabin}</span>
                 </Command.Item>
               ))}
             </Command.Group>
