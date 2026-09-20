@@ -394,10 +394,9 @@ html.light ::-webkit-scrollbar-thumb {
 
 /* Command Menu custom styles for cmdk - AMOLED dark style */
 [cmdk-root] {
-  max-width: 600px;
   width: 100%;
   background: #0a0a0a;
-  border-radius: 10px;
+  border-radius: 16px;
   border: 1px solid #222222;
   box-shadow: 0 20px 70px rgba(0, 0, 0, 0.95);
 }
