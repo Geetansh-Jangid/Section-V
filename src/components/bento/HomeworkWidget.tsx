@@ -83,8 +83,9 @@ export const HomeworkWidget: React.FC<HomeworkWidgetProps> = ({ onNavigateToTodo
         {/* Task List */}
         <div className="space-y-1.5 max-h-56 overflow-y-auto pr-1">
           {tasks.length === 0 ? (
-            <div className="py-6 text-center text-xs text-neutral-500">
-              No pending assignments. Click + to add one.
+            <div className="py-6 text-center text-xs text-neutral-400 space-y-1">
+              <p className="text-neutral-300 font-medium">No pending assignments · Lucky you!</p>
+              <p className="text-neutral-500 text-[11px]">Zero pending lab tasks. Enjoy the peace while it lasts or hit + to track something.</p>
             </div>
           ) : (
             tasks.map((task) => (
@@ -119,11 +120,13 @@ export const HomeworkWidget: React.FC<HomeworkWidgetProps> = ({ onNavigateToTodo
                 </div>
 
                 <button
+                  type="button"
                   onClick={() => deleteTask(task.id)}
-                  className="opacity-0 group-hover:opacity-100 text-neutral-500 hover:text-red-400 p-0.5 transition-opacity"
+                  className="opacity-100 sm:opacity-0 sm:group-hover:opacity-100 text-neutral-400 hover:text-red-400 p-1.5 -mr-1 rounded hover:bg-[#1a1a1a] transition-all shrink-0 cursor-pointer"
                   title="Delete task"
+                  aria-label="Delete task"
                 >
-                  <Trash2 className="w-3 h-3" />
+                  <Trash2 className="w-3.5 h-3.5" />
                 </button>
               </div>
             ))

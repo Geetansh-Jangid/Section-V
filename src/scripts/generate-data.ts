@@ -395,8 +395,8 @@ function parseTimetableFile(): TimetableData {
 
   const timetable: TimetableData = {
     contentFile: relFile,
-    section: "Section V (AI)",
-    semester: "Semester 1 / 2 - B.Tech CSE (AI)",
+    section: "Section V (AI & DS)",
+    semester: "Semester 1 / 2 - B.Tech AI & DS",
     academicYear: "2026-2027",
     defaultRoom: "CT-12",
     timeSlots,

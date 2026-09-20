@@ -68,12 +68,8 @@ export const AttendanceWidget: React.FC<AttendanceWidgetProps> = ({ onNavigateTo
         </div>
 
         {/* Status indicator line */}
-        <div className="text-xs text-neutral-400">
-          {metrics.isSafe ? (
-            <span>You can safely miss <strong>{metrics.bunkableClasses}</strong> upcoming lectures.</span>
-          ) : (
-            <span>Must attend next <strong>{metrics.classesToAttend}</strong> lectures consecutively to recover.</span>
-          )}
+        <div className="text-xs text-neutral-300 leading-relaxed">
+          {metrics.statusText}
         </div>
 
         {/* Lowest subject callout if below target */}

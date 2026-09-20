@@ -115,14 +115,14 @@ export const ActiveClassCard: React.FC = () => {
           <div className="py-4 text-center space-y-1">
             <Clock className="w-6 h-6 text-neutral-400 mx-auto mb-1" />
             <div className="text-sm font-medium text-white">{status.currentSlot?.label || 'Recess'}</div>
-            <div className="text-xs text-neutral-400">{status.timeRemainingMinutes} minutes until next lecture</div>
+            <div className="text-xs text-neutral-400">{status.timeRemainingMinutes}m until next class · Grab snacks before canteen line explodes!</div>
           </div>
         )}
 
         {(status.status === 'before_college' || status.status === 'after_college') && (
           <div className="py-3 space-y-1">
             <div className="text-xs text-neutral-400">
-              {status.status === 'before_college' ? 'Classes begin at 8:30 AM' : 'Lectures completed for today'}
+              {status.status === 'before_college' ? 'Classes begin at 8:30 AM · Still time for chai or extra snooze.' : 'Lectures wrapped up · You survived today! Lucky you.'}
             </div>
             {status.nextClass ? (
               <div className="text-sm font-medium text-white">
@@ -130,7 +130,7 @@ export const ActiveClassCard: React.FC = () => {
               </div>
             ) : (
               <div className="text-sm font-medium text-neutral-300">
-                No upcoming classes scheduled today
+                No more classes scheduled today · Lucky you!
               </div>
             )}
           </div>
@@ -139,8 +139,8 @@ export const ActiveClassCard: React.FC = () => {
         {status.status === 'weekend' && (
           <div className="py-4 text-center space-y-1">
             <Calendar className="w-6 h-6 text-neutral-500 mx-auto mb-1" />
-            <div className="text-sm font-medium text-white">Weekend</div>
-            <div className="text-xs text-neutral-400">No scheduled classes today</div>
+            <div className="text-sm font-medium text-white">Weekend Mode</div>
+            <div className="text-xs text-neutral-400">No scheduled classes today · Lucky you! Sleep in or pretend you're studying.</div>
           </div>
         )}
       </div>

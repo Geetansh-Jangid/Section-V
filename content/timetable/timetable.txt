@@ -4,8 +4,8 @@
 # ==============================================================================
 
 [SECTION_META]
-Section: Section V (AI)
-Semester: Semester 1 / 2 - B.Tech CSE (AI)
+Section: Section V (AI & DS)
+Semester: Semester 1 / 2 - B.Tech AI & DS
 Academic Year: 2026-2027
 Default Room: CT-12
 

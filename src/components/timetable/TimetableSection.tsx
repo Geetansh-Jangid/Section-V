@@ -12,6 +12,7 @@ import {
   X
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import { createPortal } from 'react-dom';
 import timetableDataRaw from '../../data/timetable.json';
 import { TimetableData, ScheduleItem } from '../../lib/schemas.ts';
 import { useSectionVStore, SectionFilter } from '../../lib/store.ts';
@@ -107,7 +108,7 @@ export const TimetableSection: React.FC<TimetableSectionProps> = ({
               Class Timetable
             </h2>
             <span className="text-xs px-2 py-0.5 rounded bg-[#171717] border border-[#262626] text-neutral-300 font-mono">
-              B.Tech CSE · AI
+              B.Tech AI & DS
             </span>
           </div>
         </div>
@@ -318,14 +319,6 @@ export const TimetableSection: React.FC<TimetableSectionProps> = ({
                                   </span>
                                 </div>
                               </div>
-
-                              {/* Action to set proxy / cancel */}
-                              <button
-                                onClick={() => openOverrideModal(item)}
-                                className="self-end sm:self-center shrink-0 px-2 py-1 rounded text-[11px] font-medium bg-[#1a1a1a] border border-[#2a2a2a] text-neutral-300 hover:text-white hover:border-[#3a3a3a] transition-colors"
-                              >
-                                Edit / Proxy
-                              </button>
                             </div>
                           );
                         })}
@@ -475,6 +468,7 @@ export const TimetableSection: React.FC<TimetableSectionProps> = ({
       {/* Override / Proxy Modal */}
       <AnimatePresence>
         {editingItem && (
+          createPortal(
           <motion.div
             key="timetable-override-backdrop"
             initial={{ opacity: 0 }}
@@ -482,6 +476,7 @@ export const TimetableSection: React.FC<TimetableSectionProps> = ({
             exit={{ opacity: 0 }}
             transition={{ duration: 0.15 }}
             className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm"
+            style={{ minHeight: '100dvh' }}
             onClick={() => setEditingItem(null)}
           >
             <motion.div
@@ -573,7 +568,9 @@ export const TimetableSection: React.FC<TimetableSectionProps> = ({
                 </div>
               </form>
             </motion.div>
-          </motion.div>
+          </motion.div>,
+          document.body
+          )
         )}
       </AnimatePresence>
     </section>

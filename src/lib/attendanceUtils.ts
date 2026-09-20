@@ -22,7 +22,7 @@ export function calculateAttendanceMetrics(
       classesToAttend: 0,
       totalAttended: 0,
       totalConducted: 0,
-      statusText: 'No lectures conducted yet. Attendance at 100%.',
+      statusText: 'No lectures conducted yet · Clean slate! Lucky you, 100% attendance by default.',
       statusBadge: 'safe'
     };
   }
@@ -40,27 +40,27 @@ export function calculateAttendanceMetrics(
   if (isSafe) {
     // How many more classes can be missed:
     // (attended) / (total + B) >= targetRatio
-    // attended >= targetRatio * total + targetRatio * B
-    // B <= (attended - targetRatio * total) / targetRatio
     const maxBunk = Math.floor((safeAttended - targetRatio * total) / targetRatio);
     bunkableClasses = Math.max(0, maxBunk);
 
-    if (bunkableClasses > 0) {
-      statusText = `You can safely miss ${bunkableClasses} ${bunkableClasses === 1 ? 'class' : 'classes'} and stay at or above ${targetPercent}%.`;
+    if (bunkableClasses >= 3) {
+      statusText = `Lucky you! You can safely miss ${bunkableClasses} classes without angering the debar gods.`;
+    } else if (bunkableClasses > 0) {
+      statusText = `Safe for now! ${bunkableClasses} ${bunkableClasses === 1 ? 'bunk credit' : 'bunk credits'} left. Spend wisely.`;
     } else {
-      statusText = `You are on the margin! Attend the next lecture to avoid dropping below ${targetPercent}%.`;
+      statusText = `Living on the edge! Zero bunk margin left. Walk into next class like a model student.`;
     }
 
     statusBadge = currentPercentage >= targetPercent + 10 ? 'safe' : 'warning';
   } else {
     // How many consecutive classes must be attended:
-    // (attended + A) / (total + A) >= targetRatio
-    // attended + A >= targetRatio * total + targetRatio * A
-    // A * (1 - targetRatio) >= targetRatio * total - attended
-    // A >= (targetRatio * total - attended) / (1 - targetRatio)
     const needed = Math.ceil((targetRatio * total - safeAttended) / (1 - targetRatio));
     classesToAttend = Math.max(1, needed);
-    statusText = `Attendance deficit! You must attend the next ${classesToAttend} consecutive ${classesToAttend === 1 ? 'lecture' : 'lectures'} to hit ${targetPercent}%.`;
+    if (classesToAttend <= 3) {
+      statusText = `Attendance deficit! Must attend next ${classesToAttend} ${classesToAttend === 1 ? 'lecture' : 'lectures'} straight. Time to sit in the front row.`;
+    } else {
+      statusText = `Debar danger zone! Must attend next ${classesToAttend} consecutive classes. Stop sleeping through alarms!`;
+    }
     statusBadge = currentPercentage < 65 ? 'critical' : 'warning';
   }
 

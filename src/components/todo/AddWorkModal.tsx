@@ -12,6 +12,7 @@ import {
   FileCode
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import { createPortal } from 'react-dom';
 import { useSectionVStore } from '../../lib/store.ts';
 
 interface AddWorkModalProps {
@@ -41,6 +42,24 @@ export const AddWorkModal: React.FC<AddWorkModalProps> = ({
       setSection(defaultSection);
     }
   }, [open, defaultSection]);
+
+  // Lock body scroll while modal open
+  useEffect(() => {
+    if (open) {
+      const scrollY = window.scrollY;
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.width = '100%';
+      document.body.style.overflow = 'hidden';
+      return () => {
+        document.body.style.position = '';
+        document.body.style.top = '';
+        document.body.style.width = '';
+        document.body.style.overflow = '';
+        window.scrollTo(0, scrollY);
+      };
+    }
+  }, [open]);
 
   const resetForm = () => {
     setTitle('');
@@ -93,7 +112,7 @@ Description: ${description.trim() || 'Task requirements and instructions.'}`;
     onClose();
   };
 
-  return (
+  return createPortal(
     <AnimatePresence>
       {open && (
         <motion.div
@@ -102,19 +121,21 @@ Description: ${description.trim() || 'Task requirements and instructions.'}`;
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.15 }}
-          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-sm overflow-y-auto"
+          className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm"
+          style={{ minHeight: '100dvh' }}
           onClick={onClose}
         >
-          <motion.div
-            key="add-work-modal-content"
-            initial={{ opacity: 0, scale: 0.96, y: 10 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.96, y: 10 }}
-            transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
-            data-modal-card="true"
-            className="w-full max-w-[calc(100vw-1.5rem)] sm:max-w-xl md:max-w-2xl bg-[#0d0d0d] border border-[#262626] rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh] my-auto"
-            onClick={(e) => e.stopPropagation()}
-          >
+          <div className="h-full overflow-y-auto overscroll-contain flex p-3 sm:p-4">
+            <motion.div
+              key="add-work-modal-content"
+              initial={{ opacity: 0, scale: 0.96, y: 10 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.96, y: 10 }}
+              transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
+              data-modal-card="true"
+              className="w-full max-w-[calc(100vw-1.5rem)] sm:max-w-xl md:max-w-2xl bg-[#0d0d0d] border border-[#262626] rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh] m-auto"
+              onClick={(e) => e.stopPropagation()}
+            >
             {/* Header */}
             <div className="flex items-center justify-between px-5 py-4 sm:px-6 sm:py-5 border-b border-[#1f1f1f] shrink-0">
               <div className="flex items-center gap-3">
@@ -323,8 +344,10 @@ Description: ${description.trim() || 'Task requirements and instructions.'}`;
               </button>
             </div>
           </motion.div>
+          </div>
         </motion.div>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body
   );
 };

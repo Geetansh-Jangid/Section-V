@@ -19,6 +19,7 @@ import {
   FileCode
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import { createPortal } from 'react-dom';
 
 interface ContributeModalProps {
   open: boolean;
@@ -295,7 +296,7 @@ Contributor: ${authorName || 'Section V Contributor'}`;
     setTimeout(() => setCopied(false), 2000);
   };
 
-  return (
+  return createPortal(
     <AnimatePresence>
       {open && (
         <motion.div
@@ -304,38 +305,37 @@ Contributor: ${authorName || 'Section V Contributor'}`;
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.15 }}
-          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/75 backdrop-blur-sm overflow-y-auto"
+          className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md"
+          style={{ minHeight: '100dvh' }}
           onClick={onClose}
         >
-          <motion.div 
-            key="contribute-modal-content"
-            initial={{ opacity: 0, scale: 0.96, y: 8 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.96, y: 8 }}
-            transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
-            data-modal-card="true"
-            className="w-full max-w-[calc(100vw-1.5rem)] sm:max-w-xl md:max-w-2xl lg:max-w-3xl xl:max-w-4xl bg-[#0c0c0c] border border-[#262626] rounded-2xl shadow-2xl flex flex-col max-h-[92vh] sm:max-h-[88vh] overflow-hidden my-auto"
-            onClick={(e) => e.stopPropagation()}
-          >
+          <div className="h-full overflow-y-auto overscroll-contain flex p-3 sm:p-4">
+            <motion.div
+              key="contribute-modal-content"
+              initial={{ opacity: 0, scale: 0.96, y: 8 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.96, y: 8 }}
+              transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
+              data-modal-card="true"
+              className="w-full max-w-[calc(100vw-1.5rem)] sm:max-w-xl md:max-w-2xl lg:max-w-3xl xl:max-w-4xl bg-[#0c0c0c] border border-[#262626] rounded-2xl shadow-2xl flex flex-col max-h-[92vh] sm:max-h-[88vh] overflow-hidden m-auto"
+              onClick={(e) => e.stopPropagation()}
+            >
             {/* Header */}
             <div className="flex items-center justify-between px-5 py-4 sm:px-7 sm:py-5 border-b border-[#1f1f1f] shrink-0">
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-white text-black flex items-center justify-center font-mono font-bold text-sm sm:text-base shadow-sm shrink-0">
-                  V
+                <div className="p-2 rounded-lg bg-[#141414] border border-[#262626] text-white flex items-center justify-center shrink-0">
+                  <MessageSquarePlus className="w-4 h-4 text-emerald-400" />
                 </div>
                 <div>
-                  <h3 className="text-base sm:text-lg font-bold text-white tracking-tight flex items-center gap-2">
-                    <span>Contribute to Section V</span>
-                    <span className="text-[11px] font-mono px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-medium">
-                      Community Driven
-                    </span>
+                  <h3 className="text-base sm:text-lg font-bold text-white tracking-tight">
+                    Contribute to Section V
                   </h3>
                   <p className="text-xs sm:text-sm text-neutral-400">
                     Submit content updates for peer review.
                   </p>
                 </div>
               </div>
-              <button 
+              <button
                 onClick={onClose}
                 className="p-1.5 sm:p-2 rounded-lg text-neutral-400 hover:text-white hover:bg-[#1a1a1a] transition-colors cursor-pointer"
                 aria-label="Close modal"
@@ -384,9 +384,6 @@ Contributor: ${authorName || 'Section V Contributor'}`;
                         Add Notes to Google Drive
                       </span>
                     </div>
-                    <span className="text-[11px] text-neutral-400 font-mono">
-                      Target: content/notes/{activeSubjectObj.code.toLowerCase()}.txt
-                    </span>
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -453,9 +450,8 @@ Contributor: ${authorName || 'Section V Contributor'}`;
 
                   {/* Google Drive Link Input */}
                   <div>
-                    <label className="text-[11px] font-medium text-neutral-300 block mb-1 flex items-center justify-between">
-                      <span>Google Drive Link (Sharing set to "Anyone with link can view")</span>
-                      <span className="text-emerald-400 font-mono text-[10px]">drive.google.com</span>
+                    <label className="text-[11px] font-medium text-neutral-300 block mb-1">
+                      Google Drive Link (Sharing set to "Anyone with link can view")
                     </label>
                     <input
                       type="url"
@@ -488,7 +484,7 @@ Contributor: ${authorName || 'Section V Contributor'}`;
                         type="text"
                         value={authorName}
                         onChange={(e) => setAuthorName(e.target.value)}
-                        placeholder="e.g. Geetansh (2024CS-V-020)"
+                        placeholder="e.g. Yash (24AIDS042)"
                         className="w-full px-3.5 py-2 rounded-lg bg-[#161616] border border-[#282828] text-white placeholder-neutral-500 focus:outline-none focus:border-neutral-400 text-xs"
                       />
                     </div>
@@ -517,9 +513,6 @@ Contributor: ${authorName || 'Section V Contributor'}`;
                         {currentCategory.label}
                       </span>
                     </div>
-                    <span className="text-[11px] text-neutral-400 font-mono">
-                      File: {currentCategory.targetFile}
-                    </span>
                   </div>
 
                   <p className="text-xs text-neutral-400">
@@ -538,7 +531,7 @@ Contributor: ${authorName || 'Section V Contributor'}`;
                       type="text"
                       value={authorName}
                       onChange={(e) => setAuthorName(e.target.value)}
-                      placeholder="Your Name & Roll No (e.g. Yash - 24CSE042)"
+                      placeholder="Your Name & Roll No (e.g. Yash - 24AIDS042)"
                       className="w-full px-3.5 py-2.5 rounded-lg bg-[#141414] border border-[#222222] text-white placeholder-neutral-500 focus:outline-none focus:border-neutral-400 text-xs sm:text-sm"
                     />
                   </div>
@@ -614,7 +607,7 @@ Contributor: ${authorName || 'Section V Contributor'}`;
                     </span>
                   </a>
 
-                  {/* Option 2: Direct .txt File Edit on GitHub */}
+                  {/* Option 2: Direct File Edit on GitHub */}
                   <a
                     href={currentCategory.directUrl}
                     target="_blank"
@@ -625,12 +618,12 @@ Contributor: ${authorName || 'Section V Contributor'}`;
                       <div className="flex items-center justify-between">
                         <span className="font-semibold text-white flex items-center gap-2 text-xs sm:text-sm">
                           <FileText className="w-4 h-4 text-neutral-300" />
-                          <span>Edit .txt File Directly</span>
+                          <span>Edit Directly on GitHub</span>
                         </span>
                         <ExternalLink className="w-4 h-4 text-neutral-500 group-hover:text-white transition-colors" />
                       </div>
                       <p className="text-xs text-neutral-400 mt-1.5 leading-relaxed">
-                        Directly open <code className="text-neutral-200 font-mono text-[11px] px-1 py-0.5 rounded bg-[#1a1a1a]">{currentCategory.targetFile}</code> on GitHub to paste your text and submit a Pull Request.
+                        Open GitHub to modify or add files directly and create a Pull Request.
                       </p>
                     </div>
                     <span className="mt-3 text-xs font-mono text-neutral-400 group-hover:text-neutral-200 font-medium transition-colors flex items-center gap-1">
@@ -646,24 +639,13 @@ Contributor: ${authorName || 'Section V Contributor'}`;
             <div className="px-5 py-3.5 sm:px-7 sm:py-4 border-t border-[#1f1f1f] bg-[#0c0c0c] shrink-0 flex flex-wrap items-center justify-between gap-3 text-xs sm:text-sm text-neutral-400">
               <div className="flex flex-wrap items-center gap-3">
                 <a
-                  href="https://github.com/Geetansh-Jangid/Section-V/tree/main/content/templates"
+                  href="https://github.com/Geetansh-Jangid/Section-V"
                   target="_blank"
                   rel="noreferrer"
                   className="hover:text-white transition-colors py-1 px-1.5 flex items-center gap-1 text-xs"
-                  title="View .txt templates for all sections"
                 >
-                  <FileCode className="w-3.5 h-3.5" />
-                  <span>Templates (.txt)</span>
-                </a>
-                <span>·</span>
-                <a
-                  href="https://github.com/Geetansh-Jangid/Section-V/tree/main/content"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="hover:text-white transition-colors py-1 px-1.5 text-xs"
-                  title="Browse systematic content folders"
-                >
-                  Data Folders
+                  <Github className="w-3.5 h-3.5" />
+                  <span>GitHub Repository</span>
                 </a>
                 <span>·</span>
                 <a
@@ -696,8 +678,10 @@ Contributor: ${authorName || 'Section V Contributor'}`;
               </div>
             </div>
           </motion.div>
+          </div>
         </motion.div>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body
   );
 };

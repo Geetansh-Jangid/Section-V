@@ -11,6 +11,7 @@ import {
   CheckSquare
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import { createPortal } from 'react-dom';
 import facultyDataRaw from '../../data/faculty.json';
 import notesDataRaw from '../../data/notes.json';
 
@@ -43,7 +44,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
     return () => document.removeEventListener('keydown', down);
   }, [open, onOpenChange]);
 
-  return (
+  return createPortal(
     <AnimatePresence>
       {open && (
         <motion.div 
@@ -53,6 +54,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
           exit={{ opacity: 0 }}
           transition={{ duration: 0.15 }}
           className="fixed inset-0 z-50 flex items-start justify-center pt-20 px-4 bg-black/70 backdrop-blur-sm"
+          style={{ minHeight: '100dvh' }}
           onClick={() => onOpenChange(false)}
         >
           <motion.div 
@@ -69,18 +71,20 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
               label="Command Menu"
               className="rounded-2xl bg-[#0c0c0c] border border-[#262626] shadow-2xl overflow-hidden text-neutral-200"
             >
-          <div className="flex items-center gap-3 px-4 sm:px-5 border-b border-[#1f1f1f]">
-            <Search className="w-4 h-4 sm:w-5 sm:h-5 text-neutral-400 shrink-0" />
-            <Command.Input
-              value={search}
-              onValueChange={setSearch}
-              placeholder="Search sections, subjects, faculty cabins, or tabs..."
-              className="w-full py-3.5 sm:py-4 bg-transparent text-xs sm:text-sm text-white placeholder-neutral-500 outline-none"
-              autoFocus
-            />
-            <kbd className="hidden sm:inline-block px-2 py-0.5 text-[10px] font-mono text-neutral-500 bg-[#141414] border border-[#222222] rounded">
-              ESC
-            </kbd>
+          <div className="p-2.5 sm:p-3">
+            <div className="flex items-center gap-2.5 rounded-xl bg-[#161616] border border-[#262626] px-3 sm:px-4 py-2.5 transition-colors focus-within:border-neutral-400">
+              <Search className="w-4 h-4 sm:w-[18px] sm:h-[18px] text-neutral-500 shrink-0" />
+              <Command.Input
+                value={search}
+                onValueChange={setSearch}
+                placeholder="Search sections, subjects, faculty cabins, or tabs…"
+                className="w-full bg-transparent text-sm text-white placeholder-neutral-500 outline-none"
+                autoFocus
+              />
+              <kbd className="hidden sm:flex items-center shrink-0 px-2 py-1 rounded-md text-[11px] font-mono font-medium text-neutral-500 bg-[#121212] border border-[#2a2a2a] leading-none">
+                ESC
+              </kbd>
+            </div>
           </div>
 
           <Command.List className="max-h-80 sm:max-h-96 overflow-y-auto p-2 sm:p-2.5">
@@ -198,6 +202,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
           </motion.div>
         </motion.div>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body
   );
 };

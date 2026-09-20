@@ -43,6 +43,10 @@ interface SectionVStore {
   setTheme: (theme: 'dark' | 'light') => void;
   toggleTheme: () => void;
 
+  // Global User Section Preference ('V1' | 'V2')
+  userSection: 'V1' | 'V2';
+  setUserSection: (section: 'V1' | 'V2') => void;
+
   // Contribute Modal
   isContributeModalOpen: boolean;
   setContributeModalOpen: (open: boolean) => void;
@@ -174,7 +178,14 @@ export const useSectionVStore = create<SectionVStore>()(
       targetAttendance: 75,
       setTargetAttendance: (target) => set({ targetAttendance: target }),
 
-      selectedSectionFilter: 'All',
+      userSection: 'V1',
+      setUserSection: (section) =>
+        set((state) => ({
+          userSection: section,
+          selectedSectionFilter: section
+        })),
+
+      selectedSectionFilter: 'V1',
       setSelectedSectionFilter: (filter) => set({ selectedSectionFilter: filter }),
 
       attendance: DEFAULT_SUBJECTS,
@@ -348,6 +359,7 @@ export const useSectionVStore = create<SectionVStore>()(
       storage: createJSONStorage(() => localStorage),
       partialize: (state) => ({
         theme: state.theme,
+        userSection: state.userSection,
         targetAttendance: state.targetAttendance,
         selectedSectionFilter: state.selectedSectionFilter,
         attendance: state.attendance,

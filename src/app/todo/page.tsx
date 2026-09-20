@@ -1,9 +1,8 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import {
   CheckSquare,
   Square,
   Plus,
-  GitPullRequest,
   Search,
   Filter,
   Calendar,
@@ -39,10 +38,16 @@ export const TodoPage: React.FC = () => {
     deleteTask,
     addTask
   } = useSectionVStore();
+const userSection = useSectionVStore((s) => s.userSection);
 
-  const [selectedSection, setSelectedSection] = useState<'All' | 'V1' | 'V2'>('All');
+  const [selectedSection, setSelectedSection] = useState<'All' | 'V1' | 'V2'>(userSection);
   const [statusFilter, setStatusFilter] = useState<'all' | 'pending' | 'completed'>('all');
   const [priorityFilter, setPriorityFilter] = useState<'all' | 'urgent' | 'medium' | 'low'>('all');
+
+  // Global batch toggle overrides the local section filter
+  useEffect(() => {
+    setSelectedSection(userSection);
+  }, [userSection]);
   const [searchQuery, setSearchQuery] = useState('');
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
 
@@ -128,11 +133,21 @@ export const TodoPage: React.FC = () => {
     });
   }, [allTasks, selectedSection, statusFilter, priorityFilter, searchQuery]);
 
-  // Metrics
-  const totalCount = allTasks.length;
-  const completedCount = allTasks.filter((t) => t.completed).length;
+  // Tasks matching the section filter only (drives the quick-stats metrics)
+  const sectionTasks = useMemo(() => {
+    return allTasks.filter((task) => {
+      if (selectedSection !== 'All' && task.section !== 'All' && task.section !== selectedSection) {
+        return false;
+      }
+      return true;
+    });
+  }, [allTasks, selectedSection]);
+
+  // Metrics (scoped to the selected section)
+  const totalCount = sectionTasks.length;
+  const completedCount = sectionTasks.filter((t) => t.completed).length;
   const pendingCount = totalCount - completedCount;
-  const urgentPendingCount = allTasks.filter((t) => !t.completed && t.priority === 'urgent').length;
+  const urgentPendingCount = sectionTasks.filter((t) => !t.completed && t.priority === 'urgent').length;
 
   const getPriorityBadge = (priority: 'urgent' | 'medium' | 'low') => {
     switch (priority) {
@@ -333,11 +348,15 @@ export const TodoPage: React.FC = () => {
             <div className="w-10 h-10 rounded-full bg-[#161616] text-neutral-400 flex items-center justify-center mx-auto">
               <CheckSquare className="w-5 h-5" />
             </div>
-            <h3 className="text-sm font-semibold text-white">No tasks found</h3>
+            <h3 className="text-sm font-semibold text-white">
+              {searchQuery || statusFilter !== 'all' || selectedSection !== 'All'
+                ? 'No matching tasks found'
+                : 'All caught up · Lucky you!'}
+            </h3>
             <p className="text-xs text-neutral-400 max-w-sm mx-auto">
               {searchQuery || statusFilter !== 'all' || selectedSection !== 'All'
                 ? 'No assignments match the selected filters or search terms.'
-                : 'All caught up! No active tasks right now.'}
+                : 'Inbox zero! No pending lab work or homework on your radar. Go watch a movie or take a nap.'}
             </p>
             <div className="pt-2 flex items-center justify-center gap-2">
               {(searchQuery || statusFilter !== 'all' || priorityFilter !== 'all' || selectedSection !== 'All') && (
@@ -472,30 +491,6 @@ export const TodoPage: React.FC = () => {
             );
           })
         )}
-      </div>
-
-      {/* Bottom Peer Review Contribution Note */}
-      <div className="p-4 sm:p-5 rounded-xl bg-[#0a0a0a] border border-[#222222] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-        <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
-            <GitPullRequest className="w-4 h-4" />
-          </div>
-          <div>
-            <h4 className="text-xs sm:text-sm font-semibold text-white">Have an assignment or lab question sheet?</h4>
-            <p className="text-xs text-neutral-400">
-              Submit assignments for Section V peer review or add to your local checklist.
-            </p>
-          </div>
-        </div>
-
-        <button
-          type="button"
-          onClick={() => setIsAddModalOpen(true)}
-          className="px-3.5 py-1.5 rounded-lg bg-[#161616] border border-[#262626] text-xs font-semibold text-neutral-200 hover:text-white hover:border-[#383838] transition-colors flex items-center gap-1.5 cursor-pointer shrink-0"
-        >
-          <Plus className="w-3.5 h-3.5 text-neutral-400" />
-          <span>Propose Work Item</span>
-        </button>
       </div>
     </div>
   );
