@@ -54,7 +54,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.15 }}
-          className="fixed inset-0 z-50 flex items-start justify-center px-4 pt-[max(1rem,10dvh)] bg-black/75 backdrop-blur-md"
+          className="fixed inset-0 z-50 flex items-start justify-center px-4 pt-[max(1rem,10dvh)] bg-black/70 backdrop-blur-sm"
           style={{ minHeight: '100dvh' }}
           onClick={() => onOpenChange(false)}
         >
@@ -64,12 +64,12 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.96, y: -10 }}
             transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
-            className="w-full max-w-2xl"
+            className="w-full max-w-xl"
             onClick={(e) => e.stopPropagation()}
           >
             <Command 
               label="Command Menu"
-              className="command-palette w-full rounded-xl bg-[#0c0c0c] border border-[#262626] shadow-2xl overflow-hidden text-neutral-200"
+              className="w-full rounded-2xl bg-[#0c0c0c] border border-[#262626] shadow-2xl overflow-hidden text-neutral-200"
             >
           <div className="p-2.5 sm:p-3 border-b border-[#1f1f1f]">
             <div className="flex items-center gap-2.5 rounded-lg bg-[#121212] border border-[#2a2a2a] px-3 sm:px-4 py-2.5 transition-colors focus-within:border-neutral-400">
