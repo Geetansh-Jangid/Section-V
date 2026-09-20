@@ -11,6 +11,7 @@ import {
   BookOpen
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import { createPortal } from 'react-dom';
 import { useSectionVStore } from '../../lib/store.ts';
 
 interface AttendanceOnboardingModalProps {
@@ -48,6 +49,26 @@ export const AttendanceOnboardingModal: React.FC<AttendanceOnboardingModalProps>
       setStep(1);
     }
   }, [open, attendance, targetAttendance]);
+
+  // Keep the first-run setup consistent with the other global dialogs: the
+  // backdrop lives at the document root and the page cannot scroll beneath it.
+  useEffect(() => {
+    if (!open) return;
+
+    const scrollY = window.scrollY;
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${scrollY}px`;
+    document.body.style.width = '100%';
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.width = '';
+      document.body.style.overflow = '';
+      window.scrollTo(0, scrollY);
+    };
+  }, [open]);
 
   const handleUpdateCount = (code: string, field: 'attended' | 'total', delta: number) => {
     setCounts((prev) => {
@@ -98,7 +119,7 @@ export const AttendanceOnboardingModal: React.FC<AttendanceOnboardingModalProps>
 
   const subjects = Object.values(attendance);
 
-  return (
+  return createPortal(
     <AnimatePresence>
       {open && (
         <motion.div
@@ -107,7 +128,8 @@ export const AttendanceOnboardingModal: React.FC<AttendanceOnboardingModalProps>
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.15 }}
-          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-sm overflow-y-auto"
+          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-sm overflow-y-auto overscroll-contain"
+          style={{ minHeight: '100dvh' }}
           onClick={isReconfigure ? onClose : undefined}
         >
           <motion.div
@@ -375,6 +397,7 @@ export const AttendanceOnboardingModal: React.FC<AttendanceOnboardingModalProps>
           </motion.div>
         </motion.div>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body
   );
 };

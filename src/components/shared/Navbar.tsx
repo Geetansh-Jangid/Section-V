@@ -61,7 +61,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
   return (
     <>
-      <header className="sticky top-0 z-40 w-full border-b border-[#1f1f1f] bg-black/95 backdrop-blur-md transition-colors">
+      <header className="sticky top-0 z-[60] w-full border-b border-[#1f1f1f] bg-black/95 backdrop-blur-md transition-colors">
       <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo & Section V Brand */}
@@ -171,7 +171,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
       {/* Hamburger Menu Dropdown for < 1200px */}
       {mobileMenuOpen && (
-        <div className="min-[1200px]:hidden fixed inset-0 top-16 z-50 bg-black overflow-hidden">
+        <div className="min-[1200px]:hidden fixed inset-x-0 bottom-0 top-16 z-50 bg-black overflow-hidden">
           <div className="h-full overflow-y-auto px-4 py-6 space-y-2">
             {navItems.map((item) => {
               const Icon = item.icon;

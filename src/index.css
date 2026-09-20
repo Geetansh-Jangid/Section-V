@@ -394,12 +394,29 @@ html.light ::-webkit-scrollbar-thumb {
 
 /* Command Menu custom styles for cmdk - AMOLED dark style */
 [cmdk-root] {
-  max-width: 600px;
   width: 100%;
   background: #0a0a0a;
-  border-radius: 10px;
+  border-radius: 12px;
   border: 1px solid #222222;
   box-shadow: 0 20px 70px rgba(0, 0, 0, 0.95);
+}
+
+/* Command palette: compact, technical surfaces shared by the dark and light UI. */
+[cmdk-root].command-palette {
+  background: #0c0c0c;
+  border-color: #2a2a2a;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.62);
+}
+
+html.light [cmdk-root].command-palette {
+  background: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  box-shadow: 0 24px 80px rgba(15, 23, 42, 0.16) !important;
+}
+
+html.light [cmdk-root].command-palette > div:last-child {
+  background: #f8fafc !important;
+  border-color: #e2e8f0 !important;
 }
 
 [cmdk-input] {
