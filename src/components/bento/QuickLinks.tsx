@@ -28,14 +28,11 @@ export const QuickLinks: React.FC = () => {
   return (
     <div className="rounded-xl bg-[#0a0a0a] border border-[#222222] p-5 flex flex-col justify-between hover:border-[#333333] transition-colors">
       <div>
-        <div className="flex items-center justify-between gap-2 mb-3">
-          <div className="flex items-center gap-2">
-            <Globe className="w-4 h-4 text-neutral-400" />
-            <h3 className="text-xs font-medium text-neutral-400 uppercase tracking-wider">
-              Campus Portals
-            </h3>
-          </div>
-          <span className="text-xs text-neutral-500 font-mono">src/data/links.json</span>
+        <div className="flex items-center gap-2 mb-3">
+          <Globe className="w-4 h-4 text-neutral-400" />
+          <h3 className="text-xs font-medium text-neutral-400 uppercase tracking-wider">
+            Campus Portals
+          </h3>
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">

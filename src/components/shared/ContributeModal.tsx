@@ -53,7 +53,7 @@ const CATEGORIES: UpdateCategoryConfig[] = [
     templateFile: 'content/templates/notes_template.txt',
     directUrl: 'https://github.com/Geetansh-Jangid/Section-V/tree/main/content/notes',
     templateUrl: 'https://github.com/Geetansh-Jangid/Section-V/blob/main/content/templates/notes_template.txt',
-    description: 'Add Google Drive links for lecture notes, unit slides, or solved exam papers (PYQs). Non-tech students only edit simple .txt files!',
+    description: 'Add Google Drive links for lecture notes, unit slides, or solved exam papers.',
     placeholderTitle: 'e.g. Unit 2 Differential Calculus Notes & Question Solutions',
     placeholderDesc: 'https://drive.google.com/file/d/...'
   },
@@ -66,7 +66,7 @@ const CATEGORIES: UpdateCategoryConfig[] = [
     templateFile: 'content/templates/timetable_template.txt',
     directUrl: 'https://github.com/Geetansh-Jangid/Section-V/edit/main/content/timetable/timetable.txt',
     templateUrl: 'https://github.com/Geetansh-Jangid/Section-V/blob/main/content/templates/timetable_template.txt',
-    description: 'Update lecture timings, room changes (CT-12, CS-Labs), or proxy faculty in simple text format.',
+    description: 'Update lecture timings, room changes, or proxy faculty assignments.',
     placeholderTitle: 'e.g. Wednesday PPS Tutorial moved to CS-Lab-4',
     placeholderDesc: 'Slot 1: Room changed from CT-12 to CS-Lab-4 with Prof. GS.'
   },
@@ -79,7 +79,7 @@ const CATEGORIES: UpdateCategoryConfig[] = [
     templateFile: 'content/templates/faculty_template.txt',
     directUrl: 'https://github.com/Geetansh-Jangid/Section-V/edit/main/content/faculty/faculty.txt',
     templateUrl: 'https://github.com/Geetansh-Jangid/Section-V/blob/main/content/templates/faculty_template.txt',
-    description: 'Update professor cabins, consultation hours, emails, or subjects in simple text format.',
+    description: 'Update professor cabins, consultation hours, or contact information.',
     placeholderTitle: 'e.g. Dr. Khan office hours updated for Friday',
     placeholderDesc: 'Office hours updated to 02:30 PM – 04:00 PM at Chemistry Block Room 210.'
   },
@@ -283,8 +283,8 @@ Contributor: ${authorName || 'Section V Contributor'}`;
     `**Target Content File**: \`${currentCategory.targetFile}\`\n` +
     `**Contributor**: ${authorName || 'Section V Student'}\n\n` +
     (selectedCatId === 'notes' ? `**Subject**: ${activeSubjectObj.code} — ${activeSubjectObj.name}\n**Google Drive URL**: ${driveLink || 'Not provided'}\n**Resource Type**: ${noteResourceType}\n\n` : '') +
-    `#### Formatted Text Snippet (.txt):\n\`\`\`text\n${snippetText}\n\`\`\`\n\n` +
-    `---\n*Note: Our build script automatically converts this .txt entry into the application data. No JSON editing needed.*`
+    `#### Contribution Details:\n\`\`\`text\n${snippetText}\n\`\`\`\n\n` +
+    `---\n*Submitted for Section V review.*`
   );
 
   const githubIssueUrl = `https://github.com/Geetansh-Jangid/Section-V/issues/new?title=${issueTitle}&body=${issueBody}`;
@@ -327,11 +327,11 @@ Contributor: ${authorName || 'Section V Contributor'}`;
                   <h3 className="text-base sm:text-lg font-bold text-white tracking-tight flex items-center gap-2">
                     <span>Contribute to Section V</span>
                     <span className="text-[11px] font-mono px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-medium">
-                      Plain Text (.txt) Only
+                      Community Driven
                     </span>
                   </h3>
                   <p className="text-xs sm:text-sm text-neutral-400">
-                    No JSON editing required. Submit Google Drive links or edit simple .txt files directly.
+                    Submit content updates for peer review.
                   </p>
                 </div>
               </div>
@@ -557,7 +557,7 @@ Contributor: ${authorName || 'Section V Contributor'}`;
                 <div className="flex items-center justify-between">
                   <span className="text-[11px] uppercase tracking-wider text-neutral-400 font-semibold flex items-center gap-1.5">
                     <FileCode className="w-3.5 h-3.5 text-neutral-400" />
-                    Generated Plain Text Snippet (.txt)
+                    Formatted Submission Payload
                   </span>
                   <div className="flex items-center gap-2">
                     <button
@@ -565,7 +565,7 @@ Contributor: ${authorName || 'Section V Contributor'}`;
                       onClick={() => setShowTemplate(!showTemplate)}
                       className="text-[11px] text-neutral-400 hover:text-white underline cursor-pointer"
                     >
-                      {showTemplate ? 'Hide Template' : 'View Full Template (.txt)'}
+                      {showTemplate ? 'Hide Template' : 'View Full Template'}
                     </button>
                     <button
                       type="button"
@@ -605,7 +605,7 @@ Contributor: ${authorName || 'Section V Contributor'}`;
                         <ExternalLink className="w-4 h-4 text-neutral-500 group-hover:text-white transition-colors" />
                       </div>
                       <p className="text-xs text-neutral-400 mt-1.5 leading-relaxed">
-                        Pre-fills an issue with your Google Drive link and details. No Git or coding knowledge needed—the CR team merges it.
+                        Pre-fills an issue with your details. The CR team reviews and merges it.
                       </p>
                     </div>
                     <span className="mt-3 text-xs font-mono text-emerald-400 group-hover:text-emerald-300 font-medium transition-colors flex items-center gap-1">

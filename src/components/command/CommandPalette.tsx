@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Command } from 'cmdk';
-import { 
-  Search, 
-  Calendar, 
-  BookOpen, 
-  Users, 
-  ShieldCheck, 
-  Clock, 
-  Home
+import {
+  Search,
+  Calendar,
+  BookOpen,
+  Users,
+  ShieldCheck,
+  Clock,
+  Home,
+  CheckSquare
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import facultyDataRaw from '../../data/faculty.json';
@@ -109,6 +110,17 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
               >
                 <Calendar className="w-4 h-4 text-neutral-400 shrink-0" />
                 <span>Timetable (V1 & V2 Filters)</span>
+              </Command.Item>
+
+              <Command.Item
+                onSelect={() => {
+                  onNavigate('todo');
+                  onOpenChange(false);
+                }}
+                className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs sm:text-sm cursor-pointer hover:bg-[#181818] hover:text-white transition-colors"
+              >
+                <CheckSquare className="w-4 h-4 text-neutral-400 shrink-0" />
+                <span>Todo & Academic Works (V1 & V2)</span>
               </Command.Item>
 
               <Command.Item

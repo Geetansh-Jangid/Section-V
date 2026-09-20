@@ -3,7 +3,11 @@ import { CheckSquare, Square, Plus, Trash2, Calendar, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useSectionVStore } from '../../lib/store.ts';
 
-export const HomeworkWidget: React.FC = () => {
+interface HomeworkWidgetProps {
+  onNavigateToTodo?: () => void;
+}
+
+export const HomeworkWidget: React.FC<HomeworkWidgetProps> = ({ onNavigateToTodo }) => {
   const { tasks, addTask, toggleTask, deleteTask } = useSectionVStore();
   const [showAddModal, setShowAddModal] = useState(false);
   const [newTitle, setNewTitle] = useState('');
@@ -52,12 +56,23 @@ export const HomeworkWidget: React.FC = () => {
             </h3>
           </div>
           <div className="flex items-center gap-2">
-            <span className="text-[11px] font-mono text-neutral-400 px-2 py-0.5 rounded bg-[#141414] border border-[#222222]">
-              {pendingCount} Pending
-            </span>
+            {onNavigateToTodo && (
+              <button
+                onClick={onNavigateToTodo}
+                className="text-[11px] font-mono text-neutral-400 hover:text-white px-2 py-0.5 rounded bg-[#141414] border border-[#222222] transition-colors cursor-pointer"
+                title="Open Todo Page"
+              >
+                {pendingCount} Pending →
+              </button>
+            )}
+            {!onNavigateToTodo && (
+              <span className="text-[11px] font-mono text-neutral-400 px-2 py-0.5 rounded bg-[#141414] border border-[#222222]">
+                {pendingCount} Pending
+              </span>
+            )}
             <button
               onClick={() => setShowAddModal(true)}
-              className="p-1 rounded bg-[#141414] border border-[#222222] text-neutral-300 hover:text-white"
+              className="p-1 rounded bg-[#141414] border border-[#222222] text-neutral-300 hover:text-white cursor-pointer"
               title="Add task"
             >
               <Plus className="w-3.5 h-3.5" />

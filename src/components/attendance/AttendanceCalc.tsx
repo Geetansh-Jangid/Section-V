@@ -1,30 +1,43 @@
-import React, { useState } from 'react';
-import { 
-  ShieldCheck, 
-  Plus, 
-  Minus, 
-  RotateCcw, 
-  Sliders, 
+import React, { useState, useEffect } from 'react';
+import {
+  ShieldCheck,
+  Plus,
+  Minus,
+  RotateCcw,
+  Sliders,
   UserCheck,
-  UserX
+  UserX,
+  Settings2
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { useSectionVStore } from '../../lib/store.ts';
 import { calculateAttendanceMetrics } from '../../lib/attendanceUtils.ts';
+import { AttendanceOnboardingModal } from './AttendanceOnboardingModal.tsx';
 
 export const AttendanceCalc: React.FC = () => {
-  const { 
-    attendance, 
-    targetAttendance, 
-    setTargetAttendance, 
-    markAttendance, 
+  const {
+    attendance,
+    targetAttendance,
+    setTargetAttendance,
+    markAttendance,
     updateSubjectCounts,
     resetSubjectAttendance,
-    resetAllAttendance 
+    resetAllAttendance,
+    hasCompletedAttendanceOnboarding
   } = useSectionVStore();
 
   const [simulationOffset, setSimulationOffset] = useState<number>(0);
   const [simulationType, setSimulationType] = useState<'bunk' | 'attend'>('bunk');
+  const [showOnboardingModal, setShowOnboardingModal] = useState<boolean>(false);
+  const [isReconfiguring, setIsReconfiguring] = useState<boolean>(false);
+
+  // Auto-launch onboarding on first-time visit
+  useEffect(() => {
+    if (!hasCompletedAttendanceOnboarding) {
+      setIsReconfiguring(false);
+      setShowOnboardingModal(true);
+    }
+  }, [hasCompletedAttendanceOnboarding]);
 
   const subjectList = Object.values(attendance);
   const totalAttended = subjectList.reduce((sum, s) => sum + s.attended, 0);
@@ -49,6 +62,13 @@ export const AttendanceCalc: React.FC = () => {
 
   return (
     <div className="space-y-6">
+      {/* Attendance Onboarding / Reconfigure Modal */}
+      <AttendanceOnboardingModal
+        open={showOnboardingModal}
+        onClose={() => setShowOnboardingModal(false)}
+        isReconfigure={isReconfiguring}
+      />
+
       {/* Top Banner Overview */}
       <div className="rounded-xl bg-[#0a0a0a] border border-[#222222] p-5 sm:p-6">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-4 border-b border-[#1c1c1c]">
@@ -234,13 +254,25 @@ export const AttendanceCalc: React.FC = () => {
             <h3 className="text-base font-semibold text-white">Subject Ledger</h3>
             <p className="text-xs text-neutral-400">Log presence or absence per subject.</p>
           </div>
-          <button
-            onClick={resetAllAttendance}
-            className="flex items-center gap-1 px-2.5 py-1 rounded bg-[#141414] border border-[#222222] text-xs text-neutral-400 hover:text-white transition-colors"
-          >
-            <RotateCcw className="w-3 h-3" />
-            <span>Reset All</span>
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => {
+                setIsReconfiguring(true);
+                setShowOnboardingModal(true);
+              }}
+              className="flex items-center gap-1 px-2.5 py-1 rounded bg-[#141414] border border-[#222222] text-xs text-neutral-400 hover:text-white transition-colors cursor-pointer"
+            >
+              <Settings2 className="w-3 h-3" />
+              <span>Edit Baseline</span>
+            </button>
+            <button
+              onClick={resetAllAttendance}
+              className="flex items-center gap-1 px-2.5 py-1 rounded bg-[#141414] border border-[#222222] text-xs text-neutral-400 hover:text-white transition-colors cursor-pointer"
+            >
+              <RotateCcw className="w-3 h-3" />
+              <span>Reset All</span>
+            </button>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">

@@ -10,6 +10,7 @@ import { TimetablePage } from './app/timetable/page.tsx';
 import { AttendanceCalc } from './components/attendance/AttendanceCalc.tsx';
 import { NotesPage } from './app/notes/page.tsx';
 import { FacultyPage } from './app/faculty/page.tsx';
+import { TodoPage } from './app/todo/page.tsx';
 import { useSectionVStore } from './lib/store.ts';
 
 export default function App() {
@@ -19,7 +20,7 @@ export default function App() {
   useEffect(() => {
     const handleHashChange = () => {
       const hash = window.location.hash.replace('#', '');
-      if (['dashboard', 'timetable', 'attendance', 'notes', 'faculty'].includes(hash)) {
+      if (['dashboard', 'timetable', 'todo', 'attendance', 'notes', 'faculty'].includes(hash)) {
         setActiveTab(hash);
       }
     };
@@ -45,6 +46,8 @@ export default function App() {
       )}
 
       {activeTab === 'timetable' && <TimetablePage />}
+
+      {activeTab === 'todo' && <TodoPage />}
 
       {activeTab === 'attendance' && <AttendanceCalc />}
 

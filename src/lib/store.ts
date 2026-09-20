@@ -74,7 +74,12 @@ interface SectionVStore {
   clearSlotOverride: (slotId: string) => void;
   clearAllOverrides: () => void;
 
-  // Navigation tab state (dashboard, timetable, notes, faculty, attendance)
+  // Attendance Onboarding
+  hasCompletedAttendanceOnboarding: boolean;
+  setHasCompletedAttendanceOnboarding: (completed: boolean) => void;
+  completeAttendanceOnboarding: (baseline: Record<string, { attended: number; total: number }>, target: number) => void;
+
+  // Navigation tab state (dashboard, timetable, todo, notes, faculty, attendance)
   activeTab: string;
   setActiveTab: (tab: string) => void;
 }
@@ -308,6 +313,29 @@ export const useSectionVStore = create<SectionVStore>()(
       activeTab: 'dashboard',
       setActiveTab: (tab) => set({ activeTab: tab }),
 
+      hasCompletedAttendanceOnboarding: false,
+      setHasCompletedAttendanceOnboarding: (completed) => set({ hasCompletedAttendanceOnboarding: completed }),
+      completeAttendanceOnboarding: (baseline, target) => {
+        set((state) => {
+          const updatedAttendance = { ...state.attendance };
+          Object.entries(baseline).forEach(([code, counts]) => {
+            if (updatedAttendance[code]) {
+              updatedAttendance[code] = {
+                ...updatedAttendance[code],
+                attended: Math.max(0, counts.attended),
+                total: Math.max(counts.attended, counts.total)
+              };
+            }
+          });
+
+          return {
+            attendance: updatedAttendance,
+            targetAttendance: target,
+            hasCompletedAttendanceOnboarding: true
+          };
+        });
+      },
+
       theme: 'dark',
       setTheme: (theme) => set({ theme }),
       toggleTheme: () => set((state) => ({ theme: state.theme === 'dark' ? 'light' : 'dark' })),
@@ -324,7 +352,8 @@ export const useSectionVStore = create<SectionVStore>()(
         selectedSectionFilter: state.selectedSectionFilter,
         attendance: state.attendance,
         tasks: state.tasks,
-        slotOverrides: state.slotOverrides
+        slotOverrides: state.slotOverrides,
+        hasCompletedAttendanceOnboarding: state.hasCompletedAttendanceOnboarding
       })
     }
   )

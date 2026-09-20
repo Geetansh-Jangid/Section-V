@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { 
-  BookOpen, 
-  ExternalLink, 
-  Search, 
-  FileText, 
+import {
+  BookOpen,
+  ExternalLink,
+  Search,
+  GitPullRequest,
   FolderArchive,
   FolderPlus,
   ChevronDown,
@@ -318,33 +318,33 @@ export const NotesPage: React.FC<NotesPageProps> = ({ onOpenContributeModal }) =
               )}
             </div>
 
-            {/* Content File Source Info Card */}
+            {/* Contribute Card */}
             <div className="rounded-xl bg-[#0a0a0a] border border-[#222222] p-4 text-xs space-y-2">
               <div className="flex items-center gap-2 text-neutral-300 font-semibold">
-                <FileText className="w-4 h-4 text-emerald-400" />
-                <span>Plain Text (.txt) Data Source</span>
+                <GitPullRequest className="w-4 h-4 text-emerald-400" />
+                <span>Contribute Study Materials</span>
               </div>
               <p className="text-[11px] text-neutral-400 leading-relaxed">
-                This subject's data is maintained in <code className="text-neutral-200 font-mono bg-[#161616] px-1 py-0.5 rounded">{activeSubject.contentFile || 'content/notes/'}</code>. No JSON editing is needed!
+                Have lecture slides, handwritten notes, or past papers? Share them with Section V.
               </p>
               <div className="pt-1 flex items-center gap-2">
-                <a
-                  href={`https://github.com/Geetansh-Jangid/Section-V/blob/main/${activeSubject.contentFile || 'content/notes/'}`}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-[11px] text-emerald-400 hover:text-emerald-300 flex items-center gap-1 font-medium"
-                >
-                  <span>View Source File</span>
-                  <ExternalLink className="w-3 h-3" />
-                </a>
-                <span className="text-neutral-600">·</span>
                 <button
                   type="button"
                   onClick={onOpenContributeModal}
-                  className="text-[11px] text-neutral-300 hover:text-white cursor-pointer font-medium"
+                  className="text-[11px] text-emerald-400 hover:text-emerald-300 flex items-center gap-1 font-medium cursor-pointer"
                 >
-                  Add Drive Link
+                  <span>Add Drive Link</span>
+                  <ExternalLink className="w-3 h-3" />
                 </button>
+                <span className="text-neutral-600">·</span>
+                <a
+                  href="https://github.com/Geetansh-Jangid/Section-V"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-[11px] text-neutral-300 hover:text-white font-medium"
+                >
+                  GitHub
+                </a>
               </div>
             </div>
           </div>

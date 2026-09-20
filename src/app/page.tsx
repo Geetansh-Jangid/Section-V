@@ -23,7 +23,7 @@ export const DashboardPage: React.FC<PageProps> = ({ onNavigate, onOpenContribut
         <AttendanceWidget onNavigateToCalculator={() => onNavigate('attendance')} />
 
         {/* Homework & Lab Assignment Checklist */}
-        <HomeworkWidget />
+        <HomeworkWidget onNavigateToTodo={() => onNavigate('todo')} />
 
         {/* Official Bulletins & Circulars */}
         <QuickAnnounce onOpenContributeModal={onOpenContributeModal} />

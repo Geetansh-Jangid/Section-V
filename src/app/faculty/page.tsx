@@ -46,7 +46,7 @@ export const FacultyPage: React.FC = () => {
             </h2>
           </div>
           <p className="text-xs text-neutral-400 mt-1 max-w-2xl">
-            Professor office cabins, consultation hours, and Section V Class Representatives.
+            Professor office cabins, consultation hours, and Section V coordinators.
           </p>
         </div>
 
@@ -78,15 +78,9 @@ export const FacultyPage: React.FC = () => {
               <div>
                 <div className="flex items-start justify-between gap-2">
                   <div>
-                    <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-white text-black">
-                      {cr.role}
-                    </span>
-                    <h4 className="text-base font-semibold text-white mt-1.5">{cr.name}</h4>
+                    <h4 className="text-base font-semibold text-white">{cr.name}</h4>
                     <p className="text-xs text-neutral-400 font-mono mt-0.5">Roll No: {cr.rollNo}</p>
-                  </div>
-                  <div className="text-right">
-                    <span className="text-xs font-medium text-neutral-400 block">{cr.officeHours}</span>
-                    <span className="text-[10px] text-neutral-500">Available</span>
+                    <p className="text-xs text-neutral-500 mt-0.5">{cr.section}</p>
                   </div>
                 </div>
 
@@ -109,7 +103,7 @@ export const FacultyPage: React.FC = () => {
               </div>
 
               <div className="mt-3 pt-2.5 border-t border-[#1c1c1c] flex items-center justify-between text-xs">
-                <span className="text-neutral-500 text-[11px]">Academic Grievances</span>
+                <span className="text-neutral-500 text-[11px]">Contact for Academic Updates</span>
                 {cr.social?.whatsapp && (
                   <a
                     href={`https://wa.me/${cr.social.whatsapp.replace(/[^0-9]/g, '')}`}

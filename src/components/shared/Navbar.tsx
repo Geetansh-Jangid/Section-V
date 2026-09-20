@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
-import { 
-  Calendar, 
-  BookOpen, 
-  Users, 
-  ShieldCheck, 
-  Search, 
-  GitPullRequest, 
-  Menu, 
-  X, 
+import {
+  Calendar,
+  BookOpen,
+  Users,
+  ShieldCheck,
+  Search,
+  GitPullRequest,
+  Menu,
+  X,
   LayoutGrid,
   Sun,
-  Moon
+  Moon,
+  CheckSquare
 } from 'lucide-react';
 import { useSectionVStore } from '../../lib/store.ts';
 
@@ -33,6 +34,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   const navItems = [
     { id: 'dashboard', label: 'Overview', icon: LayoutGrid },
     { id: 'timetable', label: 'Timetable', icon: Calendar },
+    { id: 'todo', label: 'Todo', icon: CheckSquare },
     { id: 'attendance', label: 'Attendance', icon: ShieldCheck },
     { id: 'notes', label: 'Notes & Syllabus', icon: BookOpen },
     { id: 'faculty', label: 'Faculty Directory', icon: Users }
