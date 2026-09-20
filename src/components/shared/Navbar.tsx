@@ -73,7 +73,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
   return (
     <>
-      <header className="sticky top-0 z-[60] w-full border-b border-[#1f1f1f] bg-black/95 backdrop-blur-md transition-colors">
+      <header className={`${mobileMenuOpen ? 'fixed' : 'sticky'} top-0 inset-x-0 z-[60] w-full border-b border-[#1f1f1f] bg-black/95 backdrop-blur-md transition-colors`}>
       <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo & Section V Brand */}
