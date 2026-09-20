@@ -32,22 +32,21 @@ export const Navbar: React.FC<NavbarProps> = ({
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { theme, toggleTheme, userSection, setUserSection } = useSectionVStore();
 
-  // Lock scroll when mobile menu open
+  // The menu already owns the viewport. Lock document scrolling without fixing
+  // the body, which can move a sticky header off-screen in Firefox Android.
   useEffect(() => {
-    if (mobileMenuOpen) {
-      const scrollY = window.scrollY;
-      document.body.style.position = 'fixed';
-      document.body.style.top = `-${scrollY}px`;
-      document.body.style.width = '100%';
-      document.body.style.overflow = 'hidden';
-      return () => {
-        document.body.style.position = '';
-        document.body.style.top = '';
-        document.body.style.width = '';
-        document.body.style.overflow = '';
-        window.scrollTo(0, scrollY);
-      };
-    }
+    if (!mobileMenuOpen) return;
+
+    const root = document.documentElement;
+    const rootOverflow = root.style.overflow;
+    const bodyOverflow = document.body.style.overflow;
+    root.style.overflow = 'hidden';
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      root.style.overflow = rootOverflow;
+      document.body.style.overflow = bodyOverflow;
+    };
   }, [mobileMenuOpen]);
 
   const navItems = [
