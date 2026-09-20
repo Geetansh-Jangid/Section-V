@@ -56,7 +56,7 @@ export const AttendanceCalc: React.FC = () => {
             <div className="flex items-center gap-2">
               <ShieldCheck className="w-5 h-5 text-neutral-400" />
               <h2 className="text-lg sm:text-xl font-semibold text-white tracking-tight">
-                75% Attendance & Bunk Margin
+                {targetAttendance}% Attendance & Bunk Margin
               </h2>
             </div>
             <p className="text-xs text-neutral-400 mt-1">
@@ -64,12 +64,16 @@ export const AttendanceCalc: React.FC = () => {
             </p>
           </div>
 
-          {/* Target Percentage Control */}
-          <div className="flex items-center gap-2 bg-[#121212] p-1.5 rounded-lg border border-[#222222]">
-            <Sliders className="w-3.5 h-3.5 text-neutral-400 ml-1" />
-            <span className="text-xs text-neutral-400 font-medium">Target:</span>
+          {/* Custom Target Percentage Setter */}
+          <div className="flex flex-wrap items-center gap-2 bg-[#121212] p-1.5 rounded-lg border border-[#222222]">
+            <div className="flex items-center gap-1.5 pl-1">
+              <Sliders className="w-3.5 h-3.5 text-neutral-400" />
+              <span className="text-xs text-neutral-400 font-medium">Target:</span>
+            </div>
+
+            {/* Quick Presets */}
             <div className="flex items-center gap-1">
-              {[75, 80, 85].map((val) => (
+              {[70, 75, 80, 85].map((val) => (
                 <button
                   key={val}
                   onClick={() => {
@@ -78,15 +82,66 @@ export const AttendanceCalc: React.FC = () => {
                       triggerCelebration();
                     }
                   }}
-                  className={`px-2.5 py-1 rounded text-xs font-mono font-medium transition-colors ${
+                  className={`px-2 py-0.5 rounded text-xs font-mono font-medium transition-colors cursor-pointer ${
                     targetAttendance === val
                       ? 'bg-white text-black font-semibold'
-                      : 'text-neutral-400 hover:text-white'
+                      : 'text-neutral-400 hover:text-white hover:bg-[#1a1a1a]'
                   }`}
                 >
                   {val}%
                 </button>
               ))}
+            </div>
+
+            {/* Custom Stepper & Input */}
+            <div className="flex items-center gap-1 pl-1 border-l border-[#222222]">
+              <button
+                type="button"
+                onClick={() => {
+                  const next = Math.max(50, targetAttendance - 1);
+                  setTargetAttendance(next);
+                }}
+                className="w-6 h-6 flex items-center justify-center rounded bg-[#181818] border border-[#2a2a2a] text-neutral-300 hover:text-white hover:bg-[#222222] transition-colors cursor-pointer"
+                title="Decrease target by 1%"
+              >
+                <Minus className="w-3 h-3" />
+              </button>
+
+              <div className="flex items-center bg-[#0d0d0d] border border-[#2a2a2a] rounded px-1.5 py-0.5">
+                <input
+                  type="number"
+                  min={50}
+                  max={100}
+                  value={targetAttendance}
+                  onChange={(e) => {
+                    const val = parseInt(e.target.value, 10);
+                    if (!isNaN(val)) {
+                      const clamped = Math.min(100, Math.max(50, val));
+                      setTargetAttendance(clamped);
+                      if (overallMetrics.currentPercentage >= clamped) {
+                        triggerCelebration();
+                      }
+                    }
+                  }}
+                  className="w-8 text-center text-xs font-mono font-semibold bg-transparent text-white outline-none focus:text-white"
+                />
+                <span className="text-[11px] font-mono text-neutral-500">%</span>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => {
+                  const next = Math.min(100, targetAttendance + 1);
+                  setTargetAttendance(next);
+                  if (overallMetrics.currentPercentage >= next) {
+                    triggerCelebration();
+                  }
+                }}
+                className="w-6 h-6 flex items-center justify-center rounded bg-[#181818] border border-[#2a2a2a] text-neutral-300 hover:text-white hover:bg-[#222222] transition-colors cursor-pointer"
+                title="Increase target by 1%"
+              >
+                <Plus className="w-3 h-3" />
+              </button>
             </div>
           </div>
         </div>

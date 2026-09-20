@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Navbar } from '../components/shared/Navbar.tsx';
 import { CommandPalette } from '../components/command/CommandPalette.tsx';
 import { ContributeModal } from '../components/shared/ContributeModal.tsx';
 import { 
   GitBranch, 
   Terminal, 
-  Shield, 
   Code,
   Github
 } from 'lucide-react';
 import linksDataRaw from '../data/links.json';
 import { LinksConfig } from '../lib/schemas.ts';
+import { useSectionVStore } from '../lib/store.ts';
 
 const linksData = linksDataRaw as LinksConfig;
 
@@ -26,7 +26,18 @@ export const RootLayout: React.FC<LayoutProps> = ({
   onSelectTab
 }) => {
   const [commandOpen, setCommandOpen] = useState(false);
-  const [contributeOpen, setContributeOpen] = useState(false);
+  const { theme, isContributeModalOpen, setContributeModalOpen } = useSectionVStore();
+
+  useEffect(() => {
+    const root = document.documentElement;
+    if (theme === 'light') {
+      root.classList.add('light');
+      root.classList.remove('dark');
+    } else {
+      root.classList.add('dark');
+      root.classList.remove('light');
+    }
+  }, [theme]);
 
   return (
     <div className="min-h-screen bg-black text-neutral-100 flex flex-col selection:bg-neutral-800 selection:text-white">
@@ -35,7 +46,7 @@ export const RootLayout: React.FC<LayoutProps> = ({
         activeTab={activeTab}
         onSelectTab={onSelectTab}
         onOpenCommand={() => setCommandOpen(true)}
-        onOpenContribute={() => setContributeOpen(true)}
+        onOpenContribute={() => setContributeModalOpen(true)}
       />
 
       {/* Main Content Area */}
@@ -48,12 +59,12 @@ export const RootLayout: React.FC<LayoutProps> = ({
         open={commandOpen}
         onOpenChange={setCommandOpen}
         onNavigate={onSelectTab}
-        onOpenContributeModal={() => setContributeOpen(true)}
+        onOpenContributeModal={() => setContributeModalOpen(true)}
       />
 
       <ContributeModal
-        open={contributeOpen}
-        onClose={() => setContributeOpen(false)}
+        open={isContributeModalOpen}
+        onClose={() => setContributeModalOpen(false)}
       />
 
       {/* Minimal Technical Footer */}
@@ -69,10 +80,6 @@ export const RootLayout: React.FC<LayoutProps> = ({
             </div>
 
             <div className="flex items-center gap-3 text-[11px]">
-              <span className="flex items-center gap-1 text-neutral-400">
-                <Shield className="w-3.5 h-3.5 text-neutral-400" />
-                <span>Client LocalStorage</span>
-              </span>
               <button
                 onClick={() => setCommandOpen(true)}
                 className="flex items-center gap-1 px-2 py-0.5 rounded bg-[#111111] border border-[#222222] text-neutral-300 hover:text-white"
@@ -91,7 +98,7 @@ export const RootLayout: React.FC<LayoutProps> = ({
                 <span>GitHub</span>
               </a>
               <button
-                onClick={() => setContributeOpen(true)}
+                onClick={() => setContributeModalOpen(true)}
                 className="flex items-center gap-1 text-neutral-400 hover:text-white transition-colors"
               >
                 <Code className="w-3 h-3" />

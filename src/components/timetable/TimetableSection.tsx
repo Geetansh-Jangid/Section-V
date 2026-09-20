@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Calendar, 
   Clock, 
@@ -11,6 +11,7 @@ import {
   ListFilter,
   X
 } from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
 import timetableDataRaw from '../../data/timetable.json';
 import { TimetableData, ScheduleItem } from '../../lib/schemas.ts';
 import { useSectionVStore, SectionFilter } from '../../lib/store.ts';
@@ -62,6 +63,17 @@ export const TimetableSection: React.FC<TimetableSectionProps> = ({
     });
   };
 
+  // Close modal on Escape key
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setEditingItem(null);
+    };
+    if (editingItem) {
+      window.addEventListener('keydown', handleKeyDown);
+    }
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [editingItem]);
+
   const handleSaveOverride = (e: React.FormEvent) => {
     e.preventDefault();
     if (!editingItem) return;
@@ -98,9 +110,6 @@ export const TimetableSection: React.FC<TimetableSectionProps> = ({
               B.Tech CSE · AI
             </span>
           </div>
-          <p className="text-xs text-neutral-400 mt-1">
-            Section V lecture schedule, laboratory batches, and proxy notifications.
-          </p>
         </div>
 
         {/* Section V1 / V2 / All Filter (Replacing Theory/Practical) */}
@@ -464,88 +473,109 @@ export const TimetableSection: React.FC<TimetableSectionProps> = ({
       )}
 
       {/* Override / Proxy Modal */}
-      {editingItem && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-xs">
-          <div className="w-full max-w-md bg-[#0f0f0f] border border-[#262626] rounded-xl p-5 shadow-2xl">
-            <div className="flex items-center justify-between pb-3 border-b border-[#222222]">
-              <div>
-                <h3 className="text-sm font-semibold text-white">
-                  Schedule Override: {editingItem.subjectCode}
-                </h3>
-                <p className="text-xs text-neutral-400 mt-0.5">
-                  Set proxy faculty or announce cancellation
-                </p>
-              </div>
-              <button
-                onClick={() => setEditingItem(null)}
-                className="p-1 text-neutral-400 hover:text-white rounded"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            </div>
-
-            <form onSubmit={handleSaveOverride} className="space-y-4 pt-4 text-xs">
-              <div>
-                <label className="text-neutral-400 block mb-1">Subject</label>
-                <div className="p-2 rounded bg-[#161616] border border-[#262626] text-neutral-200">
-                  {editingItem.subjectName} ({editingItem.subjectCode})
+      <AnimatePresence>
+        {editingItem && (
+          <motion.div
+            key="timetable-override-backdrop"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm"
+            onClick={() => setEditingItem(null)}
+          >
+            <motion.div
+              key="timetable-override-content"
+              initial={{ opacity: 0, scale: 0.95, y: 10 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 10 }}
+              transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
+              data-modal-card="true"
+              className="w-full max-w-md bg-[#0f0f0f] border border-[#262626] rounded-xl p-5 shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex items-center justify-between pb-3 border-b border-[#222222]">
+                <div>
+                  <h3 className="text-sm font-semibold text-white">
+                    Schedule Override: {editingItem.subjectCode}
+                  </h3>
+                  <p className="text-xs text-neutral-400 mt-0.5">
+                    Set proxy faculty or announce cancellation
+                  </p>
                 </div>
-              </div>
-
-              <div>
-                <label className="text-neutral-400 block mb-1">Proxy Faculty</label>
-                <input
-                  type="text"
-                  value={proxyFacultyInput}
-                  onChange={(e) => setProxyFacultyInput(e.target.value)}
-                  placeholder={`Default: ${editingItem.faculty}`}
-                  className="w-full px-3 py-2 rounded bg-[#161616] border border-[#262626] text-white placeholder-neutral-600 focus:outline-none focus:border-neutral-400"
-                />
-              </div>
-
-              <div>
-                <label className="text-neutral-400 block mb-1">Room Change</label>
-                <input
-                  type="text"
-                  value={roomChangeInput}
-                  onChange={(e) => setRoomChangeInput(e.target.value)}
-                  placeholder={`Default: ${editingItem.room}`}
-                  className="w-full px-3 py-2 rounded bg-[#161616] border border-[#262626] text-white placeholder-neutral-600 focus:outline-none focus:border-neutral-400 font-mono"
-                />
-              </div>
-
-              <div className="flex items-center gap-2 pt-1">
-                <input
-                  type="checkbox"
-                  id="cancelled-checkbox"
-                  checked={isCancelledInput}
-                  onChange={(e) => setIsCancelledInput(e.target.checked)}
-                  className="rounded bg-[#161616] border-[#333333] text-white"
-                />
-                <label htmlFor="cancelled-checkbox" className="text-neutral-300 font-medium">
-                  Mark this session as Cancelled
-                </label>
-              </div>
-
-              <div className="flex items-center justify-end gap-2 pt-3 border-t border-[#222222]">
                 <button
                   type="button"
                   onClick={() => setEditingItem(null)}
-                  className="px-3 py-1.5 rounded bg-[#161616] border border-[#262626] text-neutral-300 hover:text-white"
+                  className="p-1 text-neutral-400 hover:text-white rounded transition-colors"
+                  aria-label="Close"
                 >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  className="px-3 py-1.5 rounded bg-white text-black font-semibold hover:bg-neutral-200 transition-colors"
-                >
-                  Save Override
+                  <X className="w-4 h-4" />
                 </button>
               </div>
-            </form>
-          </div>
-        </div>
-      )}
+
+              <form onSubmit={handleSaveOverride} className="space-y-4 pt-4 text-xs">
+                <div>
+                  <label className="text-neutral-400 block mb-1">Subject</label>
+                  <div className="p-2 rounded bg-[#161616] border border-[#262626] text-neutral-200">
+                    {editingItem.subjectName} ({editingItem.subjectCode})
+                  </div>
+                </div>
+
+                <div>
+                  <label className="text-neutral-400 block mb-1">Proxy Faculty</label>
+                  <input
+                    type="text"
+                    value={proxyFacultyInput}
+                    onChange={(e) => setProxyFacultyInput(e.target.value)}
+                    placeholder={`Default: ${editingItem.faculty}`}
+                    className="w-full px-3 py-2 rounded bg-[#161616] border border-[#262626] text-white placeholder-neutral-600 focus:outline-none focus:border-neutral-400"
+                  />
+                </div>
+
+                <div>
+                  <label className="text-neutral-400 block mb-1">Room Change</label>
+                  <input
+                    type="text"
+                    value={roomChangeInput}
+                    onChange={(e) => setRoomChangeInput(e.target.value)}
+                    placeholder={`Default: ${editingItem.room}`}
+                    className="w-full px-3 py-2 rounded bg-[#161616] border border-[#262626] text-white placeholder-neutral-600 focus:outline-none focus:border-neutral-400 font-mono"
+                  />
+                </div>
+
+                <div className="flex items-center gap-2 pt-1">
+                  <input
+                    type="checkbox"
+                    id="cancelled-checkbox"
+                    checked={isCancelledInput}
+                    onChange={(e) => setIsCancelledInput(e.target.checked)}
+                    className="rounded bg-[#161616] border-[#333333] text-white"
+                  />
+                  <label htmlFor="cancelled-checkbox" className="text-neutral-300 font-medium">
+                    Mark this session as Cancelled
+                  </label>
+                </div>
+
+                <div className="flex items-center justify-end gap-2 pt-3 border-t border-[#222222]">
+                  <button
+                    type="button"
+                    onClick={() => setEditingItem(null)}
+                    className="px-3 py-1.5 rounded bg-[#161616] border border-[#262626] text-neutral-300 hover:text-white transition-colors"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    className="px-3 py-1.5 rounded bg-white text-black font-semibold hover:bg-neutral-200 transition-colors"
+                  >
+                    Save Override
+                  </button>
+                </div>
+              </form>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 };

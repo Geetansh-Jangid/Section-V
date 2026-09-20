@@ -9,6 +9,7 @@ import {
   Clock, 
   Home
 } from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
 import facultyDataRaw from '../../data/faculty.json';
 import notesDataRaw from '../../data/notes.json';
 
@@ -41,18 +42,32 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
     return () => document.removeEventListener('keydown', down);
   }, [open, onOpenChange]);
 
-  if (!open) return null;
-
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-center pt-20 px-4 bg-black/80 backdrop-blur-xs animate-in fade-in duration-100">
-      <div 
-        className="w-full max-w-xl"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <Command 
-          label="Command Menu"
-          className="rounded-xl bg-[#0c0c0c] border border-[#262626] shadow-2xl overflow-hidden text-neutral-200"
+    <AnimatePresence>
+      {open && (
+        <motion.div 
+          key="command-palette-backdrop"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.15 }}
+          className="fixed inset-0 z-50 flex items-start justify-center pt-20 px-4 bg-black/70 backdrop-blur-sm"
+          onClick={() => onOpenChange(false)}
         >
+          <motion.div 
+            key="command-palette-content"
+            initial={{ opacity: 0, scale: 0.96, y: -10 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.96, y: -10 }}
+            transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
+            data-modal-card="true"
+            className="w-full max-w-xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <Command 
+              label="Command Menu"
+              className="rounded-xl bg-[#0c0c0c] border border-[#262626] shadow-2xl overflow-hidden text-neutral-200"
+            >
           <div className="flex items-center gap-3 px-4 border-b border-[#1f1f1f]">
             <Search className="w-4 h-4 text-neutral-400 shrink-0" />
             <Command.Input
@@ -168,7 +183,9 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
             </Command.Group>
           </Command.List>
         </Command>
-      </div>
-    </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 };

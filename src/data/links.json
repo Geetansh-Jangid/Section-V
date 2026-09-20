@@ -1,5 +1,5 @@
 {
-  "githubRepoUrl": "https://github.com/section-v",
+  "githubRepoUrl": "https://github.com/Geetansh-Jangid/Section-V",
   "whatsappCommunityUrl": "https://chat.whatsapp.com/section-v-announcements",
   "generalDriveUrl": "https://drive.google.com/drive/folders/section-v-root",
   "campusPortals": [
@@ -35,7 +35,7 @@
       "id": "github",
       "title": "Git Repository",
       "desc": "Timetable PRs & Commits",
-      "url": "https://github.com/section-v",
+      "url": "https://github.com/Geetansh-Jangid/Section-V",
       "icon": "Github"
     },
     {

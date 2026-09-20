@@ -38,6 +38,15 @@ export interface SlotOverride {
 export type SectionFilter = 'All' | 'V1' | 'V2';
 
 interface SectionVStore {
+  // Theme ('dark' | 'light')
+  theme: 'dark' | 'light';
+  setTheme: (theme: 'dark' | 'light') => void;
+  toggleTheme: () => void;
+
+  // Contribute Modal
+  isContributeModalOpen: boolean;
+  setContributeModalOpen: (open: boolean) => void;
+
   // Target Attendance (Default 75%)
   targetAttendance: number;
   setTargetAttendance: (target: number) => void;
@@ -297,12 +306,20 @@ export const useSectionVStore = create<SectionVStore>()(
       },
 
       activeTab: 'dashboard',
-      setActiveTab: (tab) => set({ activeTab: tab })
+      setActiveTab: (tab) => set({ activeTab: tab }),
+
+      theme: 'dark',
+      setTheme: (theme) => set({ theme }),
+      toggleTheme: () => set((state) => ({ theme: state.theme === 'dark' ? 'light' : 'dark' })),
+
+      isContributeModalOpen: false,
+      setContributeModalOpen: (open) => set({ isContributeModalOpen: open })
     }),
     {
       name: 'section-v-portal-storage-v2',
       storage: createJSONStorage(() => localStorage),
       partialize: (state) => ({
+        theme: state.theme,
         targetAttendance: state.targetAttendance,
         selectedSectionFilter: state.selectedSectionFilter,
         attendance: state.attendance,

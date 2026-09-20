@@ -3,19 +3,17 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { RootLayout } from './app/layout.tsx';
 import { DashboardPage } from './app/page.tsx';
 import { TimetablePage } from './app/timetable/page.tsx';
 import { AttendanceCalc } from './components/attendance/AttendanceCalc.tsx';
 import { NotesPage } from './app/notes/page.tsx';
 import { FacultyPage } from './app/faculty/page.tsx';
-import { ContributeModal } from './components/shared/ContributeModal.tsx';
 import { useSectionVStore } from './lib/store.ts';
 
 export default function App() {
-  const { activeTab, setActiveTab } = useSectionVStore();
-  const [contributeModalOpen, setContributeModalOpen] = useState(false);
+  const { activeTab, setActiveTab, setContributeModalOpen } = useSectionVStore();
 
   // Sync with URL hash for clean navigation
   useEffect(() => {
@@ -55,11 +53,6 @@ export default function App() {
       )}
 
       {activeTab === 'faculty' && <FacultyPage />}
-
-      <ContributeModal
-        open={contributeModalOpen}
-        onClose={() => setContributeModalOpen(false)}
-      />
     </RootLayout>
   );
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   BookOpen, 
   ExternalLink, 
@@ -9,6 +9,7 @@ import {
   ChevronUp,
   X
 } from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
 import notesDataRaw from '../../data/notes.json';
 import { SubjectNote } from '../../lib/schemas.ts';
 
@@ -23,6 +24,17 @@ export const NotesPage: React.FC<NotesPageProps> = ({ onOpenContributeModal }) =
   const [selectedSubjectId, setSelectedSubjectId] = useState<string>(() => notesCatalog[0]?.id || 'sub-m');
   const [expandedUnit, setExpandedUnit] = useState<number | null>(1);
   const [showMarkdownViewer, setShowMarkdownViewer] = useState(false);
+
+  // Close modal on Escape key
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setShowMarkdownViewer(false);
+    };
+    if (showMarkdownViewer) {
+      window.addEventListener('keydown', handleKeyDown);
+    }
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [showMarkdownViewer]);
 
   const activeSubject = notesCatalog.find((n) => n.id === selectedSubjectId) || notesCatalog[0];
 
@@ -274,48 +286,73 @@ export const NotesPage: React.FC<NotesPageProps> = ({ onOpenContributeModal }) =
       )}
 
       {/* Markdown Modal */}
-      {showMarkdownViewer && activeSubject && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-xs">
-          <div className="w-full max-w-2xl bg-[#0f0f0f] border border-[#262626] rounded-xl p-5 shadow-2xl max-h-[80vh] flex flex-col">
-            <div className="flex items-center justify-between pb-3 border-b border-[#222222]">
-              <h3 className="text-sm font-semibold text-white">
-                Syllabus Outline: {activeSubject.subjectName} ({activeSubject.subjectCode})
-              </h3>
-              <button onClick={() => setShowMarkdownViewer(false)} className="text-neutral-400 hover:text-white">
-                <X className="w-4 h-4" />
-              </button>
-            </div>
-
-            <div className="flex-1 overflow-y-auto py-4 text-xs text-neutral-300 space-y-4 font-mono">
-              <div className="p-3 bg-[#141414] rounded border border-[#222222]">
-                <p className="font-bold text-white mb-2"># {activeSubject.subjectName} Course Structure</p>
-                <p>Faculty: {activeSubject.faculty}</p>
-                <p>Credits: {activeSubject.credits} | Lecture Hours: 4/week</p>
+      <AnimatePresence>
+        {showMarkdownViewer && activeSubject && (
+          <motion.div
+            key="markdown-modal-backdrop"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm"
+            onClick={() => setShowMarkdownViewer(false)}
+          >
+            <motion.div
+              key="markdown-modal-content"
+              initial={{ opacity: 0, scale: 0.95, y: 10 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 10 }}
+              transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
+              data-modal-card="true"
+              className="w-full max-w-2xl bg-[#0f0f0f] border border-[#262626] rounded-xl p-5 shadow-2xl max-h-[80vh] flex flex-col"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex items-center justify-between pb-3 border-b border-[#222222]">
+                <h3 className="text-sm font-semibold text-white">
+                  Syllabus Outline: {activeSubject.subjectName} ({activeSubject.subjectCode})
+                </h3>
+                <button
+                  type="button"
+                  onClick={() => setShowMarkdownViewer(false)}
+                  className="p-1 text-neutral-400 hover:text-white rounded transition-colors"
+                  aria-label="Close"
+                >
+                  <X className="w-4 h-4" />
+                </button>
               </div>
 
-              {activeSubject.units.map((u) => (
-                <div key={u.unitNumber} className="space-y-1">
-                  <p className="font-bold text-white">## Unit {u.unitNumber}: {u.title}</p>
-                  <ul className="list-disc pl-5 text-neutral-400 space-y-0.5">
-                    {u.topics.map((t, idx) => (
-                      <li key={idx}>{t}</li>
-                    ))}
-                  </ul>
+              <div className="flex-1 overflow-y-auto py-4 text-xs text-neutral-300 space-y-4 font-mono">
+                <div className="p-3 bg-[#141414] rounded border border-[#222222]">
+                  <p className="font-bold text-white mb-2"># {activeSubject.subjectName} Course Structure</p>
+                  <p>Faculty: {activeSubject.faculty}</p>
+                  <p>Credits: {activeSubject.credits} | Lecture Hours: 4/week</p>
                 </div>
-              ))}
-            </div>
 
-            <div className="pt-3 border-t border-[#222222] flex justify-end">
-              <button
-                onClick={() => setShowMarkdownViewer(false)}
-                className="px-3 py-1.5 rounded bg-white text-black font-semibold hover:bg-neutral-200"
-              >
-                Close
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+                {activeSubject.units.map((u) => (
+                  <div key={u.unitNumber} className="space-y-1">
+                    <p className="font-bold text-white">## Unit {u.unitNumber}: {u.title}</p>
+                    <ul className="list-disc pl-5 text-neutral-400 space-y-0.5">
+                      {u.topics.map((t, idx) => (
+                        <li key={idx}>{t}</li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+
+              <div className="pt-3 border-t border-[#222222] flex justify-end">
+                <button
+                  type="button"
+                  onClick={() => setShowMarkdownViewer(false)}
+                  className="px-3 py-1.5 rounded bg-white text-black font-semibold hover:bg-neutral-200 transition-colors"
+                >
+                  Close
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

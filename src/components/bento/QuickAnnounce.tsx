@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Bell, ChevronRight, X } from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
 import announcementsDataRaw from '../../data/announcements.json';
 import { Announcement } from '../../lib/schemas.ts';
 
@@ -11,6 +12,17 @@ interface QuickAnnounceProps {
 
 export const QuickAnnounce: React.FC<QuickAnnounceProps> = () => {
   const [selectedNotice, setSelectedNotice] = useState<Announcement | null>(null);
+
+  // Close modal on Escape key
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setSelectedNotice(null);
+    };
+    if (selectedNotice) {
+      window.addEventListener('keydown', handleKeyDown);
+    }
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [selectedNotice]);
 
   return (
     <div className="rounded-xl bg-[#0a0a0a] border border-[#222222] p-5 flex flex-col justify-between hover:border-[#333333] transition-colors">
@@ -61,53 +73,75 @@ export const QuickAnnounce: React.FC<QuickAnnounceProps> = () => {
       </div>
 
       {/* Modal View */}
-      {selectedNotice && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-xs">
-          <div className="w-full max-w-md bg-[#0f0f0f] border border-[#262626] rounded-xl p-5 shadow-2xl">
-            <div className="flex items-center justify-between pb-3 border-b border-[#222222]">
-              <span className="text-xs font-mono uppercase text-neutral-400">
-                {selectedNotice.category} Notice · {selectedNotice.date}
-              </span>
-              <button
-                onClick={() => setSelectedNotice(null)}
-                className="text-neutral-400 hover:text-white"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            </div>
-
-            <div className="pt-3 space-y-3">
-              <h3 className="text-sm font-semibold text-white">
-                {selectedNotice.title}
-              </h3>
-              <p className="text-xs text-neutral-300 leading-relaxed">
-                {selectedNotice.summary || "Official section circular published by department authorities."}
-              </p>
-
-              <div className="flex flex-wrap gap-1.5 pt-2">
-                {selectedNotice.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="px-2 py-0.5 rounded text-[10px] font-mono bg-[#181818] border border-[#282828] text-neutral-400"
-                  >
-                    #{tag}
-                  </span>
-                ))}
-              </div>
-
-              <div className="pt-3 border-t border-[#222222] flex justify-between items-center text-xs text-neutral-500">
-                <span>Signed: {selectedNotice.author}</span>
+      <AnimatePresence>
+        {selectedNotice && (
+          <motion.div
+            key="notice-modal-backdrop"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm"
+            onClick={() => setSelectedNotice(null)}
+          >
+            <motion.div
+              key="notice-modal-content"
+              initial={{ opacity: 0, scale: 0.95, y: 10 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 10 }}
+              transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
+              data-modal-card="true"
+              className="w-full max-w-md bg-[#0f0f0f] border border-[#262626] rounded-xl p-5 shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex items-center justify-between pb-3 border-b border-[#222222]">
+                <span className="text-xs font-mono uppercase text-neutral-400">
+                  {selectedNotice.category} Notice · {selectedNotice.date}
+                </span>
                 <button
+                  type="button"
                   onClick={() => setSelectedNotice(null)}
-                  className="px-3 py-1.5 rounded bg-white text-black font-semibold hover:bg-neutral-200"
+                  className="p-1 text-neutral-400 hover:text-white rounded transition-colors"
+                  aria-label="Close"
                 >
-                  Close
+                  <X className="w-4 h-4" />
                 </button>
               </div>
-            </div>
-          </div>
-        </div>
-      )}
+
+              <div className="pt-3 space-y-3">
+                <h3 className="text-sm font-semibold text-white">
+                  {selectedNotice.title}
+                </h3>
+                <p className="text-xs text-neutral-300 leading-relaxed">
+                  {selectedNotice.summary || "Official section circular published by department authorities."}
+                </p>
+
+                <div className="flex flex-wrap gap-1.5 pt-2">
+                  {selectedNotice.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="px-2 py-0.5 rounded text-[10px] font-mono bg-[#181818] border border-[#282828] text-neutral-400"
+                    >
+                      #{tag}
+                    </span>
+                  ))}
+                </div>
+
+                <div className="pt-3 border-t border-[#222222] flex justify-between items-center text-xs text-neutral-500">
+                  <span>Signed: {selectedNotice.author}</span>
+                  <button
+                    type="button"
+                    onClick={() => setSelectedNotice(null)}
+                    className="px-3 py-1.5 rounded bg-white text-black font-semibold hover:bg-neutral-200 transition-colors"
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

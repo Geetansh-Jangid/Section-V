@@ -14,10 +14,7 @@ interface PageProps {
 export const DashboardPage: React.FC<PageProps> = ({ onNavigate, onOpenContributeModal }) => {
   return (
     <div className="space-y-6">
-      {/* 1. FIRST SECTION: Timetable with V1 / V2 Filter */}
-      <TimetableSection />
-
-      {/* 2. SECONDARY SECTION: Bento Grid of Core Academic Widgets */}
+      {/* 1. DEFAULT PRIMARY SECTION: Core Academic Overview Bento Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {/* Active Class Live Status */}
         <ActiveClassCard />
@@ -32,8 +29,13 @@ export const DashboardPage: React.FC<PageProps> = ({ onNavigate, onOpenContribut
         <QuickAnnounce onOpenContributeModal={onOpenContributeModal} />
       </div>
 
-      {/* 3. TERTIARY SECTION: Institute Portals */}
+      {/* 2. Institute Portals & Quick Links */}
       <QuickLinks />
+
+      {/* 3. Class Timetable with V1 / V2 Filter */}
+      <div className="pt-2">
+        <TimetableSection />
+      </div>
     </div>
   );
 };

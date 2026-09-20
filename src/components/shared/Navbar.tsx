@@ -8,8 +8,11 @@ import {
   GitPullRequest, 
   Menu, 
   X, 
-  LayoutGrid
+  LayoutGrid,
+  Sun,
+  Moon
 } from 'lucide-react';
+import { useSectionVStore } from '../../lib/store.ts';
 
 interface NavbarProps {
   activeTab: string;
@@ -25,24 +28,25 @@ export const Navbar: React.FC<NavbarProps> = ({
   onOpenContribute
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { theme, toggleTheme } = useSectionVStore();
 
   const navItems = [
-    { id: 'timetable', label: 'Timetable', icon: Calendar },
     { id: 'dashboard', label: 'Overview', icon: LayoutGrid },
-    { id: 'attendance', label: '75% Attendance', icon: ShieldCheck },
+    { id: 'timetable', label: 'Timetable', icon: Calendar },
+    { id: 'attendance', label: 'Attendance', icon: ShieldCheck },
     { id: 'notes', label: 'Notes & Syllabus', icon: BookOpen },
     { id: 'faculty', label: 'Faculty Directory', icon: Users }
   ];
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-[#1f1f1f] bg-black/95 backdrop-blur-md">
+    <header className="sticky top-0 z-40 w-full border-b border-[#1f1f1f] bg-black/95 backdrop-blur-md transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between h-14">
           {/* Logo & Section V Brand */}
           <div className="flex items-center gap-3">
             <button
-              onClick={() => onSelectTab('timetable')}
-              className="flex items-center gap-2.5 text-left focus:outline-none"
+              onClick={() => onSelectTab('dashboard')}
+              className="flex items-center gap-2.5 text-left focus:outline-none cursor-pointer"
             >
               <div className="w-7 h-7 rounded-md bg-white text-black flex items-center justify-center font-mono font-bold text-xs">
                 V
@@ -67,10 +71,10 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <button
                   key={item.id}
                   onClick={() => onSelectTab(item.id)}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors duration-150 outline-none select-none cursor-pointer ${
                     isActive
-                      ? 'bg-[#1a1a1a] text-white border border-[#2a2a2a]'
-                      : 'text-neutral-400 hover:text-neutral-200 hover:bg-[#121212]'
+                      ? 'bg-[#222222] text-white font-semibold'
+                      : 'text-neutral-400 hover:text-white hover:bg-[#121212]'
                   }`}
                 >
                   <Icon className="w-3.5 h-3.5 text-neutral-400" />
@@ -85,7 +89,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             {/* Quick Cmd+K Search trigger */}
             <button
               onClick={onOpenCommand}
-              className="flex items-center gap-2 px-2.5 py-1.5 rounded-md bg-[#0f0f0f] border border-[#222222] text-xs text-neutral-400 hover:text-white hover:border-[#333333] transition-colors"
+              className="flex items-center gap-2 px-2.5 py-1.5 rounded-md bg-[#0f0f0f] border border-[#222222] text-xs text-neutral-400 hover:text-white hover:border-[#333333] transition-colors cursor-pointer"
             >
               <Search className="w-3.5 h-3.5" />
               <span className="hidden sm:inline text-[11px]">Search...</span>
@@ -97,17 +101,27 @@ export const Navbar: React.FC<NavbarProps> = ({
             {/* Contribute PR button */}
             <button
               onClick={onOpenContribute}
-              className="hidden sm:flex items-center gap-1.5 px-2.5 py-1.5 rounded-md bg-[#0f0f0f] border border-[#222222] text-xs font-medium text-neutral-300 hover:text-white hover:border-[#333333] transition-colors"
+              className="hidden sm:flex items-center gap-1.5 px-2.5 py-1.5 rounded-md bg-[#0f0f0f] border border-[#222222] text-xs font-medium text-neutral-300 hover:text-white hover:border-[#333333] transition-colors cursor-pointer"
             >
               <GitPullRequest className="w-3.5 h-3.5 text-neutral-400" />
               <span className="text-[11px]">Contribute</span>
+            </button>
+
+            {/* Theme Toggle (Dark / Light) */}
+            <button
+              onClick={toggleTheme}
+              aria-label="Toggle theme"
+              className="p-1.5 rounded-md bg-[#0f0f0f] border border-[#222222] text-neutral-400 hover:text-white hover:border-[#333333] transition-colors cursor-pointer"
+              title={`Switch to ${theme === 'dark' ? 'Light' : 'Dark'} mode`}
+            >
+              {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
             </button>
 
             {/* Hamburger Menu Toggle - Shown at < 1200px as explicitly requested */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-label="Toggle navigation menu"
-              className="min-[1200px]:hidden p-1.5 rounded-md bg-[#0f0f0f] border border-[#222222] text-neutral-300 hover:text-white hover:border-[#333333]"
+              className="min-[1200px]:hidden p-1.5 rounded-md bg-[#0f0f0f] border border-[#222222] text-neutral-300 hover:text-white hover:border-[#333333] cursor-pointer"
             >
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
@@ -128,9 +142,9 @@ export const Navbar: React.FC<NavbarProps> = ({
                   onSelectTab(item.id);
                   setMobileMenuOpen(false);
                 }}
-                className={`w-full flex items-center gap-3 px-3 py-2 rounded-md text-xs font-medium transition-colors ${
+                className={`w-full flex items-center gap-3 px-3 py-2 rounded-md text-xs font-medium transition-colors duration-150 outline-none cursor-pointer ${
                   isActive
-                    ? 'bg-[#171717] text-white border border-[#262626]'
+                    ? 'bg-[#222222] text-white font-semibold'
                     : 'text-neutral-400 hover:text-white hover:bg-[#111111]'
                 }`}
               >
@@ -139,16 +153,23 @@ export const Navbar: React.FC<NavbarProps> = ({
               </button>
             );
           })}
-          <div className="pt-2 border-t border-[#1a1a1a] mt-2">
+          <div className="pt-2 border-t border-[#1a1a1a] mt-2 flex items-center justify-between gap-2">
             <button
               onClick={() => {
                 onOpenContribute();
                 setMobileMenuOpen(false);
               }}
-              className="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-md text-xs font-medium bg-[#111111] text-neutral-300 border border-[#222222] hover:text-white"
+              className="flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-md text-xs font-medium bg-[#111111] text-neutral-300 border border-[#222222] hover:text-white cursor-pointer"
             >
               <GitPullRequest className="w-3.5 h-3.5 text-neutral-400" />
-              <span>Submit Contribution / Edit</span>
+              <span>Submit Edit</span>
+            </button>
+            <button
+              onClick={toggleTheme}
+              className="flex items-center gap-1.5 px-3 py-2 rounded-md text-xs font-medium bg-[#111111] text-neutral-300 border border-[#222222] hover:text-white cursor-pointer"
+            >
+              {theme === 'dark' ? <Sun className="w-3.5 h-3.5" /> : <Moon className="w-3.5 h-3.5" />}
+              <span>{theme === 'dark' ? 'Light' : 'Dark'}</span>
             </button>
           </div>
         </div>

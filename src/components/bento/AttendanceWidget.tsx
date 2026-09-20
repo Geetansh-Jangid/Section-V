@@ -33,7 +33,11 @@ export const AttendanceWidget: React.FC<AttendanceWidgetProps> = ({ onNavigateTo
               Attendance Health
             </h3>
           </div>
-          <span className="text-[11px] font-mono text-neutral-400 px-2 py-0.5 rounded bg-[#141414] border border-[#222222]">
+          <span 
+            onClick={onNavigateToCalculator}
+            className="text-[11px] font-mono text-neutral-400 px-2 py-0.5 rounded bg-[#141414] border border-[#222222] hover:text-white hover:border-[#333333] transition-colors cursor-pointer"
+            title="Click to adjust custom target"
+          >
             Target {targetAttendance}%
           </span>
         </div>
@@ -44,7 +48,7 @@ export const AttendanceWidget: React.FC<AttendanceWidgetProps> = ({ onNavigateTo
             <div className="text-2xl sm:text-3xl font-bold text-white tracking-tight flex items-baseline gap-1.5">
               <span>{metrics.currentPercentage}%</span>
               <span className={`text-xs font-medium ${metrics.isSafe ? 'text-emerald-400' : 'text-amber-400'}`}>
-                {metrics.isSafe ? 'Compliant' : 'Below 75%'}
+                {metrics.isSafe ? 'Compliant' : `Below ${targetAttendance}%`}
               </span>
             </div>
             <p className="text-xs text-neutral-400 mt-0.5 font-mono">
@@ -87,9 +91,9 @@ export const AttendanceWidget: React.FC<AttendanceWidgetProps> = ({ onNavigateTo
 
       <button
         onClick={onNavigateToCalculator}
-        className="mt-4 pt-3 border-t border-[#1c1c1c] flex items-center justify-between text-xs text-neutral-400 hover:text-white transition-colors"
+        className="mt-4 pt-3 border-t border-[#1c1c1c] flex items-center justify-between text-xs text-neutral-400 hover:text-white transition-colors cursor-pointer"
       >
-        <span>Open full 75% calculator</span>
+        <span>Open full attendance calculator</span>
         <ArrowRight className="w-3.5 h-3.5" />
       </button>
     </div>
