@@ -8,7 +8,8 @@ import {
   ShieldCheck,
   Clock,
   Home,
-  CheckSquare
+  CheckSquare,
+  CornerDownLeft
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { createPortal } from 'react-dom';
@@ -53,7 +54,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.15 }}
-          className="fixed inset-0 z-50 flex items-start justify-center pt-20 px-4 bg-black/70 backdrop-blur-sm"
+          className="fixed inset-0 z-50 flex items-start justify-center px-4 pt-[max(1rem,10dvh)] bg-black/75 backdrop-blur-md"
           style={{ minHeight: '100dvh' }}
           onClick={() => onOpenChange(false)}
         >
@@ -63,16 +64,15 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.96, y: -10 }}
             transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
-            data-modal-card="true"
-            className="w-full max-w-[calc(100vw-1.5rem)] sm:max-w-xl md:max-w-2xl lg:max-w-3xl"
+            className="w-full max-w-2xl"
             onClick={(e) => e.stopPropagation()}
           >
             <Command 
               label="Command Menu"
-              className="rounded-2xl bg-[#0c0c0c] border border-[#262626] shadow-2xl overflow-hidden text-neutral-200"
+              className="command-palette w-full rounded-xl bg-[#0c0c0c] border border-[#262626] shadow-2xl overflow-hidden text-neutral-200"
             >
-          <div className="p-2.5 sm:p-3">
-            <div className="flex items-center gap-2.5 rounded-xl bg-[#161616] border border-[#262626] px-3 sm:px-4 py-2.5 transition-colors focus-within:border-neutral-400">
+          <div className="p-2.5 sm:p-3 border-b border-[#1f1f1f]">
+            <div className="flex items-center gap-2.5 rounded-lg bg-[#121212] border border-[#2a2a2a] px-3 sm:px-4 py-2.5 transition-colors focus-within:border-neutral-400">
               <Search className="w-4 h-4 sm:w-[18px] sm:h-[18px] text-neutral-500 shrink-0" />
               <Command.Input
                 value={search}
@@ -87,7 +87,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
             </div>
           </div>
 
-          <Command.List className="max-h-80 sm:max-h-96 overflow-y-auto p-2 sm:p-2.5">
+          <Command.List className="max-h-[min(26rem,calc(100dvh-12rem))] overflow-y-auto p-2 sm:p-2.5">
             <Command.Empty className="py-8 text-center text-xs sm:text-sm text-neutral-500">
               No matching results.
             </Command.Empty>
@@ -198,6 +198,14 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
               ))}
             </Command.Group>
           </Command.List>
+          <div className="flex items-center justify-between gap-3 border-t border-[#1f1f1f] bg-[#0a0a0a] px-4 py-2.5 text-[11px] text-neutral-500">
+            <span className="hidden sm:inline">Search pages, subjects, and faculty.</span>
+            <span className="sm:hidden">Search Section V</span>
+            <div className="flex items-center gap-3 shrink-0 font-mono">
+              <span className="inline-flex items-center gap-1"><kbd className="rounded border border-[#2a2a2a] bg-[#141414] px-1.5 py-0.5 text-[10px]">↑↓</kbd> navigate</span>
+              <span className="hidden sm:inline-flex items-center gap-1"><kbd className="rounded border border-[#2a2a2a] bg-[#141414] px-1.5 py-0.5 text-[10px]"><CornerDownLeft className="h-3 w-3" /></kbd> open</span>
+            </div>
+          </div>
         </Command>
           </motion.div>
         </motion.div>

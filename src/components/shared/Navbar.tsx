@@ -32,23 +32,35 @@ export const Navbar: React.FC<NavbarProps> = ({
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { theme, toggleTheme, userSection, setUserSection } = useSectionVStore();
 
-  // Lock scroll when mobile menu open
+  // The menu already owns the viewport. Lock document scrolling without fixing
+  // the body, which can move a sticky header off-screen in Firefox Android.
   useEffect(() => {
-    if (mobileMenuOpen) {
-      const scrollY = window.scrollY;
-      document.body.style.position = 'fixed';
-      document.body.style.top = `-${scrollY}px`;
-      document.body.style.width = '100%';
-      document.body.style.overflow = 'hidden';
-      return () => {
-        document.body.style.position = '';
-        document.body.style.top = '';
-        document.body.style.width = '';
-        document.body.style.overflow = '';
-        window.scrollTo(0, scrollY);
-      };
-    }
+    if (!mobileMenuOpen) return;
+
+    const root = document.documentElement;
+    const rootOverflow = root.style.overflow;
+    const bodyOverflow = document.body.style.overflow;
+    root.style.overflow = 'hidden';
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      root.style.overflow = rootOverflow;
+      document.body.style.overflow = bodyOverflow;
+    };
   }, [mobileMenuOpen]);
+
+  // The trigger is hidden on wide screens, so close an already-open menu when
+  // a resize crosses into the desktop layout.
+  useEffect(() => {
+    const wideLayout = window.matchMedia('(min-width: 1460px)');
+    const closeOnWideLayout = () => {
+      if (wideLayout.matches) setMobileMenuOpen(false);
+    };
+
+    closeOnWideLayout();
+    wideLayout.addEventListener('change', closeOnWideLayout);
+    return () => wideLayout.removeEventListener('change', closeOnWideLayout);
+  }, []);
 
   const navItems = [
     { id: 'dashboard', label: 'Overview', icon: LayoutGrid },
@@ -61,7 +73,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
   return (
     <>
-      <header className="sticky top-0 z-40 w-full border-b border-[#1f1f1f] bg-black/95 backdrop-blur-md transition-colors">
+      <header className="sticky top-0 z-[60] w-full border-b border-[#1f1f1f] bg-black/95 backdrop-blur-md transition-colors">
       <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo & Section V Brand */}
@@ -78,8 +90,8 @@ export const Navbar: React.FC<NavbarProps> = ({
             </button>
           </div>
 
-          {/* Desktop Navigation Links - Shown ONLY at >= 1200px as requested */}
-          <nav className="hidden min-[1200px]:flex items-center gap-1">
+          {/* Desktop navigation is reserved for wide layouts; smaller widths use the menu. */}
+          <nav className="hidden min-[1460px]:flex items-center gap-1">
             {navItems.map((item) => {
               const Icon = item.icon;
               const isActive = activeTab === item.id;
@@ -116,10 +128,9 @@ export const Navbar: React.FC<NavbarProps> = ({
 
             {/* Batch / Section Corner Toggle (V1 | V2) - Desktop only; mobile lives in hamburger menu */}
             <div
-              className="hidden min-[1200px]:inline-flex h-9 items-center rounded-md bg-[#0f0f0f] border border-[#222222] overflow-hidden"
+              className="hidden min-[1460px]:inline-flex h-9 items-center rounded-md bg-[#0f0f0f] border border-[#222222] overflow-hidden"
               title={`Your Section: V${userSection === 'V1' ? '1' : '2'} · Switch to show your batch by default`}
             >
-              <Layers className="w-3.5 h-3.5 text-neutral-500 ml-2.5 shrink-0" />
               <div className="flex items-center p-0.5">
                 {(['V1', 'V2'] as const).map((sec) => (
                   <button
@@ -156,11 +167,11 @@ export const Navbar: React.FC<NavbarProps> = ({
               {theme === 'dark' ? <Sun className="w-4.5 h-4.5" /> : <Moon className="w-4.5 h-4.5 text-neutral-300" />}
             </button>
 
-            {/* Hamburger Menu Toggle - Shown at < 1200px as explicitly requested */}
+            {/* Hamburger menu is used below the wide desktop navigation breakpoint. */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-label="Toggle navigation menu"
-              className="min-[1200px]:hidden h-9 w-9 inline-flex items-center justify-center rounded-md bg-[#0f0f0f] border border-[#222222] text-neutral-300 hover:text-white hover:border-[#333333] cursor-pointer select-none"
+              className="min-[1460px]:hidden h-9 w-9 inline-flex items-center justify-center rounded-md bg-[#0f0f0f] border border-[#222222] text-neutral-300 hover:text-white hover:border-[#333333] cursor-pointer select-none"
             >
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
@@ -169,9 +180,9 @@ export const Navbar: React.FC<NavbarProps> = ({
       </div>
       </header>
 
-      {/* Hamburger Menu Dropdown for < 1200px */}
+      {/* Hamburger menu dropdown for layouts below 1460px. */}
       {mobileMenuOpen && (
-        <div className="min-[1200px]:hidden fixed inset-0 top-16 z-50 bg-black overflow-hidden">
+        <div className="fixed inset-x-0 bottom-0 top-16 z-50 bg-black overflow-hidden">
           <div className="h-full overflow-y-auto px-4 py-6 space-y-2">
             {navItems.map((item) => {
               const Icon = item.icon;
