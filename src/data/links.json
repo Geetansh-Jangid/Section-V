@@ -1,0 +1,49 @@
+{
+  "githubRepoUrl": "https://github.com/section-v",
+  "whatsappCommunityUrl": "https://chat.whatsapp.com/section-v-announcements",
+  "generalDriveUrl": "https://drive.google.com/drive/folders/section-v-root",
+  "campusPortals": [
+    {
+      "id": "erp",
+      "title": "Student ERP",
+      "desc": "Grades & Official Records",
+      "url": "https://erp.college.edu",
+      "icon": "GraduationCap"
+    },
+    {
+      "id": "lms",
+      "title": "Course LMS",
+      "desc": "Lab Manuals & Submissions",
+      "url": "https://moodle.college.edu",
+      "icon": "BookOpen"
+    },
+    {
+      "id": "exam",
+      "title": "Exam Cell",
+      "desc": "Roll Lists & Seating",
+      "url": "https://exam.college.edu",
+      "icon": "Layers"
+    },
+    {
+      "id": "wifi",
+      "title": "Campus Network",
+      "desc": "WiFi & 802.1X Auth",
+      "url": "https://wifi.college.edu",
+      "icon": "Wifi"
+    },
+    {
+      "id": "github",
+      "title": "Git Repository",
+      "desc": "Timetable PRs & Commits",
+      "url": "https://github.com/section-v",
+      "icon": "Github"
+    },
+    {
+      "id": "library",
+      "title": "IEEE / Library",
+      "desc": "E-Books & Papers",
+      "url": "https://library.college.edu",
+      "icon": "Globe"
+    }
+  ]
+}

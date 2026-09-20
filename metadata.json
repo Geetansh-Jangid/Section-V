@@ -1,0 +1,6 @@
+{
+  "name": "Section V",
+  "description": "Academic dashboard for Section V (V1 & V2) with timetable schedule, attendance calculator, faculty directory, and study notes.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

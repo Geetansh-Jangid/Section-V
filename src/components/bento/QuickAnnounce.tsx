@@ -1,0 +1,113 @@
+import React, { useState } from 'react';
+import { Bell, ChevronRight, X } from 'lucide-react';
+import announcementsDataRaw from '../../data/announcements.json';
+import { Announcement } from '../../lib/schemas.ts';
+
+const announcements = announcementsDataRaw as Announcement[];
+
+interface QuickAnnounceProps {
+  onOpenContributeModal?: () => void;
+}
+
+export const QuickAnnounce: React.FC<QuickAnnounceProps> = () => {
+  const [selectedNotice, setSelectedNotice] = useState<Announcement | null>(null);
+
+  return (
+    <div className="rounded-xl bg-[#0a0a0a] border border-[#222222] p-5 flex flex-col justify-between hover:border-[#333333] transition-colors">
+      <div>
+        {/* Header */}
+        <div className="flex items-center justify-between gap-2 mb-3">
+          <div className="flex items-center gap-2">
+            <Bell className="w-4 h-4 text-neutral-400" />
+            <h3 className="text-xs font-medium text-neutral-400 uppercase tracking-wider">
+              Official Circulars
+            </h3>
+          </div>
+          <span className="text-[11px] font-mono text-neutral-400 px-2 py-0.5 rounded bg-[#141414] border border-[#222222]">
+            {announcements.length} Bulletins
+          </span>
+        </div>
+
+        {/* Notices Stack */}
+        <div className="space-y-2">
+          {announcements.slice(0, 3).map((item) => (
+            <div
+              key={item.id}
+              onClick={() => setSelectedNotice(item)}
+              className="group cursor-pointer rounded-lg bg-[#111111] border border-[#1f1f1f] p-3 hover:border-[#333333] transition-colors"
+            >
+              <div className="flex items-center justify-between gap-2 mb-1">
+                <span className={`px-1.5 py-0.2 rounded text-[10px] font-mono uppercase ${
+                  item.priority === 'urgent'
+                    ? 'bg-red-950/80 text-red-300 border border-red-800'
+                    : 'bg-[#181818] text-neutral-400 border border-[#282828]'
+                }`}>
+                  {item.priority}
+                </span>
+                <span className="text-[11px] text-neutral-500 font-mono">{item.date}</span>
+              </div>
+
+              <h4 className="text-xs font-medium text-neutral-200 group-hover:text-white line-clamp-1 transition-colors">
+                {item.title}
+              </h4>
+
+              <div className="flex items-center justify-between mt-1 text-[11px] text-neutral-500">
+                <span>By {item.author}</span>
+                <ChevronRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-opacity" />
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Modal View */}
+      {selectedNotice && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-xs">
+          <div className="w-full max-w-md bg-[#0f0f0f] border border-[#262626] rounded-xl p-5 shadow-2xl">
+            <div className="flex items-center justify-between pb-3 border-b border-[#222222]">
+              <span className="text-xs font-mono uppercase text-neutral-400">
+                {selectedNotice.category} Notice · {selectedNotice.date}
+              </span>
+              <button
+                onClick={() => setSelectedNotice(null)}
+                className="text-neutral-400 hover:text-white"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            <div className="pt-3 space-y-3">
+              <h3 className="text-sm font-semibold text-white">
+                {selectedNotice.title}
+              </h3>
+              <p className="text-xs text-neutral-300 leading-relaxed">
+                {selectedNotice.summary || "Official section circular published by department authorities."}
+              </p>
+
+              <div className="flex flex-wrap gap-1.5 pt-2">
+                {selectedNotice.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="px-2 py-0.5 rounded text-[10px] font-mono bg-[#181818] border border-[#282828] text-neutral-400"
+                  >
+                    #{tag}
+                  </span>
+                ))}
+              </div>
+
+              <div className="pt-3 border-t border-[#222222] flex justify-between items-center text-xs text-neutral-500">
+                <span>Signed: {selectedNotice.author}</span>
+                <button
+                  onClick={() => setSelectedNotice(null)}
+                  className="px-3 py-1.5 rounded bg-white text-black font-semibold hover:bg-neutral-200"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};

@@ -1,0 +1,46 @@
+[
+  {
+    "id": "cr-1",
+    "name": "Aarav Mehta",
+    "role": "Class Representative (Academic Affairs & Timetable)",
+    "section": "Section V",
+    "rollNo": "2024CS-V-014",
+    "email": "aarav.mehta.secv@college.edu",
+    "phone": "+91 98765 43210",
+    "officeHours": "Daily: 01:15 PM – 02:00 PM (LH-302 / Cafeteria Corner)",
+    "primaryResponsibilities": [
+      "Timetable rescheduling coordination with faculty",
+      "Official college circular dissemination",
+      "Attendance discrepancy escalations with mentors",
+      "Git repository maintenance for Section-V OS"
+    ],
+    "social": {
+      "github": "https://github.com/section-v-lead",
+      "linkedin": "https://linkedin.com/in/aarav-mehta",
+      "whatsapp": "https://chat.whatsapp.com/invite/section-v-official"
+    },
+    "avatar": "AM"
+  },
+  {
+    "id": "cr-2",
+    "name": "Rhea Kapoor",
+    "role": "Class Representative (Labs, Logistics & SDC Liason)",
+    "section": "Section V",
+    "rollNo": "2024CS-V-042",
+    "email": "rhea.kapoor.secv@college.edu",
+    "phone": "+91 98765 43211",
+    "officeHours": "Mon, Wed, Fri: 04:00 PM – 05:00 PM (CS-Lab-3 / SDC Bay)",
+    "primaryResponsibilities": [
+      "Lab batch allocations and practical file collection",
+      "Organizing SDC workshops and hackathon participation",
+      "Drive repository notes aggregation & peer tutoring groups",
+      "CR Grievance desk for Section V students"
+    ],
+    "social": {
+      "github": "https://github.com/rhea-kapoor-v",
+      "linkedin": "https://linkedin.com/in/rhea-kapoor",
+      "whatsapp": "https://chat.whatsapp.com/invite/section-v-official"
+    },
+    "avatar": "RK"
+  }
+]

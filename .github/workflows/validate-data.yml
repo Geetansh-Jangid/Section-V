@@ -1,0 +1,33 @@
+name: Validate Section-V Data Integrity
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'src/data/**'
+      - 'content/**'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'src/data/**'
+      - 'content/**'
+
+jobs:
+  validate-schema:
+    runs-on: ubuntu-latest
+    name: Run Zod Schema Validation & Integrity Checks
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js Environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Validate JSON & Frontmatter against Schemas
+        run: npx tsx src/scripts/validate.ts

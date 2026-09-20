@@ -1,0 +1,413 @@
+{
+  "section": "Section V (AI)",
+  "semester": "Semester 1 / 2 - B.Tech CSE (AI)",
+  "academicYear": "2026-2027",
+  "defaultRoom": "CT-12",
+  "timeSlots": [
+    { "id": "slot-1", "startTime": "08:30", "endTime": "09:30", "label": "1" },
+    { "id": "slot-2", "startTime": "09:30", "endTime": "10:30", "label": "2" },
+    { "id": "slot-3", "startTime": "10:30", "endTime": "11:30", "label": "3" },
+    { "id": "slot-4", "startTime": "11:30", "endTime": "12:30", "label": "4" },
+    { "id": "slot-5", "startTime": "12:30", "endTime": "13:30", "label": "5", "isBreak": true },
+    { "id": "slot-6", "startTime": "13:30", "endTime": "14:30", "label": "6" },
+    { "id": "slot-7", "startTime": "14:30", "endTime": "15:30", "label": "7" }
+  ],
+  "schedule": {
+    "Monday": [
+      {
+        "id": "mon-1",
+        "slotId": "slot-1",
+        "subjectCode": "M",
+        "subjectName": "Mathematics",
+        "faculty": "GC",
+        "room": "CT-12",
+        "type": "Theory",
+        "section": "Both",
+        "color": "#84cc16"
+      },
+      {
+        "id": "mon-2",
+        "slotId": "slot-2",
+        "subjectCode": "DE",
+        "subjectName": "Digital Electronics",
+        "faculty": "RSE",
+        "room": "CT-12",
+        "type": "Theory",
+        "section": "Both",
+        "color": "#f472b6"
+      },
+      {
+        "id": "mon-4",
+        "slotId": "slot-4",
+        "subjectCode": "PPS",
+        "subjectName": "Programming for Problem Solving",
+        "faculty": "GS",
+        "room": "CT-12",
+        "type": "Theory",
+        "section": "Both",
+        "color": "#eab308"
+      },
+      {
+        "id": "mon-6-v1",
+        "slotId": "slot-6",
+        "subjectCode": "CSK LAB",
+        "subjectName": "Communication Skills Lab",
+        "faculty": "RR",
+        "room": "CS-22",
+        "type": "Lab",
+        "section": "V1",
+        "color": "#10b981"
+      },
+      {
+        "id": "mon-6-v2",
+        "slotId": "slot-6",
+        "subjectCode": "IP LAB",
+        "subjectName": "Internet Programming Lab",
+        "faculty": "SC",
+        "room": "CLG-18",
+        "type": "Lab",
+        "section": "V2",
+        "color": "#f472b6"
+      },
+      {
+        "id": "mon-7-v1",
+        "slotId": "slot-7",
+        "subjectCode": "CSK LAB",
+        "subjectName": "Communication Skills Lab",
+        "faculty": "RR",
+        "room": "CS-22",
+        "type": "Lab",
+        "section": "V1",
+        "color": "#10b981"
+      },
+      {
+        "id": "mon-7-v2",
+        "slotId": "slot-7",
+        "subjectCode": "IP LAB",
+        "subjectName": "Internet Programming Lab",
+        "faculty": "SC",
+        "room": "CLG-18",
+        "type": "Lab",
+        "section": "V2",
+        "color": "#f472b6"
+      }
+    ],
+    "Tuesday": [
+      {
+        "id": "tue-1",
+        "slotId": "slot-1",
+        "subjectCode": "FCSEH",
+        "subjectName": "Foundation Course in Science, Ethics & Human Values",
+        "faculty": "SM",
+        "room": "CT-12",
+        "type": "Theory",
+        "section": "Both",
+        "color": "#06b6d4"
+      },
+      {
+        "id": "tue-3",
+        "slotId": "slot-3",
+        "subjectCode": "CH",
+        "subjectName": "Chemistry",
+        "faculty": "SHK",
+        "room": "CT-12",
+        "type": "Theory",
+        "section": "Both",
+        "color": "#f472b6"
+      },
+      {
+        "id": "tue-4",
+        "slotId": "slot-4",
+        "subjectCode": "DE",
+        "subjectName": "Digital Electronics",
+        "faculty": "RSE",
+        "room": "CT-12",
+        "type": "Theory",
+        "section": "Both",
+        "color": "#f472b6"
+      },
+      {
+        "id": "tue-6-v1",
+        "slotId": "slot-6",
+        "subjectCode": "PPS LAB",
+        "subjectName": "Programming for Problem Solving Lab",
+        "faculty": "NK",
+        "room": "CF-02",
+        "type": "Lab",
+        "section": "V1",
+        "color": "#eab308"
+      },
+      {
+        "id": "tue-6-v2",
+        "slotId": "slot-6",
+        "subjectCode": "CH LAB",
+        "subjectName": "Chemistry Lab",
+        "faculty": "SHK",
+        "room": "CG-20",
+        "type": "Lab",
+        "section": "V2",
+        "color": "#f97316"
+      },
+      {
+        "id": "tue-7-v1",
+        "slotId": "slot-7",
+        "subjectCode": "PPS LAB",
+        "subjectName": "Programming for Problem Solving Lab",
+        "faculty": "NK",
+        "room": "CF-02",
+        "type": "Lab",
+        "section": "V1",
+        "color": "#eab308"
+      },
+      {
+        "id": "tue-7-v2",
+        "slotId": "slot-7",
+        "subjectCode": "CH LAB",
+        "subjectName": "Chemistry Lab",
+        "faculty": "SHK",
+        "room": "CG-20",
+        "type": "Lab",
+        "section": "V2",
+        "color": "#f97316"
+      }
+    ],
+    "Wednesday": [
+      {
+        "id": "wed-1-v1",
+        "slotId": "slot-1",
+        "subjectCode": "PPS",
+        "subjectName": "PPS Tutorial",
+        "faculty": "GS",
+        "room": "CT-12",
+        "type": "Tutorial",
+        "section": "V1",
+        "color": "#eab308"
+      },
+      {
+        "id": "wed-1-v2",
+        "slotId": "slot-1",
+        "subjectCode": "CH",
+        "subjectName": "Chemistry Tutorial",
+        "faculty": "SHK",
+        "room": "CT-12",
+        "type": "Tutorial",
+        "section": "V2",
+        "color": "#f97316"
+      },
+      {
+        "id": "wed-2",
+        "slotId": "slot-2",
+        "subjectCode": "CSK",
+        "subjectName": "Communication Skills",
+        "faculty": "SHB",
+        "room": "CT-12",
+        "type": "Theory",
+        "section": "Both",
+        "color": "#eab308"
+      },
+      {
+        "id": "wed-3",
+        "slotId": "slot-3",
+        "subjectCode": "M",
+        "subjectName": "Mathematics",
+        "faculty": "GC",
+        "room": "CT-12",
+        "type": "Theory",
+        "section": "Both",
+        "color": "#84cc16"
+      },
+      {
+        "id": "wed-4",
+        "slotId": "slot-4",
+        "subjectCode": "CH",
+        "subjectName": "Chemistry",
+        "faculty": "SHK",
+        "room": "CT-12",
+        "type": "Theory",
+        "section": "Both",
+        "color": "#f472b6"
+      },
+      {
+        "id": "wed-6",
+        "slotId": "slot-6",
+        "subjectCode": "PPS",
+        "subjectName": "Programming for Problem Solving",
+        "faculty": "GS",
+        "room": "CT-12",
+        "type": "Theory",
+        "section": "Both",
+        "color": "#eab308"
+      }
+    ],
+    "Thursday": [
+      {
+        "id": "thu-1",
+        "slotId": "slot-1",
+        "subjectCode": "M",
+        "subjectName": "Mathematics",
+        "faculty": "GC",
+        "room": "CS-18",
+        "type": "Theory",
+        "section": "Both",
+        "color": "#84cc16"
+      },
+      {
+        "id": "thu-2",
+        "slotId": "slot-2",
+        "subjectCode": "FCSEH",
+        "subjectName": "Foundation Course in Science, Ethics & Human Values",
+        "faculty": "SM",
+        "room": "CS-18",
+        "type": "Theory",
+        "section": "Both",
+        "color": "#06b6d4"
+      },
+      {
+        "id": "thu-3",
+        "slotId": "slot-3",
+        "subjectCode": "CSK",
+        "subjectName": "Communication Skills",
+        "faculty": "SHB",
+        "room": "CS-04",
+        "type": "Theory",
+        "section": "Both",
+        "color": "#eab308"
+      },
+      {
+        "id": "thu-6-v1",
+        "slotId": "slot-6",
+        "subjectCode": "IP LAB",
+        "subjectName": "Internet Programming Lab",
+        "faculty": "SJ",
+        "room": "CLG-18",
+        "type": "Lab",
+        "section": "V1",
+        "color": "#f472b6"
+      },
+      {
+        "id": "thu-6-v2",
+        "slotId": "slot-6",
+        "subjectCode": "CSK LAB",
+        "subjectName": "Communication Skills Lab",
+        "faculty": "SK",
+        "room": "CS-22",
+        "type": "Lab",
+        "section": "V2",
+        "color": "#10b981"
+      },
+      {
+        "id": "thu-7-v1",
+        "slotId": "slot-7",
+        "subjectCode": "IP LAB",
+        "subjectName": "Internet Programming Lab",
+        "faculty": "SJ",
+        "room": "CLG-18",
+        "type": "Lab",
+        "section": "V1",
+        "color": "#f472b6"
+      },
+      {
+        "id": "thu-7-v2",
+        "slotId": "slot-7",
+        "subjectCode": "CSK LAB",
+        "subjectName": "Communication Skills Lab",
+        "faculty": "SK",
+        "room": "CS-22",
+        "type": "Lab",
+        "section": "V2",
+        "color": "#10b981"
+      }
+    ],
+    "Friday": [
+      {
+        "id": "fri-1",
+        "slotId": "slot-1",
+        "subjectCode": "M",
+        "subjectName": "Mathematics Tutorial / Practical",
+        "faculty": "GC",
+        "room": "CT-12",
+        "type": "Practical",
+        "section": "Both",
+        "color": "#10b981"
+      },
+      {
+        "id": "fri-2",
+        "slotId": "slot-2",
+        "subjectCode": "FCSEH",
+        "subjectName": "Foundation Course in Science, Ethics & Human Values",
+        "faculty": "SM",
+        "room": "CT-12",
+        "type": "Theory",
+        "section": "Both",
+        "color": "#06b6d4"
+      },
+      {
+        "id": "fri-3",
+        "slotId": "slot-3",
+        "subjectCode": "CH",
+        "subjectName": "Chemistry",
+        "faculty": "SHK",
+        "room": "CT-12",
+        "type": "Theory",
+        "section": "Both",
+        "color": "#f472b6"
+      },
+      {
+        "id": "fri-4",
+        "slotId": "slot-4",
+        "subjectCode": "M",
+        "subjectName": "Mathematics",
+        "faculty": "GC",
+        "room": "CT-12",
+        "type": "Theory",
+        "section": "Both",
+        "color": "#84cc16"
+      },
+      {
+        "id": "fri-6-v1",
+        "slotId": "slot-6",
+        "subjectCode": "CH LAB",
+        "subjectName": "Chemistry Lab",
+        "faculty": "RV",
+        "room": "CG-20",
+        "type": "Lab",
+        "section": "V1",
+        "color": "#f97316"
+      },
+      {
+        "id": "fri-6-v2",
+        "slotId": "slot-6",
+        "subjectCode": "PPS LAB",
+        "subjectName": "Programming for Problem Solving Lab",
+        "faculty": "GS",
+        "room": "CF-02",
+        "type": "Lab",
+        "section": "V2",
+        "color": "#eab308"
+      },
+      {
+        "id": "fri-7-v1",
+        "slotId": "slot-7",
+        "subjectCode": "CH LAB",
+        "subjectName": "Chemistry Lab",
+        "faculty": "RV",
+        "room": "CG-20",
+        "type": "Lab",
+        "section": "V1",
+        "color": "#f97316"
+      },
+      {
+        "id": "fri-7-v2",
+        "slotId": "slot-7",
+        "subjectCode": "PPS LAB",
+        "subjectName": "Programming for Problem Solving Lab",
+        "faculty": "GS",
+        "room": "CF-02",
+        "type": "Lab",
+        "section": "V2",
+        "color": "#eab308"
+      }
+    ],
+    "Saturday": []
+  }
+}
