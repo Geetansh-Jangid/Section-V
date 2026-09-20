@@ -401,6 +401,24 @@ html.light ::-webkit-scrollbar-thumb {
   box-shadow: 0 20px 70px rgba(0, 0, 0, 0.95);
 }
 
+/* Command palette: compact, technical surfaces shared by the dark and light UI. */
+[cmdk-root].command-palette {
+  background: #0c0c0c;
+  border-color: #2a2a2a;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.62);
+}
+
+html.light [cmdk-root].command-palette {
+  background: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  box-shadow: 0 24px 80px rgba(15, 23, 42, 0.16) !important;
+}
+
+html.light [cmdk-root].command-palette > div:last-child {
+  background: #f8fafc !important;
+  border-color: #e2e8f0 !important;
+}
+
 [cmdk-input] {
   width: 100%;
   padding: 14px 18px;
