@@ -49,6 +49,19 @@ export const Navbar: React.FC<NavbarProps> = ({
     };
   }, [mobileMenuOpen]);
 
+  // The trigger is hidden on wide screens, so close an already-open menu when
+  // a resize crosses into the desktop layout.
+  useEffect(() => {
+    const wideLayout = window.matchMedia('(min-width: 1460px)');
+    const closeOnWideLayout = () => {
+      if (wideLayout.matches) setMobileMenuOpen(false);
+    };
+
+    closeOnWideLayout();
+    wideLayout.addEventListener('change', closeOnWideLayout);
+    return () => wideLayout.removeEventListener('change', closeOnWideLayout);
+  }, []);
+
   const navItems = [
     { id: 'dashboard', label: 'Overview', icon: LayoutGrid },
     { id: 'timetable', label: 'Timetable', icon: Calendar },
