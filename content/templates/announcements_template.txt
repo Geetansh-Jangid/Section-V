@@ -1,0 +1,20 @@
+# ==============================================================================
+# SECTION V: CLASS ANNOUNCEMENT TEMPLATE
+# ==============================================================================
+# Non-technical students and CRs can post notices, exam dates, or hackathon calls.
+#
+# INSTRUCTIONS:
+# Each announcement has Title, Author, Date, Priority, Category, Tags, and Summary.
+# Priority options: normal, medium, high, urgent
+# Category options: Exam, Lab, Event, Timetable, General
+# ==============================================================================
+
+[ANNOUNCEMENT]
+ID: notice-2026-new
+Title: Mid-Term Examination Schedule & Room Allotments Released
+Author: Academic Cell & CR
+Date: 2026-09-20
+Priority: urgent
+Category: Exam
+Tags: Mid-Sem, Mandatory, Exam Cell
+Summary: Mid-Semester exams commence September 28. Review allocated halls, row seats, and strict 09:45 AM reporting rules.

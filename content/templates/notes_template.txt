@@ -1,0 +1,45 @@
+# ==============================================================================
+# SECTION V: SUBJECT NOTES & GOOGLE DRIVE LINKS TEMPLATE
+# ==============================================================================
+# Non-technical students can contribute or update notes simply by filling out
+# or modifying this text file and creating a GitHub Pull Request!
+#
+# INSTRUCTIONS:
+# - Fill in the Subject details below.
+# - Add your Google Drive folder link or specific lecture slide links.
+# - You can add multiple [UNIT] blocks and [PYQ] (Previous Year Paper) blocks.
+# ==============================================================================
+
+Subject Code: M
+Subject Name: Mathematics
+Faculty: Prof. G.C. Sharma (GC)
+Credits: 4
+Semester: 1
+Drive Folder URL: https://drive.google.com/drive/folders/your-folder-id
+PYQ Drive URL: https://drive.google.com/drive/folders/your-pyq-folder-id
+Tags: Calculus, Linear Algebra, Matrices
+Last Updated: 2026-09-20
+
+[UNIT]
+Unit Number: 1
+Title: Differential & Integral Calculus
+Topics: Rolle's & Mean Value Theorems, Taylor's Series, Indeterminate Forms, Definite Integrals
+Drive Link: https://drive.google.com/file/d/your-lecture-slides-file.pdf
+
+[UNIT]
+Unit Number: 2
+Title: Matrices & Linear Systems
+Topics: Rank of Matrix, Gauss Elimination, Eigenvalues & Eigenvectors
+Drive Link: https://drive.google.com/file/d/your-unit2-slides.pdf
+
+[PYQ]
+Year: 2025 Mid-Sem
+Exam Type: Mid-Sem
+File Size: 1.5 MB
+Drive Link: https://drive.google.com/file/d/your-pyq-paper.pdf
+
+[PYQ]
+Year: 2024 End-Sem
+Exam Type: End-Sem
+File Size: 2.3 MB
+Drive Link: https://drive.google.com/file/d/your-endsem-paper.pdf

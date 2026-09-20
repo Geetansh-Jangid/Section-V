@@ -1,0 +1,44 @@
+# ==============================================================================
+# SECTION V: CLASS ANNOUNCEMENTS DATA
+# Content File: content/announcements/announcements.txt
+# ==============================================================================
+
+[ANNOUNCEMENT]
+ID: notice-2026-001
+Title: Mid-Term Examination Schedule & Room Allotments Released
+Author: Academic Cell & CR
+Date: 2026-09-18
+Priority: urgent
+Category: Exam
+Tags: Mid-Sem, Mandatory, Exam Cell
+Summary: Mid-Semester exams commence September 28. Review allocated halls, row seats, and strict 09:45 AM reporting rules.
+
+[ANNOUNCEMENT]
+ID: notice-2026-002
+Title: OS Lab Viva & Practical File Submission Deadline
+Author: Prof. Rajesh Verma (OS Faculty)
+Date: 2026-09-19
+Priority: high
+Category: Lab
+Tags: Operating Systems, Viva, Lab-4
+Summary: Hard-bound practical records due Friday 4:00 PM in CS-Lab-4. Focus topics include POSIX pthreads and Banker's algorithm.
+
+[ANNOUNCEMENT]
+ID: notice-2026-003
+Title: SDC Annual 36-Hour Hackathon: Section V Teams Call
+Author: Rhea Kapoor (CR)
+Date: 2026-09-19
+Priority: medium
+Category: Event
+Tags: SDC, Hackathon, Open-Source
+Summary: Registration open for CodeStorm 2026. Section V teams receive prioritized mentor reviews in the Innovation Bay.
+
+[ANNOUNCEMENT]
+ID: notice-2026-004
+Title: Room Change Notice: Thursday Elective I relocated to LH-204
+Author: Aarav Mehta (CR)
+Date: 2026-09-17
+Priority: normal
+Category: Timetable
+Tags: Relocation, Elective, LH-204
+Summary: Cloud Architecture elective on Thursday 2:00 PM has moved from LH-302 to LH-204 due to projector upgrades.

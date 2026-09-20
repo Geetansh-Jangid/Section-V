@@ -1,0 +1,58 @@
+# ==============================================================================
+# SECTION V: STUDENT TASKS & WORKS (TODO)
+# Content File: content/tasks/tasks.txt
+# ==============================================================================
+# Works and assignments assigned to Section V students.
+# Filterable by Section: All, V1, V2.
+# New works can be proposed via PR and reviewed before merging.
+# ==============================================================================
+
+[TASK]
+ID: task-001
+Title: PPS Lab Assignment 3: Dynamic Memory Allocation & Structs
+Subject: PPS
+Section: All
+Due Date: 2026-09-25
+Priority: urgent
+Assigned By: Prof. G.S. Rathore (GS)
+Description: Complete problems 1 through 6 on pointer arithmetic, malloc/calloc and structure memory alignment. Upload .c files and handwritten dry-run notes.
+
+[TASK]
+ID: task-002
+Title: Digital Electronics: K-Map Simplification & Logic Diagram Sheet
+Subject: DE
+Section: V1
+Due Date: 2026-09-27
+Priority: medium
+Assigned By: Prof. R.S. Evans (RSE)
+Description: Solve 4-variable and 5-variable Karnaugh maps for POS and SOP equations. Draw circuit realization using NAND universal gates.
+
+[TASK]
+ID: task-003
+Title: Mathematics Unit 2 Problem Set: Gauss Jordan & Eigenvectors
+Subject: M
+Section: All
+Due Date: 2026-09-28
+Priority: medium
+Assigned By: Prof. G.C. Sharma (GC)
+Description: Tutorial sheet questions 12 to 24 on finding eigenvalues, eigenvectors and verifying Cayley-Hamilton theorem.
+
+[TASK]
+ID: task-004
+Title: Chemistry Lab Record: Water Hardness Titration Experiment
+Subject: CH LAB
+Section: V2
+Due Date: 2026-09-26
+Priority: urgent
+Assigned By: Dr. S.H. Khan (SHK)
+Description: Record observations, EDTA molarity calculation, and indicator color transitions in standard hard-bound lab notebook.
+
+[TASK]
+ID: task-005
+Title: Communication Skills: Technical Presentation Outline Draft
+Subject: CSK
+Section: V1
+Due Date: 2026-09-30
+Priority: low
+Assigned By: Prof. S.H. Bhatia (SHB)
+Description: Prepare a 1-page executive summary on 'Emerging Edge Computing Architectures' for peer seminar review.

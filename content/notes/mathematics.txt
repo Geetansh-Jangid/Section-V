@@ -1,0 +1,42 @@
+# Section V Subject Notes & Google Drive Links
+# Content File: content/notes/mathematics.txt
+
+Subject Code: M
+Subject Name: Mathematics
+Faculty: Prof. G.C. Sharma (GC)
+Credits: 4
+Semester: 1
+Drive Folder URL: https://drive.google.com/drive/folders/section-v-maths
+PYQ Drive URL: https://drive.google.com/drive/folders/section-v-maths-pyqs
+Tags: Calculus, Linear Algebra, Matrices, Differential Equations
+Last Updated: 2026-09-18
+
+[UNIT]
+Unit Number: 1
+Title: Differential & Integral Calculus
+Topics: Rolle's & Mean Value Theorems, Taylor's Series, Indeterminate Forms, Definite Integrals & Applications
+Drive Link: https://drive.google.com/file/d/maths-unit1.pdf
+
+[UNIT]
+Unit Number: 2
+Title: Matrices & Linear Systems
+Topics: Rank of Matrix, Gauss Elimination & Jordan, Eigenvalues & Eigenvectors, Cayley-Hamilton Theorem
+Drive Link: https://drive.google.com/file/d/maths-unit2.pdf
+
+[UNIT]
+Unit Number: 3
+Title: Multivariable Calculus
+Topics: Partial Derivatives, Euler's Theorem on Homogeneous Functions, Maxima & Minima of Two Variables, Lagrange Multipliers
+Drive Link: https://drive.google.com/file/d/maths-unit3.pdf
+
+[PYQ]
+Year: 2025 Mid-Term
+Exam Type: Mid-Sem
+File Size: 1.2 MB
+Drive Link: https://drive.google.com/file/d/maths-2025-mid.pdf
+
+[PYQ]
+Year: 2024 End-Sem
+Exam Type: End-Sem
+File Size: 2.4 MB
+Drive Link: https://drive.google.com/file/d/maths-2024-end.pdf

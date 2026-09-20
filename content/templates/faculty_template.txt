@@ -1,0 +1,22 @@
+# ==============================================================================
+# SECTION V: FACULTY DIRECTORY TEMPLATE
+# ==============================================================================
+# Non-technical students can update professor office hours, cabin locations, and emails.
+#
+# INSTRUCTIONS:
+# Each professor is enclosed in a [FACULTY] block.
+# Simply fill out the fields.
+# ==============================================================================
+
+[FACULTY]
+ID: fac-gc
+Name: Prof. G.C. Sharma (GC)
+Designation: Professor & Mathematics Coordinator
+Department: Applied Sciences & Mathematics
+Cabin: Science Block Room 102
+Email: gc.sharma@college.edu
+Phone: +91 11 2789 4501
+Subjects: M: Mathematics & Calculus; M-TUT: Mathematics Remedial
+Office Hours: Mon, Wed & Fri: 01:30 PM – 02:30 PM
+Research Interests: Linear Algebra, Applied Calculus, Numerical Methods
+Avatar: GC

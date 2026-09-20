@@ -1,46 +1,62 @@
 [
   {
+    "contentFile": "content/announcements/announcements.txt",
     "id": "notice-2026-001",
     "title": "Mid-Term Examination Schedule & Room Allotments Released",
     "author": "Academic Cell & CR",
     "date": "2026-09-18",
     "priority": "urgent",
     "category": "Exam",
-    "tags": ["Mid-Sem", "Mandatory", "Exam Cell"],
-    "summary": "Mid-Semester exams commence September 28. Review allocated halls, row seats, and strict 09:45 AM reporting rules.",
-    "markdownPath": "/content/announcements/sample-announcement.md"
+    "tags": [
+      "Mid-Sem",
+      "Mandatory",
+      "Exam Cell"
+    ],
+    "summary": "Mid-Semester exams commence September 28. Review allocated halls, row seats, and strict 09:45 AM reporting rules."
   },
   {
+    "contentFile": "content/announcements/announcements.txt",
     "id": "notice-2026-002",
     "title": "OS Lab Viva & Practical File Submission Deadline",
     "author": "Prof. Rajesh Verma (OS Faculty)",
     "date": "2026-09-19",
     "priority": "high",
     "category": "Lab",
-    "tags": ["Operating Systems", "Viva", "Lab-4"],
-    "summary": "Hard-bound practical records due Friday 4:00 PM in CS-Lab-4. Focus topics include POSIX pthreads and Banker's algorithm.",
-    "markdownPath": "/content/announcements/os-lab-viva.md"
+    "tags": [
+      "Operating Systems",
+      "Viva",
+      "Lab-4"
+    ],
+    "summary": "Hard-bound practical records due Friday 4:00 PM in CS-Lab-4. Focus topics include POSIX pthreads and Banker's algorithm."
   },
   {
+    "contentFile": "content/announcements/announcements.txt",
     "id": "notice-2026-003",
     "title": "SDC Annual 36-Hour Hackathon: Section V Teams Call",
     "author": "Rhea Kapoor (CR)",
     "date": "2026-09-19",
     "priority": "medium",
     "category": "Event",
-    "tags": ["SDC", "Hackathon", "Open-Source"],
-    "summary": "Registration open for CodeStorm 2026. Section V teams receive prioritized mentor reviews in the Innovation Bay.",
-    "markdownPath": "/content/announcements/sdc-hackathon.md"
+    "tags": [
+      "SDC",
+      "Hackathon",
+      "Open-Source"
+    ],
+    "summary": "Registration open for CodeStorm 2026. Section V teams receive prioritized mentor reviews in the Innovation Bay."
   },
   {
+    "contentFile": "content/announcements/announcements.txt",
     "id": "notice-2026-004",
     "title": "Room Change Notice: Thursday Elective I relocated to LH-204",
     "author": "Aarav Mehta (CR)",
     "date": "2026-09-17",
     "priority": "normal",
     "category": "Timetable",
-    "tags": ["Relocation", "Elective", "LH-204"],
-    "summary": "Cloud Architecture elective on Thursday 2:00 PM has moved from LH-302 to LH-204 due to projector upgrades.",
-    "markdownPath": "/content/announcements/room-change.md"
+    "tags": [
+      "Relocation",
+      "Elective",
+      "LH-204"
+    ],
+    "summary": "Cloud Architecture elective on Thursday 2:00 PM has moved from LH-302 to LH-204 due to projector upgrades."
   }
 ]

@@ -1,0 +1,26 @@
+# ==============================================================================
+# SECTION V: CAMPUS PORTALS & LINKS TEMPLATE
+# ==============================================================================
+# Non-technical students can update important portals and WhatsApp community links.
+#
+# INSTRUCTIONS:
+# Top section has global URLs, followed by [PORTAL] items.
+# ==============================================================================
+
+GitHub Repo URL: https://github.com/Geetansh-Jangid/Section-V
+WhatsApp Community URL: https://chat.whatsapp.com/section-v-announcements
+General Drive URL: https://drive.google.com/drive/folders/section-v-root
+
+[PORTAL]
+ID: erp
+Title: Student ERP
+Description: Grades & Official Records
+URL: https://erp.college.edu
+Icon: GraduationCap
+
+[PORTAL]
+ID: lms
+Title: Course LMS
+Description: Lab Manuals & Submissions
+URL: https://moodle.college.edu
+Icon: BookOpen

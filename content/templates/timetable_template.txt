@@ -1,0 +1,42 @@
+# ==============================================================================
+# SECTION V: TIMETABLE & CLASS SCHEDULE TEMPLATE
+# ==============================================================================
+# Non-technical students can update class schedules, room changes, and proxy faculty.
+#
+# INSTRUCTIONS:
+# Each lecture is listed under its Day block: [Monday], [Tuesday], etc.
+# Specify Time Slot, Subject Code, Subject Name, Faculty Initials, Room, and Type.
+# Batch can be: Both, V1, or V2.
+# ==============================================================================
+
+[SECTION_META]
+Section: Section V (AI)
+Semester: Semester 1 / 2 - B.Tech CSE (AI)
+Academic Year: 2026-2027
+Default Room: CT-12
+
+[TIME_SLOTS]
+1: 08:30 - 09:30
+2: 09:30 - 10:30
+3: 10:30 - 11:30
+4: 11:30 - 12:30
+5: 12:30 - 13:30 (Break)
+6: 13:30 - 14:30
+7: 14:30 - 15:30
+
+[Monday]
+Slot: 1 | Subject: M (Mathematics) | Faculty: GC | Room: CT-12 | Type: Theory | Batch: Both
+Slot: 2 | Subject: DE (Digital Electronics) | Faculty: RSE | Room: CT-12 | Type: Theory | Batch: Both
+Slot: 4 | Subject: PPS (Programming for Problem Solving) | Faculty: GS | Room: CT-12 | Type: Theory | Batch: Both
+Slot: 6 | Subject: CSK LAB (Communication Skills Lab) | Faculty: RR | Room: CS-22 | Type: Lab | Batch: V1
+Slot: 6 | Subject: DE LAB (Digital Electronics Lab) | Faculty: RSE | Room: CS-24 | Type: Lab | Batch: V2
+Slot: 7 | Subject: CSK LAB (Communication Skills Lab) | Faculty: RR | Room: CS-22 | Type: Lab | Batch: V1
+Slot: 7 | Subject: DE LAB (Digital Electronics Lab) | Faculty: RSE | Room: CS-24 | Type: Lab | Batch: V2
+
+[Tuesday]
+Slot: 1 | Subject: DE (Digital Electronics) | Faculty: RSE | Room: CT-12 | Type: Theory | Batch: Both
+Slot: 2 | Subject: M (Mathematics) | Faculty: GC | Room: CT-12 | Type: Theory | Batch: Both
+Slot: 3 | Subject: FCSEH (Science, Ethics & Values) | Faculty: SM | Room: CT-12 | Type: Theory | Batch: Both
+Slot: 4 | Subject: CH (Chemistry) | Faculty: SHK | Room: CT-12 | Type: Theory | Batch: Both
+Slot: 6 | Subject: PPS LAB (Programming Lab) | Faculty: GS | Room: CS-Lab-4 | Type: Lab | Batch: V1
+Slot: 7 | Subject: PPS LAB (Programming Lab) | Faculty: GS | Room: CS-Lab-4 | Type: Lab | Batch: V1

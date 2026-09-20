@@ -1,15 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { 
   BookOpen, 
   ExternalLink, 
   Search, 
   FileText, 
   FolderArchive,
+  FolderPlus,
   ChevronDown,
   ChevronUp,
-  X
+  FileCode,
+  Sparkles
 } from 'lucide-react';
-import { motion, AnimatePresence } from 'motion/react';
 import notesDataRaw from '../../data/notes.json';
 import { SubjectNote } from '../../lib/schemas.ts';
 
@@ -23,18 +24,6 @@ export const NotesPage: React.FC<NotesPageProps> = ({ onOpenContributeModal }) =
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedSubjectId, setSelectedSubjectId] = useState<string>(() => notesCatalog[0]?.id || 'sub-m');
   const [expandedUnit, setExpandedUnit] = useState<number | null>(1);
-  const [showMarkdownViewer, setShowMarkdownViewer] = useState(false);
-
-  // Close modal on Escape key
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setShowMarkdownViewer(false);
-    };
-    if (showMarkdownViewer) {
-      window.addEventListener('keydown', handleKeyDown);
-    }
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [showMarkdownViewer]);
 
   const activeSubject = notesCatalog.find((n) => n.id === selectedSubjectId) || notesCatalog[0];
 
@@ -51,21 +40,22 @@ export const NotesPage: React.FC<NotesPageProps> = ({ onOpenContributeModal }) =
       <div className="rounded-xl bg-[#0a0a0a] border border-[#222222] p-5 sm:p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
-            <BookOpen className="w-5 h-5 text-neutral-400" />
+            <BookOpen className="w-5 h-5 text-neutral-300" />
             <h2 className="text-lg sm:text-xl font-semibold text-white tracking-tight">
-              Subject Notes & Syllabus
+              Subject Notes & Google Drive Links
             </h2>
           </div>
-          <p className="text-xs text-neutral-400 mt-1 max-w-2xl">
-            Syllabus units, lecture slide resources, and solved past-year question papers for Section V.
+          <p className="text-xs text-neutral-400 mt-1 max-w-2xl leading-relaxed">
+            Centralized Google Drive folders, lecture slides, unit notes, and solved past-year question papers (PYQs) for Section V.
           </p>
         </div>
 
         <button
           onClick={onOpenContributeModal}
-          className="px-3 py-1.5 rounded-lg bg-white text-black text-xs font-semibold hover:bg-neutral-200 transition-colors self-start md:self-auto"
+          className="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg bg-white text-black text-xs font-semibold hover:bg-neutral-200 transition-colors self-start md:self-auto shadow-sm cursor-pointer"
         >
-          Upload Notes via PR
+          <FolderPlus className="w-4 h-4 text-black" />
+          <span>Add Notes to Drive</span>
         </button>
       </div>
 
@@ -132,50 +122,74 @@ export const NotesPage: React.FC<NotesPageProps> = ({ onOpenContributeModal }) =
                       {activeSubject.subjectCode}
                     </span>
                     <span className="text-xs text-neutral-400">{activeSubject.credits} Credits · Semester 1</span>
+                    {activeSubject.contentFile && (
+                      <a
+                        href={`https://github.com/Geetansh-Jangid/Section-V/blob/main/${activeSubject.contentFile}`}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="hidden sm:inline-flex items-center gap-1 text-[11px] font-mono text-neutral-500 hover:text-neutral-300 transition-colors"
+                        title="View source plain text content file"
+                      >
+                        <FileCode className="w-3 h-3" />
+                        <span>{activeSubject.contentFile}</span>
+                      </a>
+                    )}
                   </div>
                   <h3 className="text-lg font-semibold text-white mt-1">{activeSubject.subjectName}</h3>
                   <p className="text-xs text-neutral-400 mt-0.5">Faculty: {activeSubject.faculty}</p>
                 </div>
 
-                <div className="flex items-center gap-2">
+                <div className="flex flex-wrap items-center gap-2">
                   <a
                     href={activeSubject.driveUrl}
                     target="_blank"
                     rel="noreferrer"
                     className="flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-[#141414] border border-[#262626] text-xs font-medium text-neutral-200 hover:text-white transition-colors"
+                    title="Open Google Drive folder for this subject"
                   >
-                    <FolderArchive className="w-3.5 h-3.5 text-neutral-400" />
+                    <FolderArchive className="w-3.5 h-3.5 text-emerald-400" />
                     <span>Drive Folder</span>
                     <ExternalLink className="w-3 h-3 text-neutral-500" />
                   </a>
 
                   <button
-                    onClick={() => setShowMarkdownViewer(true)}
-                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-[#181818] border border-[#2a2a2a] text-xs font-medium text-neutral-200 hover:text-white transition-colors"
+                    onClick={onOpenContributeModal}
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-[#181818] border border-[#2a2a2a] text-xs font-medium text-neutral-200 hover:text-white transition-colors cursor-pointer"
+                    title="Add a new Google Drive link or lecture notes"
                   >
-                    <FileText className="w-3.5 h-3.5" />
-                    <span>View Syllabus</span>
+                    <FolderPlus className="w-3.5 h-3.5 text-neutral-300" />
+                    <span>Add Notes</span>
                   </button>
                 </div>
               </div>
 
-              <div className="flex flex-wrap gap-1.5">
-                {activeSubject.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="px-2 py-0.5 rounded text-[10px] font-mono bg-[#141414] border border-[#222222] text-neutral-400"
-                  >
-                    #{tag}
-                  </span>
-                ))}
+              <div className="flex flex-wrap gap-1.5 items-center justify-between">
+                <div className="flex flex-wrap gap-1.5">
+                  {activeSubject.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="px-2 py-0.5 rounded text-[10px] font-mono bg-[#141414] border border-[#222222] text-neutral-400"
+                    >
+                      #{tag}
+                    </span>
+                  ))}
+                </div>
+                <span className="text-[10px] font-mono text-neutral-500">
+                  Updated: {activeSubject.lastUpdated}
+                </span>
               </div>
             </div>
 
             {/* Units Accordion */}
             <div className="space-y-2">
-              <h4 className="text-xs uppercase font-medium text-neutral-400 tracking-wider">
-                Syllabus Units & Lecture Handouts
-              </h4>
+              <div className="flex items-center justify-between">
+                <h4 className="text-xs uppercase font-medium text-neutral-400 tracking-wider">
+                  Syllabus Units & Lecture Drive Handouts
+                </h4>
+                <span className="text-[11px] text-neutral-500">
+                  {activeSubject.units.length} Units Available
+                </span>
+              </div>
 
               {activeSubject.units.map((unit) => {
                 const isExpanded = expandedUnit === unit.unitNumber;
@@ -196,6 +210,11 @@ export const NotesPage: React.FC<NotesPageProps> = ({ onOpenContributeModal }) =
                       </div>
 
                       <div className="flex items-center gap-2">
+                        {unit.slidesUrl && (
+                          <span className="hidden sm:inline-flex items-center gap-1 text-[11px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
+                            Drive Slides Available
+                          </span>
+                        )}
                         {isExpanded ? (
                           <ChevronUp className="w-4 h-4 text-neutral-400" />
                         ) : (
@@ -205,7 +224,7 @@ export const NotesPage: React.FC<NotesPageProps> = ({ onOpenContributeModal }) =
                     </div>
 
                     {isExpanded && (
-                      <div className="p-3.5 bg-[#0a0a0a] border-t border-[#1a1a1a] space-y-2.5">
+                      <div className="p-3.5 bg-[#0a0a0a] border-t border-[#1a1a1a] space-y-3">
                         <div>
                           <span className="text-[11px] font-medium text-neutral-400 uppercase tracking-wider block mb-1.5">
                             Core Topics Covered
@@ -216,7 +235,7 @@ export const NotesPage: React.FC<NotesPageProps> = ({ onOpenContributeModal }) =
                                 key={idx}
                                 className="flex items-center gap-2 text-xs text-neutral-300 p-1.5 rounded bg-[#111111] border border-[#1f1f1f]"
                               >
-                                <span className="w-1.5 h-1.5 rounded-full bg-neutral-500" />
+                                <span className="w-1.5 h-1.5 rounded-full bg-neutral-500 shrink-0" />
                                 <span className="truncate">{t}</span>
                               </div>
                             ))}
@@ -224,15 +243,18 @@ export const NotesPage: React.FC<NotesPageProps> = ({ onOpenContributeModal }) =
                         </div>
 
                         {unit.slidesUrl && (
-                          <div className="pt-2 flex justify-end">
+                          <div className="pt-2 flex flex-wrap items-center justify-between gap-2 border-t border-[#161616]">
+                            <span className="text-[11px] text-neutral-500 font-mono">
+                              Lecture slides & handouts hosted on Google Drive
+                            </span>
                             <a
                               href={unit.slidesUrl}
                               target="_blank"
                               rel="noreferrer"
-                              className="flex items-center gap-1.5 text-xs text-neutral-300 hover:text-white font-medium"
+                              className="flex items-center gap-1.5 text-xs text-emerald-400 hover:text-emerald-300 font-medium px-2.5 py-1 rounded bg-[#161616] border border-[#262626] transition-colors"
                             >
-                              <ExternalLink className="w-3 h-3" />
-                              <span>Open Lecture Material</span>
+                              <ExternalLink className="w-3.5 h-3.5" />
+                              <span>Open Slides in Drive</span>
                             </a>
                           </div>
                         )}
@@ -247,112 +269,87 @@ export const NotesPage: React.FC<NotesPageProps> = ({ onOpenContributeModal }) =
           {/* Right Column: PYQs (Span 4) */}
           <div className="lg:col-span-4 space-y-4">
             <div className="rounded-xl bg-[#0a0a0a] border border-[#222222] p-5">
-              <h4 className="text-xs uppercase font-medium text-neutral-400 tracking-wider mb-3">
-                Previous Exam Papers
-              </h4>
-
-              <div className="space-y-2">
-                {activeSubject.pyqs?.map((pyq, idx) => (
-                  <a
-                    key={idx}
-                    href={pyq.url}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="flex items-center justify-between p-2.5 rounded-lg bg-[#111111] border border-[#1f1f1f] hover:border-[#333333] hover:bg-[#161616] transition-colors"
-                  >
-                    <div>
-                      <div className="text-xs font-medium text-neutral-200">{pyq.year}</div>
-                      <div className="text-[10px] text-neutral-500 font-mono mt-0.5">{pyq.examType} · {pyq.fileSize}</div>
-                    </div>
-                    <ExternalLink className="w-3.5 h-3.5 text-neutral-500 hover:text-white" />
-                  </a>
-                ))}
+              <div className="flex items-center justify-between mb-3">
+                <h4 className="text-xs uppercase font-medium text-neutral-400 tracking-wider">
+                  Previous Exam Papers (PYQs)
+                </h4>
+                <span className="text-[11px] text-neutral-500 font-mono">Drive</span>
               </div>
 
-              <div className="mt-4 pt-3 border-t border-[#1a1a1a]">
+              <div className="space-y-2">
+                {activeSubject.pyqs && activeSubject.pyqs.length > 0 ? (
+                  activeSubject.pyqs.map((pyq, idx) => (
+                    <a
+                      key={idx}
+                      href={pyq.url}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="flex items-center justify-between p-2.5 rounded-lg bg-[#111111] border border-[#1f1f1f] hover:border-[#333333] hover:bg-[#161616] transition-colors group"
+                      title="Open paper on Google Drive"
+                    >
+                      <div>
+                        <div className="text-xs font-medium text-neutral-200 group-hover:text-white transition-colors">
+                          {pyq.year}
+                        </div>
+                        <div className="text-[10px] text-neutral-500 font-mono mt-0.5">
+                          {pyq.examType} · {pyq.fileSize}
+                        </div>
+                      </div>
+                      <ExternalLink className="w-3.5 h-3.5 text-neutral-500 group-hover:text-white transition-colors" />
+                    </a>
+                  ))
+                ) : (
+                  <p className="text-xs text-neutral-500 py-2">No PYQs uploaded yet for this subject.</p>
+                )}
+              </div>
+
+              {activeSubject.pyqDriveUrl && (
+                <div className="mt-4 pt-3 border-t border-[#1a1a1a]">
+                  <a
+                    href={activeSubject.pyqDriveUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="w-full flex items-center justify-center gap-1.5 py-1.5 rounded bg-[#141414] border border-[#262626] text-xs text-neutral-300 hover:text-white transition-colors"
+                  >
+                    <span>Browse All Solved Papers</span>
+                    <ExternalLink className="w-3 h-3" />
+                  </a>
+                </div>
+              )}
+            </div>
+
+            {/* Content File Source Info Card */}
+            <div className="rounded-xl bg-[#0a0a0a] border border-[#222222] p-4 text-xs space-y-2">
+              <div className="flex items-center gap-2 text-neutral-300 font-semibold">
+                <FileText className="w-4 h-4 text-emerald-400" />
+                <span>Plain Text (.txt) Data Source</span>
+              </div>
+              <p className="text-[11px] text-neutral-400 leading-relaxed">
+                This subject's data is maintained in <code className="text-neutral-200 font-mono bg-[#161616] px-1 py-0.5 rounded">{activeSubject.contentFile || 'content/notes/'}</code>. No JSON editing is needed!
+              </p>
+              <div className="pt-1 flex items-center gap-2">
                 <a
-                  href={activeSubject.pyqDriveUrl}
+                  href={`https://github.com/Geetansh-Jangid/Section-V/blob/main/${activeSubject.contentFile || 'content/notes/'}`}
                   target="_blank"
                   rel="noreferrer"
-                  className="w-full flex items-center justify-center gap-1.5 py-1.5 rounded bg-[#141414] border border-[#262626] text-xs text-neutral-300 hover:text-white transition-colors"
+                  className="text-[11px] text-emerald-400 hover:text-emerald-300 flex items-center gap-1 font-medium"
                 >
-                  <span>Browse All Solved Papers</span>
+                  <span>View Source File</span>
                   <ExternalLink className="w-3 h-3" />
                 </a>
+                <span className="text-neutral-600">·</span>
+                <button
+                  type="button"
+                  onClick={onOpenContributeModal}
+                  className="text-[11px] text-neutral-300 hover:text-white cursor-pointer font-medium"
+                >
+                  Add Drive Link
+                </button>
               </div>
             </div>
           </div>
         </div>
       )}
-
-      {/* Markdown Modal */}
-      <AnimatePresence>
-        {showMarkdownViewer && activeSubject && (
-          <motion.div
-            key="markdown-modal-backdrop"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.15 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm"
-            onClick={() => setShowMarkdownViewer(false)}
-          >
-            <motion.div
-              key="markdown-modal-content"
-              initial={{ opacity: 0, scale: 0.95, y: 10 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 10 }}
-              transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
-              data-modal-card="true"
-              className="w-full max-w-[calc(100vw-1.5rem)] sm:max-w-2xl md:max-w-3xl lg:max-w-4xl xl:max-w-5xl bg-[#0f0f0f] border border-[#262626] rounded-2xl p-5 sm:p-7 shadow-2xl max-h-[90vh] sm:max-h-[86vh] flex flex-col my-auto"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="flex items-center justify-between pb-3.5 border-b border-[#222222]">
-                <h3 className="text-base sm:text-lg font-bold text-white tracking-tight">
-                  Syllabus Outline: {activeSubject.subjectName} ({activeSubject.subjectCode})
-                </h3>
-                <button
-                  type="button"
-                  onClick={() => setShowMarkdownViewer(false)}
-                  className="p-1.5 text-neutral-400 hover:text-white rounded-lg hover:bg-[#1a1a1a] transition-colors cursor-pointer"
-                  aria-label="Close"
-                >
-                  <X className="w-4 h-4 sm:w-5 sm:h-5" />
-                </button>
-              </div>
-
-              <div className="flex-1 overflow-y-auto py-4 text-xs sm:text-sm text-neutral-300 space-y-4 font-mono">
-                <div className="p-3.5 sm:p-4 bg-[#141414] rounded-xl border border-[#222222]">
-                  <p className="font-bold text-white mb-2 text-sm sm:text-base"># {activeSubject.subjectName} Course Structure</p>
-                  <p>Faculty: {activeSubject.faculty}</p>
-                  <p>Credits: {activeSubject.credits} | Lecture Hours: 4/week</p>
-                </div>
-
-                {activeSubject.units.map((u) => (
-                  <div key={u.unitNumber} className="space-y-1.5">
-                    <p className="font-bold text-white text-xs sm:text-sm">## Unit {u.unitNumber}: {u.title}</p>
-                    <ul className="list-disc pl-5 text-neutral-400 space-y-1">
-                      {u.topics.map((t, idx) => (
-                        <li key={idx}>{t}</li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
-              </div>
-
-              <div className="pt-3.5 border-t border-[#222222] flex justify-end">
-                <button
-                  type="button"
-                  onClick={() => setShowMarkdownViewer(false)}
-                  className="px-4 py-2 rounded-lg bg-white text-black font-semibold hover:bg-neutral-200 transition-colors cursor-pointer text-xs sm:text-sm"
-                >
-                  Close
-                </button>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </div>
   );
 };

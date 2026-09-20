@@ -1,0 +1,67 @@
+# ==============================================================================
+# SECTION V: TIMETABLE & CLASS SCHEDULE DATA
+# Content File: content/timetable/timetable.txt
+# ==============================================================================
+
+[SECTION_META]
+Section: Section V (AI)
+Semester: Semester 1 / 2 - B.Tech CSE (AI)
+Academic Year: 2026-2027
+Default Room: CT-12
+
+[TIME_SLOTS]
+1: 08:30 - 09:30
+2: 09:30 - 10:30
+3: 10:30 - 11:30
+4: 11:30 - 12:30
+5: 12:30 - 13:30 (Break)
+6: 13:30 - 14:30
+7: 14:30 - 15:30
+
+[Monday]
+Slot: 1 | Code: M | Name: Mathematics | Faculty: GC | Room: CT-12 | Type: Theory | Batch: Both | Color: #84cc16
+Slot: 2 | Code: DE | Name: Digital Electronics | Faculty: RSE | Room: CT-12 | Type: Theory | Batch: Both | Color: #f472b6
+Slot: 4 | Code: PPS | Name: Programming for Problem Solving | Faculty: GS | Room: CT-12 | Type: Theory | Batch: Both | Color: #eab308
+Slot: 6 | Code: CSK LAB | Name: Communication Skills Lab | Faculty: RR | Room: CS-22 | Type: Lab | Batch: V1 | Color: #10b981
+Slot: 6 | Code: IP LAB | Name: Internet Programming Lab | Faculty: SC | Room: CLG-18 | Type: Lab | Batch: V2 | Color: #f472b6
+Slot: 7 | Code: CSK LAB | Name: Communication Skills Lab | Faculty: RR | Room: CS-22 | Type: Lab | Batch: V1 | Color: #10b981
+Slot: 7 | Code: IP LAB | Name: Internet Programming Lab | Faculty: SC | Room: CLG-18 | Type: Lab | Batch: V2 | Color: #f472b6
+
+[Tuesday]
+Slot: 1 | Code: FCSEH | Name: Foundation Course in Science, Ethics & Human Values | Faculty: SM | Room: CT-12 | Type: Theory | Batch: Both | Color: #06b6d4
+Slot: 3 | Code: CH | Name: Chemistry | Faculty: SHK | Room: CT-12 | Type: Theory | Batch: Both | Color: #f472b6
+Slot: 4 | Code: DE | Name: Digital Electronics | Faculty: RSE | Room: CT-12 | Type: Theory | Batch: Both | Color: #f472b6
+Slot: 6 | Code: PPS LAB | Name: Programming for Problem Solving Lab | Faculty: NK | Room: CF-02 | Type: Lab | Batch: V1 | Color: #eab308
+Slot: 6 | Code: CH LAB | Name: Chemistry Lab | Faculty: SHK | Room: CG-20 | Type: Lab | Batch: V2 | Color: #f97316
+Slot: 7 | Code: PPS LAB | Name: Programming for Problem Solving Lab | Faculty: NK | Room: CF-02 | Type: Lab | Batch: V1 | Color: #eab308
+Slot: 7 | Code: CH LAB | Name: Chemistry Lab | Faculty: SHK | Room: CG-20 | Type: Lab | Batch: V2 | Color: #f97316
+
+[Wednesday]
+Slot: 1 | Code: PPS | Name: PPS Tutorial | Faculty: GS | Room: CT-12 | Type: Tutorial | Batch: V1 | Color: #eab308
+Slot: 1 | Code: CH | Name: Chemistry Tutorial | Faculty: SHK | Room: CT-12 | Type: Tutorial | Batch: V2 | Color: #f97316
+Slot: 2 | Code: CSK | Name: Communication Skills | Faculty: SHB | Room: CT-12 | Type: Theory | Batch: Both | Color: #eab308
+Slot: 3 | Code: M | Name: Mathematics | Faculty: GC | Room: CT-12 | Type: Theory | Batch: Both | Color: #84cc16
+Slot: 4 | Code: CH | Name: Chemistry | Faculty: SHK | Room: CT-12 | Type: Theory | Batch: Both | Color: #f472b6
+Slot: 6 | Code: PPS | Name: Programming for Problem Solving | Faculty: GS | Room: CT-12 | Type: Theory | Batch: Both | Color: #eab308
+
+[Thursday]
+Slot: 1 | Code: M | Name: Mathematics | Faculty: GC | Room: CS-18 | Type: Theory | Batch: Both | Color: #84cc16
+Slot: 2 | Code: FCSEH | Name: Foundation Course in Science, Ethics & Human Values | Faculty: SM | Room: CS-18 | Type: Theory | Batch: Both | Color: #06b6d4
+Slot: 3 | Code: CSK | Name: Communication Skills | Faculty: SHB | Room: CS-04 | Type: Theory | Batch: Both | Color: #eab308
+Slot: 6 | Code: IP LAB | Name: Internet Programming Lab | Faculty: SJ | Room: CLG-18 | Type: Lab | Batch: V1 | Color: #f472b6
+Slot: 6 | Code: CSK LAB | Name: Communication Skills Lab | Faculty: SK | Room: CS-22 | Type: Lab | Batch: V2 | Color: #10b981
+Slot: 7 | Code: IP LAB | Name: Internet Programming Lab | Faculty: SJ | Room: CLG-18 | Type: Lab | Batch: V1 | Color: #f472b6
+Slot: 7 | Code: CSK LAB | Name: Communication Skills Lab | Faculty: SK | Room: CS-22 | Type: Lab | Batch: V2 | Color: #10b981
+
+[Friday]
+Slot: 1 | Code: M | Name: Mathematics Tutorial / Practical | Faculty: GC | Room: CT-12 | Type: Practical | Batch: Both | Color: #10b981
+Slot: 2 | Code: FCSEH | Name: Foundation Course in Science, Ethics & Human Values | Faculty: SM | Room: CT-12 | Type: Theory | Batch: Both | Color: #06b6d4
+Slot: 3 | Code: CH | Name: Chemistry | Faculty: SHK | Room: CT-12 | Type: Theory | Batch: Both | Color: #f472b6
+Slot: 4 | Code: M | Name: Mathematics | Faculty: GC | Room: CT-12 | Type: Theory | Batch: Both | Color: #84cc16
+Slot: 6 | Code: CH LAB | Name: Chemistry Lab | Faculty: RV | Room: CG-20 | Type: Lab | Batch: V1 | Color: #f97316
+Slot: 6 | Code: PPS LAB | Name: Programming for Problem Solving Lab | Faculty: GS | Room: CF-02 | Type: Lab | Batch: V2 | Color: #eab308
+Slot: 7 | Code: CH LAB | Name: Chemistry Lab | Faculty: RV | Room: CG-20 | Type: Lab | Batch: V1 | Color: #f97316
+Slot: 7 | Code: PPS LAB | Name: Programming for Problem Solving Lab | Faculty: GS | Room: CF-02 | Type: Lab | Batch: V2 | Color: #eab308
+
+[Saturday]
+# No scheduled lectures

@@ -1,0 +1,62 @@
+[
+  {
+    "contentFile": "content/tasks/tasks.txt",
+    "id": "task-001",
+    "title": "PPS Lab Assignment 3: Dynamic Memory Allocation & Structs",
+    "subjectCode": "PPS",
+    "section": "All",
+    "dueDate": "2026-09-25",
+    "priority": "urgent",
+    "assignedBy": "Prof. G.S. Rathore (GS)",
+    "description": "Complete problems 1 through 6 on pointer arithmetic, malloc/calloc and structure memory alignment. Upload .c files and handwritten dry-run notes.",
+    "completed": false
+  },
+  {
+    "contentFile": "content/tasks/tasks.txt",
+    "id": "task-002",
+    "title": "Digital Electronics: K-Map Simplification & Logic Diagram Sheet",
+    "subjectCode": "DE",
+    "section": "V1",
+    "dueDate": "2026-09-27",
+    "priority": "medium",
+    "assignedBy": "Prof. R.S. Evans (RSE)",
+    "description": "Solve 4-variable and 5-variable Karnaugh maps for POS and SOP equations. Draw circuit realization using NAND universal gates.",
+    "completed": false
+  },
+  {
+    "contentFile": "content/tasks/tasks.txt",
+    "id": "task-003",
+    "title": "Mathematics Unit 2 Problem Set: Gauss Jordan & Eigenvectors",
+    "subjectCode": "M",
+    "section": "All",
+    "dueDate": "2026-09-28",
+    "priority": "medium",
+    "assignedBy": "Prof. G.C. Sharma (GC)",
+    "description": "Tutorial sheet questions 12 to 24 on finding eigenvalues, eigenvectors and verifying Cayley-Hamilton theorem.",
+    "completed": false
+  },
+  {
+    "contentFile": "content/tasks/tasks.txt",
+    "id": "task-004",
+    "title": "Chemistry Lab Record: Water Hardness Titration Experiment",
+    "subjectCode": "CH LAB",
+    "section": "V2",
+    "dueDate": "2026-09-26",
+    "priority": "urgent",
+    "assignedBy": "Dr. S.H. Khan (SHK)",
+    "description": "Record observations, EDTA molarity calculation, and indicator color transitions in standard hard-bound lab notebook.",
+    "completed": false
+  },
+  {
+    "contentFile": "content/tasks/tasks.txt",
+    "id": "task-005",
+    "title": "Communication Skills: Technical Presentation Outline Draft",
+    "subjectCode": "CSK",
+    "section": "V1",
+    "dueDate": "2026-09-30",
+    "priority": "low",
+    "assignedBy": "Prof. S.H. Bhatia (SHB)",
+    "description": "Prepare a 1-page executive summary on 'Emerging Edge Computing Architectures' for peer seminar review.",
+    "completed": false
+  }
+]

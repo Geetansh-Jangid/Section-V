@@ -1,0 +1,30 @@
+# Section V Subject Notes & Google Drive Links
+# Content File: content/notes/chemistry.txt
+
+Subject Code: CH
+Subject Name: Chemistry
+Faculty: Dr. S.H. Khan (SHK)
+Credits: 4
+Semester: 1
+Drive Folder URL: https://drive.google.com/drive/folders/section-v-chemistry
+PYQ Drive URL: https://drive.google.com/drive/folders/section-v-chemistry-pyqs
+Tags: Thermodynamics, Polymers, Electrochemistry, Spectroscopy
+Last Updated: 2026-09-16
+
+[UNIT]
+Unit Number: 1
+Title: Atomic & Molecular Structure
+Topics: Molecular Orbital Theory, Band Theory of Solids, Liquid Crystals, Nanomaterials & Applications
+Drive Link: https://drive.google.com/file/d/ch-unit1.pdf
+
+[UNIT]
+Unit Number: 2
+Title: Spectroscopy & Analytical Techniques
+Topics: UV-Visible Spectroscopy & Beer-Lambert Law, IR Spectroscopy Basics, NMR Principles & Chemical Shift, Chromatography
+Drive Link: https://drive.google.com/file/d/ch-unit2.pdf
+
+[PYQ]
+Year: 2025 Mid-Sem
+Exam Type: Mid-Sem
+File Size: 1.8 MB
+Drive Link: https://drive.google.com/file/d/ch-2025-mid.pdf

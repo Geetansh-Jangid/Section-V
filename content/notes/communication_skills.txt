@@ -1,0 +1,30 @@
+# Section V Subject Notes & Google Drive Links
+# Content File: content/notes/communication_skills.txt
+
+Subject Code: CSK
+Subject Name: Communication Skills
+Faculty: Prof. S.H. Bhatia (SHB)
+Credits: 2
+Semester: 1
+Drive Folder URL: https://drive.google.com/drive/folders/section-v-csk
+PYQ Drive URL: https://drive.google.com/drive/folders/section-v-csk-pyqs
+Tags: Soft Skills, Technical Writing, Presentation, Vocabulary
+Last Updated: 2026-09-14
+
+[UNIT]
+Unit Number: 1
+Title: Communication Dynamics & Grammar
+Topics: Barriers to Effective Communication, Active Listening Techniques, Technical Vocabulary & Common Errors, Email & Formal Memo Writing
+Drive Link: https://drive.google.com/file/d/csk-unit1.pdf
+
+[UNIT]
+Unit Number: 2
+Title: Report Writing & Professional Presentations
+Topics: Structure of Technical Reports, Proposal Writing Fundamentals, Slide Deck Design Principles, Interviewing & GD Strategies
+Drive Link: https://drive.google.com/file/d/csk-unit2.pdf
+
+[PYQ]
+Year: 2025 Mid-Sem
+Exam Type: Mid-Sem
+File Size: 0.9 MB
+Drive Link: https://drive.google.com/file/d/csk-2025-mid.pdf

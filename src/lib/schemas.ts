@@ -27,6 +27,7 @@ export const ScheduleItemSchema = z.object({
 });
 
 export const TimetableSchema = z.object({
+  contentFile: z.string().optional(),
   section: z.string(),
   semester: z.string(),
   academicYear: z.string(),
@@ -44,6 +45,7 @@ export const FacultySubjectSchema = z.object({
 });
 
 export const FacultySchema = z.object({
+  contentFile: z.string().optional(),
   id: z.string(),
   name: z.string().min(2),
   designation: z.string(),
@@ -58,24 +60,39 @@ export const FacultySchema = z.object({
 });
 
 export const CRSchema = z.object({
+  contentFile: z.string().optional(),
   id: z.string(),
   name: z.string(),
-  role: z.string(),
+  role: z.string().optional(),
   section: z.string(),
   rollNo: z.string(),
   email: z.string().email(),
   phone: z.string(),
-  officeHours: z.string(),
-  primaryResponsibilities: z.array(z.string()),
+  officeHours: z.string().optional(),
+  primaryResponsibilities: z.array(z.string()).optional(),
   social: z.object({
     github: z.string().url().optional(),
     linkedin: z.string().url().optional(),
     whatsapp: z.string().url().optional()
-  }),
+  }).optional(),
   avatar: z.string()
 });
 
+export const TaskItemSchema = z.object({
+  contentFile: z.string().optional(),
+  id: z.string(),
+  title: z.string().min(3),
+  subjectCode: z.string(),
+  section: z.enum(['All', 'V1', 'V2']),
+  dueDate: z.string(),
+  priority: z.enum(['urgent', 'medium', 'low']),
+  assignedBy: z.string(),
+  description: z.string(),
+  completed: z.boolean().optional()
+});
+
 export const AnnouncementSchema = z.object({
+  contentFile: z.string().optional(),
   id: z.string(),
   title: z.string().min(5),
   author: z.string(),
@@ -102,6 +119,7 @@ export const PyqSchema = z.object({
 });
 
 export const NoteSchema = z.object({
+  contentFile: z.string().optional(),
   id: z.string(),
   subjectCode: z.string(),
   subjectName: z.string(),
@@ -125,6 +143,7 @@ export const CampusPortalSchema = z.object({
 });
 
 export const LinksSchema = z.object({
+  contentFile: z.string().optional(),
   githubRepoUrl: z.string().url(),
   whatsappCommunityUrl: z.string().url().optional(),
   generalDriveUrl: z.string().url().optional(),
@@ -143,3 +162,4 @@ export type PyqItem = z.infer<typeof PyqSchema>;
 export type SubjectNote = z.infer<typeof NoteSchema>;
 export type CampusPortal = z.infer<typeof CampusPortalSchema>;
 export type LinksConfig = z.infer<typeof LinksSchema>;
+export type TaskItem = z.infer<typeof TaskItemSchema>;

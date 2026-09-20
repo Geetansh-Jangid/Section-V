@@ -1,21 +1,58 @@
 {
+  "contentFile": "content/timetable/timetable.txt",
   "section": "Section V (AI)",
   "semester": "Semester 1 / 2 - B.Tech CSE (AI)",
   "academicYear": "2026-2027",
   "defaultRoom": "CT-12",
   "timeSlots": [
-    { "id": "slot-1", "startTime": "08:30", "endTime": "09:30", "label": "1" },
-    { "id": "slot-2", "startTime": "09:30", "endTime": "10:30", "label": "2" },
-    { "id": "slot-3", "startTime": "10:30", "endTime": "11:30", "label": "3" },
-    { "id": "slot-4", "startTime": "11:30", "endTime": "12:30", "label": "4" },
-    { "id": "slot-5", "startTime": "12:30", "endTime": "13:30", "label": "5", "isBreak": true },
-    { "id": "slot-6", "startTime": "13:30", "endTime": "14:30", "label": "6" },
-    { "id": "slot-7", "startTime": "14:30", "endTime": "15:30", "label": "7" }
+    {
+      "id": "slot-1",
+      "startTime": "08:30",
+      "endTime": "09:30",
+      "label": "1"
+    },
+    {
+      "id": "slot-2",
+      "startTime": "09:30",
+      "endTime": "10:30",
+      "label": "2"
+    },
+    {
+      "id": "slot-3",
+      "startTime": "10:30",
+      "endTime": "11:30",
+      "label": "3"
+    },
+    {
+      "id": "slot-4",
+      "startTime": "11:30",
+      "endTime": "12:30",
+      "label": "4"
+    },
+    {
+      "id": "slot-5",
+      "startTime": "12:30",
+      "endTime": "13:30",
+      "label": "5",
+      "isBreak": true
+    },
+    {
+      "id": "slot-6",
+      "startTime": "13:30",
+      "endTime": "14:30",
+      "label": "6"
+    },
+    {
+      "id": "slot-7",
+      "startTime": "14:30",
+      "endTime": "15:30",
+      "label": "7"
+    }
   ],
   "schedule": {
     "Monday": [
       {
-        "id": "mon-1",
+        "id": "mon-1-both-m",
         "slotId": "slot-1",
         "subjectCode": "M",
         "subjectName": "Mathematics",
@@ -26,7 +63,7 @@
         "color": "#84cc16"
       },
       {
-        "id": "mon-2",
+        "id": "mon-2-both-de",
         "slotId": "slot-2",
         "subjectCode": "DE",
         "subjectName": "Digital Electronics",
@@ -37,7 +74,7 @@
         "color": "#f472b6"
       },
       {
-        "id": "mon-4",
+        "id": "mon-4-both-pps",
         "slotId": "slot-4",
         "subjectCode": "PPS",
         "subjectName": "Programming for Problem Solving",
@@ -48,7 +85,7 @@
         "color": "#eab308"
       },
       {
-        "id": "mon-6-v1",
+        "id": "mon-6-v1-csklab",
         "slotId": "slot-6",
         "subjectCode": "CSK LAB",
         "subjectName": "Communication Skills Lab",
@@ -59,7 +96,7 @@
         "color": "#10b981"
       },
       {
-        "id": "mon-6-v2",
+        "id": "mon-6-v2-iplab",
         "slotId": "slot-6",
         "subjectCode": "IP LAB",
         "subjectName": "Internet Programming Lab",
@@ -70,7 +107,7 @@
         "color": "#f472b6"
       },
       {
-        "id": "mon-7-v1",
+        "id": "mon-7-v1-csklab",
         "slotId": "slot-7",
         "subjectCode": "CSK LAB",
         "subjectName": "Communication Skills Lab",
@@ -81,7 +118,7 @@
         "color": "#10b981"
       },
       {
-        "id": "mon-7-v2",
+        "id": "mon-7-v2-iplab",
         "slotId": "slot-7",
         "subjectCode": "IP LAB",
         "subjectName": "Internet Programming Lab",
@@ -94,7 +131,7 @@
     ],
     "Tuesday": [
       {
-        "id": "tue-1",
+        "id": "tue-1-both-fcseh",
         "slotId": "slot-1",
         "subjectCode": "FCSEH",
         "subjectName": "Foundation Course in Science, Ethics & Human Values",
@@ -105,7 +142,7 @@
         "color": "#06b6d4"
       },
       {
-        "id": "tue-3",
+        "id": "tue-3-both-ch",
         "slotId": "slot-3",
         "subjectCode": "CH",
         "subjectName": "Chemistry",
@@ -116,7 +153,7 @@
         "color": "#f472b6"
       },
       {
-        "id": "tue-4",
+        "id": "tue-4-both-de",
         "slotId": "slot-4",
         "subjectCode": "DE",
         "subjectName": "Digital Electronics",
@@ -127,7 +164,7 @@
         "color": "#f472b6"
       },
       {
-        "id": "tue-6-v1",
+        "id": "tue-6-v1-ppslab",
         "slotId": "slot-6",
         "subjectCode": "PPS LAB",
         "subjectName": "Programming for Problem Solving Lab",
@@ -138,7 +175,7 @@
         "color": "#eab308"
       },
       {
-        "id": "tue-6-v2",
+        "id": "tue-6-v2-chlab",
         "slotId": "slot-6",
         "subjectCode": "CH LAB",
         "subjectName": "Chemistry Lab",
@@ -149,7 +186,7 @@
         "color": "#f97316"
       },
       {
-        "id": "tue-7-v1",
+        "id": "tue-7-v1-ppslab",
         "slotId": "slot-7",
         "subjectCode": "PPS LAB",
         "subjectName": "Programming for Problem Solving Lab",
@@ -160,7 +197,7 @@
         "color": "#eab308"
       },
       {
-        "id": "tue-7-v2",
+        "id": "tue-7-v2-chlab",
         "slotId": "slot-7",
         "subjectCode": "CH LAB",
         "subjectName": "Chemistry Lab",
@@ -173,7 +210,7 @@
     ],
     "Wednesday": [
       {
-        "id": "wed-1-v1",
+        "id": "wed-1-v1-pps",
         "slotId": "slot-1",
         "subjectCode": "PPS",
         "subjectName": "PPS Tutorial",
@@ -184,7 +221,7 @@
         "color": "#eab308"
       },
       {
-        "id": "wed-1-v2",
+        "id": "wed-1-v2-ch",
         "slotId": "slot-1",
         "subjectCode": "CH",
         "subjectName": "Chemistry Tutorial",
@@ -195,7 +232,7 @@
         "color": "#f97316"
       },
       {
-        "id": "wed-2",
+        "id": "wed-2-both-csk",
         "slotId": "slot-2",
         "subjectCode": "CSK",
         "subjectName": "Communication Skills",
@@ -206,7 +243,7 @@
         "color": "#eab308"
       },
       {
-        "id": "wed-3",
+        "id": "wed-3-both-m",
         "slotId": "slot-3",
         "subjectCode": "M",
         "subjectName": "Mathematics",
@@ -217,7 +254,7 @@
         "color": "#84cc16"
       },
       {
-        "id": "wed-4",
+        "id": "wed-4-both-ch",
         "slotId": "slot-4",
         "subjectCode": "CH",
         "subjectName": "Chemistry",
@@ -228,7 +265,7 @@
         "color": "#f472b6"
       },
       {
-        "id": "wed-6",
+        "id": "wed-6-both-pps",
         "slotId": "slot-6",
         "subjectCode": "PPS",
         "subjectName": "Programming for Problem Solving",
@@ -241,7 +278,7 @@
     ],
     "Thursday": [
       {
-        "id": "thu-1",
+        "id": "thu-1-both-m",
         "slotId": "slot-1",
         "subjectCode": "M",
         "subjectName": "Mathematics",
@@ -252,7 +289,7 @@
         "color": "#84cc16"
       },
       {
-        "id": "thu-2",
+        "id": "thu-2-both-fcseh",
         "slotId": "slot-2",
         "subjectCode": "FCSEH",
         "subjectName": "Foundation Course in Science, Ethics & Human Values",
@@ -263,7 +300,7 @@
         "color": "#06b6d4"
       },
       {
-        "id": "thu-3",
+        "id": "thu-3-both-csk",
         "slotId": "slot-3",
         "subjectCode": "CSK",
         "subjectName": "Communication Skills",
@@ -274,7 +311,7 @@
         "color": "#eab308"
       },
       {
-        "id": "thu-6-v1",
+        "id": "thu-6-v1-iplab",
         "slotId": "slot-6",
         "subjectCode": "IP LAB",
         "subjectName": "Internet Programming Lab",
@@ -285,7 +322,7 @@
         "color": "#f472b6"
       },
       {
-        "id": "thu-6-v2",
+        "id": "thu-6-v2-csklab",
         "slotId": "slot-6",
         "subjectCode": "CSK LAB",
         "subjectName": "Communication Skills Lab",
@@ -296,7 +333,7 @@
         "color": "#10b981"
       },
       {
-        "id": "thu-7-v1",
+        "id": "thu-7-v1-iplab",
         "slotId": "slot-7",
         "subjectCode": "IP LAB",
         "subjectName": "Internet Programming Lab",
@@ -307,7 +344,7 @@
         "color": "#f472b6"
       },
       {
-        "id": "thu-7-v2",
+        "id": "thu-7-v2-csklab",
         "slotId": "slot-7",
         "subjectCode": "CSK LAB",
         "subjectName": "Communication Skills Lab",
@@ -320,7 +357,7 @@
     ],
     "Friday": [
       {
-        "id": "fri-1",
+        "id": "fri-1-both-m",
         "slotId": "slot-1",
         "subjectCode": "M",
         "subjectName": "Mathematics Tutorial / Practical",
@@ -331,7 +368,7 @@
         "color": "#10b981"
       },
       {
-        "id": "fri-2",
+        "id": "fri-2-both-fcseh",
         "slotId": "slot-2",
         "subjectCode": "FCSEH",
         "subjectName": "Foundation Course in Science, Ethics & Human Values",
@@ -342,7 +379,7 @@
         "color": "#06b6d4"
       },
       {
-        "id": "fri-3",
+        "id": "fri-3-both-ch",
         "slotId": "slot-3",
         "subjectCode": "CH",
         "subjectName": "Chemistry",
@@ -353,7 +390,7 @@
         "color": "#f472b6"
       },
       {
-        "id": "fri-4",
+        "id": "fri-4-both-m",
         "slotId": "slot-4",
         "subjectCode": "M",
         "subjectName": "Mathematics",
@@ -364,7 +401,7 @@
         "color": "#84cc16"
       },
       {
-        "id": "fri-6-v1",
+        "id": "fri-6-v1-chlab",
         "slotId": "slot-6",
         "subjectCode": "CH LAB",
         "subjectName": "Chemistry Lab",
@@ -375,7 +412,7 @@
         "color": "#f97316"
       },
       {
-        "id": "fri-6-v2",
+        "id": "fri-6-v2-ppslab",
         "slotId": "slot-6",
         "subjectCode": "PPS LAB",
         "subjectName": "Programming for Problem Solving Lab",
@@ -386,7 +423,7 @@
         "color": "#eab308"
       },
       {
-        "id": "fri-7-v1",
+        "id": "fri-7-v1-chlab",
         "slotId": "slot-7",
         "subjectCode": "CH LAB",
         "subjectName": "Chemistry Lab",
@@ -397,7 +434,7 @@
         "color": "#f97316"
       },
       {
-        "id": "fri-7-v2",
+        "id": "fri-7-v2-ppslab",
         "slotId": "slot-7",
         "subjectCode": "PPS LAB",
         "subjectName": "Programming for Problem Solving Lab",

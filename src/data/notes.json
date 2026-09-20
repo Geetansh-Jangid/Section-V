@@ -1,142 +1,6 @@
 [
   {
-    "id": "sub-m",
-    "subjectCode": "M",
-    "subjectName": "Mathematics",
-    "faculty": "Prof. G.C. Sharma (GC)",
-    "credits": 4,
-    "semester": 1,
-    "driveUrl": "https://drive.google.com/drive/folders/section-v-maths",
-    "pyqDriveUrl": "https://drive.google.com/drive/folders/section-v-maths-pyqs",
-    "lastUpdated": "2026-09-18",
-    "tags": ["Calculus", "Linear Algebra", "Matrices", "Differential Equations"],
-    "units": [
-      {
-        "unitNumber": 1,
-        "title": "Differential & Integral Calculus",
-        "topics": ["Rolle's & Mean Value Theorems", "Taylor's Series", "Indeterminate Forms", "Definite Integrals & Applications"],
-        "slidesUrl": "https://drive.google.com/file/d/maths-unit1.pdf"
-      },
-      {
-        "unitNumber": 2,
-        "title": "Matrices & Linear Systems",
-        "topics": ["Rank of Matrix", "Gauss Elimination & Jordan", "Eigenvalues & Eigenvectors", "Cayley-Hamilton Theorem"],
-        "slidesUrl": "https://drive.google.com/file/d/maths-unit2.pdf"
-      },
-      {
-        "unitNumber": 3,
-        "title": "Multivariable Calculus",
-        "topics": ["Partial Derivatives", "Euler's Theorem on Homogeneous Functions", "Maxima & Minima of Two Variables", "Lagrange Multipliers"],
-        "slidesUrl": "https://drive.google.com/file/d/maths-unit3.pdf"
-      }
-    ],
-    "pyqs": [
-      { "year": "2025 Mid-Term", "examType": "Mid-Sem", "fileSize": "1.2 MB", "url": "https://drive.google.com/file/d/maths-2025-mid.pdf" },
-      { "year": "2024 End-Sem", "examType": "End-Sem", "fileSize": "2.4 MB", "url": "https://drive.google.com/file/d/maths-2024-end.pdf" }
-    ]
-  },
-  {
-    "id": "sub-de",
-    "subjectCode": "DE",
-    "subjectName": "Digital Electronics",
-    "faculty": "Prof. R.S. Evans (RSE)",
-    "credits": 4,
-    "semester": 1,
-    "driveUrl": "https://drive.google.com/drive/folders/section-v-de",
-    "pyqDriveUrl": "https://drive.google.com/drive/folders/section-v-de-pyqs",
-    "lastUpdated": "2026-09-17",
-    "tags": ["Logic Gates", "K-Maps", "Flip-Flops", "Combinational Circuits"],
-    "units": [
-      {
-        "unitNumber": 1,
-        "title": "Boolean Algebra & Logic Simplification",
-        "topics": ["Number Systems & Codes", "Logic Gates (AND, OR, NOT, NAND, NOR, XOR)", "De Morgan's Laws", "Karnaugh Maps (2, 3, 4 variables)"],
-        "slidesUrl": "https://drive.google.com/file/d/de-unit1.pdf"
-      },
-      {
-        "unitNumber": 2,
-        "title": "Combinational Logic Design",
-        "topics": ["Adders & Subtractors (Half/Full)", "Multiplexers & Demultiplexers", "Encoders & Decoders", "Code Converters"],
-        "slidesUrl": "https://drive.google.com/file/d/de-unit2.pdf"
-      },
-      {
-        "unitNumber": 3,
-        "title": "Sequential Logic Circuits",
-        "topics": ["Latches vs Flip-Flops (SR, JK, D, T)", "Master-Slave Flip Flops", "Synchronous & Asynchronous Counters", "Shift Registers"],
-        "slidesUrl": "https://drive.google.com/file/d/de-unit3.pdf"
-      }
-    ],
-    "pyqs": [
-      { "year": "2025 Mid-Sem", "examType": "Mid-Sem", "fileSize": "1.6 MB", "url": "https://drive.google.com/file/d/de-2025-mid.pdf" },
-      { "year": "2024 End-Sem", "examType": "End-Sem", "fileSize": "2.8 MB", "url": "https://drive.google.com/file/d/de-2024-end.pdf" }
-    ]
-  },
-  {
-    "id": "sub-pps",
-    "subjectCode": "PPS",
-    "subjectName": "Programming for Problem Solving",
-    "faculty": "Prof. G.S. Rathore (GS)",
-    "credits": 4,
-    "semester": 1,
-    "driveUrl": "https://drive.google.com/drive/folders/section-v-pps",
-    "pyqDriveUrl": "https://drive.google.com/drive/folders/section-v-pps-pyqs",
-    "lastUpdated": "2026-09-19",
-    "tags": ["C Programming", "Algorithms", "Pointers", "Data Structures"],
-    "units": [
-      {
-        "unitNumber": 1,
-        "title": "Introduction to Programming & Algorithms",
-        "topics": ["Flowcharts & Pseudocode", "Variables, Data Types & Operators", "Conditional Branches (if-else, switch)", "Loops (while, for, do-while)"],
-        "slidesUrl": "https://drive.google.com/file/d/pps-unit1.pdf"
-      },
-      {
-        "unitNumber": 2,
-        "title": "Arrays, Strings & Functions",
-        "topics": ["1D and 2D Arrays", "String Manipulation & Library Functions", "Function Prototypes & Scope", "Recursion Principles"],
-        "slidesUrl": "https://drive.google.com/file/d/pps-unit2.pdf"
-      },
-      {
-        "unitNumber": 3,
-        "title": "Pointers & Dynamic Memory",
-        "topics": ["Pointer Basics & Address Arithmetic", "Passing Pointers to Functions", "Dynamic Memory Allocation (malloc, calloc, free)", "Structures & Unions"],
-        "slidesUrl": "https://drive.google.com/file/d/pps-unit3.pdf"
-      }
-    ],
-    "pyqs": [
-      { "year": "2025 Mid-Sem", "examType": "Mid-Sem", "fileSize": "2.0 MB", "url": "https://drive.google.com/file/d/pps-2025-mid.pdf" },
-      { "year": "2024 End-Sem", "examType": "End-Sem", "fileSize": "3.1 MB", "url": "https://drive.google.com/file/d/pps-2024-end.pdf" }
-    ]
-  },
-  {
-    "id": "sub-fcseh",
-    "subjectCode": "FCSEH",
-    "subjectName": "Foundation Course in Science, Ethics & Human Values",
-    "faculty": "Dr. S. Mukherjee (SM)",
-    "credits": 3,
-    "semester": 1,
-    "driveUrl": "https://drive.google.com/drive/folders/section-v-fcseh",
-    "pyqDriveUrl": "https://drive.google.com/drive/folders/section-v-fcseh-pyqs",
-    "lastUpdated": "2026-09-15",
-    "tags": ["Ethics", "Values", "Scientific Method", "Society"],
-    "units": [
-      {
-        "unitNumber": 1,
-        "title": "Understanding Human Values & Harmony",
-        "topics": ["Self-Exploration & Natural Acceptance", "Harmony in Human Being & Family", "Trust, Respect & Ethical Relationships"],
-        "slidesUrl": "https://drive.google.com/file/d/fcseh-unit1.pdf"
-      },
-      {
-        "unitNumber": 2,
-        "title": "Scientific Temper & Professional Ethics",
-        "topics": ["Philosophy of Scientific Inquiry", "Engineering Codes of Conduct", "Intellectual Property & Integrity", "Social Responsibility of Engineers"],
-        "slidesUrl": "https://drive.google.com/file/d/fcseh-unit2.pdf"
-      }
-    ],
-    "pyqs": [
-      { "year": "2025 Mid-Sem", "examType": "Mid-Sem", "fileSize": "1.1 MB", "url": "https://drive.google.com/file/d/fcseh-2025-mid.pdf" }
-    ]
-  },
-  {
+    "contentFile": "content/notes/chemistry.txt",
     "id": "sub-ch",
     "subjectCode": "CH",
     "subjectName": "Chemistry",
@@ -146,26 +10,47 @@
     "driveUrl": "https://drive.google.com/drive/folders/section-v-chemistry",
     "pyqDriveUrl": "https://drive.google.com/drive/folders/section-v-chemistry-pyqs",
     "lastUpdated": "2026-09-16",
-    "tags": ["Thermodynamics", "Polymers", "Electrochemistry", "Spectroscopy"],
+    "tags": [
+      "Thermodynamics",
+      "Polymers",
+      "Electrochemistry",
+      "Spectroscopy"
+    ],
     "units": [
       {
         "unitNumber": 1,
         "title": "Atomic & Molecular Structure",
-        "topics": ["Molecular Orbital Theory", "Band Theory of Solids", "Liquid Crystals", "Nanomaterials & Applications"],
+        "topics": [
+          "Molecular Orbital Theory",
+          "Band Theory of Solids",
+          "Liquid Crystals",
+          "Nanomaterials & Applications"
+        ],
         "slidesUrl": "https://drive.google.com/file/d/ch-unit1.pdf"
       },
       {
         "unitNumber": 2,
         "title": "Spectroscopy & Analytical Techniques",
-        "topics": ["UV-Visible Spectroscopy & Beer-Lambert Law", "IR Spectroscopy Basics", "NMR Principles & Chemical Shift", "Chromatography"],
+        "topics": [
+          "UV-Visible Spectroscopy & Beer-Lambert Law",
+          "IR Spectroscopy Basics",
+          "NMR Principles & Chemical Shift",
+          "Chromatography"
+        ],
         "slidesUrl": "https://drive.google.com/file/d/ch-unit2.pdf"
       }
     ],
     "pyqs": [
-      { "year": "2025 Mid-Sem", "examType": "Mid-Sem", "fileSize": "1.8 MB", "url": "https://drive.google.com/file/d/ch-2025-mid.pdf" }
+      {
+        "year": "2025 Mid-Sem",
+        "examType": "Mid-Sem",
+        "fileSize": "1.8 MB",
+        "url": "https://drive.google.com/file/d/ch-2025-mid.pdf"
+      }
     ]
   },
   {
+    "contentFile": "content/notes/communication_skills.txt",
     "id": "sub-csk",
     "subjectCode": "CSK",
     "subjectName": "Communication Skills",
@@ -175,23 +60,310 @@
     "driveUrl": "https://drive.google.com/drive/folders/section-v-csk",
     "pyqDriveUrl": "https://drive.google.com/drive/folders/section-v-csk-pyqs",
     "lastUpdated": "2026-09-14",
-    "tags": ["Soft Skills", "Technical Writing", "Presentation", "Vocabulary"],
+    "tags": [
+      "Soft Skills",
+      "Technical Writing",
+      "Presentation",
+      "Vocabulary"
+    ],
     "units": [
       {
         "unitNumber": 1,
         "title": "Communication Dynamics & Grammar",
-        "topics": ["Barriers to Effective Communication", "Active Listening Techniques", "Technical Vocabulary & Common Errors", "Email & Formal Memo Writing"],
+        "topics": [
+          "Barriers to Effective Communication",
+          "Active Listening Techniques",
+          "Technical Vocabulary & Common Errors",
+          "Email & Formal Memo Writing"
+        ],
         "slidesUrl": "https://drive.google.com/file/d/csk-unit1.pdf"
       },
       {
         "unitNumber": 2,
         "title": "Report Writing & Professional Presentations",
-        "topics": ["Structure of Technical Reports", "Proposal Writing Fundamentals", "Slide Deck Design Principles", "Interviewing & GD Strategies"],
+        "topics": [
+          "Structure of Technical Reports",
+          "Proposal Writing Fundamentals",
+          "Slide Deck Design Principles",
+          "Interviewing & GD Strategies"
+        ],
         "slidesUrl": "https://drive.google.com/file/d/csk-unit2.pdf"
       }
     ],
     "pyqs": [
-      { "year": "2025 Mid-Sem", "examType": "Mid-Sem", "fileSize": "0.9 MB", "url": "https://drive.google.com/file/d/csk-2025-mid.pdf" }
+      {
+        "year": "2025 Mid-Sem",
+        "examType": "Mid-Sem",
+        "fileSize": "0.9 MB",
+        "url": "https://drive.google.com/file/d/csk-2025-mid.pdf"
+      }
+    ]
+  },
+  {
+    "contentFile": "content/notes/digital_electronics.txt",
+    "id": "sub-de",
+    "subjectCode": "DE",
+    "subjectName": "Digital Electronics",
+    "faculty": "Prof. R.S. Evans (RSE)",
+    "credits": 4,
+    "semester": 1,
+    "driveUrl": "https://drive.google.com/drive/folders/section-v-de",
+    "pyqDriveUrl": "https://drive.google.com/drive/folders/section-v-de-pyqs",
+    "lastUpdated": "2026-09-17",
+    "tags": [
+      "Logic Gates",
+      "K-Maps",
+      "Flip-Flops",
+      "Combinational Circuits"
+    ],
+    "units": [
+      {
+        "unitNumber": 1,
+        "title": "Boolean Algebra & Logic Simplification",
+        "topics": [
+          "Number Systems & Codes",
+          "Logic Gates (AND",
+          "OR",
+          "NOT",
+          "NAND",
+          "NOR",
+          "XOR)",
+          "De Morgan's Laws",
+          "Karnaugh Maps (2",
+          "3",
+          "4 variables)"
+        ],
+        "slidesUrl": "https://drive.google.com/file/d/de-unit1.pdf"
+      },
+      {
+        "unitNumber": 2,
+        "title": "Combinational Logic Design",
+        "topics": [
+          "Adders & Subtractors (Half/Full)",
+          "Multiplexers & Demultiplexers",
+          "Encoders & Decoders",
+          "Code Converters"
+        ],
+        "slidesUrl": "https://drive.google.com/file/d/de-unit2.pdf"
+      },
+      {
+        "unitNumber": 3,
+        "title": "Sequential Logic Circuits",
+        "topics": [
+          "Latches vs Flip-Flops (SR",
+          "JK",
+          "D",
+          "T)",
+          "Master-Slave Flip Flops",
+          "Synchronous & Asynchronous Counters",
+          "Shift Registers"
+        ],
+        "slidesUrl": "https://drive.google.com/file/d/de-unit3.pdf"
+      }
+    ],
+    "pyqs": [
+      {
+        "year": "2025 Mid-Sem",
+        "examType": "Mid-Sem",
+        "fileSize": "1.6 MB",
+        "url": "https://drive.google.com/file/d/de-2025-mid.pdf"
+      },
+      {
+        "year": "2024 End-Sem",
+        "examType": "End-Sem",
+        "fileSize": "2.8 MB",
+        "url": "https://drive.google.com/file/d/de-2024-end.pdf"
+      }
+    ]
+  },
+  {
+    "contentFile": "content/notes/fcseh_ethics.txt",
+    "id": "sub-fcseh",
+    "subjectCode": "FCSEH",
+    "subjectName": "Foundation Course in Science, Ethics & Human Values",
+    "faculty": "Dr. S. Mukherjee (SM)",
+    "credits": 3,
+    "semester": 1,
+    "driveUrl": "https://drive.google.com/drive/folders/section-v-fcseh",
+    "pyqDriveUrl": "https://drive.google.com/drive/folders/section-v-fcseh-pyqs",
+    "lastUpdated": "2026-09-15",
+    "tags": [
+      "Ethics",
+      "Values",
+      "Scientific Method",
+      "Society"
+    ],
+    "units": [
+      {
+        "unitNumber": 1,
+        "title": "Understanding Human Values & Harmony",
+        "topics": [
+          "Self-Exploration & Natural Acceptance",
+          "Harmony in Human Being & Family",
+          "Trust",
+          "Respect & Ethical Relationships"
+        ],
+        "slidesUrl": "https://drive.google.com/file/d/fcseh-unit1.pdf"
+      },
+      {
+        "unitNumber": 2,
+        "title": "Scientific Temper & Professional Ethics",
+        "topics": [
+          "Philosophy of Scientific Inquiry",
+          "Engineering Codes of Conduct",
+          "Intellectual Property & Integrity",
+          "Social Responsibility of Engineers"
+        ],
+        "slidesUrl": "https://drive.google.com/file/d/fcseh-unit2.pdf"
+      }
+    ],
+    "pyqs": [
+      {
+        "year": "2025 Mid-Sem",
+        "examType": "Mid-Sem",
+        "fileSize": "1.1 MB",
+        "url": "https://drive.google.com/file/d/fcseh-2025-mid.pdf"
+      }
+    ]
+  },
+  {
+    "contentFile": "content/notes/mathematics.txt",
+    "id": "sub-m",
+    "subjectCode": "M",
+    "subjectName": "Mathematics",
+    "faculty": "Prof. G.C. Sharma (GC)",
+    "credits": 4,
+    "semester": 1,
+    "driveUrl": "https://drive.google.com/drive/folders/section-v-maths",
+    "pyqDriveUrl": "https://drive.google.com/drive/folders/section-v-maths-pyqs",
+    "lastUpdated": "2026-09-18",
+    "tags": [
+      "Calculus",
+      "Linear Algebra",
+      "Matrices",
+      "Differential Equations"
+    ],
+    "units": [
+      {
+        "unitNumber": 1,
+        "title": "Differential & Integral Calculus",
+        "topics": [
+          "Rolle's & Mean Value Theorems",
+          "Taylor's Series",
+          "Indeterminate Forms",
+          "Definite Integrals & Applications"
+        ],
+        "slidesUrl": "https://drive.google.com/file/d/maths-unit1.pdf"
+      },
+      {
+        "unitNumber": 2,
+        "title": "Matrices & Linear Systems",
+        "topics": [
+          "Rank of Matrix",
+          "Gauss Elimination & Jordan",
+          "Eigenvalues & Eigenvectors",
+          "Cayley-Hamilton Theorem"
+        ],
+        "slidesUrl": "https://drive.google.com/file/d/maths-unit2.pdf"
+      },
+      {
+        "unitNumber": 3,
+        "title": "Multivariable Calculus",
+        "topics": [
+          "Partial Derivatives",
+          "Euler's Theorem on Homogeneous Functions",
+          "Maxima & Minima of Two Variables",
+          "Lagrange Multipliers"
+        ],
+        "slidesUrl": "https://drive.google.com/file/d/maths-unit3.pdf"
+      }
+    ],
+    "pyqs": [
+      {
+        "year": "2025 Mid-Term",
+        "examType": "Mid-Sem",
+        "fileSize": "1.2 MB",
+        "url": "https://drive.google.com/file/d/maths-2025-mid.pdf"
+      },
+      {
+        "year": "2024 End-Sem",
+        "examType": "End-Sem",
+        "fileSize": "2.4 MB",
+        "url": "https://drive.google.com/file/d/maths-2024-end.pdf"
+      }
+    ]
+  },
+  {
+    "contentFile": "content/notes/programming_pps.txt",
+    "id": "sub-pps",
+    "subjectCode": "PPS",
+    "subjectName": "Programming for Problem Solving",
+    "faculty": "Prof. G.S. Rathore (GS)",
+    "credits": 4,
+    "semester": 1,
+    "driveUrl": "https://drive.google.com/drive/folders/section-v-pps",
+    "pyqDriveUrl": "https://drive.google.com/drive/folders/section-v-pps-pyqs",
+    "lastUpdated": "2026-09-19",
+    "tags": [
+      "C Programming",
+      "Algorithms",
+      "Pointers",
+      "Data Structures"
+    ],
+    "units": [
+      {
+        "unitNumber": 1,
+        "title": "Introduction to Programming & Algorithms",
+        "topics": [
+          "Flowcharts & Pseudocode",
+          "Variables",
+          "Data Types & Operators",
+          "Conditional Branches (if-else",
+          "switch)",
+          "Loops (while",
+          "for",
+          "do-while)"
+        ],
+        "slidesUrl": "https://drive.google.com/file/d/pps-unit1.pdf"
+      },
+      {
+        "unitNumber": 2,
+        "title": "Arrays, Strings & Functions",
+        "topics": [
+          "1D and 2D Arrays",
+          "String Manipulation & Library Functions",
+          "Function Prototypes & Scope",
+          "Recursion Principles"
+        ],
+        "slidesUrl": "https://drive.google.com/file/d/pps-unit2.pdf"
+      },
+      {
+        "unitNumber": 3,
+        "title": "Pointers & Dynamic Memory",
+        "topics": [
+          "Pointer Basics & Address Arithmetic",
+          "Passing Pointers to Functions",
+          "Dynamic Memory Allocation (malloc",
+          "calloc",
+          "free)",
+          "Structures & Unions"
+        ],
+        "slidesUrl": "https://drive.google.com/file/d/pps-unit3.pdf"
+      }
+    ],
+    "pyqs": [
+      {
+        "year": "2025 Mid-Sem",
+        "examType": "Mid-Sem",
+        "fileSize": "2.0 MB",
+        "url": "https://drive.google.com/file/d/pps-2025-mid.pdf"
+      },
+      {
+        "year": "2024 End-Sem",
+        "examType": "End-Sem",
+        "fileSize": "3.1 MB",
+        "url": "https://drive.google.com/file/d/pps-2024-end.pdf"
+      }
     ]
   }
 ]

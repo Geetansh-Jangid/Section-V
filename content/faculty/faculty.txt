@@ -1,0 +1,147 @@
+# ==============================================================================
+# SECTION V: FACULTY DIRECTORY DATA
+# Content File: content/faculty/faculty.txt
+# ==============================================================================
+
+[FACULTY]
+ID: fac-gc
+Name: Prof. G.C. Sharma (GC)
+Designation: Professor & Mathematics Coordinator
+Department: Applied Sciences & Mathematics
+Cabin: Science Block Room 102
+Email: gc.sharma@college.edu
+Phone: +91 11 2789 4501
+Subjects: M: Mathematics & Calculus; M-TUT: Mathematics Remedial & Problem Solving
+Office Hours: Mon, Wed & Fri: 01:30 PM – 02:30 PM
+Research Interests: Linear Algebra, Applied Calculus, Numerical Methods
+Avatar: GC
+
+[FACULTY]
+ID: fac-rse
+Name: Prof. R.S. Evans (RSE)
+Designation: Associate Professor
+Department: Electronics & Electrical Engineering
+Cabin: ECE Block Room 204
+Email: rs.evans@college.edu
+Phone: +91 11 2789 4502
+Subjects: DE: Digital Electronics & Logic Design
+Office Hours: Mon & Tue: 02:30 PM – 03:30 PM
+Research Interests: VLSI Design, Digital Logic Optimization, Embedded Systems
+Avatar: RE
+
+[FACULTY]
+ID: fac-gs
+Name: Prof. G.S. Rathore (GS)
+Designation: Associate Professor & Section V Mentor
+Department: Computer Science & Engineering
+Cabin: CS Block Room 312
+Email: gs.rathore@college.edu
+Phone: +91 11 2789 4503
+Subjects: PPS: Programming for Problem Solving; PPS LAB: PPS Laboratory (Batch V2)
+Office Hours: Daily: 03:30 PM – 04:30 PM
+Research Interests: Data Structures, Algorithmic Efficiency, C/C++ Systems
+Avatar: GS
+
+[FACULTY]
+ID: fac-sm
+Name: Dr. S. Mukherjee (SM)
+Designation: Assistant Professor (Senior Scale)
+Department: Humanities & Interdisciplinary Sciences
+Cabin: Main Admin Block Room 118
+Email: s.mukherjee@college.edu
+Phone: +91 11 2789 4504
+Subjects: FCSEH: Foundation Course in Science, Ethics & Human Values
+Office Hours: Tue & Thu: 01:30 PM – 03:00 PM
+Research Interests: Professional Ethics, Philosophy of Technology, Engineering Sociology
+Avatar: SM
+
+[FACULTY]
+ID: fac-shk
+Name: Dr. S.H. Khan (SHK)
+Designation: Professor & Chemistry Department Head
+Department: Applied Chemistry & Environmental Sciences
+Cabin: Chemistry Block Room 210
+Email: sh.khan@college.edu
+Phone: +91 11 2789 4505
+Subjects: CH: Engineering Chemistry; CH LAB: Chemistry Laboratory (Batch V2)
+Office Hours: Tue, Wed & Fri: 02:30 PM – 04:00 PM
+Research Interests: Polymer Chemistry, Spectroscopy, Material Sciences
+Avatar: SK
+
+[FACULTY]
+ID: fac-shb
+Name: Prof. S.H. Bhatia (SHB)
+Designation: Associate Professor
+Department: Humanities & Soft Skills Cell
+Cabin: Language Lab Block Room 105
+Email: sh.bhatia@college.edu
+Phone: +91 11 2789 4506
+Subjects: CSK: Communication Skills & Professional Presentation
+Office Hours: Wed & Thu: 12:30 PM – 01:30 PM
+Research Interests: Technical Writing, Corporate Communication, Interpersonal Skills
+Avatar: SB
+
+[FACULTY]
+ID: fac-rr
+Name: Prof. R. Roy (RR)
+Designation: Assistant Professor & Language Lab Incharge
+Department: Humanities & Communication Cell
+Cabin: CS-22 Language Lab Wing
+Email: r.roy@college.edu
+Phone: +91 11 2789 4507
+Subjects: CSK LAB: Communication Skills Lab (Batch V1)
+Office Hours: Mon & Wed: 03:30 PM – 04:30 PM
+Research Interests: Phonetics, Public Speaking, Digital Communication
+Avatar: RR
+
+[FACULTY]
+ID: fac-sc
+Name: Prof. S. Chakraborty (SC)
+Designation: Assistant Professor & Lab Coordinator
+Department: Computer Science & Engineering
+Cabin: Computing Center Room CLG-18
+Email: s.chakraborty@college.edu
+Phone: +91 11 2789 4508
+Subjects: IP LAB: Internet Programming Lab (Batch V2)
+Office Hours: Mon: 03:30 PM – 05:00 PM
+Research Interests: Web Technologies, Full-Stack Development, Cloud Architecture
+Avatar: SC
+
+[FACULTY]
+ID: fac-nk
+Name: Prof. N. Kaushik (NK)
+Designation: Assistant Professor
+Department: Computer Science & Engineering
+Cabin: CS-Block Room CF-02
+Email: n.kaushik@college.edu
+Phone: +91 11 2789 4509
+Subjects: PPS LAB: Programming for Problem Solving Lab (Batch V1)
+Office Hours: Tue: 03:30 PM – 04:30 PM
+Research Interests: Algorithm Design, Computational Problem Solving
+Avatar: NK
+
+[FACULTY]
+ID: fac-sj
+Name: Prof. S. Joshi (SJ)
+Designation: Assistant Professor
+Department: Computer Science & Engineering
+Cabin: Computing Center Room CLG-18
+Email: s.joshi@college.edu
+Phone: +91 11 2789 4510
+Subjects: IP LAB: Internet Programming Lab (Batch V1)
+Office Hours: Thu: 03:30 PM – 04:30 PM
+Research Interests: Network Programming, Scripting Languages, Linux Environments
+Avatar: SJ
+
+[FACULTY]
+ID: fac-rv
+Name: Prof. R. Varma (RV)
+Designation: Assistant Professor
+Department: Applied Chemistry
+Cabin: Chemistry Lab CG-20
+Email: r.varma@college.edu
+Phone: +91 11 2789 4511
+Subjects: CH LAB: Chemistry Laboratory (Batch V1)
+Office Hours: Fri: 03:30 PM – 04:30 PM
+Research Interests: Titration & Analytical Chemistry, Material Safety
+Avatar: RV

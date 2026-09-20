@@ -1,0 +1,28 @@
+# ==============================================================================
+# SECTION V: CLASS REPRESENTATIVES DATA
+# Content File: content/cr/cr.txt
+# ==============================================================================
+
+[CR]
+ID: cr-1
+Name: Aarav Mehta
+Section: Section V
+Roll No: 2024CS-V-014
+Email: aarav.mehta.secv@college.edu
+Phone: +91 98765 43210
+GitHub: https://github.com/section-v-lead
+LinkedIn: https://linkedin.com/in/aarav-mehta
+WhatsApp: https://chat.whatsapp.com/invite/section-v-official
+Avatar: AM
+
+[CR]
+ID: cr-2
+Name: Rhea Kapoor
+Section: Section V
+Roll No: 2024CS-V-042
+Email: rhea.kapoor.secv@college.edu
+Phone: +91 98765 43211
+GitHub: https://github.com/rhea-kapoor-v
+LinkedIn: https://linkedin.com/in/rhea-kapoor
+WhatsApp: https://chat.whatsapp.com/invite/section-v-official
+Avatar: RK

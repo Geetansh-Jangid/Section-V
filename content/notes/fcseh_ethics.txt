@@ -1,0 +1,30 @@
+# Section V Subject Notes & Google Drive Links
+# Content File: content/notes/fcseh_ethics.txt
+
+Subject Code: FCSEH
+Subject Name: Foundation Course in Science, Ethics & Human Values
+Faculty: Dr. S. Mukherjee (SM)
+Credits: 3
+Semester: 1
+Drive Folder URL: https://drive.google.com/drive/folders/section-v-fcseh
+PYQ Drive URL: https://drive.google.com/drive/folders/section-v-fcseh-pyqs
+Tags: Ethics, Values, Scientific Method, Society
+Last Updated: 2026-09-15
+
+[UNIT]
+Unit Number: 1
+Title: Understanding Human Values & Harmony
+Topics: Self-Exploration & Natural Acceptance, Harmony in Human Being & Family, Trust, Respect & Ethical Relationships
+Drive Link: https://drive.google.com/file/d/fcseh-unit1.pdf
+
+[UNIT]
+Unit Number: 2
+Title: Scientific Temper & Professional Ethics
+Topics: Philosophy of Scientific Inquiry, Engineering Codes of Conduct, Intellectual Property & Integrity, Social Responsibility of Engineers
+Drive Link: https://drive.google.com/file/d/fcseh-unit2.pdf
+
+[PYQ]
+Year: 2025 Mid-Sem
+Exam Type: Mid-Sem
+File Size: 1.1 MB
+Drive Link: https://drive.google.com/file/d/fcseh-2025-mid.pdf

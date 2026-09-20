@@ -130,7 +130,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
                 className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs sm:text-sm cursor-pointer hover:bg-[#181818] hover:text-white transition-colors"
               >
                 <BookOpen className="w-4 h-4 text-neutral-400 shrink-0" />
-                <span>Subject Notes & Question Papers</span>
+                <span>Subject Notes & Google Drive Links</span>
               </Command.Item>
 
               <Command.Item
