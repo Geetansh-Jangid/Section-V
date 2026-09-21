@@ -5,24 +5,24 @@
 
 [CR]
 ID: cr-1
-Name: Aarav Mehta
+Name: Geetansh Jangid
 Section: Section V
-Roll No: 2024CS-V-014
-Email: aarav.mehta.secv@college.edu
-Phone: +91 98765 43210
-GitHub: https://github.com/section-v-lead
-LinkedIn: https://linkedin.com/in/aarav-mehta
-WhatsApp: https://chat.whatsapp.com/invite/section-v-official
-Avatar: AM
+Roll No: 
+Email: geetanshjangid.ai30@jecrc.ac.in
+Phone: +91 93589 03319
+GitHub: https://github.com/Geetansh-Jangid
+LinkedIn: https://www.linkedin.com/in/geetansh-jangid-841a2b314
+WhatsApp: https://chat.whatsapp.com/invite/
+Avatar: GJ
 
 [CR]
 ID: cr-2
-Name: Rhea Kapoor
+Name: Jyoti Soni
 Section: Section V
-Roll No: 2024CS-V-042
-Email: rhea.kapoor.secv@college.edu
-Phone: +91 98765 43211
-GitHub: https://github.com/rhea-kapoor-v
-LinkedIn: https://linkedin.com/in/rhea-kapoor
-WhatsApp: https://chat.whatsapp.com/invite/section-v-official
-Avatar: RK
+Roll No: 
+Email: jyotisoni.ai30@jecrc.ac.in
+Phone: +91 96723 53536
+GitHub: https://github.com/
+LinkedIn: https://linkedin.com/in/
+WhatsApp: https://chat.whatsapp.com/invite
+Avatar: JS
