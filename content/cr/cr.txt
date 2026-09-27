@@ -5,24 +5,24 @@
 
 [CR]
 ID: cr-1
-Name: Geetansh Jangid
-Section: Section V
-Roll No: 
-Email: geetanshjangid.ai30@jecrc.ac.in
-Phone: +91 93589 03319
-GitHub: https://github.com/Geetansh-Jangid
-LinkedIn: https://www.linkedin.com/in/geetansh-jangid-841a2b314
-WhatsApp: https://chat.whatsapp.com/invite/
-Avatar: GJ
-
-[CR]
-ID: cr-2
 Name: Jyoti Soni
 Section: Section V
-Roll No: 
+Roll No: 94
 Email: jyotisoni.ai30@jecrc.ac.in
 Phone: +91 96723 53536
 GitHub: https://github.com/
 LinkedIn: https://linkedin.com/in/
 WhatsApp: https://chat.whatsapp.com/invite
 Avatar: JS
+
+[CR]
+ID: cr-2
+Name: Geetansh Jangid
+Section: Section V
+Roll No: 65
+Email: geetanshjangid.ai30@jecrc.ac.in
+Phone: +91 93589 03319
+GitHub: https://github.com/Geetansh-Jangid
+LinkedIn: https://www.linkedin.com/in/geetansh-jangid-841a2b314
+WhatsApp: https://chat.whatsapp.com/invite/
+Avatar: GJ
