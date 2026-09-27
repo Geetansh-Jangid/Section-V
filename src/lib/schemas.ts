@@ -51,7 +51,7 @@ export const FacultySchema = z.object({
   designation: z.string(),
   department: z.string(),
   cabin: z.string(),
-  email: z.string().email(),
+  email: z.string().email().or(z.literal('')),
   phone: z.string(),
   subjects: z.array(FacultySubjectSchema),
   officeHours: z.string(),
