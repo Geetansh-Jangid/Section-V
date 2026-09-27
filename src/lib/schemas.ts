@@ -65,9 +65,9 @@ export const CRSchema = z.object({
   name: z.string(),
   role: z.string().optional(),
   section: z.string(),
-  rollNo: z.string(),
-  email: z.string().email(),
-  phone: z.string(),
+  rollNo: z.string().or(z.literal('')),
+  email: z.string().email().or(z.literal('')),
+  phone: z.string().or(z.literal('')),
   officeHours: z.string().optional(),
   primaryResponsibilities: z.array(z.string()).optional(),
   social: z.object({

@@ -79,26 +79,32 @@ export const FacultyPage: React.FC = () => {
                 <div className="flex items-start justify-between gap-2">
                   <div>
                     <h4 className="text-base font-semibold text-white">{cr.name}</h4>
-                    <p className="text-xs text-neutral-400 font-mono mt-0.5">Roll No: {cr.rollNo}</p>
+                    {cr.rollNo && (
+                      <p className="text-xs text-neutral-400 font-mono mt-0.5">Roll No: {cr.rollNo}</p>
+                    )}
                     <p className="text-xs text-neutral-500 mt-0.5">{cr.section}</p>
                   </div>
                 </div>
 
                 <div className="mt-3 flex flex-wrap gap-2 text-xs text-neutral-400">
-                  <a
-                    href={`mailto:${cr.email}`}
-                    className="flex items-center gap-1 hover:text-white transition-colors"
-                  >
-                    <Mail className="w-3.5 h-3.5 text-neutral-500" />
-                    <span>{cr.email}</span>
-                  </a>
-                  <a
-                    href={`tel:${cr.phone}`}
-                    className="flex items-center gap-1 hover:text-white transition-colors"
-                  >
-                    <Phone className="w-3.5 h-3.5 text-neutral-500" />
-                    <span>{cr.phone}</span>
-                  </a>
+                  {cr.email && (
+                    <a
+                      href={`mailto:${cr.email}`}
+                      className="flex items-center gap-1 hover:text-white transition-colors"
+                    >
+                      <Mail className="w-3.5 h-3.5 text-neutral-500" />
+                      <span>{cr.email}</span>
+                    </a>
+                  )}
+                  {cr.phone && (
+                    <a
+                      href={`tel:${cr.phone}`}
+                      className="flex items-center gap-1 hover:text-white transition-colors"
+                    >
+                      <Phone className="w-3.5 h-3.5 text-neutral-500" />
+                      <span>{cr.phone}</span>
+                    </a>
+                  )}
                 </div>
               </div>
 
@@ -137,28 +143,35 @@ export const FacultyPage: React.FC = () => {
                 <div className="flex items-start justify-between gap-2">
                   <div>
                     <h4 className="text-sm font-semibold text-white">{fac.name}</h4>
-                    <p className="text-xs text-neutral-400">{fac.designation} · {fac.department}</p>
+                    <p className="text-xs text-neutral-400">
+                      {fac.designation}
+                      {fac.department ? ` · ${fac.department}` : ''}
+                    </p>
                   </div>
 
                   {/* Copy cabin button */}
-                  <button
-                    onClick={() => copyCabin(fac.id, fac.cabin)}
-                    className="p-1.5 rounded bg-[#141414] border border-[#262626] text-neutral-400 hover:text-white transition-colors shrink-0"
-                    title="Copy cabin number"
-                  >
-                    {copiedId === fac.id ? (
-                      <Check className="w-3.5 h-3.5 text-emerald-400" />
-                    ) : (
-                      <Copy className="w-3.5 h-3.5" />
-                    )}
-                  </button>
+                  {fac.cabin && (
+                    <button
+                      onClick={() => copyCabin(fac.id, fac.cabin)}
+                      className="p-1.5 rounded bg-[#141414] border border-[#262626] text-neutral-400 hover:text-white transition-colors shrink-0"
+                      title="Copy cabin number"
+                    >
+                      {copiedId === fac.id ? (
+                        <Check className="w-3.5 h-3.5 text-emerald-400" />
+                      ) : (
+                        <Copy className="w-3.5 h-3.5" />
+                      )}
+                    </button>
+                  )}
                 </div>
 
                 {/* Cabin location badge */}
-                <div className="mt-2.5 flex items-center gap-1.5 text-xs">
-                  <MapPin className="w-3.5 h-3.5 text-neutral-400" />
-                  <span className="font-mono font-medium text-neutral-200">{fac.cabin}</span>
-                </div>
+                {fac.cabin && (
+                  <div className="mt-2.5 flex items-center gap-1.5 text-xs">
+                    <MapPin className="w-3.5 h-3.5 text-neutral-400" />
+                    <span className="font-mono font-medium text-neutral-200">{fac.cabin}</span>
+                  </div>
+                )}
 
                 {/* Subjects taught */}
                 <div className="mt-2.5 space-y-1">

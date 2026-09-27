@@ -264,7 +264,8 @@ function parseAnnouncementsFile(): Announcement[] {
       }
     }
 
-    if (item.title && item.author) {
+    if (item.title) {
+      if (!item.author) item.author = 'Admin';
       announcements.push(AnnouncementSchema.parse(item));
     }
   }
@@ -368,7 +369,7 @@ function parseCrFile(): ClassRepresentative[] {
       }
     }
 
-    if (item.name && item.email) {
+    if (item.name) {
       crs.push(CRSchema.parse(item));
     }
   }
