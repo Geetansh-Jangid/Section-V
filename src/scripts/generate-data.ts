@@ -220,7 +220,7 @@ function parseFacultyFile(): Faculty[] {
       }
     }
 
-    if (item.name && item.email) {
+    if (item.name) {
       faculties.push(FacultySchema.parse(item));
     }
   }

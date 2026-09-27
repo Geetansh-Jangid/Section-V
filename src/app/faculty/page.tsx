@@ -178,12 +178,16 @@ export const FacultyPage: React.FC = () => {
               </div>
 
               <div className="mt-3 pt-2.5 border-t border-[#1c1c1c] flex items-center justify-between text-[11px] text-neutral-400">
-                <a
-                  href={`mailto:${fac.email}`}
-                  className="hover:text-white transition-colors truncate max-w-[180px]"
-                >
-                  {fac.email}
-                </a>
+                {fac.email ? (
+                  <a
+                    href={`mailto:${fac.email}`}
+                    className="hover:text-white transition-colors truncate max-w-[180px]"
+                  >
+                    {fac.email}
+                  </a>
+                ) : (
+                  <span className="truncate max-w-[180px]"></span>
+                )}
                 <span>{fac.officeHours}</span>
               </div>
             </div>

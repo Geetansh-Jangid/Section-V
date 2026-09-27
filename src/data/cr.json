@@ -2,33 +2,33 @@
   {
     "contentFile": "content/cr/cr.txt",
     "id": "cr-1",
-    "name": "Aarav Mehta",
+    "name": "Geetansh Jangid",
     "section": "Section V",
-    "rollNo": "2024CS-V-014",
-    "email": "aarav.mehta.secv@college.edu",
-    "phone": "+91 98765 43210",
+    "rollNo": "",
+    "email": "geetanshjangid.ai30@jecrc.ac.in",
+    "phone": "+91 93589 03319",
     "primaryResponsibilities": [],
     "social": {
-      "github": "https://github.com/section-v-lead",
-      "linkedin": "https://linkedin.com/in/aarav-mehta",
-      "whatsapp": "https://chat.whatsapp.com/invite/section-v-official"
+      "github": "https://github.com/Geetansh-Jangid",
+      "linkedin": "https://www.linkedin.com/in/geetansh-jangid-841a2b314",
+      "whatsapp": "https://chat.whatsapp.com/invite/"
     },
-    "avatar": "AM"
+    "avatar": "GJ"
   },
   {
     "contentFile": "content/cr/cr.txt",
     "id": "cr-2",
-    "name": "Rhea Kapoor",
+    "name": "Jyoti Soni",
     "section": "Section V",
-    "rollNo": "2024CS-V-042",
-    "email": "rhea.kapoor.secv@college.edu",
-    "phone": "+91 98765 43211",
+    "rollNo": "",
+    "email": "jyotisoni.ai30@jecrc.ac.in",
+    "phone": "+91 96723 53536",
     "primaryResponsibilities": [],
     "social": {
-      "github": "https://github.com/rhea-kapoor-v",
-      "linkedin": "https://linkedin.com/in/rhea-kapoor",
-      "whatsapp": "https://chat.whatsapp.com/invite/section-v-official"
+      "github": "https://github.com/",
+      "linkedin": "https://linkedin.com/in/",
+      "whatsapp": "https://chat.whatsapp.com/invite"
     },
-    "avatar": "RK"
+    "avatar": "JS"
   }
 ]
