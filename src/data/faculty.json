@@ -2,62 +2,50 @@
   {
     "contentFile": "content/faculty/faculty.txt",
     "id": "fac-gc",
-    "name": "Prof. G.C. Sharma (GC)",
-    "designation": "Professor & Mathematics Coordinator",
-    "department": "Applied Sciences & Mathematics",
-    "cabin": "Science Block Room 102",
-    "email": "gc.sharma@college.edu",
-    "phone": "+91 11 2789 4501",
+    "name": "Geeta Ma'am",
+    "designation": "Mathematics teacher",
+    "department": "",
+    "cabin": "",
+    "email": "",
+    "phone": "",
     "subjects": [
       {
         "code": "M",
-        "name": "Mathematics & Calculus"
-      },
-      {
-        "code": "M-TUT",
-        "name": "Mathematics Remedial & Problem Solving"
+        "name": "Mathematics"
       }
     ],
-    "officeHours": "Mon, Wed & Fri: 01:30 PM – 02:30 PM",
-    "researchInterests": [
-      "Linear Algebra",
-      "Applied Calculus",
-      "Numerical Methods"
-    ],
+    "officeHours": "",
+    "researchInterests": [],
     "avatar": "GC"
   },
   {
     "contentFile": "content/faculty/faculty.txt",
     "id": "fac-rse",
-    "name": "Prof. R.S. Evans (RSE)",
-    "designation": "Associate Professor",
-    "department": "Electronics & Electrical Engineering",
-    "cabin": "ECE Block Room 204",
-    "email": "rs.evans@college.edu",
-    "phone": "+91 11 2789 4502",
+    "name": "RSE",
+    "designation": "Digital Electronics Teacher",
+    "department": "Electronics",
+    "cabin": "",
+    "email": "",
+    "phone": "",
     "subjects": [
       {
         "code": "DE",
-        "name": "Digital Electronics & Logic Design"
+        "name": "Digital Electronics"
       }
     ],
-    "officeHours": "Mon & Tue: 02:30 PM – 03:30 PM",
-    "researchInterests": [
-      "VLSI Design",
-      "Digital Logic Optimization",
-      "Embedded Systems"
-    ],
+    "officeHours": "",
+    "researchInterests": [],
     "avatar": "RE"
   },
   {
     "contentFile": "content/faculty/faculty.txt",
     "id": "fac-gs",
-    "name": "Prof. G.S. Rathore (GS)",
-    "designation": "Associate Professor & Section V Mentor",
-    "department": "Computer Science & Engineering",
-    "cabin": "CS Block Room 312",
-    "email": "gs.rathore@college.edu",
-    "phone": "+91 11 2789 4503",
+    "name": "Prof. Gajendra Sharma (GS)",
+    "designation": "PPS teacher",
+    "department": "Computer Science",
+    "cabin": "",
+    "email": "",
+    "phone": "",
     "subjects": [
       {
         "code": "PPS",
@@ -68,46 +56,38 @@
         "name": "PPS Laboratory (Batch V2)"
       }
     ],
-    "officeHours": "Daily: 03:30 PM – 04:30 PM",
-    "researchInterests": [
-      "Data Structures",
-      "Algorithmic Efficiency",
-      "C/C++ Systems"
-    ],
+    "officeHours": "",
+    "researchInterests": [],
     "avatar": "GS"
   },
   {
     "contentFile": "content/faculty/faculty.txt",
     "id": "fac-sm",
-    "name": "Dr. S. Mukherjee (SM)",
-    "designation": "Assistant Professor (Senior Scale)",
-    "department": "Humanities & Interdisciplinary Sciences",
-    "cabin": "Main Admin Block Room 118",
-    "email": "s.mukherjee@college.edu",
-    "phone": "+91 11 2789 4504",
+    "name": "SM",
+    "designation": "Fundamental of Cyber Security & Ethical Hacking teacher",
+    "department": "",
+    "cabin": "",
+    "email": "",
+    "phone": "",
     "subjects": [
       {
         "code": "FCSEH",
-        "name": "Foundation Course in Science, Ethics & Human Values"
+        "name": "Fundamental of Cyber Security & Ethical Hacking"
       }
     ],
-    "officeHours": "Tue & Thu: 01:30 PM – 03:00 PM",
-    "researchInterests": [
-      "Professional Ethics",
-      "Philosophy of Technology",
-      "Engineering Sociology"
-    ],
+    "officeHours": "",
+    "researchInterests": [],
     "avatar": "SM"
   },
   {
     "contentFile": "content/faculty/faculty.txt",
     "id": "fac-shk",
-    "name": "Dr. S.H. Khan (SHK)",
-    "designation": "Professor & Chemistry Department Head",
-    "department": "Applied Chemistry & Environmental Sciences",
-    "cabin": "Chemistry Block Room 210",
-    "email": "sh.khan@college.edu",
-    "phone": "+91 11 2789 4505",
+    "name": "Shalini Ma'am",
+    "designation": "Chemistry teacher and Chemistry Lab teacher (Batch V2)",
+    "department": "",
+    "cabin": "CG-20",
+    "email": "",
+    "phone": "",
     "subjects": [
       {
         "code": "CH",
@@ -118,148 +98,122 @@
         "name": "Chemistry Laboratory (Batch V2)"
       }
     ],
-    "officeHours": "Tue, Wed & Fri: 02:30 PM – 04:00 PM",
-    "researchInterests": [
-      "Polymer Chemistry",
-      "Spectroscopy",
-      "Material Sciences"
-    ],
+    "officeHours": "",
+    "researchInterests": [],
     "avatar": "SK"
   },
   {
     "contentFile": "content/faculty/faculty.txt",
     "id": "fac-shb",
-    "name": "Prof. S.H. Bhatia (SHB)",
-    "designation": "Associate Professor",
-    "department": "Humanities & Soft Skills Cell",
-    "cabin": "Language Lab Block Room 105",
-    "email": "sh.bhatia@college.edu",
-    "phone": "+91 11 2789 4506",
+    "name": "Shivani Bhardwaj Ma'am",
+    "designation": "Communication Skills teacher",
+    "department": "",
+    "cabin": "",
+    "email": "",
+    "phone": "",
     "subjects": [
       {
         "code": "CSK",
-        "name": "Communication Skills & Professional Presentation"
+        "name": "Communication Skills"
       }
     ],
-    "officeHours": "Wed & Thu: 12:30 PM – 01:30 PM",
-    "researchInterests": [
-      "Technical Writing",
-      "Corporate Communication",
-      "Interpersonal Skills"
-    ],
+    "officeHours": "",
+    "researchInterests": [],
     "avatar": "SB"
   },
   {
     "contentFile": "content/faculty/faculty.txt",
     "id": "fac-rr",
-    "name": "Prof. R. Roy (RR)",
-    "designation": "Assistant Professor & Language Lab Incharge",
-    "department": "Humanities & Communication Cell",
-    "cabin": "CS-22 Language Lab Wing",
-    "email": "r.roy@college.edu",
-    "phone": "+91 11 2789 4507",
+    "name": "Dr. Renu Rani Ma'am",
+    "designation": "Communication Skills Lab teacher (batch V1)",
+    "department": "",
+    "cabin": "",
+    "email": "",
+    "phone": "",
     "subjects": [
       {
         "code": "CSK LAB",
         "name": "Communication Skills Lab (Batch V1)"
       }
     ],
-    "officeHours": "Mon & Wed: 03:30 PM – 04:30 PM",
-    "researchInterests": [
-      "Phonetics",
-      "Public Speaking",
-      "Digital Communication"
-    ],
+    "officeHours": "",
+    "researchInterests": [],
     "avatar": "RR"
   },
   {
     "contentFile": "content/faculty/faculty.txt",
     "id": "fac-sc",
-    "name": "Prof. S. Chakraborty (SC)",
-    "designation": "Assistant Professor & Lab Coordinator",
-    "department": "Computer Science & Engineering",
-    "cabin": "Computing Center Room CLG-18",
-    "email": "s.chakraborty@college.edu",
-    "phone": "+91 11 2789 4508",
+    "name": "SC",
+    "designation": "Induction Program Lab teacher (Batch V2)",
+    "department": "",
+    "cabin": "",
+    "email": "",
+    "phone": "",
     "subjects": [
       {
         "code": "IP LAB",
-        "name": "Internet Programming Lab (Batch V2)"
+        "name": "Induction Program Lab (Batch V2)"
       }
     ],
-    "officeHours": "Mon: 03:30 PM – 05:00 PM",
-    "researchInterests": [
-      "Web Technologies",
-      "Full-Stack Development",
-      "Cloud Architecture"
-    ],
+    "officeHours": "",
+    "researchInterests": [],
     "avatar": "SC"
   },
   {
     "contentFile": "content/faculty/faculty.txt",
     "id": "fac-nk",
-    "name": "Prof. N. Kaushik (NK)",
-    "designation": "Assistant Professor",
-    "department": "Computer Science & Engineering",
-    "cabin": "CS-Block Room CF-02",
-    "email": "n.kaushik@college.edu",
-    "phone": "+91 11 2789 4509",
+    "name": "NK",
+    "designation": "PPS Lab teacher (Batch V1)",
+    "department": "Computer Science",
+    "cabin": "",
+    "email": "",
+    "phone": "",
     "subjects": [
       {
         "code": "PPS LAB",
         "name": "Programming for Problem Solving Lab (Batch V1)"
       }
     ],
-    "officeHours": "Tue: 03:30 PM – 04:30 PM",
-    "researchInterests": [
-      "Algorithm Design",
-      "Computational Problem Solving"
-    ],
+    "officeHours": "",
+    "researchInterests": [],
     "avatar": "NK"
   },
   {
     "contentFile": "content/faculty/faculty.txt",
     "id": "fac-sj",
-    "name": "Prof. S. Joshi (SJ)",
-    "designation": "Assistant Professor",
-    "department": "Computer Science & Engineering",
-    "cabin": "Computing Center Room CLG-18",
-    "email": "s.joshi@college.edu",
-    "phone": "+91 11 2789 4510",
+    "name": "Swarnima Ma'am",
+    "designation": "Induction Program Lab teacher (Batch V1)",
+    "department": "",
+    "cabin": "",
+    "email": "",
+    "phone": "",
     "subjects": [
       {
         "code": "IP LAB",
-        "name": "Internet Programming Lab (Batch V1)"
+        "name": "Induction Program Lab (Batch V1)"
       }
     ],
-    "officeHours": "Thu: 03:30 PM – 04:30 PM",
-    "researchInterests": [
-      "Network Programming",
-      "Scripting Languages",
-      "Linux Environments"
-    ],
+    "officeHours": "",
+    "researchInterests": [],
     "avatar": "SJ"
   },
   {
     "contentFile": "content/faculty/faculty.txt",
     "id": "fac-rv",
-    "name": "Prof. R. Varma (RV)",
-    "designation": "Assistant Professor",
-    "department": "Applied Chemistry",
-    "cabin": "Chemistry Lab CG-20",
-    "email": "r.varma@college.edu",
-    "phone": "+91 11 2789 4511",
+    "name": "Rekha Vijay Ma'am",
+    "designation": "Chemistry Lab teacher (Batch V1)",
+    "department": "",
+    "cabin": "",
+    "email": "",
+    "phone": "",
     "subjects": [
       {
         "code": "CH LAB",
         "name": "Chemistry Laboratory (Batch V1)"
       }
     ],
-    "officeHours": "Fri: 03:30 PM – 04:30 PM",
-    "researchInterests": [
-      "Titration & Analytical Chemistry",
-      "Material Safety"
-    ],
+    "officeHours": "",
+    "researchInterests": [],
     "avatar": "RV"
   }
 ]
