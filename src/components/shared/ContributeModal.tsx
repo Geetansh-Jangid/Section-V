@@ -305,7 +305,7 @@ Contributor: ${authorName || 'Section V Contributor'}`;
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.15 }}
-          className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md"
+          className="fixed inset-0 z-[70] bg-black/80 backdrop-blur-md"
           style={{ minHeight: '100dvh' }}
           onClick={onClose}
         >
@@ -317,7 +317,7 @@ Contributor: ${authorName || 'Section V Contributor'}`;
               exit={{ opacity: 0, scale: 0.96, y: 8 }}
               transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
               data-modal-card="true"
-              className="w-full max-w-[calc(100vw-1.5rem)] sm:max-w-xl md:max-w-2xl lg:max-w-3xl xl:max-w-4xl bg-[#0c0c0c] border border-[#262626] rounded-2xl shadow-2xl flex flex-col max-h-[92vh] sm:max-h-[88vh] overflow-hidden m-auto"
+              className="w-full max-w-[calc(100dvw-1.5rem)] sm:max-w-xl md:max-w-2xl lg:max-w-3xl xl:max-w-4xl bg-[#0c0c0c] border border-[#262626] rounded-2xl shadow-2xl flex flex-col max-h-[92dvh] sm:max-h-[88dvh] overflow-hidden m-auto"
               onClick={(e) => e.stopPropagation()}
             >
             {/* Header */}

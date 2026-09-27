@@ -54,7 +54,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.15 }}
-          className="fixed inset-0 z-50 flex items-start justify-center px-4 pt-[max(1rem,10dvh)] bg-black/70 backdrop-blur-sm"
+          className="fixed inset-0 z-[70] flex items-start justify-center px-4 pt-[max(1rem,10dvh)] bg-black/70 backdrop-blur-sm"
           style={{ minHeight: '100dvh' }}
           onClick={() => onOpenChange(false)}
         >
