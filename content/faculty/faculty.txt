@@ -44,10 +44,10 @@ Avatar: GS
 
 [FACULTY]
 ID: fac-sm
-Name: SM
+Name: Soumitra Sir
 Designation: Fundamental of Cyber Security & Ethical Hacking teacher
 Department: 
-Cabin: 
+Cabin: Cs-16
 Email: 
 Phone: 
 Subjects: FCSEH: Fundamental of Cyber Security & Ethical Hacking
