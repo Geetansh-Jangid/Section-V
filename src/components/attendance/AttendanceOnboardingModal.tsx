@@ -128,20 +128,21 @@ export const AttendanceOnboardingModal: React.FC<AttendanceOnboardingModalProps>
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.15 }}
-          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-sm overflow-y-auto overscroll-contain"
+          className="fixed inset-0 z-[70] bg-black/80 backdrop-blur-md"
           style={{ minHeight: '100dvh' }}
           onClick={isReconfigure ? onClose : undefined}
         >
-          <motion.div
-            key="attendance-onboarding-content"
-            initial={{ opacity: 0, scale: 0.96, y: 10 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.96, y: 10 }}
-            transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
-            data-modal-card="true"
-            className="w-full max-w-[calc(100vw-1.5rem)] sm:max-w-xl md:max-w-2xl bg-[#0d0d0d] border border-[#262626] rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh] my-auto"
-            onClick={(e) => e.stopPropagation()}
-          >
+          <div className="h-full overflow-y-auto overscroll-contain flex p-3 sm:p-4">
+            <motion.div
+              key="attendance-onboarding-content"
+              initial={{ opacity: 0, scale: 0.96, y: 10 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.96, y: 10 }}
+              transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
+              data-modal-card="true"
+              className="w-full max-w-[calc(100dvw-1.5rem)] sm:max-w-xl md:max-w-2xl bg-[#0c0c0c] border border-[#262626] rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[92dvh] sm:max-h-[88dvh] m-auto"
+              onClick={(e) => e.stopPropagation()}
+            >
             {/* Header */}
             <div className="flex items-center justify-between px-5 py-4 sm:px-6 sm:py-5 border-b border-[#1f1f1f] shrink-0">
               <div className="flex items-center gap-3">
@@ -394,7 +395,8 @@ export const AttendanceOnboardingModal: React.FC<AttendanceOnboardingModalProps>
                 </button>
               )}
             </div>
-          </motion.div>
+            </motion.div>
+          </div>
         </motion.div>
       )}
     </AnimatePresence>,

@@ -121,7 +121,7 @@ Description: ${description.trim() || 'Task requirements and instructions.'}`;
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.15 }}
-          className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm"
+          className="fixed inset-0 z-[70] bg-black/80 backdrop-blur-md"
           style={{ minHeight: '100dvh' }}
           onClick={onClose}
         >
@@ -133,7 +133,7 @@ Description: ${description.trim() || 'Task requirements and instructions.'}`;
               exit={{ opacity: 0, scale: 0.96, y: 10 }}
               transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
               data-modal-card="true"
-              className="w-full max-w-[calc(100vw-1.5rem)] sm:max-w-xl md:max-w-2xl bg-[#0d0d0d] border border-[#262626] rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh] m-auto"
+              className="w-full max-w-[calc(100dvw-1.5rem)] sm:max-w-xl md:max-w-2xl bg-[#0c0c0c] border border-[#262626] rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[92dvh] sm:max-h-[88dvh] m-auto"
               onClick={(e) => e.stopPropagation()}
             >
             {/* Header */}
