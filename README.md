@@ -4,7 +4,7 @@
 
 **Section V** is a student-focused academic platform designed for **Section V (AI & DS)**. It brings timetables, faculty information, study notes, announcements, tasks, class representatives, useful portals, and other academic resources into a single interface.
 
-🌐 **Live:** https://sectionv.vercel.app/  
+🌐 **Live:** https://v.geetansh.tech/  
 📦 **Repository:** https://github.com/Geetansh-Jangid/Section-V
 
 ---
