@@ -475,21 +475,22 @@ export const TimetableSection: React.FC<TimetableSectionProps> = ({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.15 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm"
+            className="fixed inset-0 z-[70] bg-black/80 backdrop-blur-md"
             style={{ minHeight: '100dvh' }}
             onClick={() => setEditingItem(null)}
           >
-            <motion.div
-              key="timetable-override-content"
-              initial={{ opacity: 0, scale: 0.95, y: 10 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 10 }}
-              transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
-              data-modal-card="true"
-              className="w-full max-w-[calc(100vw-1.5rem)] sm:max-w-lg md:max-w-xl lg:max-w-2xl bg-[#0f0f0f] border border-[#262626] rounded-2xl p-5 sm:p-7 shadow-2xl max-h-[90vh] overflow-y-auto my-auto"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="flex items-center justify-between pb-3.5 border-b border-[#222222]">
+            <div className="h-full overflow-y-auto overscroll-contain flex p-3 sm:p-4">
+              <motion.div
+                key="timetable-override-content"
+                initial={{ opacity: 0, scale: 0.95, y: 10 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95, y: 10 }}
+                transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
+                data-modal-card="true"
+                className="w-full max-w-[calc(100dvw-1.5rem)] sm:max-w-lg md:max-w-xl lg:max-w-2xl bg-[#0c0c0c] border border-[#262626] rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[92dvh] sm:max-h-[88dvh] m-auto"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <div className="flex items-center justify-between p-5 sm:p-7 pb-3.5 border-b border-[#222222] shrink-0">
                 <div>
                   <h3 className="text-base sm:text-lg font-bold text-white tracking-tight">
                     Schedule Override: {editingItem.subjectCode}
@@ -508,7 +509,7 @@ export const TimetableSection: React.FC<TimetableSectionProps> = ({
                 </button>
               </div>
 
-              <form onSubmit={handleSaveOverride} className="space-y-4 pt-4 text-xs sm:text-sm">
+              <form onSubmit={handleSaveOverride} className="flex-1 overflow-y-auto p-5 sm:p-7 space-y-4 text-xs sm:text-sm">
                 <div>
                   <label className="text-neutral-300 block mb-1.5 font-medium">Subject</label>
                   <div className="p-3 rounded-lg bg-[#161616] border border-[#262626] text-neutral-200 font-medium">
@@ -551,23 +552,24 @@ export const TimetableSection: React.FC<TimetableSectionProps> = ({
                   </label>
                 </div>
 
-                <div className="flex items-center justify-end gap-2.5 pt-3 border-t border-[#222222]">
+                <div className="flex items-center justify-end gap-2.5 pt-3 mt-4 border-t border-[#222222] shrink-0">
                   <button
                     type="button"
                     onClick={() => setEditingItem(null)}
-                    className="px-4 py-2 rounded-lg bg-[#161616] border border-[#262626] text-neutral-300 hover:text-white transition-colors cursor-pointer text-xs sm:text-sm"
+                    className="px-4 py-2 rounded-lg bg-[#161616] border border-[#262626] text-neutral-300 hover:text-white transition-colors cursor-pointer text-xs sm:text-sm mt-3"
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
-                    className="px-4 py-2 rounded-lg bg-white text-black font-semibold hover:bg-neutral-200 transition-colors cursor-pointer text-xs sm:text-sm"
+                    className="px-4 py-2 rounded-lg bg-white text-black font-semibold hover:bg-neutral-200 transition-colors cursor-pointer text-xs sm:text-sm mt-3"
                   >
                     Save Override
                   </button>
                 </div>
               </form>
-            </motion.div>
+              </motion.div>
+            </div>
           </motion.div>,
           document.body
           )
