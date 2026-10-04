@@ -385,7 +385,7 @@ export const TimetableSection: React.FC<TimetableSectionProps> = ({
                         Sat
                       </td>
                       <td colSpan={7} className="p-3 text-center text-xs text-neutral-600 italic">
-                        Weekend / Recess (No lectures scheduled)
+                        Weekend (No lectures scheduled)
                       </td>
                     </tr>
                   );
