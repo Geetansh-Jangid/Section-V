@@ -4,36 +4,15 @@
 # ==============================================================================
 
 GitHub Repo URL: https://github.com/Geetansh-Jangid/Section-V
-WhatsApp Community URL: https://chat.whatsapp.com/section-v-announcements
-General Drive URL: https://drive.google.com/drive/folders/section-v-root
+WhatsApp Community URL: https://chat.whatsapp.com/Ly0ePWhyFC12mh1SygvQbN
+General Drive URL: https://drive.google.com/drive/folders/1Nv5aX3qnmNQjU6AZCSjBZTFBqamNbbZd?usp=sharing
 
 [PORTAL]
-ID: erp
-Title: Student ERP
-Description: Grades & Official Records
-URL: https://erp.college.edu
+ID: website
+Title: College Website
+Description: Official JECRC Foundation Website
+URL: https://jecrcfoundation.com/
 Icon: GraduationCap
-
-[PORTAL]
-ID: lms
-Title: Course LMS
-Description: Lab Manuals & Submissions
-URL: https://moodle.college.edu
-Icon: BookOpen
-
-[PORTAL]
-ID: exam
-Title: Exam Cell
-Description: Roll Lists & Seating
-URL: https://exam.college.edu
-Icon: Layers
-
-[PORTAL]
-ID: wifi
-Title: Campus Network
-Description: WiFi & 802.1X Auth
-URL: https://wifi.college.edu
-Icon: Wifi
 
 [PORTAL]
 ID: github
@@ -44,7 +23,7 @@ Icon: Github
 
 [PORTAL]
 ID: library
-Title: IEEE / Library
-Description: E-Books & Papers
-URL: https://library.college.edu
-Icon: Globe
+Title: Library
+Description: Information about library
+URL: https://jecrcfoundation.com/library/
+Icon: BookOpen
