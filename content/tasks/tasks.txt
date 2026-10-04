@@ -16,3 +16,13 @@ Due Date: 2026-10-05
 Priority: urgent
 Assigned By: Geeta Ma'am
 Description: Complete the given 10 questions per assignment.
+
+[TASK]
+ID: task-319710
+Title: CSK Lab manual experiment 1 and 2
+Subject: CSK
+Section: V1
+Due Date: 2026-10-05
+Priority: urgent
+Assigned By: Renu ma'am
+Description: Complete experiment 1 and 2 of csk lab manual
