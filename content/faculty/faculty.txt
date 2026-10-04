@@ -18,7 +18,7 @@ Avatar: GC
 
 [FACULTY]
 ID: fac-rse
-Name: RSE
+Name: Ram Singh Sir
 Designation: Digital Electronics Teacher
 Department: Electronics
 Cabin: 
@@ -31,7 +31,7 @@ Avatar: RE
 
 [FACULTY]
 ID: fac-gs
-Name: Prof. Gajendra Sharma (GS)
+Name: Gajendra Sharma Sir
 Designation: PPS teacher
 Department: Computer Science
 Cabin: 
@@ -83,7 +83,7 @@ Avatar: SB
 
 [FACULTY]
 ID: fac-rr
-Name: Dr. Renu Rani Ma'am
+Name: Renu Rani Ma'am
 Designation: Communication Skills Lab teacher (batch V1)
 Department: 
 Cabin: 
