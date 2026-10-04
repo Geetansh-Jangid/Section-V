@@ -2,25 +2,9 @@
   {
     "contentFile": "content/cr/cr.txt",
     "id": "cr-1",
-    "name": "Geetansh Jangid",
-    "section": "Section V",
-    "rollNo": "",
-    "email": "geetanshjangid.ai30@jecrc.ac.in",
-    "phone": "+91 93589 03319",
-    "primaryResponsibilities": [],
-    "social": {
-      "github": "https://github.com/Geetansh-Jangid",
-      "linkedin": "https://www.linkedin.com/in/geetansh-jangid-841a2b314",
-      "whatsapp": "https://chat.whatsapp.com/invite/"
-    },
-    "avatar": "GJ"
-  },
-  {
-    "contentFile": "content/cr/cr.txt",
-    "id": "cr-2",
     "name": "Jyoti Soni",
     "section": "Section V",
-    "rollNo": "",
+    "rollNo": "94",
     "email": "jyotisoni.ai30@jecrc.ac.in",
     "phone": "+91 96723 53536",
     "primaryResponsibilities": [],
@@ -30,5 +14,21 @@
       "whatsapp": "https://chat.whatsapp.com/invite"
     },
     "avatar": "JS"
+  },
+  {
+    "contentFile": "content/cr/cr.txt",
+    "id": "cr-2",
+    "name": "Geetansh Jangid",
+    "section": "Section V",
+    "rollNo": "65",
+    "email": "geetanshjangid.ai30@jecrc.ac.in",
+    "phone": "+91 93589 03319",
+    "primaryResponsibilities": [],
+    "social": {
+      "github": "https://github.com/Geetansh-Jangid",
+      "linkedin": "https://www.linkedin.com/in/geetansh-jangid-841a2b314",
+      "whatsapp": "https://chat.whatsapp.com/invite/"
+    },
+    "avatar": "GJ"
   }
 ]

@@ -261,7 +261,7 @@ export const AttendanceOnboardingModal: React.FC<AttendanceOnboardingModalProps>
                     <span className="font-mono">Attended / Total</span>
                   </div>
 
-                  <div className="space-y-2 max-h-64 sm:max-h-72 overflow-y-auto pr-1">
+                  <div className="space-y-2 max-h-64 sm:max-h-72 overflow-y-auto pr-1 custom-scrollbar">
                     {subjects.map((subj) => {
                       const current = counts[subj.subjectCode] || { attended: subj.attended, total: subj.total };
                       const pct = current.total > 0 ? ((current.attended / current.total) * 100).toFixed(0) : '100';
