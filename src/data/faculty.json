@@ -63,10 +63,10 @@
   {
     "contentFile": "content/faculty/faculty.txt",
     "id": "fac-sm",
-    "name": "SM",
+    "name": "Soumitra Sir",
     "designation": "Fundamental of Cyber Security & Ethical Hacking teacher",
     "department": "",
-    "cabin": "",
+    "cabin": "Cs-16",
     "email": "",
     "phone": "",
     "subjects": [
