@@ -8,7 +8,7 @@ ID: fac-gc
 Name: Geeta Ma'am
 Designation: Mathematics teacher
 Department: 
-Cabin: 
+Cabin: CG-19
 Email: 
 Phone: 
 Subjects: M: Mathematics;
@@ -20,7 +20,7 @@ Avatar: GC
 ID: fac-rse
 Name: Ram Singh Sir
 Designation: Digital Electronics Teacher
-Department: Electronics
+Department: 
 Cabin: 
 Email: 
 Phone: 
@@ -32,8 +32,8 @@ Avatar: RE
 [FACULTY]
 ID: fac-gs
 Name: Gajendra Sharma Sir
-Designation: PPS teacher
-Department: Computer Science
+Designation: PPS teacher and PPS Lab teacher
+Department: 
 Cabin: 
 Email: 
 Phone: 
@@ -47,7 +47,7 @@ ID: fac-sm
 Name: Soumitra Sir
 Designation: Fundamental of Cyber Security & Ethical Hacking teacher
 Department: 
-Cabin: Cs-16
+Cabin: CS-16
 Email: 
 Phone: 
 Subjects: FCSEH: Fundamental of Cyber Security & Ethical Hacking
