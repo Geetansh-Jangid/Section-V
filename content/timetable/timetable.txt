@@ -24,7 +24,7 @@ Slot: 2 | Code: DE | Name: Digital Electronics | Faculty: RSE | Room: CT-12 | Ty
 Slot: 4 | Code: PPS | Name: Programming for Problem Solving | Faculty: GS | Room: CT-12 | Type: Theory | Batch: Both | Color: #eab308
 Slot: 6 | Code: CSK LAB | Name: Communication Skills Lab | Faculty: RR | Room: CS-22/CG-10/CF-17 | Type: Lab | Batch: V1 | Color: #10b981
 Slot: 6 | Code: IP LAB | Name: Induction Program Lab | Faculty: SC | Room: CLG-18 | Type: Lab | Batch: V2 | Color: #f472b6
-Slot: 7 | Code: CSK LAB | Name: Communication Skills Lab | Faculty: RR | Room: CS-22/CG-10/CF-17 | Type: Lab | Batch: V1 | Color: #10b981
+Slot: 7 | Code: CSK LAB | Name: Communication Skills Lab | Faculty: RR | Room: CS-22 | Type: Lab | Batch: V1 | Color: #10b981
 Slot: 7 | Code: IP LAB | Name: Induction Program Lab | Faculty: SC | Room: CLG-18 | Type: Lab | Batch: V2 | Color: #f472b6
 
 [Tuesday]
