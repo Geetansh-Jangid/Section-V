@@ -47,7 +47,7 @@ ID: fac-sm
 Name: Soumitra Sir
 Designation: Fundamental of Cyber Security & Ethical Hacking teacher
 Department: 
-Cabin: CS-16
+Cabin: CS-14
 Email: 
 Phone: 
 Subjects: FCSEH: Fundamental of Cyber Security & Ethical Hacking
