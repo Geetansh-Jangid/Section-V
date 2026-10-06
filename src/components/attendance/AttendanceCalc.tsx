@@ -12,11 +12,13 @@ import {
 import confetti from 'canvas-confetti';
 import { useSectionVStore } from '../../lib/store.ts';
 import { calculateAttendanceMetrics } from '../../lib/attendanceUtils.ts';
+import { getFacultyForSubject } from '../../lib/facultyUtils.ts';
 import { AttendanceOnboardingModal } from './AttendanceOnboardingModal.tsx';
 
 export const AttendanceCalc: React.FC = () => {
   const {
     attendance,
+    userSection,
     targetAttendance,
     setTargetAttendance,
     markAttendance,
@@ -278,6 +280,7 @@ export const AttendanceCalc: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {subjectList.map((subj) => {
             const subMetrics = calculateAttendanceMetrics(subj.attended, subj.total, targetAttendance);
+            const dynamicFaculty = getFacultyForSubject(subj.subjectCode, userSection) || subj.faculty;
             return (
               <div
                 key={subj.subjectCode}
@@ -290,7 +293,7 @@ export const AttendanceCalc: React.FC = () => {
                         <span className="font-mono text-xs font-bold text-white bg-black border border-neutral-700 px-1.5 py-0.2 rounded">
                           {subj.subjectCode}
                         </span>
-                        <span className="text-xs text-neutral-400">{subj.faculty}</span>
+                        <span className="text-xs text-neutral-400">{dynamicFaculty}</span>
                       </div>
                       <h4 className="text-sm font-medium text-neutral-100 mt-1">{subj.subjectName}</h4>
                     </div>
