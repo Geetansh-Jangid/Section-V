@@ -46,7 +46,7 @@ export const NotesPage: React.FC<NotesPageProps> = ({ onOpenContributeModal }) =
             </h2>
           </div>
           <p className="text-xs text-neutral-400 mt-1 max-w-2xl leading-relaxed">
-            Centralized Google Drive folders, lecture slides, unit notes, and solved past-year question papers (PYQs) for Section V.
+            Centralized Google Drive folders, NotebookLM AI study guides, unit notes, and solved past-year question papers (PYQs) for Section V.
           </p>
         </div>
 
@@ -152,6 +152,20 @@ export const NotesPage: React.FC<NotesPageProps> = ({ onOpenContributeModal }) =
                     <ExternalLink className="w-3 h-3 text-neutral-500" />
                   </a>
 
+                  {activeSubject.notebookLmUrl && (
+                    <a
+                      href={activeSubject.notebookLmUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-[#141414] border border-[#262626] text-xs font-medium text-cyan-400 hover:text-cyan-300 transition-colors"
+                      title="Open NotebookLM study guide for this subject"
+                    >
+                      <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
+                      <span>NotebookLM</span>
+                      <ExternalLink className="w-3 h-3 text-neutral-500" />
+                    </a>
+                  )}
+
                   <button
                     onClick={onOpenContributeModal}
                     className="flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-[#181818] border border-[#2a2a2a] text-xs font-medium text-neutral-200 hover:text-white transition-colors cursor-pointer"
@@ -184,7 +198,7 @@ export const NotesPage: React.FC<NotesPageProps> = ({ onOpenContributeModal }) =
             <div className="space-y-2">
               <div className="flex items-center justify-between">
                 <h4 className="text-xs uppercase font-medium text-neutral-400 tracking-wider">
-                  Syllabus Units & Lecture Drive Handouts
+                  Syllabus Units & Topics Covered
                 </h4>
                 <span className="text-[11px] text-neutral-500">
                   {activeSubject.units.length} Units Available
@@ -210,11 +224,6 @@ export const NotesPage: React.FC<NotesPageProps> = ({ onOpenContributeModal }) =
                       </div>
 
                       <div className="flex items-center gap-2">
-                        {unit.slidesUrl && (
-                          <span className="hidden sm:inline-flex items-center gap-1 text-[11px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
-                            Drive Slides Available
-                          </span>
-                        )}
                         {isExpanded ? (
                           <ChevronUp className="w-4 h-4 text-neutral-400" />
                         ) : (
@@ -233,28 +242,29 @@ export const NotesPage: React.FC<NotesPageProps> = ({ onOpenContributeModal }) =
                             {unit.topics.map((t, idx) => (
                               <div
                                 key={idx}
-                                className="flex items-center gap-2 text-xs text-neutral-300 p-1.5 rounded bg-[#111111] border border-[#1f1f1f]"
+                                className="flex items-start gap-2 text-xs text-neutral-300 p-2 rounded bg-[#111111] border border-[#1f1f1f]"
                               >
-                                <span className="w-1.5 h-1.5 rounded-full bg-neutral-500 shrink-0" />
-                                <span className="truncate">{t}</span>
+                                <span className="w-1.5 h-1.5 rounded-full bg-neutral-500 shrink-0 mt-1" />
+                                <span className="break-words line-clamp-2 leading-snug">{t}</span>
                               </div>
                             ))}
                           </div>
                         </div>
 
-                        {unit.slidesUrl && (
+                        {(unit.notebookLmUrl || activeSubject.notebookLmUrl) && (
                           <div className="pt-2 flex flex-wrap items-center justify-between gap-2 border-t border-[#161616]">
                             <span className="text-[11px] text-neutral-500 font-mono">
-                              Lecture slides & handouts hosted on Google Drive
+                              Interactive AI Study Notebook & Audio Overview
                             </span>
                             <a
-                              href={unit.slidesUrl}
+                              href={unit.notebookLmUrl || activeSubject.notebookLmUrl}
                               target="_blank"
                               rel="noreferrer"
-                              className="flex items-center gap-1.5 text-xs text-emerald-400 hover:text-emerald-300 font-medium px-2.5 py-1 rounded bg-[#161616] border border-[#262626] transition-colors"
+                              className="flex items-center gap-1.5 text-xs text-cyan-400 hover:text-cyan-300 font-medium px-2.5 py-1 rounded bg-[#161616] border border-[#262626] transition-colors"
                             >
-                              <ExternalLink className="w-3.5 h-3.5" />
-                              <span>Open Slides in Drive</span>
+                              <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
+                              <span>Open NotebookLM</span>
+                              <ExternalLink className="w-3 h-3 text-neutral-500" />
                             </a>
                           </div>
                         )}

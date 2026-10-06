@@ -7,6 +7,7 @@ Faculty: Prof. S.H. Bhatia (SHB)
 Credits: 2
 Semester: 1
 Drive Folder URL: https://drive.google.com/drive/folders/section-v-csk
+NotebookLM: https://notebooklm.google.com
 PYQ Drive URL: https://drive.google.com/drive/folders/section-v-csk-pyqs
 Tags: Soft Skills, Technical Writing, Presentation, Vocabulary
 Last Updated: 2026-09-14

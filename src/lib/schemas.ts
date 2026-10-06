@@ -108,7 +108,8 @@ export const UnitTopicSchema = z.object({
   unitNumber: z.number().int().positive(),
   title: z.string(),
   topics: z.array(z.string()),
-  slidesUrl: z.string().url().optional()
+  slidesUrl: z.string().url().optional(),
+  notebookLmUrl: z.string().url().optional()
 });
 
 export const PyqSchema = z.object({
@@ -127,6 +128,7 @@ export const NoteSchema = z.object({
   credits: z.number(),
   semester: z.number(),
   driveUrl: z.string().url(),
+  notebookLmUrl: z.string().url().optional(),
   pyqDriveUrl: z.string().url().optional(),
   lastUpdated: z.string(),
   tags: z.array(z.string()),
