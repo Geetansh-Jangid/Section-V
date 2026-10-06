@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
+import { getFacultyForSubject } from './facultyUtils.ts';
 
 export interface AttendanceHistoryEntry {
   id: string;
@@ -92,7 +93,7 @@ const DEFAULT_SUBJECTS: Record<string, SubjectAttendance> = {
   'M': {
     subjectCode: 'M',
     subjectName: 'Mathematics',
-    faculty: 'Prof. G.C. Sharma (GC)',
+    faculty: getFacultyForSubject('M'),
     attended: 27,
     total: 32,
     history: []
@@ -100,7 +101,7 @@ const DEFAULT_SUBJECTS: Record<string, SubjectAttendance> = {
   'DE': {
     subjectCode: 'DE',
     subjectName: 'Digital Electronics',
-    faculty: 'Prof. R.S. Evans (RSE)',
+    faculty: getFacultyForSubject('DE'),
     attended: 25,
     total: 30,
     history: []
@@ -108,7 +109,7 @@ const DEFAULT_SUBJECTS: Record<string, SubjectAttendance> = {
   'PPS': {
     subjectCode: 'PPS',
     subjectName: 'Programming for Problem Solving',
-    faculty: 'Prof. G.S. Rathore (GS)',
+    faculty: getFacultyForSubject('PPS'),
     attended: 31,
     total: 34,
     history: []
@@ -116,7 +117,7 @@ const DEFAULT_SUBJECTS: Record<string, SubjectAttendance> = {
   'FCSEH': {
     subjectCode: 'FCSEH',
     subjectName: 'Foundation Course in Science, Ethics & Human Values',
-    faculty: 'Dr. S. Mukherjee (SM)',
+    faculty: getFacultyForSubject('FCSEH'),
     attended: 22,
     total: 25,
     history: []
@@ -124,7 +125,7 @@ const DEFAULT_SUBJECTS: Record<string, SubjectAttendance> = {
   'CH': {
     subjectCode: 'CH',
     subjectName: 'Engineering Chemistry',
-    faculty: 'Dr. S.H. Khan (SHK)',
+    faculty: getFacultyForSubject('CH'),
     attended: 26,
     total: 32,
     history: []
@@ -132,7 +133,7 @@ const DEFAULT_SUBJECTS: Record<string, SubjectAttendance> = {
   'CSK': {
     subjectCode: 'CSK',
     subjectName: 'Communication Skills',
-    faculty: 'Prof. S.H. Bhatia (SHB)',
+    faculty: getFacultyForSubject('CSK'),
     attended: 19,
     total: 22,
     history: []
@@ -195,7 +196,7 @@ export const useSectionVStore = create<SectionVStore>()(
           const current = state.attendance[subjectCode] || {
             subjectCode,
             subjectName: subjectCode,
-            faculty: 'Faculty',
+            faculty: getFacultyForSubject(subjectCode, state.userSection),
             attended: 0,
             total: 0,
             history: []
@@ -229,7 +230,7 @@ export const useSectionVStore = create<SectionVStore>()(
           const current = state.attendance[subjectCode] || {
             subjectCode,
             subjectName: subjectCode,
-            faculty: 'Faculty',
+            faculty: getFacultyForSubject(subjectCode, state.userSection),
             attended: 0,
             total: 0,
             history: []

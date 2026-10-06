@@ -84,7 +84,7 @@ export const HomeworkWidget: React.FC<HomeworkWidgetProps> = ({ onNavigateToTodo
         <div className="space-y-1.5 max-h-56 overflow-y-auto pr-1">
           {tasks.length === 0 ? (
             <div className="py-6 text-center text-xs text-neutral-400 space-y-1">
-              <p className="text-neutral-300 font-medium">No pending assignments · Lucky you!</p>
+              <p className="text-neutral-300 font-medium">No pending assignments · Clear skies ahead!</p>
               <p className="text-neutral-500 text-[11px]">Zero pending lab tasks. Enjoy the peace while it lasts or hit + to track something.</p>
             </div>
           ) : (

@@ -351,7 +351,7 @@ const userSection = useSectionVStore((s) => s.userSection);
             <h3 className="text-sm font-semibold text-white">
               {searchQuery || statusFilter !== 'all' || selectedSection !== 'All'
                 ? 'No matching tasks found'
-                : 'All caught up · Lucky you!'}
+                : 'All caught up · Great job!'}
             </h3>
             <p className="text-xs text-neutral-400 max-w-sm mx-auto">
               {searchQuery || statusFilter !== 'all' || selectedSection !== 'All'

@@ -22,7 +22,7 @@ export function calculateAttendanceMetrics(
       classesToAttend: 0,
       totalAttended: 0,
       totalConducted: 0,
-      statusText: 'No lectures conducted yet · Clean slate! Lucky you, 100% attendance by default.',
+      statusText: 'No lectures conducted yet · Clean slate! 100% attendance by default.',
       statusBadge: 'safe'
     };
   }
@@ -44,7 +44,7 @@ export function calculateAttendanceMetrics(
     bunkableClasses = Math.max(0, maxBunk);
 
     if (bunkableClasses >= 3) {
-      statusText = `Lucky you! You can safely miss ${bunkableClasses} classes without angering the debar gods.`;
+      statusText = `Great buffer! You can safely miss ${bunkableClasses} ${bunkableClasses === 1 ? 'class' : 'classes'} while staying above your target.`;
     } else if (bunkableClasses > 0) {
       statusText = `Safe for now! ${bunkableClasses} ${bunkableClasses === 1 ? 'bunk credit' : 'bunk credits'} left. Spend wisely.`;
     } else {

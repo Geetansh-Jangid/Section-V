@@ -158,7 +158,7 @@ export const ActiveClassCard: React.FC = () => {
         {(status.status === 'before_college' || status.status === 'after_college') && (
           <div className="py-2 space-y-3">
             <div className="text-xs text-neutral-400">
-              {status.status === 'before_college' ? 'Classes begin at 8:30 AM · Still time for chai or extra snooze.' : 'Lectures wrapped up · You survived today! Lucky you.'}
+              {status.status === 'before_college' ? 'Classes begin at 8:30 AM · Still time for chai or extra snooze.' : "Lectures wrapped up · Well done on completing today's classes!"}
             </div>
 
             {status.nextClass ? (
@@ -197,7 +197,7 @@ export const ActiveClassCard: React.FC = () => {
           <div className="py-4 text-center space-y-1">
             <Calendar className="w-6 h-6 text-neutral-500 mx-auto mb-1" />
             <div className="text-sm font-medium text-white">Weekend Mode</div>
-            <div className="text-xs text-neutral-400">No scheduled classes today · Lucky you! Sleep in or pretend you're studying.</div>
+            <div className="text-xs text-neutral-400">No scheduled classes today · Time to recharge or catch up at your own pace.</div>
           </div>
         )}
       </div>
