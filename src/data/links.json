@@ -1,36 +1,15 @@
 {
   "contentFile": "content/links/links.txt",
   "githubRepoUrl": "https://github.com/Geetansh-Jangid/Section-V",
-  "whatsappCommunityUrl": "https://chat.whatsapp.com/section-v-announcements",
-  "generalDriveUrl": "https://drive.google.com/drive/folders/section-v-root",
+  "whatsappCommunityUrl": "https://chat.whatsapp.com/Ly0ePWhyFC12mh1SygvQbN",
+  "generalDriveUrl": "https://drive.google.com/drive/folders/1Nv5aX3qnmNQjU6AZCSjBZTFBqamNbbZd?usp=sharing",
   "campusPortals": [
     {
-      "id": "erp",
-      "title": "Student ERP",
-      "desc": "Grades & Official Records",
-      "url": "https://erp.college.edu",
+      "id": "website",
+      "title": "College Website",
+      "desc": "Official JECRC Foundation Website",
+      "url": "https://jecrcfoundation.com/",
       "icon": "GraduationCap"
-    },
-    {
-      "id": "lms",
-      "title": "Course LMS",
-      "desc": "Lab Manuals & Submissions",
-      "url": "https://moodle.college.edu",
-      "icon": "BookOpen"
-    },
-    {
-      "id": "exam",
-      "title": "Exam Cell",
-      "desc": "Roll Lists & Seating",
-      "url": "https://exam.college.edu",
-      "icon": "Layers"
-    },
-    {
-      "id": "wifi",
-      "title": "Campus Network",
-      "desc": "WiFi & 802.1X Auth",
-      "url": "https://wifi.college.edu",
-      "icon": "Wifi"
     },
     {
       "id": "github",
@@ -41,10 +20,10 @@
     },
     {
       "id": "library",
-      "title": "IEEE / Library",
-      "desc": "E-Books & Papers",
-      "url": "https://library.college.edu",
-      "icon": "Globe"
+      "title": "Library",
+      "desc": "Information about library",
+      "url": "https://jecrcfoundation.com/library/",
+      "icon": "BookOpen"
     }
   ]
 }

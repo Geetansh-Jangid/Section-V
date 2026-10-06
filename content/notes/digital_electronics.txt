@@ -7,6 +7,7 @@ Faculty: Prof. R.S. Evans (RSE)
 Credits: 4
 Semester: 1
 Drive Folder URL: https://drive.google.com/drive/folders/section-v-de
+NotebookLM: https://notebooklm.google.com
 PYQ Drive URL: https://drive.google.com/drive/folders/section-v-de-pyqs
 Tags: Logic Gates, K-Maps, Flip-Flops, Combinational Circuits
 Last Updated: 2026-09-17

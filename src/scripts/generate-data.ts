@@ -109,6 +109,10 @@ function parseNotesDirectory(): SubjectNote[] {
           case 'drive folder url':
             currentSubject.driveUrl = val;
             break;
+          case 'notebooklm url':
+          case 'notebooklm':
+            currentSubject.notebookLmUrl = val;
+            break;
           case 'pyq drive url':
             currentSubject.pyqDriveUrl = val;
             break;
@@ -133,6 +137,10 @@ function parseNotesDirectory(): SubjectNote[] {
           case 'drive link':
           case 'slides url':
             currentUnit.slidesUrl = val;
+            break;
+          case 'notebooklm url':
+          case 'notebooklm':
+            currentUnit.notebookLmUrl = val;
             break;
         }
       } else if (currentBlock === 'PYQ' && currentPyq) {

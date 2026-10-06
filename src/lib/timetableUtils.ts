@@ -5,7 +5,7 @@ export interface ActiveClassStatus {
   currentClass: ScheduleItem | null;
   nextSlot: TimeSlot | null;
   nextClass: ScheduleItem | null;
-  status: 'in_progress' | 'break' | 'before_college' | 'after_college' | 'weekend';
+  status: 'in_progress' | 'break' | 'no_class' | 'before_college' | 'after_college' | 'weekend';
   timeRemainingMinutes: number;
   timeUntilNextMinutes: number;
   progressPercent: number;
@@ -58,14 +58,25 @@ export function getActiveClassStatus(
   const firstSlotMinutes = timeToMinutes(slots[0].startTime);
   const lastSlotMinutes = timeToMinutes(slots[slots.length - 1].endTime);
 
+  // Helper to find next scheduled class starting from slot index
+  const findNextClass = (fromSlotIndex: number) => {
+    for (let i = Math.max(0, fromSlotIndex); i < slots.length; i++) {
+      const slot = slots[i];
+      const cls = daySchedule.find(c => c.slotId === slot.id);
+      if (cls) {
+        return { slot, cls };
+      }
+    }
+    return { slot: null, cls: null };
+  };
+
   if (currentMinutes < firstSlotMinutes) {
-    const firstClassSlot = slots[0];
-    const firstClass = daySchedule.find(c => c.slotId === firstClassSlot.id) || null;
+    const next = findNextClass(0);
     return {
       currentSlot: null,
       currentClass: null,
-      nextSlot: firstClassSlot,
-      nextClass: firstClass,
+      nextSlot: next.slot,
+      nextClass: next.cls,
       status: 'before_college',
       timeRemainingMinutes: 0,
       timeUntilNextMinutes: Math.max(0, firstSlotMinutes - currentMinutes),
@@ -106,15 +117,8 @@ export function getActiveClassStatus(
     }
   }
 
-  let nextSlot: TimeSlot | null = null;
-  let nextClass: ScheduleItem | null = null;
-
-  if (activeSlotIndex >= 0 && activeSlotIndex + 1 < slots.length) {
-    nextSlot = slots[activeSlotIndex + 1];
-    nextClass = daySchedule.find(c => c.slotId === nextSlot?.id) || null;
-  }
-
   if (activeSlot) {
+    const next = findNextClass(activeSlotIndex + 1);
     const startM = timeToMinutes(activeSlot.startTime);
     const endM = timeToMinutes(activeSlot.endTime);
     const totalSlotDuration = endM - startM;
@@ -126,8 +130,8 @@ export function getActiveClassStatus(
       return {
         currentSlot: activeSlot,
         currentClass: null,
-        nextSlot,
-        nextClass,
+        nextSlot: next.slot,
+        nextClass: next.cls,
         status: 'break',
         timeRemainingMinutes: remaining,
         timeUntilNextMinutes: remaining,
@@ -139,11 +143,26 @@ export function getActiveClassStatus(
 
     const currentClass = daySchedule.find(c => c.slotId === activeSlot.id) || null;
 
+    if (!currentClass) {
+      return {
+        currentSlot: activeSlot,
+        currentClass: null,
+        nextSlot: next.slot,
+        nextClass: next.cls,
+        status: 'no_class',
+        timeRemainingMinutes: remaining,
+        timeUntilNextMinutes: remaining,
+        progressPercent: progress,
+        day: currentDayName,
+        formattedTime: currentTimeHHMM
+      };
+    }
+
     return {
       currentSlot: activeSlot,
       currentClass,
-      nextSlot,
-      nextClass,
+      nextSlot: next.slot,
+      nextClass: next.cls,
       status: 'in_progress',
       timeRemainingMinutes: remaining,
       timeUntilNextMinutes: 0,
@@ -152,6 +171,9 @@ export function getActiveClassStatus(
       formattedTime: currentTimeHHMM
     };
   }
+
+  // If between slots during day
+  const next = findNextClass(0);
 
   return {
     currentSlot: null,

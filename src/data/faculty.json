@@ -5,7 +5,7 @@
     "name": "Geeta Ma'am",
     "designation": "Mathematics teacher",
     "department": "",
-    "cabin": "",
+    "cabin": "CG-19",
     "email": "",
     "phone": "",
     "subjects": [
@@ -21,9 +21,9 @@
   {
     "contentFile": "content/faculty/faculty.txt",
     "id": "fac-rse",
-    "name": "RSE",
+    "name": "Ram Singh Sir",
     "designation": "Digital Electronics Teacher",
-    "department": "Electronics",
+    "department": "",
     "cabin": "",
     "email": "",
     "phone": "",
@@ -40,9 +40,9 @@
   {
     "contentFile": "content/faculty/faculty.txt",
     "id": "fac-gs",
-    "name": "Prof. Gajendra Sharma (GS)",
-    "designation": "PPS teacher",
-    "department": "Computer Science",
+    "name": "Gajendra Sharma Sir",
+    "designation": "PPS teacher and PPS Lab teacher",
+    "department": "",
     "cabin": "",
     "email": "",
     "phone": "",
@@ -66,7 +66,7 @@
     "name": "Soumitra Sir",
     "designation": "Fundamental of Cyber Security & Ethical Hacking teacher",
     "department": "",
-    "cabin": "Cs-16",
+    "cabin": "CS-14",
     "email": "",
     "phone": "",
     "subjects": [
@@ -124,7 +124,7 @@
   {
     "contentFile": "content/faculty/faculty.txt",
     "id": "fac-rr",
-    "name": "Dr. Renu Rani Ma'am",
+    "name": "Renu Rani Ma'am",
     "designation": "Communication Skills Lab teacher (batch V1)",
     "department": "",
     "cabin": "",

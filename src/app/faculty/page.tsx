@@ -5,8 +5,6 @@ import {
   Mail, 
   Phone, 
   Search, 
-  Copy, 
-  Check, 
   MessageSquare
 } from 'lucide-react';
 import facultyDataRaw from '../../data/faculty.json';
@@ -18,7 +16,6 @@ const crList = crDataRaw as ClassRepresentative[];
 
 export const FacultyPage: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [copiedId, setCopiedId] = useState<string | null>(null);
 
   const filteredFaculty = facultyList.filter((fac) => {
     const term = searchTerm.toLowerCase();
@@ -27,12 +24,6 @@ export const FacultyPage: React.FC = () => {
     const matchSubject = fac.subjects.some((s) => s.code.toLowerCase().includes(term) || s.name.toLowerCase().includes(term));
     return matchName || matchCabin || matchSubject;
   });
-
-  const copyCabin = (id: string, text: string) => {
-    navigator.clipboard.writeText(text);
-    setCopiedId(id);
-    setTimeout(() => setCopiedId(null), 2000);
-  };
 
   return (
     <div className="space-y-6">
@@ -140,29 +131,12 @@ export const FacultyPage: React.FC = () => {
               className="rounded-lg bg-[#0d0d0d] border border-[#1f1f1f] p-4 flex flex-col justify-between hover:border-[#2a2a2a] transition-colors"
             >
               <div>
-                <div className="flex items-start justify-between gap-2">
-                  <div>
-                    <h4 className="text-sm font-semibold text-white">{fac.name}</h4>
-                    <p className="text-xs text-neutral-400">
-                      {fac.designation}
-                      {fac.department ? ` · ${fac.department}` : ''}
-                    </p>
-                  </div>
-
-                  {/* Copy cabin button */}
-                  {fac.cabin && (
-                    <button
-                      onClick={() => copyCabin(fac.id, fac.cabin)}
-                      className="p-1.5 rounded bg-[#141414] border border-[#262626] text-neutral-400 hover:text-white transition-colors shrink-0"
-                      title="Copy cabin number"
-                    >
-                      {copiedId === fac.id ? (
-                        <Check className="w-3.5 h-3.5 text-emerald-400" />
-                      ) : (
-                        <Copy className="w-3.5 h-3.5" />
-                      )}
-                    </button>
-                  )}
+                <div>
+                  <h4 className="text-sm font-semibold text-white">{fac.name}</h4>
+                  <p className="text-xs text-neutral-400">
+                    {fac.designation}
+                    {fac.department ? ` · ${fac.department}` : ''}
+                  </p>
                 </div>
 
                 {/* Cabin location badge */}
