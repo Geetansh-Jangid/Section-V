@@ -7,7 +7,6 @@ Faculty: Shalini ma'am
 Credits: 3
 Semester: 1
 Drive Folder URL: https://drive.google.com/drive/folders/1zfmF4AuXSlQjTSp5y40KHUTfqO3v5Rxb
-NotebookLM: https://notebooklm.google.com
 Tags: Water, Fuel, Corrosion, Green Chemistry, E-waste Management
 Last Updated: 2026-10-04
 
@@ -16,6 +15,7 @@ Unit Number: 1
 Title: Water Technology
 Topics: Common impurities, hardness, determination of hardness by complexometric (EDTA method), Units of hardness, Municipal water supply: Requisite of drinking water; Purification of water (Sedimentation; filtration; disinfection), break-point chlorination, Boiler troubles and their causes/problems/removal/preventions (Scale and Sludge formation ; Priming and Foaming), Water softening methods (Zeolite process ; Demineralization process), Numerical problems based on Hardness and Zeolite process
 Drive Link: https://drive.google.com/drive/folders/1wZfK9thARhXMuVBTB6bi5nZ6OUzydoE1
+NotebookLM Link: https://google.com/
 
 [UNIT]
 Unit Number: 2
