@@ -7,20 +7,20 @@ Faculty: Shivani ma'am
 Credits: 2
 Semester: 1
 Drive Folder URL: https://drive.google.com/drive/folders/1gl7aeC7Af2vKQclOaTZ_XfCrdXbP1rqW
-Tags: Soft Skills, Technical Writing, Presentation, Vocabulary
+Tags: Communication, Technical Writing, Presentation, Vocabulary, 
 Last Updated: 2026-10-07
 
 [UNIT]
 Unit Number: 1
 Title: Fundamentals of Oral Communication
-Topics: Barriers to Effective Communication, Active Listening Techniques, Technical Vocabulary & Common Errors, Email & Formal Memo Writing
-Drive Link: https://drive.google.com/file/d/csk-unit1.pdf
+Topics: Communication process; verbal and non-verbal communication; barriers to communication; interpersonal and group communication; telephonic and online communication; effective listening and speaking strategies.
+Drive Link: https://drive.google.com/drive/folders/12gIc1soyC57ynUDOASJUkhlyUcjYiM0p?usp=drive_link
 
 [UNIT]
 Unit Number: 2
-Title: Report Writing & Professional Presentations
-Topics: Structure of Technical Reports, Proposal Writing Fundamentals, Slide Deck Design Principles, Interviewing & GD Strategies
-Drive Link: https://drive.google.com/file/d/csk-unit2.pdf
+Title: Professional and Business Communication
+Topics: Principles of business correspondence; email; formal letters including enquiry, complaint, request, permission, and appreciation ; letters; business meetings; agenda preparation; minutes of meetings; professional communication etiquette.
+Drive Link: https://drive.google.com/drive/folders/1XMgTrtXmxck7criGWKjhaQtEafuucmzL?usp=drive_link
 
 #[PYQ]
 #Year: 2025 Mid-Sem
