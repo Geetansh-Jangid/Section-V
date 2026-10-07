@@ -7,7 +7,7 @@
     "faculty": "Shalini ma'am",
     "credits": 3,
     "semester": 1,
-    "driveUrl": "https://drive.google.com/drive/folders/section-v-chemistry",
+    "driveUrl": "https://drive.google.com/drive/folders/1zfmF4AuXSlQjTSp5y40KHUTfqO3v5Rxb",
     "notebookLmUrl": "https://notebooklm.google.com",
     "lastUpdated": "2026-10-04",
     "tags": [
@@ -32,7 +32,7 @@
           "Water softening methods (Zeolite process ; Demineralization process)",
           "Numerical problems based on Hardness and Zeolite process"
         ],
-        "slidesUrl": "https://drive.google.com/file/d/ch-unit1.pdf"
+        "slidesUrl": "https://drive.google.com/drive/folders/1wZfK9thARhXMuVBTB6bi5nZ6OUzydoE1"
       },
       {
         "unitNumber": 2,
@@ -53,10 +53,16 @@
           "Determination of calorific value of gaseous fuels by Junker’s calorimeter",
           "Numerical problems based on determination of calorific value (Bomb"
         ],
-        "slidesUrl": "https://drive.google.com/file/d/ch-unit2.pdf"
+        "slidesUrl": "https://drive.google.com/drive/folders/1BG-uGlN9LlinT3UUUf_pNE9ZH-ExxFpO"
       }
     ],
-    "pyqs": []
+    "pyqs": [
+      {
+        "year": "2025-2026",
+        "examType": "MTT-1",
+        "url": "https://drive.google.com/file/d/1Z5fQ69mXX0jTFXic6A9D3MtwUo0on_Ap/view?usp=drivesdk"
+      }
+    ]
   },
   {
     "contentFile": "content/notes/communication_skills.txt",
@@ -104,7 +110,6 @@
       {
         "year": "2025 Mid-Sem",
         "examType": "Mid-Sem",
-        "fileSize": "0.9 MB",
         "url": "https://drive.google.com/file/d/csk-2025-mid.pdf"
       }
     ]
@@ -176,13 +181,11 @@
       {
         "year": "2025 Mid-Sem",
         "examType": "Mid-Sem",
-        "fileSize": "1.6 MB",
         "url": "https://drive.google.com/file/d/de-2025-mid.pdf"
       },
       {
         "year": "2024 End-Sem",
         "examType": "End-Sem",
-        "fileSize": "2.8 MB",
         "url": "https://drive.google.com/file/d/de-2024-end.pdf"
       }
     ]
@@ -233,7 +236,6 @@
       {
         "year": "2025 Mid-Sem",
         "examType": "Mid-Sem",
-        "fileSize": "1.1 MB",
         "url": "https://drive.google.com/file/d/fcseh-2025-mid.pdf"
       }
     ]
@@ -295,13 +297,11 @@
       {
         "year": "2025 Mid-Term",
         "examType": "Mid-Sem",
-        "fileSize": "1.2 MB",
         "url": "https://drive.google.com/file/d/maths-2025-mid.pdf"
       },
       {
         "year": "2024 End-Sem",
         "examType": "End-Sem",
-        "fileSize": "2.4 MB",
         "url": "https://drive.google.com/file/d/maths-2024-end.pdf"
       }
     ]
@@ -369,13 +369,11 @@
       {
         "year": "2025 Mid-Sem",
         "examType": "Mid-Sem",
-        "fileSize": "2.0 MB",
         "url": "https://drive.google.com/file/d/pps-2025-mid.pdf"
       },
       {
         "year": "2024 End-Sem",
         "examType": "End-Sem",
-        "fileSize": "3.1 MB",
         "url": "https://drive.google.com/file/d/pps-2024-end.pdf"
       }
     ]

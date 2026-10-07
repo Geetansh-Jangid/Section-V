@@ -151,9 +151,6 @@ function parseNotesDirectory(): SubjectNote[] {
           case 'exam type':
             currentPyq.examType = val;
             break;
-          case 'file size':
-            currentPyq.fileSize = val;
-            break;
           case 'drive link':
           case 'url':
             currentPyq.url = val;
