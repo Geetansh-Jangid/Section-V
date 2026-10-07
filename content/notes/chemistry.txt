@@ -15,7 +15,7 @@ Unit Number: 1
 Title: Water Technology
 Topics: Common impurities, hardness, determination of hardness by complexometric (EDTA method), Units of hardness, Municipal water supply: Requisite of drinking water; Purification of water (Sedimentation; filtration; disinfection), break-point chlorination, Boiler troubles and their causes/problems/removal/preventions (Scale and Sludge formation ; Priming and Foaming), Water softening methods (Zeolite process ; Demineralization process), Numerical problems based on Hardness and Zeolite process
 Drive Link: https://drive.google.com/drive/folders/1wZfK9thARhXMuVBTB6bi5nZ6OUzydoE1
-NotebookLM Link: https://google.com/
+NotebookLM Link: https://notebooklm.link.google/gkh3np9JL4Li
 
 [UNIT]
 Unit Number: 2
