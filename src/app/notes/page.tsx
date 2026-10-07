@@ -251,23 +251,37 @@ export const NotesPage: React.FC<NotesPageProps> = ({ onOpenContributeModal }) =
                           </div>
                         </div>
 
-                        {(unit.notebookLmUrl || activeSubject.notebookLmUrl) && (
-                          <div className="pt-2 flex flex-wrap items-center justify-between gap-2 border-t border-[#161616]">
-                            <span className="text-[11px] text-neutral-500 font-mono">
-                              Interactive AI Study Notebook & Audio Overview
-                            </span>
-                            <a
-                              href={unit.notebookLmUrl || activeSubject.notebookLmUrl}
-                              target="_blank"
-                              rel="noreferrer"
-                              className="flex items-center gap-1.5 text-xs text-cyan-400 hover:text-cyan-300 font-medium px-2.5 py-1 rounded bg-[#161616] border border-[#262626] transition-colors"
-                            >
-                              <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
-                              <span>Open NotebookLM</span>
-                              <ExternalLink className="w-3 h-3 text-neutral-500" />
-                            </a>
+                        <div className="pt-2 flex flex-wrap items-center justify-between gap-2 border-t border-[#161616]">
+                          <span className="text-[11px] text-neutral-500 font-mono">
+                            Unit Resources & Study Guides
+                          </span>
+                          <div className="flex items-center gap-2">
+                            {(unit.slidesUrl || activeSubject.driveUrl) && (
+                              <a
+                                href={unit.slidesUrl || activeSubject.driveUrl}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="flex items-center gap-1.5 text-xs text-emerald-400 hover:text-emerald-300 font-medium px-2.5 py-1 rounded bg-[#161616] border border-[#262626] transition-colors"
+                              >
+                                <FolderArchive className="w-3.5 h-3.5 text-emerald-400" />
+                                <span>Drive Link</span>
+                                <ExternalLink className="w-3 h-3 text-neutral-500" />
+                              </a>
+                            )}
+                            {(unit.notebookLmUrl || activeSubject.notebookLmUrl) && (
+                              <a
+                                href={unit.notebookLmUrl || activeSubject.notebookLmUrl}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="flex items-center gap-1.5 text-xs text-cyan-400 hover:text-cyan-300 font-medium px-2.5 py-1 rounded bg-[#161616] border border-[#262626] transition-colors"
+                              >
+                                <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
+                                <span>NotebookLM</span>
+                                <ExternalLink className="w-3 h-3 text-neutral-500" />
+                              </a>
+                            )}
                           </div>
-                        )}
+                        </div>
                       </div>
                     )}
                   </div>
@@ -302,7 +316,7 @@ export const NotesPage: React.FC<NotesPageProps> = ({ onOpenContributeModal }) =
                           {pyq.year}
                         </div>
                         <div className="text-[10px] text-neutral-500 font-mono mt-0.5">
-                          {pyq.examType} · {pyq.fileSize}
+                          {pyq.examType}
                         </div>
                       </div>
                       <ExternalLink className="w-3.5 h-3.5 text-neutral-500 group-hover:text-white transition-colors" />

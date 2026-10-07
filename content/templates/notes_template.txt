@@ -25,21 +25,21 @@ Unit Number: 1
 Title: Differential & Integral Calculus
 Topics: Rolle's & Mean Value Theorems, Taylor's Series, Indeterminate Forms, Definite Integrals
 Drive Link: https://drive.google.com/file/d/your-lecture-slides-file.pdf
+NotebookLM: https://notebooklm.google.com
 
 [UNIT]
 Unit Number: 2
 Title: Matrices & Linear Systems
 Topics: Rank of Matrix, Gauss Elimination, Eigenvalues & Eigenvectors
 Drive Link: https://drive.google.com/file/d/your-unit2-slides.pdf
+NotebookLM: https://notebooklm.google.com
 
 [PYQ]
 Year: 2025 Mid-Sem
 Exam Type: Mid-Sem
-File Size: 1.5 MB
 Drive Link: https://drive.google.com/file/d/your-pyq-paper.pdf
 
 [PYQ]
 Year: 2024 End-Sem
 Exam Type: End-Sem
-File Size: 2.3 MB
 Drive Link: https://drive.google.com/file/d/your-endsem-paper.pdf

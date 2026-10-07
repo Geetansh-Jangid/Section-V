@@ -18,8 +18,8 @@ export const ScheduleItemSchema = z.object({
   subjectName: z.string().min(1),
   faculty: z.string(),
   room: z.string(),
-  type: z.enum(['Theory', 'Practical', 'Tutorial', 'Elective', 'Activity', 'Training', 'Project', 'Lab']),
-  section: z.enum(['Both', 'V1', 'V2']).optional(),
+  type: z.string(),
+  section: z.string().optional(),
   color: z.string().optional(),
   isCancelled: z.boolean().optional(),
   proxyFaculty: z.string().optional(),
@@ -83,9 +83,9 @@ export const TaskItemSchema = z.object({
   id: z.string(),
   title: z.string().min(3),
   subjectCode: z.string(),
-  section: z.enum(['All', 'V1', 'V2']),
+  section: z.string(),
   dueDate: z.string(),
-  priority: z.enum(['urgent', 'medium', 'low']),
+  priority: z.string(),
   assignedBy: z.string(),
   description: z.string(),
   completed: z.boolean().optional()
@@ -97,8 +97,8 @@ export const AnnouncementSchema = z.object({
   title: z.string().min(5),
   author: z.string(),
   date: z.string(),
-  priority: z.enum(['normal', 'medium', 'high', 'urgent']),
-  category: z.enum(['Exam', 'Lab', 'Event', 'Timetable', 'General']),
+  priority: z.string(),
+  category: z.string(),
   tags: z.array(z.string()),
   summary: z.string().optional(),
   markdownPath: z.string().optional()
@@ -114,8 +114,7 @@ export const UnitTopicSchema = z.object({
 
 export const PyqSchema = z.object({
   year: z.string(),
-  examType: z.enum(['Mid-Sem', 'End-Sem', 'Improvement', 'Quiz']),
-  fileSize: z.string(),
+  examType: z.string(),
   url: z.string().url()
 });
 
