@@ -3,17 +3,16 @@
 
 Subject Code: CSK
 Subject Name: Communication Skills
-Faculty: Prof. S.H. Bhatia (SHB)
+Faculty: Shivani ma'am
 Credits: 2
 Semester: 1
-Drive Folder URL: https://drive.google.com/drive/folders/section-v-csk
-PYQ Drive URL: https://drive.google.com/drive/folders/section-v-csk-pyqs
+Drive Folder URL: https://drive.google.com/drive/folders/1gl7aeC7Af2vKQclOaTZ_XfCrdXbP1rqW
 Tags: Soft Skills, Technical Writing, Presentation, Vocabulary
-Last Updated: 2026-09-14
+Last Updated: 2026-10-07
 
 [UNIT]
 Unit Number: 1
-Title: Communication Dynamics & Grammar
+Title: Fundamentals of Oral Communication
 Topics: Barriers to Effective Communication, Active Listening Techniques, Technical Vocabulary & Common Errors, Email & Formal Memo Writing
 Drive Link: https://drive.google.com/file/d/csk-unit1.pdf
 
@@ -23,7 +22,7 @@ Title: Report Writing & Professional Presentations
 Topics: Structure of Technical Reports, Proposal Writing Fundamentals, Slide Deck Design Principles, Interviewing & GD Strategies
 Drive Link: https://drive.google.com/file/d/csk-unit2.pdf
 
-[PYQ]
-Year: 2025 Mid-Sem
-Exam Type: Mid-Sem
-Drive Link: https://drive.google.com/file/d/csk-2025-mid.pdf
+#[PYQ]
+#Year: 2025 Mid-Sem
+#Exam Type: Mid-Sem
+#Drive Link: https://drive.google.com/file/d/csk-2025-mid.pdf
