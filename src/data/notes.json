@@ -8,7 +8,6 @@
     "credits": 3,
     "semester": 1,
     "driveUrl": "https://drive.google.com/drive/folders/1zfmF4AuXSlQjTSp5y40KHUTfqO3v5Rxb",
-    "notebookLmUrl": "https://notebooklm.google.com",
     "lastUpdated": "2026-10-04",
     "tags": [
       "Water",
@@ -32,7 +31,8 @@
           "Water softening methods (Zeolite process ; Demineralization process)",
           "Numerical problems based on Hardness and Zeolite process"
         ],
-        "slidesUrl": "https://drive.google.com/drive/folders/1wZfK9thARhXMuVBTB6bi5nZ6OUzydoE1"
+        "slidesUrl": "https://drive.google.com/drive/folders/1wZfK9thARhXMuVBTB6bi5nZ6OUzydoE1",
+        "notebookLmUrl": "https://google.com/"
       },
       {
         "unitNumber": 2,
@@ -73,7 +73,6 @@
     "credits": 2,
     "semester": 1,
     "driveUrl": "https://drive.google.com/drive/folders/section-v-csk",
-    "notebookLmUrl": "https://notebooklm.google.com",
     "pyqDriveUrl": "https://drive.google.com/drive/folders/section-v-csk-pyqs",
     "lastUpdated": "2026-09-14",
     "tags": [
@@ -123,7 +122,6 @@
     "credits": 4,
     "semester": 1,
     "driveUrl": "https://drive.google.com/drive/folders/section-v-de",
-    "notebookLmUrl": "https://notebooklm.google.com",
     "pyqDriveUrl": "https://drive.google.com/drive/folders/section-v-de-pyqs",
     "lastUpdated": "2026-09-17",
     "tags": [
@@ -199,7 +197,6 @@
     "credits": 3,
     "semester": 1,
     "driveUrl": "https://drive.google.com/drive/folders/section-v-fcseh",
-    "notebookLmUrl": "https://notebooklm.google.com",
     "pyqDriveUrl": "https://drive.google.com/drive/folders/section-v-fcseh-pyqs",
     "lastUpdated": "2026-09-15",
     "tags": [
@@ -249,7 +246,6 @@
     "credits": 4,
     "semester": 1,
     "driveUrl": "https://drive.google.com/drive/folders/section-v-maths",
-    "notebookLmUrl": "https://notebooklm.google.com",
     "pyqDriveUrl": "https://drive.google.com/drive/folders/section-v-maths-pyqs",
     "lastUpdated": "2026-09-18",
     "tags": [
@@ -315,7 +311,6 @@
     "credits": 4,
     "semester": 1,
     "driveUrl": "https://drive.google.com/drive/folders/section-v-pps",
-    "notebookLmUrl": "https://notebooklm.google.com",
     "pyqDriveUrl": "https://drive.google.com/drive/folders/section-v-pps-pyqs",
     "lastUpdated": "2026-09-19",
     "tags": [

@@ -7,7 +7,6 @@ Faculty: Prof. G.C. Sharma (GC)
 Credits: 4
 Semester: 1
 Drive Folder URL: https://drive.google.com/drive/folders/section-v-maths
-NotebookLM: https://notebooklm.google.com
 PYQ Drive URL: https://drive.google.com/drive/folders/section-v-maths-pyqs
 Tags: Calculus, Linear Algebra, Matrices, Differential Equations
 Last Updated: 2026-09-18

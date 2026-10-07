@@ -7,7 +7,6 @@ Faculty: Dr. S. Mukherjee (SM)
 Credits: 3
 Semester: 1
 Drive Folder URL: https://drive.google.com/drive/folders/section-v-fcseh
-NotebookLM: https://notebooklm.google.com
 PYQ Drive URL: https://drive.google.com/drive/folders/section-v-fcseh-pyqs
 Tags: Ethics, Values, Scientific Method, Society
 Last Updated: 2026-09-15

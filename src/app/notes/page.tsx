@@ -37,26 +37,16 @@ export const NotesPage: React.FC<NotesPageProps> = ({ onOpenContributeModal }) =
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="rounded-xl bg-[#0a0a0a] border border-[#222222] p-5 sm:p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div>
-          <div className="flex items-center gap-2">
-            <BookOpen className="w-5 h-5 text-neutral-300" />
-            <h2 className="text-lg sm:text-xl font-semibold text-white tracking-tight">
-              Subject Notes & Google Drive Links
-            </h2>
-          </div>
-          <p className="text-xs text-neutral-400 mt-1 max-w-2xl leading-relaxed">
-            Centralized Google Drive folders, NotebookLM AI study guides, unit notes, and solved past-year question papers (PYQs) for Section V.
-          </p>
+      <div className="rounded-xl bg-[#0a0a0a] border border-[#222222] p-5 sm:p-6">
+        <div className="flex items-center gap-2">
+          <BookOpen className="w-5 h-5 text-neutral-300" />
+          <h2 className="text-lg sm:text-xl font-semibold text-white tracking-tight">
+            Subject Notes & Google Drive Links
+          </h2>
         </div>
-
-        <button
-          onClick={onOpenContributeModal}
-          className="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg bg-white text-black text-xs font-semibold hover:bg-neutral-200 transition-colors self-start md:self-auto shadow-sm cursor-pointer"
-        >
-          <FolderPlus className="w-4 h-4 text-black" />
-          <span>Add Notes to Drive</span>
-        </button>
+        <p className="text-xs text-neutral-400 mt-1 max-w-2xl leading-relaxed">
+          Centralized Google Drive folders, unit notes, NotebookLM AI study guides per chapter, and solved past-year question papers (PYQs) for Section V.
+        </p>
       </div>
 
       {/* Subject Dropdown & Search Bar */}
@@ -151,29 +141,6 @@ export const NotesPage: React.FC<NotesPageProps> = ({ onOpenContributeModal }) =
                     <span>Drive Folder</span>
                     <ExternalLink className="w-3 h-3 text-neutral-500" />
                   </a>
-
-                  {activeSubject.notebookLmUrl && (
-                    <a
-                      href={activeSubject.notebookLmUrl}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-[#141414] border border-[#262626] text-xs font-medium text-cyan-400 hover:text-cyan-300 transition-colors"
-                      title="Open NotebookLM study guide for this subject"
-                    >
-                      <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
-                      <span>NotebookLM</span>
-                      <ExternalLink className="w-3 h-3 text-neutral-500" />
-                    </a>
-                  )}
-
-                  <button
-                    onClick={onOpenContributeModal}
-                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-[#181818] border border-[#2a2a2a] text-xs font-medium text-neutral-200 hover:text-white transition-colors cursor-pointer"
-                    title="Add a new Google Drive link or lecture notes"
-                  >
-                    <FolderPlus className="w-3.5 h-3.5 text-neutral-300" />
-                    <span>Add Notes</span>
-                  </button>
                 </div>
               </div>
 
@@ -268,9 +235,9 @@ export const NotesPage: React.FC<NotesPageProps> = ({ onOpenContributeModal }) =
                                 <ExternalLink className="w-3 h-3 text-neutral-500" />
                               </a>
                             )}
-                            {(unit.notebookLmUrl || activeSubject.notebookLmUrl) && (
+                            {unit.notebookLmUrl && (
                               <a
-                                href={unit.notebookLmUrl || activeSubject.notebookLmUrl}
+                                href={unit.notebookLmUrl}
                                 target="_blank"
                                 rel="noreferrer"
                                 className="flex items-center gap-1.5 text-xs text-cyan-400 hover:text-cyan-300 font-medium px-2.5 py-1 rounded bg-[#161616] border border-[#262626] transition-colors"
@@ -342,38 +309,30 @@ export const NotesPage: React.FC<NotesPageProps> = ({ onOpenContributeModal }) =
               )}
             </div>
 
-            {/* Contribute Card */}
-            <div className="rounded-xl bg-[#0a0a0a] border border-[#222222] p-4 text-xs space-y-2">
-              <div className="flex items-center gap-2 text-neutral-300 font-semibold">
-                <GitPullRequest className="w-4 h-4 text-emerald-400" />
-                <span>Contribute Study Materials</span>
-              </div>
-              <p className="text-[11px] text-neutral-400 leading-relaxed">
-                Have lecture slides, handwritten notes, or past papers? Share them with Section V.
-              </p>
-              <div className="pt-1 flex items-center gap-2">
-                <button
-                  type="button"
-                  onClick={onOpenContributeModal}
-                  className="text-[11px] text-emerald-400 hover:text-emerald-300 flex items-center gap-1 font-medium cursor-pointer"
-                >
-                  <span>Add Drive Link</span>
-                  <ExternalLink className="w-3 h-3" />
-                </button>
-                <span className="text-neutral-600">·</span>
-                <a
-                  href="https://github.com/Geetansh-Jangid/Section-V"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-[11px] text-neutral-300 hover:text-white font-medium"
-                >
-                  GitHub
-                </a>
-              </div>
-            </div>
           </div>
         </div>
       )}
+
+      {/* Contribute Box at End of Page */}
+      <div className="rounded-xl bg-[#0a0a0a] border border-[#222222] p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <div className="flex items-center gap-2 text-white font-semibold">
+            <GitPullRequest className="w-4 h-4 text-emerald-400" />
+            <h3 className="text-base font-semibold text-white">Contribute by adding content</h3>
+          </div>
+          <p className="text-xs text-neutral-400 mt-1 max-w-2xl leading-relaxed">
+            Have lecture slides, handwritten notes, NotebookLM study guides, or past papers? Share them with Section V.
+          </p>
+        </div>
+
+        <button
+          onClick={onOpenContributeModal}
+          className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-white text-black text-xs font-semibold hover:bg-neutral-200 transition-colors shrink-0 cursor-pointer shadow-sm"
+        >
+          <FolderPlus className="w-4 h-4 text-black" />
+          <span>Contribute Content</span>
+        </button>
+      </div>
     </div>
   );
 };
