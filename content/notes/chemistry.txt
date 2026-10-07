@@ -6,7 +6,7 @@ Subject Name: Chemistry
 Faculty: Shalini ma'am
 Credits: 3
 Semester: 1
-Drive Folder URL: https://drive.google.com/drive/folders/section-v-chemistry
+Drive Folder URL: https://drive.google.com/drive/folders/1zfmF4AuXSlQjTSp5y40KHUTfqO3v5Rxb
 NotebookLM: https://notebooklm.google.com
 Tags: Water, Fuel, Corrosion, Green Chemistry, E-waste Management
 Last Updated: 2026-10-04
@@ -15,17 +15,17 @@ Last Updated: 2026-10-04
 Unit Number: 1
 Title: Water Technology
 Topics: Common impurities, hardness, determination of hardness by complexometric (EDTA method), Units of hardness, Municipal water supply: Requisite of drinking water; Purification of water (Sedimentation; filtration; disinfection), break-point chlorination, Boiler troubles and their causes/problems/removal/preventions (Scale and Sludge formation ; Priming and Foaming), Water softening methods (Zeolite process ; Demineralization process), Numerical problems based on Hardness and Zeolite process
-Drive Link: https://drive.google.com/file/d/ch-unit1.pdf
+Drive Link: https://drive.google.com/drive/folders/1wZfK9thARhXMuVBTB6bi5nZ6OUzydoE1
 
 [UNIT]
 Unit Number: 2
 Title: Fuel
 Topics: Solid fuels: Coal, Classification of Coal, Proximate and Ultimate analysis of coal and its significance, Calorific value and determination of Calorific value of coal by Bomb Calorimeter, Metallurgical coke, Otto-Hoffmann's by-product oven method, Liquid fuels: Mining ; Refining and Composition of petroleum, Cracking, Synthetic petrol, Octane number, Cetane number, Gaseous fuels: Advantages ; manufacturing ; composition and Calorific value of oil gas, Determination of calorific value of gaseous fuels by Junker’s calorimeter, Numerical problems based on determination of calorific value (Bomb
 calorimeter/Dulong's formula) and combustion
-Drive Link: https://drive.google.com/file/d/ch-unit2.pdf
+Drive Link: https://drive.google.com/drive/folders/1BG-uGlN9LlinT3UUUf_pNE9ZH-ExxFpO
 
-#[PYQ]
-#Year: 2025 Mid-Sem
-#Exam Type: Mid-Sem
+[PYQ]
+Year: 2025-2026
+Exam Type: MTT-1
 #File Size: 1.8 MB
-#Drive Link: https://drive.google.com/file/d/ch-2025-mid.pdf
+Drive Link: https://drive.google.com/file/d/1Z5fQ69mXX0jTFXic6A9D3MtwUo0on_Ap/view?usp=drivesdk
