@@ -127,7 +127,6 @@ export const NoteSchema = z.object({
   credits: z.number(),
   semester: z.number(),
   driveUrl: z.string().url(),
-  notebookLmUrl: z.string().url().optional(),
   pyqDriveUrl: z.string().url().optional(),
   lastUpdated: z.string(),
   tags: z.array(z.string()),

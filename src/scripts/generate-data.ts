@@ -109,10 +109,6 @@ function parseNotesDirectory(): SubjectNote[] {
           case 'drive folder url':
             currentSubject.driveUrl = val;
             break;
-          case 'notebooklm url':
-          case 'notebooklm':
-            currentSubject.notebookLmUrl = val;
-            break;
           case 'pyq drive url':
             currentSubject.pyqDriveUrl = val;
             break;
@@ -139,6 +135,7 @@ function parseNotesDirectory(): SubjectNote[] {
             currentUnit.slidesUrl = val;
             break;
           case 'notebooklm url':
+          case 'notebooklm link':
           case 'notebooklm':
             currentUnit.notebookLmUrl = val;
             break;
