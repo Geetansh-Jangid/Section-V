@@ -34,7 +34,7 @@ ID: fac-gs
 Name: Gajendra Sharma Sir
 Designation: PPS teacher and PPS Lab teacher
 Department: 
-Cabin: 
+Cabin: CS-14
 Email: 
 Phone: 
 Subjects: PPS: Programming for Problem Solving; PPS LAB: PPS Laboratory (Batch V2)
