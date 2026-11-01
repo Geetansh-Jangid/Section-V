@@ -14,10 +14,13 @@ import {
 import { motion, AnimatePresence } from 'motion/react';
 import { createPortal } from 'react-dom';
 import timetableDataRaw from '../../data/timetable.json';
-import { TimetableData, ScheduleItem } from '../../lib/schemas.ts';
+import calendarDataRaw from '../../data/calendar.json';
+import { TimetableData, ScheduleItem, CalendarEvent } from '../../lib/schemas.ts';
 import { useSectionVStore, SectionFilter } from '../../lib/store.ts';
+import { getEffectiveDaySchedule, formatDateToYYYYMMDD } from '../../lib/calendarUtils.ts';
 
 const timetable = timetableDataRaw as TimetableData;
+const calendarEvents = calendarDataRaw as CalendarEvent[];
 
 interface TimetableSectionProps {
   initialDay?: string;
@@ -53,7 +56,30 @@ export const TimetableSection: React.FC<TimetableSectionProps> = ({
   const [isCancelledInput, setIsCancelledInput] = useState(false);
 
   const timeSlots = timetable.timeSlots;
-  const currentDaySchedule = timetable.schedule[selectedDay] || [];
+
+  const getDayInfo = (dayName: string) => {
+    const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const targetIndex = daysOfWeek.indexOf(dayName);
+    const now = new Date();
+    const currentDayIndex = now.getDay();
+    const diff = targetIndex - currentDayIndex;
+    const targetDate = new Date(now);
+    targetDate.setDate(now.getDate() + diff);
+    const dateStr = formatDateToYYYYMMDD(targetDate);
+    const formatted = targetDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    return { date: targetDate, dateStr, formatted };
+  };
+
+  const selectedDayInfo = getDayInfo(selectedDay);
+  const effectiveResult = getEffectiveDaySchedule(
+    timetable,
+    calendarEvents,
+    selectedDayInfo.dateStr,
+    selectedDay,
+    selectedSectionFilter
+  );
+
+  const activeDaySchedule = effectiveResult.schedule;
 
   // Filter schedule items based on V1 / V2 / All
   const getFilteredItemsForSlot = (items: ScheduleItem[]) => {
@@ -105,17 +131,17 @@ export const TimetableSection: React.FC<TimetableSectionProps> = ({
         {/* Section V1 / V2 / All Filter */}
         <div className="flex flex-wrap items-center gap-2">
           <span className="text-[13px] font-medium text-secondary">Batch:</span>
-          <div className="flex items-center p-0.5 rounded-lg bg-surface-elevated border border-border-subtle">
+          <div className="flex items-center p-0.5 bg-surface-secondary border border-border">
             {(['All', 'V1', 'V2'] as SectionFilter[]).map((sec) => {
               const isSelected = selectedSectionFilter === sec;
               return (
                 <button
                   key={sec}
                   onClick={() => setSelectedSectionFilter(sec)}
-                  className={`px-3 py-1 text-xs font-mono font-semibold rounded-md transition-colors cursor-pointer select-none ${
+                  className={`px-3 py-1 text-xs font-mono font-bold transition-colors cursor-pointer select-none border ${
                     isSelected
-                      ? 'bg-surface text-foreground shadow-xs'
-                      : 'text-secondary hover:text-foreground'
+                      ? 'bg-selected-bg text-selected-text border-selected-border shadow-xs'
+                      : 'text-secondary hover:text-foreground hover:bg-hover-bg border-transparent'
                   }`}
                 >
                   {sec === 'All' ? 'All (V1 & V2)' : `Section ${sec}`}
@@ -126,13 +152,13 @@ export const TimetableSection: React.FC<TimetableSectionProps> = ({
 
           {/* View mode toggle: Interactive Day View vs Weekly Master Table */}
           {showMasterTableToggle && (
-            <div className="flex items-center p-0.5 rounded-lg bg-surface-elevated border border-border-subtle">
+            <div className="flex items-center p-0.5 bg-surface-secondary border border-border">
               <button
                 onClick={() => setViewMode('schedule')}
-                className={`flex items-center gap-1.5 px-3 py-1 text-xs font-medium rounded-md transition-colors cursor-pointer select-none ${
+                className={`flex items-center gap-1.5 px-3 py-1 text-xs font-medium transition-colors cursor-pointer select-none border ${
                   viewMode === 'schedule'
-                    ? 'bg-surface text-foreground font-semibold shadow-xs'
-                    : 'text-secondary hover:text-foreground'
+                    ? 'bg-selected-bg text-selected-text font-bold border-selected-border shadow-xs'
+                    : 'text-secondary hover:text-foreground hover:bg-hover-bg border-transparent'
                 }`}
               >
                 <ListFilter className="w-3.5 h-3.5" />
@@ -140,10 +166,10 @@ export const TimetableSection: React.FC<TimetableSectionProps> = ({
               </button>
               <button
                 onClick={() => setViewMode('weekly_grid')}
-                className={`flex items-center gap-1.5 px-3 py-1 text-xs font-medium rounded-md transition-colors cursor-pointer select-none ${
+                className={`flex items-center gap-1.5 px-3 py-1 text-xs font-medium transition-colors cursor-pointer select-none border ${
                   viewMode === 'weekly_grid'
-                    ? 'bg-surface text-foreground font-semibold shadow-xs'
-                    : 'text-secondary hover:text-foreground'
+                    ? 'bg-selected-bg text-selected-text font-bold border-selected-border shadow-xs'
+                    : 'text-secondary hover:text-foreground hover:bg-hover-bg border-transparent'
                 }`}
               >
                 <TableIcon className="w-3.5 h-3.5" />
@@ -155,7 +181,7 @@ export const TimetableSection: React.FC<TimetableSectionProps> = ({
           {hasAnyOverrides && (
             <button
               onClick={clearAllOverrides}
-              className="flex items-center gap-1 px-2.5 py-1 rounded-md text-[12px] bg-surface-elevated text-secondary hover:text-foreground transition-colors cursor-pointer"
+              className="flex items-center gap-1 px-2.5 py-1 text-[12px] bg-surface-secondary border border-border text-secondary hover:text-foreground hover:bg-hover-bg transition-colors cursor-pointer"
               title="Reset all proxy changes"
             >
               <RotateCcw className="w-3 h-3" />
@@ -172,27 +198,73 @@ export const TimetableSection: React.FC<TimetableSectionProps> = ({
             {days.map((day) => {
               const isSelected = selectedDay === day;
               const isSat = day === 'Saturday';
+              const dayInfo = getDayInfo(day);
+              const dayEff = getEffectiveDaySchedule(
+                timetable,
+                calendarEvents,
+                dayInfo.dateStr,
+                day,
+                selectedSectionFilter
+              );
+
               return (
                 <button
                   key={day}
                   onClick={() => setSelectedDay(day)}
-                  className={`px-3.5 py-1.5 rounded-md text-[13px] font-medium whitespace-nowrap transition-colors cursor-pointer select-none ${
+                  className={`px-3.5 py-1.5 text-[13px] font-medium whitespace-nowrap transition-colors cursor-pointer select-none border ${
                     isSelected
-                      ? 'bg-surface-elevated text-foreground font-semibold shadow-xs'
-                      : isSat
-                      ? 'text-muted hover:text-secondary'
-                      : 'text-secondary hover:text-foreground hover:bg-surface-elevated/50'
+                      ? 'bg-selected-bg text-selected-text font-bold border-selected-border shadow-xs'
+                      : isSat && !dayEff.isSpecialWorkingDay
+                      ? 'text-muted hover:text-secondary hover:bg-hover-bg border-transparent'
+                      : 'text-secondary hover:text-foreground hover:bg-hover-bg border-transparent'
                   }`}
                 >
                   {day}
-                  {isSat && <span className="ml-1 text-[11px] text-muted">(Off)</span>}
+                  {dayEff.isHoliday && (
+                    <span className="ml-1 text-[11px] text-muted font-mono">(Holiday)</span>
+                  )}
+                  {dayEff.isSpecialWorkingDay && (
+                    <span className="ml-1 text-[11px] font-mono">(Special)</span>
+                  )}
+                  {!dayEff.isHoliday && !dayEff.isSpecialWorkingDay && isSat && (
+                    <span className="ml-1 text-[11px] text-muted font-mono">(Off)</span>
+                  )}
                 </button>
               );
             })}
           </div>
 
-          {/* Saturday notice */}
-          {selectedDay === 'Saturday' ? (
+          {/* Calendar Holiday / Exam / Saturday / Regular Slots Display */}
+          {effectiveResult.isHoliday ? (
+            <div className="py-12 px-4 text-center rounded-lg border border-border-subtle bg-surface-elevated/20 space-y-3">
+              <Calendar className="w-8 h-8 text-muted mx-auto mb-1" />
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded text-[11px] font-mono font-medium bg-surface-elevated text-foreground border border-border-subtle">
+                {effectiveResult.holidayEvent?.type === 'public_holiday' ? 'Public Holiday' : 'Academic Recess / Holiday'}
+              </div>
+              <div className="text-[18px] sm:text-[20px] font-semibold text-foreground tracking-tight">
+                {effectiveResult.holidayEvent?.title}
+              </div>
+              <p className="text-[13px] text-secondary max-w-md mx-auto">
+                {effectiveResult.holidayEvent?.description || 'Regular classes are suspended according to the academic calendar.'}
+              </p>
+              <div className="text-[12px] font-mono text-muted pt-2 border-t border-border-subtle/50 max-w-sm mx-auto">
+                All lectures for this day are suspended and excluded from attendance calculation.
+              </div>
+            </div>
+          ) : effectiveResult.isExam ? (
+            <div className="py-12 px-4 text-center rounded-lg border border-border-subtle bg-surface-elevated/20 space-y-3">
+              <Calendar className="w-8 h-8 text-muted mx-auto mb-1" />
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded text-[11px] font-mono font-medium bg-surface-elevated text-foreground border border-border-subtle">
+                University Examination
+              </div>
+              <div className="text-[18px] sm:text-[20px] font-semibold text-foreground tracking-tight">
+                {effectiveResult.examEvent?.title}
+              </div>
+              <p className="text-[13px] text-secondary max-w-md mx-auto">
+                {effectiveResult.examEvent?.description || 'Classroom lectures are suspended during the examination schedule.'}
+              </p>
+            </div>
+          ) : selectedDay === 'Saturday' && !effectiveResult.isSpecialWorkingDay ? (
             <div className="py-14 px-4 text-center rounded-lg border border-border-subtle bg-surface-elevated/20">
               <Calendar className="w-8 h-8 text-muted mx-auto mb-2" />
               <div className="text-[16px] font-semibold text-foreground">Saturday & Sunday: Academic Recess</div>
@@ -201,97 +273,120 @@ export const TimetableSection: React.FC<TimetableSectionProps> = ({
               </div>
             </div>
           ) : (
-            /* Slots list with subtle horizontal separators */
-            <div className="divide-y divide-border-subtle">
-              {timeSlots.map((slot) => {
-                if (slot.isBreak) {
+            <div className="space-y-4">
+              {effectiveResult.isSpecialWorkingDay && (
+                <div className="p-3.5 rounded-lg border border-border-subtle bg-surface-elevated flex items-start gap-3">
+                  <AlertCircle className="w-4 h-4 text-foreground shrink-0 mt-0.5" />
+                  <div className="text-xs space-y-0.5">
+                    <span className="font-semibold text-foreground">
+                      Special Working Day: {effectiveResult.specialDayEvent?.title}
+                    </span>
+                    <p className="text-secondary">
+                      Operating on the <strong className="text-foreground">{effectiveResult.effectiveDayName}</strong> schedule today for {selectedSectionFilter === 'All' ? 'all batches' : `Batch ${selectedSectionFilter}`}.
+                    </p>
+                  </div>
+                </div>
+              )}
+
+              {effectiveResult.notice && !effectiveResult.isSpecialWorkingDay && (
+                <div className="p-3 rounded-lg border border-border-subtle bg-surface-elevated/60 text-xs text-secondary flex items-center gap-2">
+                  <AlertCircle className="w-3.5 h-3.5 text-muted shrink-0" />
+                  <span>{effectiveResult.notice}</span>
+                </div>
+              )}
+
+              {/* Slots list with subtle horizontal separators */}
+              <div className="divide-y divide-border-subtle">
+                {timeSlots.map((slot) => {
+                  if (slot.isBreak) {
+                    return (
+                      <div
+                        key={slot.id}
+                        className="flex items-center gap-4 py-3 px-3 text-[12px] text-muted font-mono"
+                      >
+                        <span className="w-24 shrink-0">{slot.startTime} – {slot.endTime}</span>
+                        <span className="text-[12px] tracking-wider uppercase text-muted">
+                          Break · Recess
+                        </span>
+                      </div>
+                    );
+                  }
+
+                  const allItemsInSlot = activeDaySchedule.filter((c) => c.slotId === slot.id);
+                  const filteredItems = getFilteredItemsForSlot(allItemsInSlot);
+
                   return (
                     <div
                       key={slot.id}
-                      className="flex items-center gap-4 py-3 px-3 text-[12px] text-muted font-mono"
+                      className="py-3 px-3 flex flex-col sm:flex-row sm:items-start gap-2 sm:gap-6 hover:bg-surface-elevated/20 transition-colors"
                     >
-                      <span className="w-24 shrink-0">{slot.startTime} – {slot.endTime}</span>
-                      <span className="text-[12px] tracking-wider uppercase text-muted">
-                        Break · Recess
-                      </span>
+                      {/* Time & Period (Clean, unboxed typography) */}
+                      <div className="shrink-0 sm:w-28 pt-0.5">
+                        <div className="font-mono text-[13.5px] font-semibold text-foreground">
+                          {slot.startTime}
+                        </div>
+                        <div className="text-[11.5px] text-muted font-mono">
+                          {slot.endTime} · P{slot.label}
+                        </div>
+                      </div>
+
+                      {/* Classes in this slot */}
+                      {filteredItems.length > 0 ? (
+                        <div className="flex-1 space-y-2.5">
+                          {filteredItems.map((item) => {
+                            const override = slotOverrides[item.id];
+                            const isCancelled = override?.isCancelled || item.isCancelled;
+                            const faculty = override?.proxyFaculty || item.faculty;
+                            const room = override?.roomChange || item.room;
+
+                            return (
+                              <div key={item.id} className="min-w-0">
+                                {/* Subject title as primary visual element */}
+                                <div className="flex flex-wrap items-baseline gap-2">
+                                  <span className={`text-[15.5px] font-semibold tracking-tight ${isCancelled ? 'line-through text-muted' : 'text-foreground'}`}>
+                                    {item.subjectName}
+                                  </span>
+                                  <span className="text-[12px] font-mono text-muted">
+                                    ({item.subjectCode})
+                                  </span>
+                                  {item.section && item.section !== 'Both' && (
+                                    <span className="text-[11px] font-mono text-secondary">
+                                      [{item.section}]
+                                    </span>
+                                  )}
+                                  {isCancelled && (
+                                    <span className="text-[11px] font-mono font-medium text-red-500 dark:text-red-400">
+                                      · Cancelled
+                                    </span>
+                                  )}
+                                  {override?.proxyFaculty && (
+                                    <span className="text-[11px] font-mono font-medium text-blue-500 dark:text-blue-400">
+                                      · Proxy
+                                    </span>
+                                  )}
+                                </div>
+
+                                {/* Faculty and Room as secondary metadata */}
+                                <div className="flex flex-wrap items-center gap-x-3 gap-y-0.5 mt-1 text-[13px] text-secondary">
+                                  <span>{faculty}</span>
+                                  <span className="text-muted">·</span>
+                                  <span className="font-mono text-foreground">{room}</span>
+                                  <span className="text-muted">·</span>
+                                  <span className="text-muted text-[12px]">{item.type}</span>
+                                </div>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      ) : (
+                        <div className="flex-1 py-1 text-[13px] text-muted italic">
+                          No scheduled class
+                        </div>
+                      )}
                     </div>
                   );
-                }
-
-                const allItemsInSlot = currentDaySchedule.filter((c) => c.slotId === slot.id);
-                const filteredItems = getFilteredItemsForSlot(allItemsInSlot);
-
-                return (
-                  <div
-                    key={slot.id}
-                    className="py-3 px-3 flex flex-col sm:flex-row sm:items-start gap-2 sm:gap-6 hover:bg-surface-elevated/20 transition-colors"
-                  >
-                    {/* Time & Period (Clean, unboxed typography) */}
-                    <div className="shrink-0 sm:w-28 pt-0.5">
-                      <div className="font-mono text-[13.5px] font-semibold text-foreground">
-                        {slot.startTime}
-                      </div>
-                      <div className="text-[11.5px] text-muted font-mono">
-                        {slot.endTime} · P{slot.label}
-                      </div>
-                    </div>
-
-                    {/* Classes in this slot */}
-                    {filteredItems.length > 0 ? (
-                      <div className="flex-1 space-y-2.5">
-                        {filteredItems.map((item) => {
-                          const override = slotOverrides[item.id];
-                          const isCancelled = override?.isCancelled || item.isCancelled;
-                          const faculty = override?.proxyFaculty || item.faculty;
-                          const room = override?.roomChange || item.room;
-
-                          return (
-                            <div key={item.id} className="min-w-0">
-                              {/* Subject title as primary visual element */}
-                              <div className="flex flex-wrap items-baseline gap-2">
-                                <span className={`text-[15.5px] font-semibold tracking-tight ${isCancelled ? 'line-through text-muted' : 'text-foreground'}`}>
-                                  {item.subjectName}
-                                </span>
-                                <span className="text-[12px] font-mono text-muted">
-                                  ({item.subjectCode})
-                                </span>
-                                {item.section && item.section !== 'Both' && (
-                                  <span className="text-[11px] font-mono text-secondary">
-                                    [{item.section}]
-                                  </span>
-                                )}
-                                {isCancelled && (
-                                  <span className="text-[11px] font-mono font-medium text-red-500 dark:text-red-400">
-                                    · Cancelled
-                                  </span>
-                                )}
-                                {override?.proxyFaculty && (
-                                  <span className="text-[11px] font-mono font-medium text-blue-500 dark:text-blue-400">
-                                    · Proxy
-                                  </span>
-                                )}
-                              </div>
-
-                              {/* Faculty and Room as secondary metadata */}
-                              <div className="flex flex-wrap items-center gap-x-3 gap-y-0.5 mt-1 text-[13px] text-secondary">
-                                <span>{faculty}</span>
-                                <span className="text-muted">·</span>
-                                <span className="font-mono text-foreground">{room}</span>
-                                <span className="text-muted">·</span>
-                                <span className="text-muted text-[12px]">{item.type}</span>
-                              </div>
-                            </div>
-                          );
-                        })}
-                      </div>
-                    ) : (
-                      <div className="flex-1 py-1 text-[13px] text-muted italic">
-                        No scheduled class
-                      </div>
-                    )}
-                  </div>
-                );
-              })}
+                })}
+              </div>
             </div>
           )}
         </div>
@@ -337,9 +432,42 @@ export const TimetableSection: React.FC<TimetableSectionProps> = ({
             <tbody className="divide-y divide-divider-subtle">
               {days.map((day) => {
                 const isSaturday = day === 'Saturday';
-                const daySchedule = timetable.schedule[day] || [];
+                const dayInfo = getDayInfo(day);
+                const dayEff = getEffectiveDaySchedule(
+                  timetable,
+                  calendarEvents,
+                  dayInfo.dateStr,
+                  day,
+                  selectedSectionFilter
+                );
 
-                if (isSaturday) {
+                if (dayEff.isHoliday) {
+                  return (
+                    <tr key={day} className="bg-surface-elevated/20">
+                      <td className="p-3 font-mono font-medium text-muted border-r border-divider-subtle text-center text-[13px]">
+                        {day.substring(0, 3)}
+                      </td>
+                      <td colSpan={7} className="p-3 text-center text-[12px] text-secondary">
+                        <span className="font-mono text-foreground font-semibold">{dayEff.holidayEvent?.title}</span> — Holiday (Lectures Suspended)
+                      </td>
+                    </tr>
+                  );
+                }
+
+                if (dayEff.isExam) {
+                  return (
+                    <tr key={day} className="bg-surface-elevated/20">
+                      <td className="p-3 font-mono font-medium text-muted border-r border-divider-subtle text-center text-[13px]">
+                        {day.substring(0, 3)}
+                      </td>
+                      <td colSpan={7} className="p-3 text-center text-[12px] text-secondary">
+                        <span className="font-mono text-foreground font-semibold">{dayEff.examEvent?.title}</span> — Exam Day (Lectures Suspended)
+                      </td>
+                    </tr>
+                  );
+                }
+
+                if (isSaturday && !dayEff.isSpecialWorkingDay) {
                   return (
                     <tr key={day} className="bg-surface-elevated/20">
                       <td className="p-3 font-mono font-medium text-muted border-r border-divider-subtle text-center text-[13px]">
@@ -351,6 +479,8 @@ export const TimetableSection: React.FC<TimetableSectionProps> = ({
                     </tr>
                   );
                 }
+
+                const daySchedule = dayEff.schedule;
 
                 // Helper to render cell content for each slot
                 const renderCell = (slotId: string) => {
@@ -412,6 +542,11 @@ export const TimetableSection: React.FC<TimetableSectionProps> = ({
                   <tr key={day} className="bg-surface hover:bg-surface-elevated/30 transition-colors">
                     <td className="p-3 font-medium text-foreground border-r border-divider-subtle text-center font-mono text-[13px]">
                       {day.substring(0, 3)}
+                      {dayEff.isSpecialWorkingDay && (
+                        <span className="block text-[10px] text-blue-500 font-sans">
+                          ({dayEff.effectiveDayName.substring(0, 3)})
+                        </span>
+                      )}
                     </td>
                     <td className="p-1.5 border-r border-divider-subtle align-top">{renderCell('slot-1')}</td>
                     <td className="p-1.5 border-r border-divider-subtle align-top">{renderCell('slot-2')}</td>

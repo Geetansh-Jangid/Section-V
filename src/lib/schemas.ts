@@ -150,6 +150,28 @@ export const LinksSchema = z.object({
   campusPortals: z.array(CampusPortalSchema)
 });
 
+export const CalendarEventTypeSchema = z.enum([
+  'public_holiday',
+  'college_holiday',
+  'exam',
+  'special_working_day',
+  'timetable_exception',
+  'event'
+]);
+
+export const CalendarEventSchema = z.object({
+  id: z.string(),
+  title: z.string().min(2),
+  date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, { message: "Date must be YYYY-MM-DD format" }),
+  endDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional(),
+  type: CalendarEventTypeSchema,
+  description: z.string().optional(),
+  applicableBatch: z.enum(['All', 'V1', 'V2']).default('All'),
+  isSuspended: z.boolean().default(true), // Whether regular classes are suspended
+  replacementDay: z.enum(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']).optional(),
+  specialSchedule: z.array(ScheduleItemSchema).optional()
+});
+
 // Infer TypeScript types from Zod schemas
 export type TimeSlot = z.infer<typeof TimeSlotSchema>;
 export type ScheduleItem = z.infer<typeof ScheduleItemSchema>;
@@ -163,3 +185,5 @@ export type SubjectNote = z.infer<typeof NoteSchema>;
 export type CampusPortal = z.infer<typeof CampusPortalSchema>;
 export type LinksConfig = z.infer<typeof LinksSchema>;
 export type TaskItem = z.infer<typeof TaskItemSchema>;
+export type CalendarEvent = z.infer<typeof CalendarEventSchema>;
+export type CalendarEventType = z.infer<typeof CalendarEventTypeSchema>;

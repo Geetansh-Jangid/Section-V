@@ -178,10 +178,10 @@ export const AttendanceOnboardingModal: React.FC<AttendanceOnboardingModalProps>
                           key={preset}
                           type="button"
                           onClick={() => setTarget(preset)}
-                          className={`py-2.5 rounded-lg font-mono text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
+                          className={`py-2.5 font-mono text-xs sm:text-sm font-semibold transition-all cursor-pointer border ${
                             target === preset
-                              ? 'bg-foreground text-background font-semibold shadow-xs'
-                              : 'bg-surface-elevated border border-border-subtle text-secondary hover:text-foreground hover:bg-surface-hover'
+                              ? 'bg-selected-bg text-selected-text font-bold border-selected-border shadow-xs'
+                              : 'bg-surface-secondary border-border text-secondary hover:text-foreground hover:bg-hover-bg'
                           }`}
                         >
                           {preset}%

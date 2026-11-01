@@ -268,15 +268,15 @@ const userSection = useSectionVStore((s) => s.userSection);
             <span className="text-[13px] font-medium text-secondary shrink-0">
               Section:
             </span>
-            <div className="inline-flex bg-surface-elevated p-0.5 rounded-lg border border-border-subtle">
+            <div className="inline-flex bg-surface-secondary p-0.5 border border-border">
               {(['All', 'V1', 'V2'] as const).map((sec) => (
                 <button
                   key={sec}
                   onClick={() => setSelectedSection(sec)}
-                  className={`px-3 py-1 rounded-md text-xs font-mono font-bold transition-colors cursor-pointer select-none ${
+                  className={`px-3 py-1 text-xs font-mono font-bold transition-colors cursor-pointer select-none border ${
                     selectedSection === sec
-                      ? 'bg-surface text-foreground shadow-xs'
-                      : 'text-secondary hover:text-foreground'
+                      ? 'bg-selected-bg text-selected-text border-selected-border shadow-xs'
+                      : 'text-secondary hover:text-foreground hover:bg-hover-bg border-transparent'
                   }`}
                 >
                   {sec === 'All' ? 'All (V1 + V2)' : `Batch ${sec}`}
@@ -287,15 +287,15 @@ const userSection = useSectionVStore((s) => s.userSection);
 
           {/* Status Filter */}
           <div className="flex flex-wrap items-center gap-2">
-            <div className="inline-flex bg-surface-elevated p-0.5 rounded-lg border border-border-subtle">
+            <div className="inline-flex bg-surface-secondary p-0.5 border border-border">
               {(['all', 'pending', 'completed'] as const).map((st) => (
                 <button
                   key={st}
                   onClick={() => setStatusFilter(st)}
-                  className={`px-3 py-1 rounded-md text-xs capitalize font-medium transition-colors cursor-pointer select-none ${
+                  className={`px-3 py-1 text-xs capitalize font-medium transition-colors cursor-pointer select-none border ${
                     statusFilter === st
-                      ? 'bg-surface text-foreground font-semibold shadow-xs'
-                      : 'text-secondary hover:text-foreground'
+                      ? 'bg-selected-bg text-selected-text font-bold border-selected-border shadow-xs'
+                      : 'text-secondary hover:text-foreground hover:bg-hover-bg border-transparent'
                   }`}
                 >
                   {st}

@@ -1,0 +1,21 @@
+# ==============================================================================
+# SECTION V: ACADEMIC CALENDAR & SCHEDULE EXCEPTIONS TEMPLATE
+# Content File: content/calendar/calendar.txt
+# ==============================================================================
+
+# Event types: public_holiday | college_holiday | exam | special_working_day | timetable_exception | event
+# Applicable batches: All | V1 | V2
+# Classes Suspended: true | false
+# Replacement Day (optional): Monday | Tuesday | Wednesday | Thursday | Friday | Saturday
+
+[EVENT]
+ID: cal-YYYY-MM-DD
+Title: Name of the event / holiday
+Date: YYYY-MM-DD
+# End Date is optional for multi-day events
+End Date: YYYY-MM-DD
+Type: public_holiday
+Description: Details and circular notes regarding the holiday or schedule change
+Batch: All
+Classes Suspended: true
+# Replacement Day: Monday

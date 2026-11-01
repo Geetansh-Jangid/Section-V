@@ -16,10 +16,14 @@ import {
   ArrowRight,
   Info,
   CheckCircle2,
-  FileCode
+  FileCode,
+  GitPullRequest,
+  Loader2,
+  AlertCircle
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { createPortal } from 'react-dom';
+import { formatContributionBlock, ContributionPayload, ContributionResult } from '../../api/contributeHandler.ts';
 
 interface ContributeModalProps {
   open: boolean;
@@ -40,23 +44,19 @@ interface UpdateCategoryConfig {
   directUrl: string;
   templateUrl: string;
   description: string;
-  placeholderTitle: string;
-  placeholderDesc: string;
 }
 
 const CATEGORIES: UpdateCategoryConfig[] = [
   {
     id: 'notes',
     label: 'Add Notes to Drive (Google Drive Links)',
-    shortLabel: 'Add Notes to Drive',
+    shortLabel: 'Notes',
     icon: FolderPlus,
     targetFile: 'content/notes/[subject].txt',
     templateFile: 'content/templates/notes_template.txt',
     directUrl: 'https://github.com/Geetansh-Jangid/Section-V/tree/main/content/notes',
     templateUrl: 'https://github.com/Geetansh-Jangid/Section-V/blob/main/content/templates/notes_template.txt',
-    description: 'Add Google Drive links for lecture notes, unit slides, or solved exam papers.',
-    placeholderTitle: 'e.g. Unit 2 Differential Calculus Notes & Question Solutions',
-    placeholderDesc: 'https://drive.google.com/file/d/...'
+    description: 'Add Google Drive links for lecture notes, unit slides, or solved exam papers.'
   },
   {
     id: 'timetable',
@@ -67,9 +67,7 @@ const CATEGORIES: UpdateCategoryConfig[] = [
     templateFile: 'content/templates/timetable_template.txt',
     directUrl: 'https://github.com/Geetansh-Jangid/Section-V/edit/main/content/timetable/timetable.txt',
     templateUrl: 'https://github.com/Geetansh-Jangid/Section-V/blob/main/content/templates/timetable_template.txt',
-    description: 'Update lecture timings, room changes, or proxy faculty assignments.',
-    placeholderTitle: 'e.g. Wednesday PPS Tutorial moved to CS-Lab-4',
-    placeholderDesc: 'Slot 1: Room changed from CT-12 to CS-Lab-4 with Prof. GS.'
+    description: 'Propose permanent schedule changes, room updates, or proxy lecture allocations.'
   },
   {
     id: 'faculty',
@@ -80,9 +78,7 @@ const CATEGORIES: UpdateCategoryConfig[] = [
     templateFile: 'content/templates/faculty_template.txt',
     directUrl: 'https://github.com/Geetansh-Jangid/Section-V/edit/main/content/faculty/faculty.txt',
     templateUrl: 'https://github.com/Geetansh-Jangid/Section-V/blob/main/content/templates/faculty_template.txt',
-    description: 'Update professor cabins, consultation hours, or contact information.',
-    placeholderTitle: 'e.g. Dr. Khan office hours updated for Friday',
-    placeholderDesc: 'Office hours updated to 02:30 PM – 04:00 PM at Chemistry Block Room 210.'
+    description: 'Update professor cabins, consultation hours, or department contact information.'
   },
   {
     id: 'announcements',
@@ -93,22 +89,18 @@ const CATEGORIES: UpdateCategoryConfig[] = [
     templateFile: 'content/templates/announcements_template.txt',
     directUrl: 'https://github.com/Geetansh-Jangid/Section-V/edit/main/content/announcements/announcements.txt',
     templateUrl: 'https://github.com/Geetansh-Jangid/Section-V/blob/main/content/templates/announcements_template.txt',
-    description: 'Post examination notices, lab viva deadlines, official circulars, or hackathon team calls.',
-    placeholderTitle: 'e.g. Mid-term examination schedule for Section V',
-    placeholderDesc: 'Exam commencement date and subject-wise venue allocations.'
+    description: 'Post examination notices, lab viva deadlines, official circulars, or hackathon team calls.'
   },
   {
     id: 'links',
-    label: 'Campus Portals & WhatsApp Links',
-    shortLabel: 'Important Links',
+    label: 'Campus Portals & Community Links',
+    shortLabel: 'Links',
     icon: Link2,
     targetFile: 'content/links/links.txt',
     templateFile: 'content/templates/links_template.txt',
     directUrl: 'https://github.com/Geetansh-Jangid/Section-V/edit/main/content/links/links.txt',
     templateUrl: 'https://github.com/Geetansh-Jangid/Section-V/blob/main/content/templates/links_template.txt',
-    description: 'Update ERP, LMS, WiFi authentication, or WhatsApp community invite links.',
-    placeholderTitle: 'e.g. New Section V WhatsApp discussion group invite',
-    placeholderDesc: 'Updated invite link for newly admitted Section V students.'
+    description: 'Update ERP, LMS, WiFi authentication, or WhatsApp community invite links.'
   }
 ];
 
@@ -125,17 +117,12 @@ const TEMPLATE_PREVIEWS: Record<UpdateCategoryKey, string> = {
   notes: `# Section V Subject Notes & Google Drive Links
 # File: content/notes/[subject].txt
 
-Subject Code: M
-Subject Name: Mathematics
-Faculty: Prof. G.C. Sharma (GC)
-Drive Folder URL: https://drive.google.com/drive/folders/your-folder-id
-PYQ Drive URL: https://drive.google.com/drive/folders/your-pyq-folder-id
-
 [UNIT]
 Unit Number: 1
 Title: Differential & Integral Calculus
 Topics: Mean Value Theorems, Taylor's Series, Definite Integrals
 Drive Link: https://drive.google.com/file/d/your-lecture-slides.pdf
+Contributor: Section V Student
 
 [PYQ]
 Year: 2025 Mid-Sem
@@ -179,11 +166,8 @@ Summary: Review allocated exam halls and reporting timings.`,
   links: `# Section V Links & Portals
 # File: content/links/links.txt
 
-GitHub Repo URL: https://github.com/Geetansh-Jangid/Section-V
-WhatsApp Community URL: https://chat.whatsapp.com/section-v-announcements
-
 [PORTAL]
-ID: erp
+ID: portal-erp
 Title: Student ERP
 Description: Grades & Official Records
 URL: https://erp.college.edu
@@ -197,20 +181,62 @@ export const ContributeModal: React.FC<ContributeModalProps> = ({
   initialSubject
 }) => {
   const [selectedCatId, setSelectedCatId] = useState<UpdateCategoryKey>(initialCategory);
-  const [selectedSubject, setSelectedSubject] = useState(initialSubject || 'M');
-  const [driveLink, setDriveLink] = useState('');
-  const [noteResourceType, setNoteResourceType] = useState<'unit' | 'folder' | 'pyq'>('unit');
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
   const [authorName, setAuthorName] = useState('');
   const [copied, setCopied] = useState(false);
   const [showTemplate, setShowTemplate] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitResult, setSubmitResult] = useState<ContributionResult | null>(null);
+  const [submissionError, setSubmissionError] = useState<string | null>(null);
 
-  // Sync initialCategory
+  // Category 1: Notes State
+  const [selectedSubject, setSelectedSubject] = useState(initialSubject || 'M');
+  const [noteResourceType, setNoteResourceType] = useState<'unit' | 'folder' | 'pyq'>('unit');
+  const [driveLink, setDriveLink] = useState('');
+  const [noteTitle, setNoteTitle] = useState('');
+  const [unitNumber, setUnitNumber] = useState('1');
+  const [pyqYear, setPyqYear] = useState('2025 Mid-Sem');
+  const [noteDescription, setNoteDescription] = useState('');
+
+  // Category 2: Timetable State
+  const [timetableDay, setTimetableDay] = useState<'Monday' | 'Tuesday' | 'Wednesday' | 'Thursday' | 'Friday' | 'Saturday'>('Monday');
+  const [timetableSlot, setTimetableSlot] = useState('1');
+  const [timetableSubjectCode, setTimetableSubjectCode] = useState('M');
+  const [timetableSubjectName, setTimetableSubjectName] = useState('Mathematics');
+  const [timetableFaculty, setTimetableFaculty] = useState('Prof. GC');
+  const [timetableRoom, setTimetableRoom] = useState('CT-12');
+  const [timetableType, setTimetableType] = useState<'Theory' | 'Lab' | 'Tutorial'>('Theory');
+  const [timetableBatch, setTimetableBatch] = useState<'Both' | 'V1' | 'V2'>('Both');
+  const [timetableNote, setTimetableNote] = useState('');
+
+  // Category 3: Faculty State
+  const [facultyName, setFacultyName] = useState('');
+  const [facultyDesignation, setFacultyDesignation] = useState('Assistant Professor');
+  const [facultyDepartment, setFacultyDepartment] = useState('Computer Science & Engineering');
+  const [facultyCabin, setFacultyCabin] = useState('');
+  const [facultyEmail, setFacultyEmail] = useState('');
+  const [facultyOfficeHours, setFacultyOfficeHours] = useState('Mon, Wed: 02:00 PM – 03:30 PM');
+  const [facultyNote, setFacultyNote] = useState('');
+
+  // Category 4: Announcements State
+  const [announcementTitle, setAnnouncementTitle] = useState('');
+  const [announcementCategory, setAnnouncementCategory] = useState<'Academic' | 'Exam' | 'Placement' | 'Event' | 'Circular' | 'General'>('Academic');
+  const [announcementPriority, setAnnouncementPriority] = useState<'normal' | 'high' | 'urgent'>('normal');
+  const [announcementAuthority, setAnnouncementAuthority] = useState('Section V CR');
+  const [announcementSummary, setAnnouncementSummary] = useState('');
+
+  // Category 5: Links State
+  const [linkTitle, setLinkTitle] = useState('');
+  const [linkUrl, setLinkUrl] = useState('');
+  const [linkDescription, setLinkDescription] = useState('');
+  const [linkType, setLinkType] = useState<'Portal' | 'Community' | 'Academic' | 'Document'>('Portal');
+
+  // Sync initial props
   useEffect(() => {
     if (open) {
       if (initialCategory) setSelectedCatId(initialCategory);
       if (initialSubject) setSelectedSubject(initialSubject);
+      setSubmitResult(null);
+      setSubmissionError(null);
     }
   }, [open, initialCategory, initialSubject]);
 
@@ -226,75 +252,118 @@ export const ContributeModal: React.FC<ContributeModalProps> = ({
   }, [open, onClose]);
 
   const currentCategory = CATEGORIES.find((c) => c.id === selectedCatId) || CATEGORIES[0];
-  const activeSubjectObj = SUBJECT_OPTIONS.find(s => s.code === selectedSubject) || SUBJECT_OPTIONS[0];
+  const activeSubjectObj = SUBJECT_OPTIONS.find((s) => s.code === selectedSubject) || SUBJECT_OPTIONS[0];
 
-  // Generate plain text payload
-  const generateSnippet = () => {
-    if (selectedCatId === 'notes') {
-      const driveUrlSafe = driveLink.trim() || 'https://drive.google.com/file/d/your-notes-link';
-      const titleSafe = title.trim() || `${activeSubjectObj.name} Lecture Notes`;
-      const authorSafe = authorName.trim() || 'Section V Student';
+  // Build payload object based on active category
+  const buildCurrentPayload = (): ContributionPayload => {
+    const author = authorName.trim() || 'Section V Student';
+    switch (selectedCatId) {
+      case 'notes':
+        return {
+          category: 'notes',
+          subjectCode: activeSubjectObj.code,
+          resourceType: noteResourceType,
+          title: noteTitle.trim() || (noteResourceType === 'pyq' ? `${activeSubjectObj.name} PYQ Paper` : `${activeSubjectObj.name} Notes`),
+          driveUrl: driveLink.trim() || 'https://drive.google.com/file/d/example',
+          author,
+          description: noteDescription.trim() || undefined,
+          unitNumber: noteResourceType === 'unit' ? unitNumber : undefined,
+          year: noteResourceType === 'pyq' ? pyqYear : undefined
+        };
 
-      if (noteResourceType === 'pyq') {
-        return `# Add to content/notes/${activeSubjectObj.code.toLowerCase()}.txt
-[PYQ]
-Subject: ${activeSubjectObj.code} (${activeSubjectObj.name})
-Year: ${titleSafe}
-Exam Type: Mid-Sem
-Drive Link: ${driveUrlSafe}
-Contributor: ${authorSafe}
-Notes: ${description || 'Verified clean PDF scan'}`;
-      } else if (noteResourceType === 'folder') {
-        return `# Add to content/notes/${activeSubjectObj.code.toLowerCase()}.txt
-Subject Code: ${activeSubjectObj.code}
-Subject Name: ${activeSubjectObj.name}
-Drive Folder URL: ${driveUrlSafe}
-Contributor: ${authorSafe}
-Notes: ${description || 'Complete subject semester folder'}`;
-      } else {
-        return `# Add to content/notes/${activeSubjectObj.code.toLowerCase()}.txt
-[UNIT]
-Subject: ${activeSubjectObj.code} (${activeSubjectObj.name})
-Title: ${titleSafe}
-Drive Link: ${driveUrlSafe}
-Topics: ${description || 'Key topics and solved problems'}
-Contributor: ${authorSafe}`;
-      }
+      case 'timetable':
+        return {
+          category: 'timetable',
+          day: timetableDay,
+          slotPeriod: timetableSlot,
+          subjectCode: timetableSubjectCode.trim() || activeSubjectObj.code,
+          subjectName: timetableSubjectName.trim() || activeSubjectObj.name,
+          faculty: timetableFaculty.trim() || 'Faculty',
+          room: timetableRoom.trim() || 'CT-12',
+          type: timetableType,
+          batch: timetableBatch,
+          author,
+          description: timetableNote.trim() || undefined
+        };
+
+      case 'faculty':
+        return {
+          category: 'faculty',
+          name: facultyName.trim() || 'Dr. Professor Name',
+          designation: facultyDesignation.trim() || 'Assistant Professor',
+          department: facultyDepartment.trim() || 'Applied Sciences',
+          cabin: facultyCabin.trim() || 'Cabin 101',
+          email: facultyEmail.trim() || 'faculty@college.edu',
+          officeHours: facultyOfficeHours.trim() || 'Mon, Wed: 02:00 PM - 03:30 PM',
+          author,
+          description: facultyNote.trim() || undefined
+        };
+
+      case 'announcements':
+        return {
+          category: 'announcements',
+          title: announcementTitle.trim() || 'Section V Circular',
+          announcementCategory,
+          priority: announcementPriority,
+          authority: announcementAuthority.trim() || 'Academic Cell',
+          summary: announcementSummary.trim() || 'Announcement details and instructions.',
+          author
+        };
+
+      case 'links':
+        return {
+          category: 'links',
+          title: linkTitle.trim() || 'Campus Resource Portal',
+          url: linkUrl.trim() || 'https://college.edu',
+          description: linkDescription.trim() || 'Official college web portal',
+          linkType,
+          author
+        };
     }
-
-    return `# Content Update for: ${currentCategory.targetFile}
-Category: ${currentCategory.label}
-Title: ${title || currentCategory.placeholderTitle}
-Description: ${description || currentCategory.placeholderDesc}
-Contributor: ${authorName || 'Section V Contributor'}`;
   };
 
-  const snippetText = generateSnippet();
-
-  // Create GitHub Issue Link
-  const issueTitle = encodeURIComponent(
-    selectedCatId === 'notes'
-      ? `[Drive Notes]: ${activeSubjectObj.code} - ${title || 'New Google Drive Notes Link'}`
-      : `[${currentCategory.shortLabel}]: ${title || currentCategory.placeholderTitle}`
-  );
-
-  const issueBody = encodeURIComponent(
-    `### Section V Contribution Request\n\n` +
-    `**Category**: ${currentCategory.label}\n` +
-    `**Target Content File**: \`${currentCategory.targetFile}\`\n` +
-    `**Contributor**: ${authorName || 'Section V Student'}\n\n` +
-    (selectedCatId === 'notes' ? `**Subject**: ${activeSubjectObj.code} — ${activeSubjectObj.name}\n**Google Drive URL**: ${driveLink || 'Not provided'}\n**Resource Type**: ${noteResourceType}\n\n` : '') +
-    `#### Contribution Details:\n\`\`\`text\n${snippetText}\n\`\`\`\n\n` +
-    `---\n*Submitted for Section V review.*`
-  );
-
-  const githubIssueUrl = `https://github.com/Geetansh-Jangid/Section-V/issues/new?title=${issueTitle}&body=${issueBody}`;
+  const currentPayload = buildCurrentPayload();
+  const { targetFile, block: snippetText } = formatContributionBlock(currentPayload);
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(snippetText);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
+
+  const handleSubmitContribution = async () => {
+    setIsSubmitting(true);
+    setSubmissionError(null);
+    setSubmitResult(null);
+
+    try {
+      const response = await fetch('/api/contribute', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(currentPayload)
+      });
+
+      const data = await response.json();
+      if (!response.ok || !data.success) {
+        throw new Error(data.error || 'Failed to submit contribution.');
+      }
+
+      setSubmitResult(data);
+    } catch (err: any) {
+      setSubmissionError(err.message || 'Network error occurred while submitting.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  // 1-Click fallback Issue URL
+  const fallbackIssueUrl = `https://github.com/Geetansh-Jangid/Section-V/issues/new?title=${encodeURIComponent(
+    `[${currentCategory.shortLabel}]: Contribution proposal`
+  )}&body=${encodeURIComponent(
+    `### Contribution Proposal\n\n- **Category**: ${currentCategory.label}\n- **Target File**: \`${targetFile}\`\n- **Contributor**: ${authorName || 'Section V Student'}\n\n\`\`\`text\n${snippetText}\n\`\`\``
+  )}`;
 
   return createPortal(
     <AnimatePresence>
@@ -317,367 +386,735 @@ Contributor: ${authorName || 'Section V Contributor'}`;
               exit={{ opacity: 0, scale: 0.96, y: 8 }}
               transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
               data-modal-card="true"
-              className="w-full max-w-[calc(100dvw-1.5rem)] sm:max-w-xl md:max-w-2xl lg:max-w-3xl xl:max-w-4xl bg-surface border border-border-subtle rounded-2xl shadow-xl flex flex-col max-h-[92dvh] sm:max-h-[88dvh] overflow-hidden m-auto"
+              className="w-full max-w-[calc(100dvw-1.5rem)] sm:max-w-xl md:max-w-2xl lg:max-w-3xl xl:max-w-4xl bg-surface border border-border-subtle rounded-none shadow-xl flex flex-col max-h-[92dvh] sm:max-h-[88dvh] overflow-hidden m-auto"
               onClick={(e) => e.stopPropagation()}
             >
-            {/* Header */}
-            <div className="flex items-center justify-between px-5 py-4 sm:px-7 sm:py-5 border-b border-border-subtle shrink-0">
-              <div className="flex items-center gap-3">
-                <div className="p-2 rounded-lg bg-surface-elevated border border-border text-muted flex items-center justify-center shrink-0">
-                  <MessageSquarePlus className="w-4 h-4 text-muted" />
-                </div>
-                <div>
+              {/* Header */}
+              <div className="flex items-center justify-between px-5 py-3.5 sm:px-7 sm:py-4 border-b border-border-subtle shrink-0">
+                <div className="flex items-center gap-3">
+                  <div className="p-2 bg-surface-elevated border border-border-subtle text-foreground flex items-center justify-center shrink-0">
+                    <GitPullRequest className="w-4 h-4 text-foreground" />
+                  </div>
                   <h3 className="text-base sm:text-lg font-bold text-foreground tracking-tight">
                     Contribute to Section V
                   </h3>
-                  <p className="text-xs sm:text-sm text-secondary">
-                    Submit content updates for peer review.
-                  </p>
                 </div>
-              </div>
-              <button
-                onClick={onClose}
-                className="p-1.5 sm:p-2 rounded-lg text-secondary hover:text-foreground hover:bg-surface-elevated transition-colors cursor-pointer"
-                aria-label="Close modal"
-              >
-                <X className="w-4 h-4 sm:w-5 sm:h-5" />
-              </button>
-            </div>
-
-            {/* Scrollable Body */}
-            <div className="flex-1 overflow-y-auto px-5 py-4 sm:px-7 sm:py-6 space-y-5 text-xs sm:text-sm">
-              {/* Category Selector */}
-              <div>
-                <label className="text-foreground font-semibold block mb-2 text-xs sm:text-sm">
-                  1. What would you like to contribute?
-                </label>
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-2.5">
-                  {CATEGORIES.map((cat) => {
-                    const Icon = cat.icon;
-                    const isSelected = selectedCatId === cat.id;
-                    return (
-                      <button
-                        key={cat.id}
-                        type="button"
-                        onClick={() => setSelectedCatId(cat.id)}
-                        className={`flex items-center gap-2.5 sm:gap-3 p-3 sm:p-3.5 rounded-xl text-left transition-all cursor-pointer select-none ${
-                          isSelected
-                            ? 'bg-surface-elevated text-foreground font-semibold border border-border'
-                            : 'bg-surface-elevated/40 border border-border-subtle text-secondary hover:text-foreground hover:bg-surface-hover'
-                        }`}
-                      >
-                        <Icon className={`w-4 h-4 sm:w-4.5 sm:h-4.5 shrink-0 transition-colors ${isSelected ? 'text-foreground' : 'text-muted'}`} />
-                        <span className="text-xs sm:text-sm truncate font-medium">{cat.shortLabel}</span>
-                      </button>
-                    );
-                  })}
-                </div>
+                <button
+                  onClick={onClose}
+                  className="p-1.5 sm:p-2 text-secondary hover:text-foreground hover:bg-surface-elevated transition-colors cursor-pointer"
+                  aria-label="Close modal"
+                >
+                  <X className="w-4 h-4 sm:w-5 sm:h-5" />
+                </button>
               </div>
 
-              {/* Dedicated "Add Notes to Drive" Form */}
-              {selectedCatId === 'notes' ? (
-                <div className="p-4 sm:p-5 rounded-xl bg-surface-elevated/40 border border-border-subtle space-y-3.5">
-                  <div className="flex items-center justify-between pb-2 border-b border-border-subtle">
-                    <div className="flex items-center gap-2">
-                      <FolderPlus className="w-4 h-4 text-muted" />
-                      <span className="font-semibold text-foreground text-xs sm:text-sm">
-                        Add Notes to Google Drive
+              {/* Scrollable Body */}
+              <div className="flex-1 overflow-y-auto px-5 py-4 sm:px-7 sm:py-6 space-y-6 text-xs sm:text-sm">
+                {/* Submission Success Screen */}
+                {submitResult ? (
+                  <div className="py-8 px-4 text-center space-y-4">
+                    <div className="w-12 h-12 mx-auto rounded-full bg-surface-elevated border border-border-subtle flex items-center justify-center text-foreground">
+                      <CheckCircle2 className="w-6 h-6 text-foreground" />
+                    </div>
+                    <div>
+                      <h4 className="text-lg font-bold text-foreground tracking-tight">
+                        {submitResult.prUrl ? 'Pull Request Submitted Successfully!' : 'Contribution Formatted & Verified!'}
+                      </h4>
+                      <p className="text-xs sm:text-sm text-secondary max-w-md mx-auto mt-1 leading-relaxed">
+                        {submitResult.message}
+                      </p>
+                    </div>
+
+                    {submitResult.prUrl && (
+                      <div className="pt-2">
+                        <a
+                          href={submitResult.prUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="inline-flex items-center gap-2 px-5 py-2.5 bg-foreground text-background font-semibold text-xs sm:text-sm hover:opacity-90 transition-opacity cursor-pointer shadow-sm"
+                        >
+                          <GitPullRequest className="w-4 h-4" />
+                          <span>View Pull Request #{submitResult.prNumber} on GitHub</span>
+                          <ExternalLink className="w-3.5 h-3.5 ml-1" />
+                        </a>
+                      </div>
+                    )}
+
+                    <div className="pt-4 border-t border-border-subtle max-w-lg mx-auto text-left space-y-2">
+                      <span className="text-[11px] font-mono uppercase tracking-wider text-muted font-semibold">
+                        Target File: {submitResult.targetFile}
                       </span>
+                      <pre className="p-3 bg-surface-elevated border border-border-subtle font-mono text-[11px] text-foreground overflow-x-auto whitespace-pre">
+                        {submitResult.formattedSnippet}
+                      </pre>
+                    </div>
+
+                    <div className="pt-2 flex justify-center gap-3">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setSubmitResult(null);
+                          setSubmissionError(null);
+                        }}
+                        className="px-4 py-2 bg-surface-elevated border border-border-subtle text-secondary hover:text-foreground text-xs font-medium cursor-pointer"
+                      >
+                        Submit Another Update
+                      </button>
+                      <button
+                        type="button"
+                        onClick={onClose}
+                        className="px-4 py-2 bg-foreground text-background font-semibold text-xs cursor-pointer"
+                      >
+                        Done
+                      </button>
                     </div>
                   </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    {/* Subject Selector */}
+                ) : (
+                  <>
+                    {/* 1. Category Selection */}
                     <div>
-                      <label className="text-[11px] font-medium text-secondary block mb-1">
-                        Select Subject
+                      <label className="text-foreground font-semibold block mb-2 text-xs sm:text-sm">
+                        1. Select Contribution Category
                       </label>
-                      <select
-                        value={selectedSubject}
-                        onChange={(e) => setSelectedSubject(e.target.value)}
-                        className="w-full px-3 py-2 rounded-lg bg-surface border border-border-subtle text-foreground text-xs focus:outline-none focus:border-border-strong cursor-pointer"
-                      >
-                        {SUBJECT_OPTIONS.map((sub) => (
-                          <option key={sub.code} value={sub.code}>
-                            {sub.code} — {sub.name}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-
-                    {/* Resource Type */}
-                    <div>
-                      <label className="text-[11px] font-medium text-secondary block mb-1">
-                        Resource Type
-                      </label>
-                      <div className="grid grid-cols-3 gap-1.5">
-                        <button
-                          type="button"
-                          onClick={() => setNoteResourceType('unit')}
-                          className={`py-1.5 px-2 rounded-md text-[11px] font-medium transition-colors text-center cursor-pointer ${
-                            noteResourceType === 'unit'
-                              ? 'bg-surface-elevated text-foreground font-semibold border border-border'
-                              : 'bg-surface text-secondary hover:text-foreground border border-border-subtle'
-                          }`}
-                        >
-                          Lecture Notes
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => setNoteResourceType('folder')}
-                          className={`py-1.5 px-2 rounded-md text-[11px] font-medium transition-colors text-center cursor-pointer ${
-                            noteResourceType === 'folder'
-                              ? 'bg-surface-elevated text-foreground font-semibold border border-border'
-                              : 'bg-surface text-secondary hover:text-foreground border border-border-subtle'
-                          }`}
-                        >
-                          Drive Folder
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => setNoteResourceType('pyq')}
-                          className={`py-1.5 px-2 rounded-md text-[11px] font-medium transition-colors text-center cursor-pointer ${
-                            noteResourceType === 'pyq'
-                              ? 'bg-surface-elevated text-foreground font-semibold border border-border'
-                              : 'bg-surface text-secondary hover:text-foreground border border-border-subtle'
-                          }`}
-                        >
-                          PYQ Paper
-                        </button>
+                      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2">
+                        {CATEGORIES.map((cat) => {
+                          const Icon = cat.icon;
+                          const isSelected = selectedCatId === cat.id;
+                          return (
+                            <button
+                              key={cat.id}
+                              type="button"
+                              onClick={() => {
+                                setSelectedCatId(cat.id);
+                                setSubmissionError(null);
+                              }}
+                              className={`flex flex-col items-start justify-between gap-2.5 p-3 text-left cursor-pointer select-none border border-border-subtle min-h-[68px] sm:min-h-[72px] focus:outline-none focus-visible:ring-1 focus-visible:ring-border ${
+                                isSelected
+                                  ? 'bg-surface-elevated'
+                                  : 'bg-surface hover:bg-surface-secondary/60'
+                              }`}
+                            >
+                              <Icon className="w-4 h-4 shrink-0 text-secondary" />
+                              <span className="text-xs truncate w-full font-medium text-foreground">
+                                {cat.shortLabel}
+                              </span>
+                            </button>
+                          );
+                        })}
                       </div>
                     </div>
-                  </div>
 
-                  {/* Google Drive Link Input */}
-                  <div>
-                    <label className="text-[11px] font-medium text-secondary block mb-1">
-                      Google Drive Link (Sharing set to "Anyone with link can view")
-                    </label>
-                    <input
-                      type="url"
-                      value={driveLink}
-                      onChange={(e) => setDriveLink(e.target.value)}
-                      placeholder="https://drive.google.com/file/d/your-lecture-notes..."
-                      className="w-full px-3.5 py-2.5 rounded-lg bg-surface border border-border-subtle text-foreground placeholder:text-muted focus:outline-none focus:border-accent font-mono text-xs"
-                    />
-                  </div>
-
-                  {/* Notes Title & Contributor */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    <div>
-                      <label className="text-[11px] font-medium text-secondary block mb-1">
-                        Topic or Unit Title
-                      </label>
-                      <input
-                        type="text"
-                        value={title}
-                        onChange={(e) => setTitle(e.target.value)}
-                        placeholder="e.g. Unit 2 Differential Calculus Notes"
-                        className="w-full px-3.5 py-2 rounded-lg bg-surface border border-border-subtle text-foreground placeholder:text-muted focus:outline-none focus:border-accent text-xs"
-                      />
-                    </div>
-                    <div>
-                      <label className="text-[11px] font-medium text-secondary block mb-1">
-                        Your Name / Roll No (optional)
-                      </label>
+                    {/* Contributor Name Banner */}
+                    <div className="p-3 bg-surface-secondary border border-border flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+                      <div className="text-xs">
+                        <span className="font-semibold text-foreground">Contributor Attribution:</span>
+                        <span className="text-secondary ml-1.5">Credited in commit history and peer-review PR.</span>
+                      </div>
                       <input
                         type="text"
                         value={authorName}
                         onChange={(e) => setAuthorName(e.target.value)}
-                        placeholder="e.g. Yash (24AIDS042)"
-                        className="w-full px-3.5 py-2 rounded-lg bg-surface border border-border-subtle text-foreground placeholder:text-muted focus:outline-none focus:border-accent text-xs"
+                        placeholder="Your Name / Roll No (e.g. Yash - 24AIDS042)"
+                        className="px-3 py-1.5 bg-surface border border-border text-foreground placeholder:text-muted text-xs focus:outline-none focus:border-border-strong sm:w-64"
                       />
                     </div>
-                  </div>
 
-                  <div>
-                    <label className="text-[11px] font-medium text-secondary block mb-1">
-                      Topics covered or extra details
-                    </label>
-                    <input
-                      type="text"
-                      value={description}
-                      onChange={(e) => setDescription(e.target.value)}
-                      placeholder="e.g. Rolle's Theorem, Taylor Series, Solved 2024 examples"
-                      className="w-full px-3.5 py-2 rounded-lg bg-surface border border-border-subtle text-foreground placeholder:text-muted focus:outline-none focus:border-accent text-xs"
-                    />
-                  </div>
-                </div>
-              ) : (
-                /* General Form for Other Sections */
-                <div className="p-4 sm:p-5 rounded-xl bg-surface-secondary border border-border-subtle space-y-3">
-                  <div className="flex items-center justify-between pb-2 border-b border-border-subtle">
-                    <div className="flex items-center gap-2">
-                      <FileText className="w-4 h-4 text-muted" />
-                      <span className="font-semibold text-foreground text-xs sm:text-sm">
-                        {currentCategory.label}
+                    {/* 2. Category-Specific Adaptive Inline Form */}
+                    <div className="p-4 sm:p-5 bg-surface-secondary border border-border space-y-4">
+                      {/* Category: Notes */}
+                      {selectedCatId === 'notes' && (
+                        <div className="space-y-3.5">
+                          <div className="flex items-center gap-2 pb-2 border-b border-border">
+                            <FolderPlus className="w-4 h-4 text-foreground" />
+                            <span className="font-semibold text-foreground text-xs sm:text-sm">
+                              Google Drive Notes & PYQs
+                            </span>
+                          </div>
+
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <div>
+                              <label className="text-[11px] font-medium text-secondary block mb-1">
+                                Subject
+                              </label>
+                              <select
+                                value={selectedSubject}
+                                onChange={(e) => setSelectedSubject(e.target.value)}
+                                className="w-full px-3 py-2 bg-surface border border-border text-foreground text-xs focus:outline-none focus:border-border-strong cursor-pointer"
+                              >
+                                {SUBJECT_OPTIONS.map((sub) => (
+                                  <option key={sub.code} value={sub.code}>
+                                    {sub.code} — {sub.name}
+                                  </option>
+                                ))}
+                              </select>
+                            </div>
+
+                            <div>
+                              <label className="text-[11px] font-medium text-secondary block mb-1">
+                                Resource Type
+                              </label>
+                              <div className="grid grid-cols-3 gap-1.5">
+                                {[
+                                  { id: 'unit', label: 'Unit Notes' },
+                                  { id: 'folder', label: 'Drive Folder' },
+                                  { id: 'pyq', label: 'PYQ Paper' }
+                                ].map((type) => (
+                                  <button
+                                    key={type.id}
+                                    type="button"
+                                    onClick={() => setNoteResourceType(type.id as any)}
+                                    className={`py-1.5 px-2 text-[11px] font-medium transition-colors text-center cursor-pointer border ${
+                                      noteResourceType === type.id
+                                        ? 'bg-selected-bg text-selected-text font-bold border-selected-border shadow-xs'
+                                        : 'bg-surface text-secondary hover:text-foreground border-border hover:bg-hover-bg'
+                                    }`}
+                                  >
+                                    {type.label}
+                                  </button>
+                                ))}
+                              </div>
+                            </div>
+                          </div>
+
+                          <div>
+                            <label className="text-[11px] font-medium text-secondary block mb-1">
+                              Google Drive Link (Sharing: "Anyone with the link can view")
+                            </label>
+                            <input
+                              type="url"
+                              value={driveLink}
+                              onChange={(e) => setDriveLink(e.target.value)}
+                              placeholder="https://drive.google.com/file/d/your-lecture-notes..."
+                              className="w-full px-3.5 py-2 bg-surface border border-border-subtle text-foreground placeholder:text-muted focus:outline-none focus:border-foreground font-mono text-xs"
+                            />
+                          </div>
+
+                          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <div className="sm:col-span-2">
+                              <label className="text-[11px] font-medium text-secondary block mb-1">
+                                Title / Unit Name
+                              </label>
+                              <input
+                                type="text"
+                                value={noteTitle}
+                                onChange={(e) => setNoteTitle(e.target.value)}
+                                placeholder="e.g. Unit 2 Differential Calculus Notes & Problem Set"
+                                className="w-full px-3.5 py-2 bg-surface border border-border-subtle text-foreground placeholder:text-muted focus:outline-none focus:border-foreground text-xs"
+                              />
+                            </div>
+
+                            <div>
+                              <label className="text-[11px] font-medium text-secondary block mb-1">
+                                {noteResourceType === 'pyq' ? 'Exam Year / Type' : 'Unit Number'}
+                              </label>
+                              {noteResourceType === 'pyq' ? (
+                                <input
+                                  type="text"
+                                  value={pyqYear}
+                                  onChange={(e) => setPyqYear(e.target.value)}
+                                  placeholder="e.g. 2025 Mid-Sem"
+                                  className="w-full px-3.5 py-2 bg-surface border border-border-subtle text-foreground placeholder:text-muted focus:outline-none focus:border-foreground text-xs"
+                                />
+                              ) : (
+                                <input
+                                  type="text"
+                                  value={unitNumber}
+                                  onChange={(e) => setUnitNumber(e.target.value)}
+                                  placeholder="e.g. 1"
+                                  className="w-full px-3.5 py-2 bg-surface border border-border-subtle text-foreground placeholder:text-muted focus:outline-none focus:border-foreground text-xs font-mono"
+                                />
+                              )}
+                            </div>
+                          </div>
+
+                          <div>
+                            <label className="text-[11px] font-medium text-secondary block mb-1">
+                              Topics Covered or Notes
+                            </label>
+                            <input
+                              type="text"
+                              value={noteDescription}
+                              onChange={(e) => setNoteDescription(e.target.value)}
+                              placeholder="e.g. Rolle's Theorem, Cauchy MVT, Taylor Series derivations"
+                              className="w-full px-3.5 py-2 bg-surface border border-border-subtle text-foreground placeholder:text-muted focus:outline-none focus:border-foreground text-xs"
+                            />
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Category: Timetable */}
+                      {selectedCatId === 'timetable' && (
+                        <div className="space-y-3.5">
+                          <div className="flex items-center gap-2 pb-2 border-b border-border-subtle">
+                            <Calendar className="w-4 h-4 text-foreground" />
+                            <span className="font-semibold text-foreground text-xs sm:text-sm">
+                              Timetable & Schedule Change Proposal
+                            </span>
+                          </div>
+
+                          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                            <div>
+                              <label className="text-[11px] font-medium text-secondary block mb-1">Day</label>
+                              <select
+                                value={timetableDay}
+                                onChange={(e) => setTimetableDay(e.target.value as any)}
+                                className="w-full px-3 py-2 bg-surface border border-border-subtle text-foreground text-xs focus:outline-none focus:border-foreground cursor-pointer"
+                              >
+                                {['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'].map((d) => (
+                                  <option key={d} value={d}>{d}</option>
+                                ))}
+                              </select>
+                            </div>
+
+                            <div>
+                              <label className="text-[11px] font-medium text-secondary block mb-1">Period Slot</label>
+                              <select
+                                value={timetableSlot}
+                                onChange={(e) => setTimetableSlot(e.target.value)}
+                                className="w-full px-3 py-2 bg-surface border border-border-subtle text-foreground text-xs focus:outline-none focus:border-foreground cursor-pointer font-mono"
+                              >
+                                <option value="1">Slot 1 (8:30 – 9:30)</option>
+                                <option value="2">Slot 2 (9:30 – 10:30)</option>
+                                <option value="3">Slot 3 (10:30 – 11:30)</option>
+                                <option value="4">Slot 4 (11:30 – 12:30)</option>
+                                <option value="6">Slot 6 (1:30 – 2:30)</option>
+                                <option value="7">Slot 7 (2:30 – 3:30)</option>
+                              </select>
+                            </div>
+
+                            <div>
+                              <label className="text-[11px] font-medium text-secondary block mb-1">Batch</label>
+                              <select
+                                value={timetableBatch}
+                                onChange={(e) => setTimetableBatch(e.target.value as any)}
+                                className="w-full px-3 py-2 bg-surface border border-border-subtle text-foreground text-xs focus:outline-none focus:border-foreground cursor-pointer"
+                              >
+                                <option value="Both">Both Batches (V1 & V2)</option>
+                                <option value="V1">Section V1 Only</option>
+                                <option value="V2">Section V2 Only</option>
+                              </select>
+                            </div>
+
+                            <div>
+                              <label className="text-[11px] font-medium text-secondary block mb-1">Lecture Type</label>
+                              <select
+                                value={timetableType}
+                                onChange={(e) => setTimetableType(e.target.value as any)}
+                                className="w-full px-3 py-2 bg-surface border border-border-subtle text-foreground text-xs focus:outline-none focus:border-foreground cursor-pointer"
+                              >
+                                <option value="Theory">Theory Lecture</option>
+                                <option value="Lab">Practical Lab</option>
+                                <option value="Tutorial">Tutorial Session</option>
+                              </select>
+                            </div>
+                          </div>
+
+                          <div className="grid grid-cols-1 sm:grid-cols-4 gap-3">
+                            <div>
+                              <label className="text-[11px] font-medium text-secondary block mb-1">Subject Code</label>
+                              <input
+                                type="text"
+                                value={timetableSubjectCode}
+                                onChange={(e) => setTimetableSubjectCode(e.target.value)}
+                                placeholder="e.g. PPS"
+                                className="w-full px-3 py-2 bg-surface border border-border-subtle text-foreground text-xs font-mono focus:outline-none focus:border-foreground"
+                              />
+                            </div>
+                            <div className="sm:col-span-2">
+                              <label className="text-[11px] font-medium text-secondary block mb-1">Subject Name</label>
+                              <input
+                                type="text"
+                                value={timetableSubjectName}
+                                onChange={(e) => setTimetableSubjectName(e.target.value)}
+                                placeholder="e.g. Programming for Problem Solving"
+                                className="w-full px-3 py-2 bg-surface border border-border-subtle text-foreground text-xs focus:outline-none focus:border-foreground"
+                              />
+                            </div>
+                            <div>
+                              <label className="text-[11px] font-medium text-secondary block mb-1">Room</label>
+                              <input
+                                type="text"
+                                value={timetableRoom}
+                                onChange={(e) => setTimetableRoom(e.target.value)}
+                                placeholder="e.g. CS-Lab-4"
+                                className="w-full px-3 py-2 bg-surface border border-border-subtle text-foreground text-xs font-mono focus:outline-none focus:border-foreground"
+                              />
+                            </div>
+                          </div>
+
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <div>
+                              <label className="text-[11px] font-medium text-secondary block mb-1">Faculty Name / Initials</label>
+                              <input
+                                type="text"
+                                value={timetableFaculty}
+                                onChange={(e) => setTimetableFaculty(e.target.value)}
+                                placeholder="e.g. Prof. GS (Girish Sharma)"
+                                className="w-full px-3 py-2 bg-surface border border-border-subtle text-foreground text-xs focus:outline-none focus:border-foreground"
+                              />
+                            </div>
+                            <div>
+                              <label className="text-[11px] font-medium text-secondary block mb-1">Reason / Description</label>
+                              <input
+                                type="text"
+                                value={timetableNote}
+                                onChange={(e) => setTimetableNote(e.target.value)}
+                                placeholder="e.g. Permanent room relocation by department"
+                                className="w-full px-3 py-2 bg-surface border border-border-subtle text-foreground text-xs focus:outline-none focus:border-foreground"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Category: Faculty */}
+                      {selectedCatId === 'faculty' && (
+                        <div className="space-y-3.5">
+                          <div className="flex items-center gap-2 pb-2 border-b border-border-subtle">
+                            <Users className="w-4 h-4 text-foreground" />
+                            <span className="font-semibold text-foreground text-xs sm:text-sm">
+                              Faculty Directory & Cabin Updates
+                            </span>
+                          </div>
+
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <div>
+                              <label className="text-[11px] font-medium text-secondary block mb-1">Professor Full Name</label>
+                              <input
+                                type="text"
+                                value={facultyName}
+                                onChange={(e) => setFacultyName(e.target.value)}
+                                placeholder="e.g. Dr. A. K. Verma (AKV)"
+                                className="w-full px-3 py-2 bg-surface border border-border-subtle text-foreground text-xs focus:outline-none focus:border-foreground"
+                              />
+                            </div>
+                            <div>
+                              <label className="text-[11px] font-medium text-secondary block mb-1">Designation</label>
+                              <input
+                                type="text"
+                                value={facultyDesignation}
+                                onChange={(e) => setFacultyDesignation(e.target.value)}
+                                placeholder="e.g. Associate Professor & HOD"
+                                className="w-full px-3 py-2 bg-surface border border-border-subtle text-foreground text-xs focus:outline-none focus:border-foreground"
+                              />
+                            </div>
+                          </div>
+
+                          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <div>
+                              <label className="text-[11px] font-medium text-secondary block mb-1">Department</label>
+                              <input
+                                type="text"
+                                value={facultyDepartment}
+                                onChange={(e) => setFacultyDepartment(e.target.value)}
+                                placeholder="e.g. Computer Science & Engg."
+                                className="w-full px-3 py-2 bg-surface border border-border-subtle text-foreground text-xs focus:outline-none focus:border-foreground"
+                              />
+                            </div>
+                            <div>
+                              <label className="text-[11px] font-medium text-secondary block mb-1">Cabin Location</label>
+                              <input
+                                type="text"
+                                value={facultyCabin}
+                                onChange={(e) => setFacultyCabin(e.target.value)}
+                                placeholder="e.g. CS Block Room 304"
+                                className="w-full px-3 py-2 bg-surface border border-border-subtle text-foreground text-xs focus:outline-none focus:border-foreground"
+                              />
+                            </div>
+                            <div>
+                              <label className="text-[11px] font-medium text-secondary block mb-1">Email Address</label>
+                              <input
+                                type="email"
+                                value={facultyEmail}
+                                onChange={(e) => setFacultyEmail(e.target.value)}
+                                placeholder="e.g. ak.verma@college.edu"
+                                className="w-full px-3 py-2 bg-surface border border-border-subtle text-foreground text-xs font-mono focus:outline-none focus:border-foreground"
+                              />
+                            </div>
+                          </div>
+
+                          <div>
+                            <label className="text-[11px] font-medium text-secondary block mb-1">Office / Consultation Hours</label>
+                            <input
+                              type="text"
+                              value={facultyOfficeHours}
+                              onChange={(e) => setFacultyOfficeHours(e.target.value)}
+                              placeholder="e.g. Mon, Wed, Fri: 02:00 PM – 03:30 PM"
+                              className="w-full px-3 py-2 bg-surface border border-border-subtle text-foreground text-xs focus:outline-none focus:border-foreground"
+                            />
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Category: Announcements */}
+                      {selectedCatId === 'announcements' && (
+                        <div className="space-y-3.5">
+                          <div className="flex items-center gap-2 pb-2 border-b border-border-subtle">
+                            <Bell className="w-4 h-4 text-foreground" />
+                            <span className="font-semibold text-foreground text-xs sm:text-sm">
+                              Class Announcement or Circular
+                            </span>
+                          </div>
+
+                          <div>
+                            <label className="text-[11px] font-medium text-secondary block mb-1">Notice Title</label>
+                            <input
+                              type="text"
+                              value={announcementTitle}
+                              onChange={(e) => setAnnouncementTitle(e.target.value)}
+                              placeholder="e.g. Mid-Term Examination Venue Allocations Released"
+                              className="w-full px-3 py-2 bg-surface border border-border-subtle text-foreground text-xs focus:outline-none focus:border-foreground"
+                            />
+                          </div>
+
+                          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <div>
+                              <label className="text-[11px] font-medium text-secondary block mb-1">Category</label>
+                              <select
+                                value={announcementCategory}
+                                onChange={(e) => setAnnouncementCategory(e.target.value as any)}
+                                className="w-full px-3 py-2 bg-surface border border-border-subtle text-foreground text-xs focus:outline-none focus:border-foreground cursor-pointer"
+                              >
+                                {['Academic', 'Exam', 'Placement', 'Event', 'Circular', 'General'].map((c) => (
+                                  <option key={c} value={c}>{c}</option>
+                                ))}
+                              </select>
+                            </div>
+
+                            <div>
+                              <label className="text-[11px] font-medium text-secondary block mb-1">Priority</label>
+                              <select
+                                value={announcementPriority}
+                                onChange={(e) => setAnnouncementPriority(e.target.value as any)}
+                                className="w-full px-3 py-2 bg-surface border border-border-subtle text-foreground text-xs focus:outline-none focus:border-foreground cursor-pointer"
+                              >
+                                <option value="normal">Normal</option>
+                                <option value="high">High</option>
+                                <option value="urgent">Urgent</option>
+                              </select>
+                            </div>
+
+                            <div>
+                              <label className="text-[11px] font-medium text-secondary block mb-1">Issuing Authority</label>
+                              <input
+                                type="text"
+                                value={announcementAuthority}
+                                onChange={(e) => setAnnouncementAuthority(e.target.value)}
+                                placeholder="e.g. Academic Cell & CR"
+                                className="w-full px-3 py-2 bg-surface border border-border-subtle text-foreground text-xs focus:outline-none focus:border-foreground"
+                              />
+                            </div>
+                          </div>
+
+                          <div>
+                            <label className="text-[11px] font-medium text-secondary block mb-1">Notice Summary & Instructions</label>
+                            <textarea
+                              rows={3}
+                              value={announcementSummary}
+                              onChange={(e) => setAnnouncementSummary(e.target.value)}
+                              placeholder="Provide the key information, deadlines, and requirements..."
+                              className="w-full px-3.5 py-2 bg-surface border border-border-subtle text-foreground placeholder:text-muted focus:outline-none focus:border-foreground text-xs leading-relaxed"
+                            />
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Category: Links */}
+                      {selectedCatId === 'links' && (
+                        <div className="space-y-3.5">
+                          <div className="flex items-center gap-2 pb-2 border-b border-border-subtle">
+                            <Link2 className="w-4 h-4 text-foreground" />
+                            <span className="font-semibold text-foreground text-xs sm:text-sm">
+                              Campus Portal or Community Link
+                            </span>
+                          </div>
+
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <div>
+                              <label className="text-[11px] font-medium text-secondary block mb-1">Portal Name</label>
+                              <input
+                                type="text"
+                                value={linkTitle}
+                                onChange={(e) => setLinkTitle(e.target.value)}
+                                placeholder="e.g. Campus Wi-Fi Authentication"
+                                className="w-full px-3 py-2 bg-surface border border-border-subtle text-foreground text-xs focus:outline-none focus:border-foreground"
+                              />
+                            </div>
+                            <div>
+                              <label className="text-[11px] font-medium text-secondary block mb-1">Link Type</label>
+                              <select
+                                value={linkType}
+                                onChange={(e) => setLinkType(e.target.value as any)}
+                                className="w-full px-3 py-2 bg-surface border border-border-subtle text-foreground text-xs focus:outline-none focus:border-foreground cursor-pointer"
+                              >
+                                <option value="Portal">Campus Portal</option>
+                                <option value="Community">Community / WhatsApp</option>
+                                <option value="Academic">Academic Resource</option>
+                                <option value="Document">Official Document</option>
+                              </select>
+                            </div>
+                          </div>
+
+                          <div>
+                            <label className="text-[11px] font-medium text-secondary block mb-1">Destination URL</label>
+                            <input
+                              type="url"
+                              value={linkUrl}
+                              onChange={(e) => setLinkUrl(e.target.value)}
+                              placeholder="https://wifi.college.edu or https://chat.whatsapp.com/..."
+                              className="w-full px-3 py-2 bg-surface border border-border-subtle text-foreground text-xs font-mono focus:outline-none focus:border-foreground"
+                            />
+                          </div>
+
+                          <div>
+                            <label className="text-[11px] font-medium text-secondary block mb-1">Description</label>
+                            <input
+                              type="text"
+                              value={linkDescription}
+                              onChange={(e) => setLinkDescription(e.target.value)}
+                              placeholder="e.g. Captive login page for college high-speed campus WiFi"
+                              className="w-full px-3 py-2 bg-surface border border-border-subtle text-foreground text-xs focus:outline-none focus:border-foreground"
+                            />
+                          </div>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* 3. Live Systematic Formatted Preview */}
+                    <div className="border border-border-subtle bg-surface p-3.5 sm:p-4 space-y-2">
+                      <div className="flex items-center justify-between">
+                        <span className="text-[11px] uppercase tracking-wider text-secondary font-semibold flex items-center gap-1.5 font-mono">
+                          <FileCode className="w-3.5 h-3.5 text-muted" />
+                          Live Content Patch Preview ({targetFile})
+                        </span>
+                        <div className="flex items-center gap-2">
+                          <button
+                            type="button"
+                            onClick={() => setShowTemplate(!showTemplate)}
+                            className="text-[11px] text-secondary hover:text-foreground underline cursor-pointer"
+                          >
+                            {showTemplate ? 'Show My Changes' : 'Show File Template'}
+                          </button>
+                          <button
+                            type="button"
+                            onClick={copyToClipboard}
+                            className="flex items-center gap-1 px-2.5 py-1 bg-surface-elevated border border-border-subtle text-secondary hover:text-foreground text-[11px] cursor-pointer"
+                          >
+                            {copied ? <Check className="w-3 h-3 text-foreground" /> : <Copy className="w-3 h-3" />}
+                            <span>{copied ? 'Copied' : 'Copy Snippet'}</span>
+                          </button>
+                        </div>
+                      </div>
+
+                      <pre className="p-3 bg-surface-elevated border border-border-subtle text-foreground font-mono text-[11px] sm:text-[11.5px] overflow-x-auto whitespace-pre leading-relaxed max-h-36">
+                        {showTemplate ? TEMPLATE_PREVIEWS[selectedCatId] : snippetText}
+                      </pre>
+                    </div>
+
+                    {/* Error Display if any */}
+                    {submissionError && (
+                      <div className="p-3 bg-surface-elevated border border-border-strong text-xs flex items-start gap-2 text-foreground">
+                        <AlertCircle className="w-4 h-4 text-muted shrink-0 mt-0.5" />
+                        <div>
+                          <span className="font-semibold">Submission Error:</span> {submissionError}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Bottom Info Note */}
+                    <div className="pt-1 text-[11px] text-muted">
+                      <span>Submitted changes are committed to a temporary branch and opened as a PR for review.</span>
+                    </div>
+                  </>
+                )}
+              </div>
+
+              {/* Sticky Footer */}
+              <div className="px-5 py-3 sm:px-7 sm:py-3.5 border-t border-border-subtle bg-surface shrink-0 space-y-2.5 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
+                {submissionError && (
+                  <div className="p-2.5 bg-surface-elevated border border-border-strong text-xs flex items-center justify-between gap-2 text-foreground">
+                    <div className="flex items-center gap-2 min-w-0">
+                      <AlertCircle className="w-4 h-4 text-muted shrink-0" />
+                      <span className="truncate">
+                        <strong className="font-semibold">Submission Error:</strong> {submissionError}
                       </span>
                     </div>
-                  </div>
-
-                  <p className="text-xs text-secondary">
-                    {currentCategory.description}
-                  </p>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                    <input
-                      type="text"
-                      value={title}
-                      onChange={(e) => setTitle(e.target.value)}
-                      placeholder={currentCategory.placeholderTitle}
-                      className="w-full px-3.5 py-2.5 rounded-lg bg-surface border border-border-subtle text-foreground placeholder:text-muted focus:outline-none focus:border-accent text-xs sm:text-sm"
-                    />
-                    <input
-                      type="text"
-                      value={authorName}
-                      onChange={(e) => setAuthorName(e.target.value)}
-                      placeholder="Your Name & Roll No (e.g. Yash - 24AIDS042)"
-                      className="w-full px-3.5 py-2.5 rounded-lg bg-surface border border-border-subtle text-foreground placeholder:text-muted focus:outline-none focus:border-accent text-xs sm:text-sm"
-                    />
-                  </div>
-                  <textarea
-                    rows={2}
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
-                    placeholder="Describe your change (e.g., room change, slot timing, or contact update)..."
-                    className="w-full px-3.5 py-2.5 rounded-lg bg-surface border border-border-subtle text-foreground placeholder:text-muted focus:outline-none focus:border-accent text-xs sm:text-sm leading-relaxed"
-                  />
-                </div>
-              )}
-
-              {/* Systematic TXT Preview Box */}
-              <div className="rounded-xl bg-surface-secondary border border-border-subtle p-3.5 sm:p-4 space-y-2">
-                <div className="flex items-center justify-between">
-                  <span className="text-[11px] uppercase tracking-wider text-secondary font-semibold flex items-center gap-1.5">
-                    <FileCode className="w-3.5 h-3.5 text-muted" />
-                    Formatted Submission Payload
-                  </span>
-                  <div className="flex items-center gap-2">
                     <button
                       type="button"
-                      onClick={() => setShowTemplate(!showTemplate)}
-                      className="text-[11px] text-secondary hover:text-foreground underline cursor-pointer"
+                      onClick={() => setSubmissionError(null)}
+                      className="text-secondary hover:text-foreground text-[11px] shrink-0 cursor-pointer underline underline-offset-2 ml-2"
                     >
-                      {showTemplate ? 'Hide Template' : 'View Full Template'}
-                    </button>
-                    <button
-                      type="button"
-                      onClick={copyToClipboard}
-                      className="flex items-center gap-1 px-2 py-0.5 rounded bg-surface border border-border-subtle text-secondary hover:text-foreground text-[11px] cursor-pointer"
-                    >
-                      {copied ? <Check className="w-3 h-3 text-foreground" /> : <Copy className="w-3 h-3" />}
-                      <span>{copied ? 'Copied!' : 'Copy'}</span>
+                      Dismiss
                     </button>
                   </div>
+                )}
+
+                <div className="flex flex-wrap items-center justify-between gap-3 text-xs text-secondary">
+                  {/* Left: GitHub Repository & PR Links */}
+                  <div className="flex items-center gap-3">
+                    <a
+                      href="https://github.com/Geetansh-Jangid/Section-V"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="hover:text-foreground transition-colors flex items-center gap-1.5"
+                    >
+                      <Github className="w-3.5 h-3.5" />
+                      <span>GitHub Repo</span>
+                    </a>
+                    <span className="text-border-strong">·</span>
+                    <a
+                      href="https://github.com/Geetansh-Jangid/Section-V/pulls"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="hover:text-foreground transition-colors"
+                    >
+                      Review PRs
+                    </a>
+                    <span className="text-border-strong hidden sm:inline">·</span>
+                    <a
+                      href={fallbackIssueUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="hover:text-foreground transition-colors hidden sm:inline"
+                    >
+                      Manual Issue
+                    </a>
+                  </div>
+
+                  {/* Right: Actions */}
+                  <div className="flex items-center gap-2 sm:gap-2.5 ml-auto">
+                    <button
+                      type="button"
+                      onClick={onClose}
+                      className="px-3.5 py-1.5 sm:px-4 sm:py-2 bg-surface-elevated border border-border-subtle text-secondary hover:text-foreground transition-colors cursor-pointer text-xs font-medium"
+                    >
+                      Close
+                    </button>
+
+                    {!submitResult && (
+                      <button
+                        type="button"
+                        onClick={handleSubmitContribution}
+                        disabled={isSubmitting}
+                        className="flex items-center gap-2 px-4 py-1.5 sm:px-5 sm:py-2 bg-foreground text-background font-semibold text-xs sm:text-sm hover:opacity-90 disabled:opacity-50 transition-opacity cursor-pointer shadow-sm select-none"
+                      >
+                        {isSubmitting ? (
+                          <>
+                            <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                            <span>Opening PR...</span>
+                          </>
+                        ) : (
+                          <>
+                            <GitPullRequest className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                            <span>Submit Contribution</span>
+                          </>
+                        )}
+                      </button>
+                    )}
+                  </div>
                 </div>
-
-                <pre className="p-3.5 rounded-lg bg-surface border border-border-subtle text-foreground font-mono text-[11.5px] overflow-x-auto whitespace-pre leading-relaxed max-h-32">
-                  {showTemplate ? TEMPLATE_PREVIEWS[selectedCatId] : snippetText}
-                </pre>
               </div>
-
-              {/* Two simple submission options */}
-              <div>
-                <label className="text-foreground font-semibold block mb-2 text-xs sm:text-sm">
-                  2. Choose how to submit:
-                </label>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  {/* Option 1: 1-Click GitHub Issue Ticket */}
-                  <a
-                    href={githubIssueUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="p-4 sm:p-5 rounded-xl bg-surface border border-border-subtle hover:border-border transition-all flex flex-col justify-between group shadow-xs cursor-pointer"
-                  >
-                    <div>
-                      <div className="flex items-center justify-between">
-                        <span className="font-semibold text-foreground flex items-center gap-2 text-xs sm:text-sm">
-                          <MessageSquarePlus className="w-4 h-4 text-muted" />
-                          <span>1-Click Issue Ticket</span>
-                        </span>
-                        <ExternalLink className="w-4 h-4 text-muted group-hover:text-foreground transition-colors" />
-                      </div>
-                      <p className="text-xs text-secondary mt-1.5 leading-relaxed">
-                        Pre-fills an issue with your details. The CR team reviews and merges it.
-                      </p>
-                    </div>
-                    <span className="mt-3 text-xs font-mono text-secondary group-hover:text-foreground group-hover:underline font-medium transition-colors flex items-center gap-1">
-                      <span>Easiest for students</span>
-                      <ArrowRight className="w-3 h-3" />
-                    </span>
-                  </a>
-
-                  {/* Option 2: Direct File Edit on GitHub */}
-                  <a
-                    href={currentCategory.directUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="p-4 sm:p-5 rounded-xl bg-surface border border-border-subtle hover:border-border transition-all flex flex-col justify-between group shadow-xs cursor-pointer"
-                  >
-                    <div>
-                      <div className="flex items-center justify-between">
-                        <span className="font-semibold text-foreground flex items-center gap-2 text-xs sm:text-sm">
-                          <FileText className="w-4 h-4 text-muted" />
-                          <span>Edit Directly on GitHub</span>
-                        </span>
-                        <ExternalLink className="w-4 h-4 text-muted group-hover:text-foreground transition-colors" />
-                      </div>
-                      <p className="text-xs text-secondary mt-1.5 leading-relaxed">
-                        Open GitHub to modify or add files directly and create a Pull Request.
-                      </p>
-                    </div>
-                    <span className="mt-3 text-xs font-mono text-secondary group-hover:text-foreground font-medium transition-colors flex items-center gap-1">
-                      <span>Direct Pull Request</span>
-                      <ArrowRight className="w-3 h-3" />
-                    </span>
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            {/* Footer */}
-            <div className="px-5 py-3.5 sm:px-7 sm:py-4 border-t border-border-subtle bg-surface shrink-0 flex flex-wrap items-center justify-between gap-3 text-xs sm:text-sm text-secondary">
-              <div className="flex flex-wrap items-center gap-3">
-                <a
-                  href="https://github.com/Geetansh-Jangid/Section-V"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="hover:text-foreground transition-colors py-1 px-1.5 flex items-center gap-1 text-xs"
-                >
-                  <Github className="w-3.5 h-3.5" />
-                  <span>GitHub Repository</span>
-                </a>
-                <span>·</span>
-                <a
-                  href="https://github.com/Geetansh-Jangid/Section-V/pulls"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="hover:text-foreground transition-colors py-1 px-1.5 text-xs"
-                >
-                  Active PRs
-                </a>
-              </div>
-
-              <div className="flex items-center gap-2.5">
-                <button
-                  type="button"
-                  onClick={onClose}
-                  className="px-4 py-2 rounded-lg bg-surface-secondary border border-border-subtle text-secondary hover:text-foreground transition-colors cursor-pointer text-xs sm:text-sm font-medium"
-                >
-                  Close
-                </button>
-                <a
-                  href="https://github.com/Geetansh-Jangid/Section-V"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="flex items-center gap-1.5 px-4 py-2 rounded-lg bg-surface-secondary border border-border-subtle text-secondary hover:text-foreground transition-colors text-xs sm:text-sm font-medium"
-                >
-                  <Github className="w-3.5 h-3.5" />
-                  <span>Repo</span>
-                </a>
-              </div>
-            </div>
-          </motion.div>
+            </motion.div>
           </div>
         </motion.div>
       )}

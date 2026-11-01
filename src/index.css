@@ -31,6 +31,12 @@
   --color-divider-subtle: var(--divider-subtle);
   --color-divider-visible: var(--divider-visible);
   
+  /* Selected state tokens */
+  --color-selected-bg: var(--selected-bg);
+  --color-selected-text: var(--selected-text);
+  --color-selected-border: var(--selected-border);
+  --color-hover-bg: var(--hover-bg);
+
   /* Semantic functional colors */
   --color-status-urgent: #EF4444;
   --color-status-warning: #F59E0B;
@@ -74,6 +80,12 @@
     --divider-subtle: #1C1C1C;
     --divider-visible: #262626;
 
+    /* Selected state tokens */
+    --selected-bg: #262626;
+    --selected-text: #FAFAFA;
+    --selected-border: #383838;
+    --hover-bg: #1F1F1F;
+
     /* Interactive & Batch States */
     --accent-primary: #FAFAFA;
     --accent-secondary: #D4D4D4;
@@ -90,27 +102,33 @@
     --background: #FAFAFA;
     --nav-bg: #FFFFFF;
     --surface: #FFFFFF;
-    --surface-secondary: #F5F5F5;
-    --surface-elevated: #FFFFFF;
+    --surface-secondary: #F7F7F7;
+    --surface-elevated: #F0F0F0;
     --surface-hover: #F0F0F0;
     --foreground: #171717;
-    --text-secondary: #404040;
-    --text-muted: #737373;
+    --text-secondary: #666666;
+    --text-muted: #888888;
     --border: #E5E5E5;
-    --border-subtle: #EEEEEE;
-    --border-strong: #D4D4D4;
+    --border-subtle: #EBEBEB;
+    --border-strong: #BDBDBD;
     --divider-subtle: #EEEEEE;
     --divider-visible: #E5E5E5;
 
+    /* Selected state tokens (Light Theme) */
+    --selected-bg: #E5E5E5;
+    --selected-text: #171717;
+    --selected-border: #BDBDBD;
+    --hover-bg: #F0F0F0;
+
     /* Interactive & Batch States */
     --accent-primary: #171717;
-    --accent-secondary: #404040;
+    --accent-secondary: #666666;
     --accent-bg: #F0F0F0;
     --accent-contrast: #FFFFFF;
     --v1-text: #171717;
-    --v1-bg: #F0F0F0;
-    --v2-text: #404040;
-    --v2-bg: #F5F5F5;
+    --v1-bg: #E5E5E5;
+    --v2-text: #666666;
+    --v2-bg: #F7F7F7;
   }
 
   html {

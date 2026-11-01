@@ -13,11 +13,6 @@ interface PageProps {
 export const DashboardPage: React.FC<PageProps> = ({ onNavigate, onOpenContributeModal }) => {
   return (
     <div className="space-y-6">
-      {/* Page Heading */}
-      <h1 className="text-2xl sm:text-[26px] font-semibold text-foreground tracking-tight">
-        Overview
-      </h1>
-
       {/* Core Academic Overview Bento Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
         {/* Active Class Live Status */}

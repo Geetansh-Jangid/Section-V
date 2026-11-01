@@ -89,10 +89,10 @@ export const Navbar: React.FC<NavbarProps> = ({
                     <button
                       key={item.id}
                       onClick={() => onSelectTab(item.id)}
-                      className={`px-3 py-1.5 rounded-md text-[14px] font-medium transition-colors duration-150 outline-none select-none cursor-pointer ${
+                      className={`px-3 py-1.5 text-[14px] font-medium transition-colors duration-150 outline-none select-none cursor-pointer border ${
                         isActive
-                          ? 'text-foreground font-semibold bg-surface-elevated'
-                          : 'text-secondary hover:text-foreground hover:bg-surface-hover/60'
+                          ? 'bg-selected-bg text-selected-text font-bold border-selected-border shadow-xs'
+                          : 'text-secondary hover:text-foreground hover:bg-hover-bg border-transparent'
                       }`}
                     >
                       {item.label}
@@ -103,17 +103,17 @@ export const Navbar: React.FC<NavbarProps> = ({
 
               {/* Batch Selector (V1 | V2) */}
               <div
-                className="inline-flex items-center rounded-md bg-surface-elevated p-0.5 border border-border-subtle"
+                className="inline-flex items-center bg-surface-secondary p-0.5 border border-border"
                 title={`Section View: V${userSection === 'V1' ? '1' : '2'}`}
               >
                 {(['V1', 'V2'] as const).map((sec) => (
                   <button
                     key={sec}
                     onClick={() => setUserSection(sec)}
-                    className={`px-2.5 py-1 rounded text-xs font-mono font-bold transition-colors cursor-pointer select-none ${
+                    className={`px-2.5 py-1 text-xs font-mono font-bold transition-colors cursor-pointer select-none border ${
                       userSection === sec
-                        ? 'bg-surface text-foreground shadow-xs'
-                        : 'text-secondary hover:text-foreground'
+                        ? 'bg-selected-bg text-selected-text border-selected-border shadow-xs'
+                        : 'text-secondary hover:text-foreground hover:bg-hover-bg border-transparent'
                     }`}
                   >
                     {sec}
@@ -172,10 +172,10 @@ export const Navbar: React.FC<NavbarProps> = ({
                       onSelectTab(item.id);
                       setMobileMenuOpen(false);
                     }}
-                    className={`w-full text-left px-3.5 py-2.5 rounded-md text-[15px] font-medium transition-colors duration-150 outline-none cursor-pointer ${
+                    className={`w-full text-left px-3.5 py-2.5 text-[15px] font-medium transition-colors duration-150 outline-none cursor-pointer border ${
                       isActive
-                        ? 'text-foreground font-semibold bg-surface-elevated'
-                        : 'text-secondary hover:text-foreground hover:bg-surface-hover/50'
+                        ? 'bg-selected-bg text-selected-text font-bold border-selected-border shadow-xs'
+                        : 'text-secondary hover:text-foreground hover:bg-hover-bg border-transparent'
                     }`}
                   >
                     {item.label}
@@ -187,15 +187,15 @@ export const Navbar: React.FC<NavbarProps> = ({
             <div className="pt-4 border-t border-divider-subtle mt-4 space-y-3">
               <div className="flex items-center justify-between py-1">
                 <span className="text-[13px] text-secondary font-medium">Batch View</span>
-                <div className="inline-flex items-center rounded-md bg-surface-elevated p-0.5 border border-border-subtle">
+                <div className="inline-flex items-center bg-surface-secondary p-0.5 border border-border">
                   {(['V1', 'V2'] as const).map((sec) => (
                     <button
                       key={sec}
                       onClick={() => setUserSection(sec)}
-                      className={`px-3 py-1 rounded text-xs font-mono font-bold transition-colors cursor-pointer select-none ${
+                      className={`px-3 py-1 text-xs font-mono font-bold transition-colors cursor-pointer select-none border ${
                         userSection === sec
-                          ? 'bg-surface text-foreground shadow-xs'
-                          : 'text-secondary hover:text-foreground'
+                          ? 'bg-selected-bg text-selected-text border-selected-border shadow-xs'
+                          : 'text-secondary hover:text-foreground hover:bg-hover-bg border-transparent'
                       }`}
                     >
                       {sec}

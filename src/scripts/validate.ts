@@ -6,7 +6,8 @@ import {
   CRSchema,
   AnnouncementSchema,
   NoteSchema,
-  LinksSchema
+  LinksSchema,
+  CalendarEventSchema
 } from '../lib/schemas.ts';
 import { z } from 'zod';
 
@@ -71,7 +72,10 @@ validateJsonFile('src/data/notes.json', z.array(NoteSchema), 'Subject Notes Cata
 // 6. External Links & Portals validation
 validateJsonFile('src/data/links.json', LinksSchema, 'Portal & Links Directory');
 
-// 7. Content markdown directory checks
+// 7. Academic Calendar validation
+validateJsonFile('src/data/calendar.json', z.array(CalendarEventSchema), 'Academic Calendar');
+
+// 8. Content markdown directory checks
 checkContentFiles();
 
 console.log('\n----------------------------------------');

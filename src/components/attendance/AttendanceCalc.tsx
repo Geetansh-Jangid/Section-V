@@ -7,13 +7,17 @@ import {
   Sliders,
   UserCheck,
   UserX,
-  Settings2
+  Settings2,
+  Calendar
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { useSectionVStore } from '../../lib/store.ts';
 import { calculateAttendanceMetrics } from '../../lib/attendanceUtils.ts';
 import { getFacultyForSubject } from '../../lib/facultyUtils.ts';
 import { AttendanceOnboardingModal } from './AttendanceOnboardingModal.tsx';
+import calendarDataRaw from '../../data/calendar.json';
+import { CalendarEvent } from '../../lib/schemas.ts';
+import { getEventsForDate, formatDateToYYYYMMDD } from '../../lib/calendarUtils.ts';
 
 export const AttendanceCalc: React.FC = () => {
   const {
@@ -62,6 +66,23 @@ export const AttendanceCalc: React.FC = () => {
     });
   };
 
+  const todayDateStr = formatDateToYYYYMMDD(new Date());
+  const todayEvents = getEventsForDate(calendarDataRaw as CalendarEvent[], todayDateStr, userSection);
+  const holidayEvent = todayEvents.find(
+    (e) => (e.type === 'public_holiday' || e.type === 'college_holiday') && e.isSuspended !== false
+  );
+  const isTodayHoliday = Boolean(holidayEvent);
+
+  const handleMarkAttendance = (subjectCode: string, type: 'present' | 'absent') => {
+    if (isTodayHoliday) {
+      const confirmLog = window.confirm(
+        `Today is an academic holiday (${holidayEvent?.title}). Official lectures are suspended and excluded from required attendance.\n\nDo you still want to log an extra class for ${subjectCode}?`
+      );
+      if (!confirmLog) return;
+    }
+    markAttendance(subjectCode, type);
+  };
+
   return (
     <div className="space-y-6">
       {/* Page Title Outside Container */}
@@ -80,34 +101,36 @@ export const AttendanceCalc: React.FC = () => {
       <div className="rounded-xl bg-surface border border-border-subtle p-6 sm:p-7">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-6 border-b border-divider-subtle">
           <div>
-            <span className="text-[13px] font-medium text-secondary uppercase tracking-wider block">Target Attendance Threshold</span>
-            <p className="text-[14px] text-muted mt-0.5">Calculates safe bunk credits and consecutive attendance requirements.</p>
+            <span className="text-[13px] font-semibold text-foreground uppercase tracking-wider block">Target Attendance</span>
           </div>
 
           {/* Custom Target Percentage Setter */}
-          <div className="flex flex-wrap items-center gap-2 bg-surface-elevated p-1 rounded-lg border border-border-subtle">
+          <div className="flex flex-wrap items-center gap-2 bg-surface-secondary p-1 border border-border">
             <span className="text-xs text-secondary font-medium pl-2">Target:</span>
 
             {/* Quick Presets */}
             <div className="flex items-center gap-1">
-              {[70, 75, 80, 85].map((val) => (
-                <button
-                  key={val}
-                  onClick={() => {
-                    setTargetAttendance(val);
-                    if (overallMetrics.currentPercentage >= val) {
-                      triggerCelebration();
-                    }
-                  }}
-                  className={`px-2.5 py-1 rounded text-xs font-mono font-medium transition-colors cursor-pointer select-none ${
-                    targetAttendance === val
-                      ? 'bg-surface text-foreground font-semibold shadow-xs'
-                      : 'text-secondary hover:text-foreground'
-                  }`}
-                >
-                  {val}%
-                </button>
-              ))}
+              {[70, 75, 80, 85].map((val) => {
+                const isSelected = targetAttendance === val;
+                return (
+                  <button
+                    key={val}
+                    onClick={() => {
+                      setTargetAttendance(val);
+                      if (overallMetrics.currentPercentage >= val) {
+                        triggerCelebration();
+                      }
+                    }}
+                    className={`px-2.5 py-1 text-xs font-mono font-semibold transition-colors cursor-pointer select-none border ${
+                      isSelected
+                        ? 'bg-selected-bg text-selected-text border-selected-border shadow-xs'
+                        : 'text-secondary hover:text-foreground hover:bg-hover-bg border-transparent'
+                    }`}
+                  >
+                    {val}%
+                  </button>
+                );
+              })}
             </div>
 
             {/* Custom Stepper & Input */}
@@ -118,13 +141,13 @@ export const AttendanceCalc: React.FC = () => {
                   const next = Math.max(50, targetAttendance - 1);
                   setTargetAttendance(next);
                 }}
-                className="w-6 h-6 flex items-center justify-center rounded bg-surface border border-border-subtle text-secondary hover:text-foreground transition-colors cursor-pointer"
+                className="w-6 h-6 flex items-center justify-center bg-surface border border-border text-secondary hover:text-foreground hover:bg-hover-bg transition-colors cursor-pointer"
                 title="Decrease target by 1%"
               >
                 <Minus className="w-3 h-3" />
               </button>
 
-              <div className="flex items-center bg-surface border border-border-subtle rounded px-1.5 py-0.5">
+              <div className="flex items-center bg-surface border border-border px-1.5 py-0.5">
                 <input
                   type="number"
                   min={50}
@@ -154,7 +177,7 @@ export const AttendanceCalc: React.FC = () => {
                     triggerCelebration();
                   }
                 }}
-                className="w-6 h-6 flex items-center justify-center rounded bg-surface border border-border-subtle text-secondary hover:text-foreground transition-colors cursor-pointer"
+                className="w-6 h-6 flex items-center justify-center bg-surface border border-border text-secondary hover:text-foreground hover:bg-hover-bg transition-colors cursor-pointer"
                 title="Increase target by 1%"
               >
                 <Plus className="w-3 h-3" />
@@ -211,21 +234,21 @@ export const AttendanceCalc: React.FC = () => {
               <div className="flex items-center gap-2 mt-2">
                 <button
                   onClick={() => setSimulationType(simulationType === 'bunk' ? 'attend' : 'bunk')}
-                  className="px-2.5 py-1 rounded bg-surface-elevated border border-border-subtle text-xs text-foreground hover:border-border cursor-pointer"
+                  className="px-2.5 py-1 bg-surface-secondary border border-border text-xs text-foreground hover:bg-hover-bg cursor-pointer transition-colors"
                 >
                   If I {simulationType === 'bunk' ? 'skip' : 'attend'}:
                 </button>
                 <div className="flex items-center gap-1">
                   <button
                     onClick={() => setSimulationOffset(Math.max(0, simulationOffset - 1))}
-                    className="p-1 rounded bg-surface-elevated text-secondary hover:text-foreground cursor-pointer"
+                    className="p-1 bg-surface border border-border text-secondary hover:text-foreground hover:bg-hover-bg cursor-pointer transition-colors"
                   >
                     <Minus className="w-3.5 h-3.5" />
                   </button>
                   <span className="font-mono text-sm font-bold text-foreground px-2">{simulationOffset}</span>
                   <button
                     onClick={() => setSimulationOffset(simulationOffset + 1)}
-                    className="p-1 rounded bg-surface-elevated text-secondary hover:text-foreground cursor-pointer"
+                    className="p-1 bg-surface border border-border text-secondary hover:text-foreground hover:bg-hover-bg cursor-pointer transition-colors"
                   >
                     <Plus className="w-3.5 h-3.5" />
                   </button>
@@ -256,7 +279,7 @@ export const AttendanceCalc: React.FC = () => {
                 setIsReconfiguring(true);
                 setShowOnboardingModal(true);
               }}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-surface-elevated text-xs font-medium text-secondary hover:text-foreground transition-colors cursor-pointer"
+              className="flex items-center gap-1.5 px-3 py-1.5 bg-surface-secondary border border-border text-xs font-medium text-secondary hover:text-foreground hover:bg-hover-bg transition-colors cursor-pointer"
             >
               <Settings2 className="w-3.5 h-3.5" />
               <span>Edit Attendance</span>
@@ -267,7 +290,7 @@ export const AttendanceCalc: React.FC = () => {
                   resetAllAttendance();
                 }
               }}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-surface-elevated text-xs font-medium text-secondary hover:text-foreground transition-colors cursor-pointer"
+              className="flex items-center gap-1.5 px-3 py-1.5 bg-surface-secondary border border-border text-xs font-medium text-secondary hover:text-foreground hover:bg-hover-bg transition-colors cursor-pointer"
             >
               <RotateCcw className="w-3.5 h-3.5" />
               <span>Reset All</span>
@@ -288,7 +311,7 @@ export const AttendanceCalc: React.FC = () => {
                   <div className="flex items-start justify-between gap-2 mb-2">
                     <div>
                       <div className="flex items-center gap-2">
-                        <span className="font-mono text-xs font-semibold text-foreground bg-surface-elevated px-2 py-0.5 rounded">
+                        <span className="font-mono text-xs font-semibold text-foreground bg-surface-secondary border border-border px-2 py-0.5 rounded">
                           {subj.subjectCode}
                         </span>
                         <span className="text-[13px] text-secondary">{dynamicFaculty}</span>
@@ -337,15 +360,15 @@ export const AttendanceCalc: React.FC = () => {
                 <div className="mt-4 pt-3.5 border-t border-divider-subtle flex items-center justify-between gap-2">
                   <div className="flex items-center gap-2">
                     <button
-                      onClick={() => markAttendance(subj.subjectCode, 'present')}
-                      className="px-3 py-1.5 rounded-md bg-surface-elevated text-secondary hover:text-foreground text-xs font-medium flex items-center gap-1.5 transition-colors cursor-pointer"
+                      onClick={() => handleMarkAttendance(subj.subjectCode, 'present')}
+                      className="px-3 py-1.5 bg-surface-secondary border border-border text-secondary hover:text-foreground hover:bg-hover-bg text-xs font-medium flex items-center gap-1.5 transition-colors cursor-pointer"
                     >
                       <UserCheck className="w-3.5 h-3.5 text-muted" />
                       <span>Present</span>
                     </button>
                     <button
-                      onClick={() => markAttendance(subj.subjectCode, 'absent')}
-                      className="px-3 py-1.5 rounded-md bg-surface-elevated text-secondary hover:text-foreground text-xs font-medium flex items-center gap-1.5 transition-colors cursor-pointer"
+                      onClick={() => handleMarkAttendance(subj.subjectCode, 'absent')}
+                      className="px-3 py-1.5 bg-surface-secondary border border-border text-secondary hover:text-foreground hover:bg-hover-bg text-xs font-medium flex items-center gap-1.5 transition-colors cursor-pointer"
                     >
                       <UserX className="w-3.5 h-3.5 text-muted" />
                       <span>Absent</span>
@@ -356,21 +379,21 @@ export const AttendanceCalc: React.FC = () => {
                     <button
                       onClick={() => updateSubjectCounts(subj.subjectCode, Math.max(0, subj.attended - 1), Math.max(0, subj.total - 1))}
                       title="Decrement"
-                      className="p-1.5 rounded bg-surface-elevated text-muted hover:text-foreground cursor-pointer"
+                      className="p-1.5 bg-surface-secondary border border-border text-muted hover:text-foreground hover:bg-hover-bg cursor-pointer transition-colors"
                     >
                       <Minus className="w-3.5 h-3.5" />
                     </button>
                     <button
                       onClick={() => updateSubjectCounts(subj.subjectCode, subj.attended + 1, subj.total + 1)}
                       title="Increment"
-                      className="p-1.5 rounded bg-surface-elevated text-muted hover:text-foreground cursor-pointer"
+                      className="p-1.5 bg-surface-secondary border border-border text-muted hover:text-foreground hover:bg-hover-bg cursor-pointer transition-colors"
                     >
                       <Plus className="w-3.5 h-3.5" />
                     </button>
                     <button
                       onClick={() => resetSubjectAttendance(subj.subjectCode)}
                       title="Reset subject"
-                      className="p-1.5 rounded bg-surface-elevated text-muted hover:text-foreground ml-1 cursor-pointer"
+                      className="p-1.5 bg-surface-secondary border border-border text-muted hover:text-foreground hover:bg-hover-bg ml-1 cursor-pointer transition-colors"
                     >
                       <RotateCcw className="w-3.5 h-3.5" />
                     </button>
