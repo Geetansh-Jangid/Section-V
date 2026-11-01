@@ -1,5 +1,4 @@
 import React from 'react';
-import { TimetableSection } from '../components/timetable/TimetableSection.tsx';
 import { ActiveClassCard } from '../components/bento/ActiveClassCard.tsx';
 import { AttendanceWidget } from '../components/bento/AttendanceWidget.tsx';
 import { HomeworkWidget } from '../components/bento/HomeworkWidget.tsx';
@@ -14,28 +13,23 @@ interface PageProps {
 export const DashboardPage: React.FC<PageProps> = ({ onNavigate, onOpenContributeModal }) => {
   return (
     <div className="space-y-6">
-      {/* 1. DEFAULT PRIMARY SECTION: Core Academic Overview Bento Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      {/* Core Academic Overview Bento Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
         {/* Active Class Live Status */}
         <ActiveClassCard />
 
-        {/* 75% Attendance Health */}
+        {/* Attendance Health */}
         <AttendanceWidget onNavigateToCalculator={() => onNavigate('attendance')} />
 
-        {/* Homework & Lab Assignment Checklist */}
+        {/* Tasks Section */}
         <HomeworkWidget onNavigateToTodo={() => onNavigate('todo')} />
 
-        {/* Official Bulletins & Circulars */}
+        {/* Notifications */}
         <QuickAnnounce onOpenContributeModal={onOpenContributeModal} />
       </div>
 
-      {/* 2. Institute Portals & Quick Links */}
+      {/* Campus Portals & Quick Links */}
       <QuickLinks />
-
-      {/* 3. Class Timetable with V1 / V2 Filter */}
-      <div className="pt-2">
-        <TimetableSection />
-      </div>
     </div>
   );
 };

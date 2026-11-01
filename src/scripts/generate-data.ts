@@ -15,7 +15,9 @@ import {
   TimetableData,
   LinksConfig,
   ScheduleItem,
-  TaskItem
+  TaskItem,
+  CalendarEventSchema,
+  CalendarEvent
 } from '../lib/schemas.ts';
 
 const rootDir = process.cwd();
@@ -517,12 +519,76 @@ function parseTasksFile(): TaskItem[] {
   return tasks;
 }
 
+function normalizeDateStr(dateStr?: string): string | undefined {
+  if (!dateStr) return undefined;
+  const trimmed = dateStr.trim();
+  const parts = trimmed.split('-');
+  if (parts.length === 3) {
+    const y = parts[0];
+    const m = parts[1].padStart(2, '0');
+    const d = parts[2].padStart(2, '0');
+    return `${y}-${m}-${d}`;
+  }
+  return trimmed;
+}
+
+// -----------------------------------------------------------------------------
+// 8. Parse Unified Academic Calendar
+// -----------------------------------------------------------------------------
+function parseCalendarFile(): CalendarEvent[] {
+  const filePath = 'content/calendar/calendar.txt';
+  const fullPath = path.resolve(rootDir, filePath);
+  if (!fs.existsSync(fullPath)) return [];
+
+  const content = readFileContent(filePath);
+  const blocks = content.split(/\[EVENT\]/i).slice(1);
+  const events: CalendarEvent[] = [];
+
+  for (const block of blocks) {
+    const lines = block.split('\n');
+    let item: any = {
+      applicableBatch: 'All',
+      isSuspended: true
+    };
+
+    for (const rawLine of lines) {
+      const line = rawLine.trim();
+      if (!line || line.startsWith('#')) continue;
+
+      const idx = line.indexOf(':');
+      if (idx === -1) continue;
+
+      const key = line.slice(0, idx).trim().toLowerCase();
+      const val = line.slice(idx + 1).trim();
+
+      switch (key) {
+        case 'id': item.id = val; break;
+        case 'title': item.title = val; break;
+        case 'date': item.date = normalizeDateStr(val); break;
+        case 'end date': item.endDate = normalizeDateStr(val); break;
+        case 'type': item.type = val; break;
+        case 'description': item.description = val; break;
+        case 'batch': item.applicableBatch = val; break;
+        case 'classes suspended': item.isSuspended = val.toLowerCase() === 'true'; break;
+        case 'replacement day': item.replacementDay = val; break;
+      }
+    }
+
+    if (item.title && item.date && item.type) {
+      if (!item.id) item.id = `cal-${item.date}-${item.title.toLowerCase().replace(/[^a-z0-9]/g, '-')}`;
+      events.push(CalendarEventSchema.parse(item));
+    }
+  }
+
+  return events;
+}
+
 // -----------------------------------------------------------------------------
 // Main Generation Script
 // -----------------------------------------------------------------------------
-console.log('🚀 Generating Section-V structured JSON files from content TXT files...');
+export function generateAllData(): void {
+  console.log('🚀 Generating Section-V structured JSON files from content TXT files...');
 
-try {
   const notes = parseNotesDirectory();
   writeJsonFile('src/data/notes.json', notes);
 
@@ -544,8 +610,21 @@ try {
   const tasks = parseTasksFile();
   writeJsonFile('src/data/tasks.json', tasks);
 
+  const calendar = parseCalendarFile();
+  writeJsonFile('src/data/calendar.json', calendar);
+
   console.log('🎉 Successfully generated and validated all data from TXT content files!');
-} catch (err: any) {
-  console.error('❌ Data generation failed:', err.message);
-  process.exit(1);
+}
+
+import { fileURLToPath } from 'url';
+
+const isMainModule = process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.argv[1]);
+
+if (isMainModule) {
+  try {
+    generateAllData();
+  } catch (err: any) {
+    console.error('❌ Data generation failed:', err.message);
+    process.exit(1);
+  }
 }

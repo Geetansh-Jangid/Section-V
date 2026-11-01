@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { 
-  Users, 
   MapPin, 
   Mail, 
   Phone, 
@@ -27,86 +26,78 @@ export const FacultyPage: React.FC = () => {
 
   return (
     <div className="space-y-6">
-      {/* Header */}
-      <div className="rounded-xl bg-[#0a0a0a] border border-[#222222] p-5 sm:p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div>
-          <div className="flex items-center gap-2">
-            <Users className="w-5 h-5 text-neutral-400" />
-            <h2 className="text-lg sm:text-xl font-semibold text-white tracking-tight">
-              Faculty & Student Directory
-            </h2>
-          </div>
-          <p className="text-xs text-neutral-400 mt-1 max-w-2xl">
-            Professor office cabins, consultation hours, and Section V coordinators.
-          </p>
-        </div>
+      {/* Page Heading & Search Outside Container */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <h1 className="text-2xl sm:text-[26px] font-semibold text-foreground tracking-tight">
+          Faculty & CRs Info
+        </h1>
 
         {/* Search Input */}
-        <div className="relative w-full md:w-64">
-          <Search className="w-3.5 h-3.5 text-neutral-500 absolute left-3 top-2.5" />
+        <div className="relative w-full sm:w-72">
+          <Search className="w-4 h-4 text-muted absolute left-3 top-1/2 -translate-y-1/2" />
           <input
             type="text"
-            placeholder="Search faculty or cabin..."
+            placeholder="Search faculty, cabin, or course..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-8 pr-3 py-1.5 rounded-md bg-[#121212] border border-[#222222] text-xs text-white placeholder-neutral-500 focus:outline-none focus:border-neutral-400"
+            className="w-full pl-9 pr-3.5 py-2 rounded-lg bg-surface border border-border-subtle text-[13.5px] text-foreground placeholder-muted focus:outline-none focus:border-border-strong transition-colors"
           />
         </div>
       </div>
 
       {/* Class Representatives Highlight Section */}
       <div>
-        <h3 className="text-xs font-semibold uppercase tracking-wider text-neutral-400 mb-3">
+        <h3 className="text-[13px] font-medium uppercase tracking-wider text-secondary mb-3">
           Section V Class Representatives
         </h3>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {crList.map((cr) => (
             <div
               key={cr.id}
-              className="rounded-lg bg-[#0d0d0d] border border-[#222222] p-4 flex flex-col justify-between hover:border-[#333333] transition-colors"
+              className="rounded-xl bg-surface border border-border-subtle p-5 flex flex-col justify-between hover:border-border transition-colors"
             >
               <div>
                 <div className="flex items-start justify-between gap-2">
                   <div>
-                    <h4 className="text-base font-semibold text-white">{cr.name}</h4>
+                    <h4 className="text-[17px] font-semibold text-foreground">{cr.name}</h4>
                     {cr.rollNo && (
-                      <p className="text-xs text-neutral-400 font-mono mt-0.5">Roll No: {cr.rollNo}</p>
+                      <p className="text-[13px] text-secondary font-mono mt-0.5">Roll No: {cr.rollNo}</p>
                     )}
-                    <p className="text-xs text-neutral-500 mt-0.5">{cr.section}</p>
+                    <p className="text-[12.5px] text-muted mt-0.5">{cr.section}</p>
                   </div>
                 </div>
 
-                <div className="mt-3 flex flex-wrap gap-2 text-xs text-neutral-400">
+                <div className="mt-3.5 flex flex-wrap gap-3 text-[13px] text-secondary">
                   {cr.email && (
                     <a
                       href={`mailto:${cr.email}`}
-                      className="flex items-center gap-1 hover:text-white transition-colors"
+                      className="flex items-center gap-1.5 hover:text-foreground transition-colors"
                     >
-                      <Mail className="w-3.5 h-3.5 text-neutral-500" />
+                      <Mail className="w-3.5 h-3.5 text-muted" />
                       <span>{cr.email}</span>
                     </a>
                   )}
                   {cr.phone && (
                     <a
                       href={`tel:${cr.phone}`}
-                      className="flex items-center gap-1 hover:text-white transition-colors"
+                      className="flex items-center gap-1.5 hover:text-foreground transition-colors"
                     >
-                      <Phone className="w-3.5 h-3.5 text-neutral-500" />
+                      <Phone className="w-3.5 h-3.5 text-muted" />
                       <span>{cr.phone}</span>
                     </a>
                   )}
                 </div>
               </div>
 
-              <div className="mt-3 pt-2.5 border-t border-[#1c1c1c] flex items-center justify-between text-xs">
-                <span className="text-neutral-500 text-[11px]">Contact for Academic Updates</span>
+              <div className="mt-4 pt-3 border-t border-divider-subtle flex items-center justify-between text-[12px]">
+                <span className="text-muted">Academic Updates & Assistance</span>
                 {cr.social?.whatsapp && (
                   <a
                     href={`https://wa.me/${cr.social.whatsapp.replace(/[^0-9]/g, '')}`}
                     target="_blank"
                     rel="noreferrer"
-                    className="flex items-center gap-1 text-xs text-neutral-300 hover:text-white font-medium"
+                    className="flex items-center gap-1 text-[13px] text-secondary hover:text-foreground hover:underline font-medium"
                   >
                     <MessageSquare className="w-3.5 h-3.5" />
                     <span>WhatsApp</span>
@@ -120,20 +111,20 @@ export const FacultyPage: React.FC = () => {
 
       {/* Faculty Directory Grid */}
       <div>
-        <h3 className="text-xs font-semibold uppercase tracking-wider text-neutral-400 mb-3">
+        <h3 className="text-[13px] font-medium uppercase tracking-wider text-secondary mb-3">
           Professors & Instructors ({filteredFaculty.length})
         </h3>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {filteredFaculty.map((fac) => (
             <div
               key={fac.id}
-              className="rounded-lg bg-[#0d0d0d] border border-[#1f1f1f] p-4 flex flex-col justify-between hover:border-[#2a2a2a] transition-colors"
+              className="rounded-xl bg-surface border border-border-subtle p-5 flex flex-col justify-between hover:border-border transition-colors"
             >
               <div>
                 <div>
-                  <h4 className="text-sm font-semibold text-white">{fac.name}</h4>
-                  <p className="text-xs text-neutral-400">
+                  <h4 className="text-[15.5px] font-semibold text-foreground">{fac.name}</h4>
+                  <p className="text-[13px] text-secondary mt-0.5">
                     {fac.designation}
                     {fac.department ? ` · ${fac.department}` : ''}
                   </p>
@@ -141,20 +132,20 @@ export const FacultyPage: React.FC = () => {
 
                 {/* Cabin location badge */}
                 {fac.cabin && (
-                  <div className="mt-2.5 flex items-center gap-1.5 text-xs">
-                    <MapPin className="w-3.5 h-3.5 text-neutral-400" />
-                    <span className="font-mono font-medium text-neutral-200">{fac.cabin}</span>
+                  <div className="mt-3 flex items-center gap-1.5 text-[13px]">
+                    <MapPin className="w-3.5 h-3.5 text-muted" />
+                    <span className="font-mono font-medium text-foreground">{fac.cabin}</span>
                   </div>
                 )}
 
                 {/* Subjects taught */}
-                <div className="mt-2.5 space-y-1">
-                  <span className="text-[10px] text-neutral-500 uppercase tracking-wider block">Subjects</span>
-                  <div className="flex flex-wrap gap-1">
+                <div className="mt-3 space-y-1">
+                  <span className="text-[11px] text-muted uppercase tracking-wider block">Subjects</span>
+                  <div className="flex flex-wrap gap-1.5">
                     {fac.subjects.map((sub) => (
                       <span
                         key={sub.code}
-                        className="px-1.5 py-0.2 rounded text-[10px] font-mono bg-[#141414] border border-[#222222] text-neutral-300"
+                        className="px-2 py-0.5 rounded text-[11px] font-mono bg-surface-elevated border border-border-subtle text-secondary"
                         title={sub.name}
                       >
                         {sub.code}
@@ -164,18 +155,18 @@ export const FacultyPage: React.FC = () => {
                 </div>
               </div>
 
-              <div className="mt-3 pt-2.5 border-t border-[#1c1c1c] flex items-center justify-between text-[11px] text-neutral-400">
+              <div className="mt-4 pt-3 border-t border-divider-subtle flex items-center justify-between text-[12px] text-muted">
                 {fac.email ? (
                   <a
                     href={`mailto:${fac.email}`}
-                    className="hover:text-white transition-colors truncate max-w-[180px]"
+                    className="hover:text-foreground transition-colors truncate max-w-[180px]"
                   >
                     {fac.email}
                   </a>
                 ) : (
                   <span className="truncate max-w-[180px]"></span>
                 )}
-                <span>{fac.officeHours}</span>
+                <span className="text-right font-mono text-[11.5px]">{fac.officeHours}</span>
               </div>
             </div>
           ))}

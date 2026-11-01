@@ -7,13 +7,17 @@ import {
   Sliders,
   UserCheck,
   UserX,
-  Settings2
+  Settings2,
+  Calendar
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { useSectionVStore } from '../../lib/store.ts';
 import { calculateAttendanceMetrics } from '../../lib/attendanceUtils.ts';
 import { getFacultyForSubject } from '../../lib/facultyUtils.ts';
 import { AttendanceOnboardingModal } from './AttendanceOnboardingModal.tsx';
+import calendarDataRaw from '../../data/calendar.json';
+import { CalendarEvent } from '../../lib/schemas.ts';
+import { getEventsForDate, formatDateToYYYYMMDD } from '../../lib/calendarUtils.ts';
 
 export const AttendanceCalc: React.FC = () => {
   const {
@@ -62,8 +66,30 @@ export const AttendanceCalc: React.FC = () => {
     });
   };
 
+  const todayDateStr = formatDateToYYYYMMDD(new Date());
+  const todayEvents = getEventsForDate(calendarDataRaw as CalendarEvent[], todayDateStr, userSection);
+  const holidayEvent = todayEvents.find(
+    (e) => (e.type === 'public_holiday' || e.type === 'college_holiday') && e.isSuspended !== false
+  );
+  const isTodayHoliday = Boolean(holidayEvent);
+
+  const handleMarkAttendance = (subjectCode: string, type: 'present' | 'absent') => {
+    if (isTodayHoliday) {
+      const confirmLog = window.confirm(
+        `Today is an academic holiday (${holidayEvent?.title}). Official lectures are suspended and excluded from required attendance.\n\nDo you still want to log an extra class for ${subjectCode}?`
+      );
+      if (!confirmLog) return;
+    }
+    markAttendance(subjectCode, type);
+  };
+
   return (
     <div className="space-y-6">
+      {/* Page Title Outside Container */}
+      <h1 className="text-2xl sm:text-[26px] font-semibold text-foreground tracking-tight">
+        Attendance Calculator
+      </h1>
+
       {/* Attendance Onboarding / Reconfigure Modal */}
       <AttendanceOnboardingModal
         open={showOnboardingModal}
@@ -72,64 +98,56 @@ export const AttendanceCalc: React.FC = () => {
       />
 
       {/* Top Banner Overview */}
-      <div className="rounded-xl bg-[#0a0a0a] border border-[#222222] p-5 sm:p-6">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-4 border-b border-[#1c1c1c]">
+      <div className="rounded-xl bg-surface border border-border-subtle p-6 sm:p-7">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-6 border-b border-divider-subtle">
           <div>
-            <div className="flex items-center gap-2">
-              <ShieldCheck className="w-5 h-5 text-neutral-400" />
-              <h2 className="text-lg sm:text-xl font-semibold text-white tracking-tight">
-                {targetAttendance}% Attendance & Bunk Margin
-              </h2>
-            </div>
-            <p className="text-xs text-neutral-400 mt-1">
-              Private local attendance register. Calculate how many classes you can afford to miss or need to attend.
-            </p>
+            <span className="text-[13px] font-semibold text-foreground uppercase tracking-wider block">Target Attendance</span>
           </div>
 
           {/* Custom Target Percentage Setter */}
-          <div className="flex flex-wrap items-center gap-2 bg-[#121212] p-1.5 rounded-lg border border-[#222222]">
-            <div className="flex items-center gap-1.5 pl-1">
-              <Sliders className="w-3.5 h-3.5 text-neutral-400" />
-              <span className="text-xs text-neutral-400 font-medium">Target:</span>
-            </div>
+          <div className="flex flex-wrap items-center gap-2 bg-surface-secondary p-1 border border-border">
+            <span className="text-xs text-secondary font-medium pl-2">Target:</span>
 
             {/* Quick Presets */}
             <div className="flex items-center gap-1">
-              {[70, 75, 80, 85].map((val) => (
-                <button
-                  key={val}
-                  onClick={() => {
-                    setTargetAttendance(val);
-                    if (overallMetrics.currentPercentage >= val) {
-                      triggerCelebration();
-                    }
-                  }}
-                  className={`px-2 py-0.5 rounded text-xs font-mono font-medium transition-colors cursor-pointer ${
-                    targetAttendance === val
-                      ? 'bg-white text-black font-semibold'
-                      : 'text-neutral-400 hover:text-white hover:bg-[#1a1a1a]'
-                  }`}
-                >
-                  {val}%
-                </button>
-              ))}
+              {[70, 75, 80, 85].map((val) => {
+                const isSelected = targetAttendance === val;
+                return (
+                  <button
+                    key={val}
+                    onClick={() => {
+                      setTargetAttendance(val);
+                      if (overallMetrics.currentPercentage >= val) {
+                        triggerCelebration();
+                      }
+                    }}
+                    className={`px-2.5 py-1 text-xs font-mono font-semibold transition-colors cursor-pointer select-none border ${
+                      isSelected
+                        ? 'bg-selected-bg text-selected-text border-selected-border shadow-xs'
+                        : 'text-secondary hover:text-foreground hover:bg-hover-bg border-transparent'
+                    }`}
+                  >
+                    {val}%
+                  </button>
+                );
+              })}
             </div>
 
             {/* Custom Stepper & Input */}
-            <div className="flex items-center gap-1 pl-1 border-l border-[#222222]">
+            <div className="flex items-center gap-1 pl-1.5 border-l border-divider-subtle">
               <button
                 type="button"
                 onClick={() => {
                   const next = Math.max(50, targetAttendance - 1);
                   setTargetAttendance(next);
                 }}
-                className="w-6 h-6 flex items-center justify-center rounded bg-[#181818] border border-[#2a2a2a] text-neutral-300 hover:text-white hover:bg-[#222222] transition-colors cursor-pointer"
+                className="w-6 h-6 flex items-center justify-center bg-surface border border-border text-secondary hover:text-foreground hover:bg-hover-bg transition-colors cursor-pointer"
                 title="Decrease target by 1%"
               >
                 <Minus className="w-3 h-3" />
               </button>
 
-              <div className="flex items-center bg-[#0d0d0d] border border-[#2a2a2a] rounded px-1.5 py-0.5">
+              <div className="flex items-center bg-surface border border-border px-1.5 py-0.5">
                 <input
                   type="number"
                   min={50}
@@ -145,9 +163,9 @@ export const AttendanceCalc: React.FC = () => {
                       }
                     }
                   }}
-                  className="w-8 text-center text-xs font-mono font-semibold bg-transparent text-white outline-none focus:text-white"
+                  className="w-8 text-center text-xs font-mono font-semibold bg-transparent text-foreground outline-none"
                 />
-                <span className="text-[11px] font-mono text-neutral-500">%</span>
+                <span className="text-[11px] font-mono text-muted">%</span>
               </div>
 
               <button
@@ -159,7 +177,7 @@ export const AttendanceCalc: React.FC = () => {
                     triggerCelebration();
                   }
                 }}
-                className="w-6 h-6 flex items-center justify-center rounded bg-[#181818] border border-[#2a2a2a] text-neutral-300 hover:text-white hover:bg-[#222222] transition-colors cursor-pointer"
+                className="w-6 h-6 flex items-center justify-center bg-surface border border-border text-secondary hover:text-foreground hover:bg-hover-bg transition-colors cursor-pointer"
                 title="Increase target by 1%"
               >
                 <Plus className="w-3 h-3" />
@@ -168,80 +186,80 @@ export const AttendanceCalc: React.FC = () => {
           </div>
         </div>
 
-        {/* Big Status Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mt-4">
-          {/* Card 1: Current Overall */}
-          <div className="p-4 rounded-lg bg-[#111111] border border-[#1f1f1f]">
-            <span className="text-xs font-medium text-neutral-400 uppercase tracking-wider">Overall Ratio</span>
-            <div className="flex items-baseline gap-2 mt-1.5">
-              <span className="text-3xl font-bold text-white tracking-tight">{overallMetrics.currentPercentage}%</span>
-              <span className={`text-xs px-2 py-0.5 rounded font-medium ${
-                overallMetrics.isSafe 
-                  ? 'bg-emerald-950/60 text-emerald-300 border border-emerald-800'
-                  : 'bg-rose-950/60 text-rose-300 border border-rose-800'
+        {/* Big Status Display with Whitespace (No heavy nested bounding boxes) */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-6">
+          {/* Metric 1: Current Overall */}
+          <div>
+            <span className="text-[12px] font-medium text-secondary uppercase tracking-wider block">Overall Ratio</span>
+            <div className="flex items-baseline gap-2.5 mt-2">
+              <span className="text-3xl sm:text-4xl font-semibold text-foreground tracking-tight font-mono">{overallMetrics.currentPercentage}%</span>
+              <span className={`text-[12px] px-2 py-0.5 rounded font-mono font-medium ${
+                overallMetrics.isSafe
+                  ? 'text-emerald-500 dark:text-emerald-400 bg-emerald-500/10 border border-emerald-500/20'
+                  : 'text-red-500 dark:text-red-400 bg-red-500/10 border border-red-500/20'
               }`}>
-                {overallMetrics.isSafe ? 'Exam Eligible' : 'Debar Risk'}
+                {overallMetrics.isSafe ? 'Eligible' : 'Debar Risk'}
               </span>
             </div>
-            <p className="text-xs text-neutral-400 mt-2 font-mono">
-              {overallMetrics.totalAttended} attended / {overallMetrics.totalConducted} conducted
+            <p className="text-[13px] text-muted mt-1.5 font-mono">
+              {overallMetrics.totalAttended} attended of {overallMetrics.totalConducted} conducted
             </p>
           </div>
 
-          {/* Card 2: Bunkable / Attend Requirement */}
-          <div className="p-4 rounded-lg bg-[#111111] border border-[#1f1f1f]">
-            <span className="text-xs font-medium text-neutral-400 uppercase tracking-wider">
+          {/* Metric 2: Bunkable / Attend Requirement */}
+          <div>
+            <span className="text-[12px] font-medium text-secondary uppercase tracking-wider block">
               {overallMetrics.isSafe ? 'Safe Bunk Allowance' : 'Required Lectures'}
             </span>
-            <div className="flex items-baseline gap-2 mt-1.5">
-              <span className={`text-3xl font-bold tracking-tight ${overallMetrics.isSafe ? 'text-white' : 'text-amber-400'}`}>
+            <div className="flex items-baseline gap-2 mt-2">
+              <span className="text-3xl sm:text-4xl font-semibold tracking-tight font-mono text-foreground">
                 {overallMetrics.isSafe ? overallMetrics.bunkableClasses : overallMetrics.classesToAttend}
               </span>
-              <span className="text-xs text-neutral-400">
+              <span className="text-[13px] text-muted">
                 {overallMetrics.isSafe ? 'classes can be missed' : 'consecutive needed'}
               </span>
             </div>
-            <p className="text-xs text-neutral-400 mt-2">
+            <p className="text-[13px] text-secondary mt-1.5">
               {overallMetrics.statusText}
             </p>
           </div>
 
-          {/* Card 3: Interactive Simulator */}
-          <div className="p-4 rounded-lg bg-[#111111] border border-[#1f1f1f] flex flex-col justify-between">
+          {/* Metric 3: Interactive Simulator */}
+          <div className="flex flex-col justify-between">
             <div>
               <div className="flex items-center justify-between">
-                <span className="text-xs font-medium text-neutral-400 uppercase tracking-wider">Simulation</span>
-                <span className="font-mono text-xs text-neutral-200">Projected: {projectedPct}%</span>
+                <span className="text-[12px] font-medium text-secondary uppercase tracking-wider">Simulation</span>
+                <span className="font-mono text-xs text-foreground font-semibold">Projected: {projectedPct}%</span>
               </div>
               <div className="flex items-center gap-2 mt-2">
                 <button
                   onClick={() => setSimulationType(simulationType === 'bunk' ? 'attend' : 'bunk')}
-                  className="px-2 py-1 rounded bg-[#181818] border border-[#2a2a2a] text-xs text-neutral-200 hover:text-white"
+                  className="px-2.5 py-1 bg-surface-secondary border border-border text-xs text-foreground hover:bg-hover-bg cursor-pointer transition-colors"
                 >
                   If I {simulationType === 'bunk' ? 'skip' : 'attend'}:
                 </button>
                 <div className="flex items-center gap-1">
                   <button
                     onClick={() => setSimulationOffset(Math.max(0, simulationOffset - 1))}
-                    className="p-1 rounded bg-[#181818] border border-[#2a2a2a] text-neutral-300 hover:text-white"
+                    className="p-1 bg-surface border border-border text-secondary hover:text-foreground hover:bg-hover-bg cursor-pointer transition-colors"
                   >
                     <Minus className="w-3.5 h-3.5" />
                   </button>
-                  <span className="font-mono text-sm font-bold text-white px-2">{simulationOffset}</span>
+                  <span className="font-mono text-sm font-bold text-foreground px-2">{simulationOffset}</span>
                   <button
                     onClick={() => setSimulationOffset(simulationOffset + 1)}
-                    className="p-1 rounded bg-[#181818] border border-[#2a2a2a] text-neutral-300 hover:text-white"
+                    className="p-1 bg-surface border border-border text-secondary hover:text-foreground hover:bg-hover-bg cursor-pointer transition-colors"
                   >
                     <Plus className="w-3.5 h-3.5" />
                   </button>
-                  <span className="text-xs text-neutral-400">lectures</span>
+                  <span className="text-xs text-muted">lectures</span>
                 </div>
               </div>
             </div>
 
-            <div className="mt-2 pt-2 border-t border-[#1c1c1c] flex justify-between items-center text-[11px] text-neutral-400">
+            <div className="mt-3 pt-2 border-t border-divider-subtle flex justify-between items-center text-[12px] text-muted">
               <span>Projection status:</span>
-              <span className={projectedPct >= targetAttendance ? 'text-emerald-400 font-medium' : 'text-rose-400 font-medium'}>
+              <span className="text-secondary font-mono font-medium">
                 {projectedPct >= targetAttendance ? 'Meets Threshold' : 'Below Threshold'}
               </span>
             </div>
@@ -250,11 +268,10 @@ export const AttendanceCalc: React.FC = () => {
       </div>
 
       {/* Subject-Wise Attendance Breakdown */}
-      <div className="rounded-xl bg-[#0a0a0a] border border-[#222222] p-5 sm:p-6">
-        <div className="flex items-center justify-between gap-4 mb-4">
+      <div className="rounded-xl bg-surface border border-border-subtle p-6 sm:p-7">
+        <div className="flex items-center justify-between gap-4 mb-5">
           <div>
-            <h3 className="text-base font-semibold text-white">Subject Ledger</h3>
-            <p className="text-xs text-neutral-400">Log presence or absence per subject.</p>
+            <h3 className="text-lg font-semibold text-foreground">Subject Ledger</h3>
           </div>
           <div className="flex items-center gap-2">
             <button
@@ -262,90 +279,98 @@ export const AttendanceCalc: React.FC = () => {
                 setIsReconfiguring(true);
                 setShowOnboardingModal(true);
               }}
-              className="flex items-center gap-1 px-2.5 py-1 rounded bg-[#141414] border border-[#222222] text-xs text-neutral-400 hover:text-white transition-colors cursor-pointer"
+              className="flex items-center gap-1.5 px-3 py-1.5 bg-surface-secondary border border-border text-xs font-medium text-secondary hover:text-foreground hover:bg-hover-bg transition-colors cursor-pointer"
             >
-              <Settings2 className="w-3 h-3" />
-              <span>Edit Baseline</span>
+              <Settings2 className="w-3.5 h-3.5" />
+              <span>Edit Attendance</span>
             </button>
             <button
-              onClick={resetAllAttendance}
-              className="flex items-center gap-1 px-2.5 py-1 rounded bg-[#141414] border border-[#222222] text-xs text-neutral-400 hover:text-white transition-colors cursor-pointer"
+              onClick={() => {
+                if (window.confirm('Reset all attendance records to 0%? This will set attended and conducted classes to 0 for all subjects.')) {
+                  resetAllAttendance();
+                }
+              }}
+              className="flex items-center gap-1.5 px-3 py-1.5 bg-surface-secondary border border-border text-xs font-medium text-secondary hover:text-foreground hover:bg-hover-bg transition-colors cursor-pointer"
             >
-              <RotateCcw className="w-3 h-3" />
+              <RotateCcw className="w-3.5 h-3.5" />
               <span>Reset All</span>
             </button>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {subjectList.map((subj) => {
             const subMetrics = calculateAttendanceMetrics(subj.attended, subj.total, targetAttendance);
             const dynamicFaculty = getFacultyForSubject(subj.subjectCode, userSection) || subj.faculty;
             return (
               <div
                 key={subj.subjectCode}
-                className="rounded-lg bg-[#111111] border border-[#1f1f1f] p-4 flex flex-col justify-between hover:border-[#2a2a2a] transition-colors"
+                className="rounded-xl bg-surface border border-border-subtle p-5 flex flex-col justify-between hover:border-border transition-colors"
               >
                 <div>
                   <div className="flex items-start justify-between gap-2 mb-2">
                     <div>
-                      <div className="flex items-center gap-1.5">
-                        <span className="font-mono text-xs font-bold text-white bg-black border border-neutral-700 px-1.5 py-0.2 rounded">
+                      <div className="flex items-center gap-2">
+                        <span className="font-mono text-xs font-semibold text-foreground bg-surface-secondary border border-border px-2 py-0.5 rounded">
                           {subj.subjectCode}
                         </span>
-                        <span className="text-xs text-neutral-400">{dynamicFaculty}</span>
+                        <span className="text-[13px] text-secondary">{dynamicFaculty}</span>
                       </div>
-                      <h4 className="text-sm font-medium text-neutral-100 mt-1">{subj.subjectName}</h4>
+                      <h4 className="text-[15px] font-semibold text-foreground mt-1.5">{subj.subjectName}</h4>
                     </div>
 
                     <div className="text-right">
-                      <span className={`text-lg font-bold font-mono ${subMetrics.isSafe ? 'text-white' : 'text-amber-400'}`}>
+                      <span className="text-xl font-bold font-mono text-foreground">
                         {subMetrics.currentPercentage}%
                       </span>
-                      <div className="text-[11px] text-neutral-500 font-mono">
+                      <div className="text-[12px] text-muted font-mono">
                         {subj.attended}/{subj.total}
                       </div>
                     </div>
                   </div>
 
                   {/* Progress bar */}
-                  <div className="w-full bg-[#181818] h-1.5 rounded-full overflow-hidden my-2">
+                  <div className="w-full bg-surface-elevated h-1 overflow-hidden my-3">
                     <div
-                      className={`h-full rounded-full transition-all duration-300 ${
-                        subMetrics.isSafe ? 'bg-white' : 'bg-amber-400'
+                      className={`h-full transition-all duration-300 ${
+                        subMetrics.isSafe
+                          ? 'bg-emerald-500'
+                          : subMetrics.statusBadge === 'critical'
+                          ? 'bg-red-500'
+                          : 'bg-amber-500'
                       }`}
                       style={{ width: `${Math.min(100, subMetrics.currentPercentage)}%` }}
                     />
                   </div>
 
-                  <p className="text-xs text-neutral-400 mt-1.5">
+                  <p className="text-[13px] text-secondary mt-1">
                     {subMetrics.isSafe ? (
-                      <span className="text-emerald-400 font-medium">
-                        ✓ Can miss {subMetrics.bunkableClasses} classes
+                      <span className="text-emerald-500 dark:text-emerald-400 font-medium">
+                        ✓ Can miss {subMetrics.bunkableClasses} {subMetrics.bunkableClasses === 1 ? 'class' : 'classes'}
                       </span>
                     ) : (
-                      <span className="text-rose-400 font-medium">
-                        ⚠ Attend {subMetrics.classesToAttend} consecutive classes
+                      <span className="text-red-500 dark:text-red-400 font-medium font-mono">
+                        ⚠ Attend {subMetrics.classesToAttend} consecutive {subMetrics.classesToAttend === 1 ? 'class' : 'classes'}
                       </span>
                     )}
                   </p>
                 </div>
 
                 {/* Interactive Controls */}
-                <div className="mt-3 pt-3 border-t border-[#1c1c1c] flex items-center justify-between gap-2">
-                  <div className="flex items-center gap-1.5">
+                <div className="mt-4 pt-3.5 border-t border-divider-subtle flex items-center justify-between gap-2">
+                  <div className="flex items-center gap-2">
                     <button
-                      onClick={() => markAttendance(subj.subjectCode, 'present')}
-                      className="px-2 py-1 rounded bg-[#181818] border border-[#2a2a2a] text-neutral-200 hover:text-white text-xs font-medium flex items-center gap-1 transition-colors"
+                      onClick={() => handleMarkAttendance(subj.subjectCode, 'present')}
+                      className="px-3 py-1.5 bg-surface-secondary border border-border text-secondary hover:text-foreground hover:bg-hover-bg text-xs font-medium flex items-center gap-1.5 transition-colors cursor-pointer"
                     >
-                      <UserCheck className="w-3.5 h-3.5 text-emerald-400" />
+                      <UserCheck className="w-3.5 h-3.5 text-muted" />
                       <span>Present</span>
                     </button>
                     <button
-                      onClick={() => markAttendance(subj.subjectCode, 'absent')}
-                      className="px-2 py-1 rounded bg-[#181818] border border-[#2a2a2a] text-neutral-200 hover:text-white text-xs font-medium flex items-center gap-1 transition-colors"
+                      onClick={() => handleMarkAttendance(subj.subjectCode, 'absent')}
+                      className="px-3 py-1.5 bg-surface-secondary border border-border text-secondary hover:text-foreground hover:bg-hover-bg text-xs font-medium flex items-center gap-1.5 transition-colors cursor-pointer"
                     >
-                      <UserX className="w-3.5 h-3.5 text-rose-400" />
+                      <UserX className="w-3.5 h-3.5 text-muted" />
                       <span>Absent</span>
                     </button>
                   </div>
@@ -354,23 +379,23 @@ export const AttendanceCalc: React.FC = () => {
                     <button
                       onClick={() => updateSubjectCounts(subj.subjectCode, Math.max(0, subj.attended - 1), Math.max(0, subj.total - 1))}
                       title="Decrement"
-                      className="p-1 rounded bg-[#181818] border border-[#2a2a2a] text-neutral-400 hover:text-white"
+                      className="p-1.5 bg-surface-secondary border border-border text-muted hover:text-foreground hover:bg-hover-bg cursor-pointer transition-colors"
                     >
-                      <Minus className="w-3 h-3" />
+                      <Minus className="w-3.5 h-3.5" />
                     </button>
                     <button
                       onClick={() => updateSubjectCounts(subj.subjectCode, subj.attended + 1, subj.total + 1)}
                       title="Increment"
-                      className="p-1 rounded bg-[#181818] border border-[#2a2a2a] text-neutral-400 hover:text-white"
+                      className="p-1.5 bg-surface-secondary border border-border text-muted hover:text-foreground hover:bg-hover-bg cursor-pointer transition-colors"
                     >
-                      <Plus className="w-3 h-3" />
+                      <Plus className="w-3.5 h-3.5" />
                     </button>
                     <button
                       onClick={() => resetSubjectAttendance(subj.subjectCode)}
                       title="Reset subject"
-                      className="p-1 rounded bg-[#181818] border border-[#2a2a2a] text-neutral-400 hover:text-white ml-0.5"
+                      className="p-1.5 bg-surface-secondary border border-border text-muted hover:text-foreground hover:bg-hover-bg ml-1 cursor-pointer transition-colors"
                     >
-                      <RotateCcw className="w-3 h-3" />
+                      <RotateCcw className="w-3.5 h-3.5" />
                     </button>
                   </div>
                 </div>

@@ -267,7 +267,23 @@ export const useSectionVStore = create<SectionVStore>()(
       },
 
       resetAllAttendance: () => {
-        set({ attendance: DEFAULT_SUBJECTS });
+        set((state) => {
+          const zeroed: Record<string, SubjectAttendance> = {};
+          const subjectKeys = Object.keys(state.attendance).length > 0
+            ? Object.keys(state.attendance)
+            : Object.keys(DEFAULT_SUBJECTS);
+
+          for (const key of subjectKeys) {
+            const existing = state.attendance[key] || DEFAULT_SUBJECTS[key];
+            zeroed[key] = {
+              ...existing,
+              attended: 0,
+              total: 0,
+              history: []
+            };
+          }
+          return { attendance: zeroed };
+        });
       },
 
       tasks: DEFAULT_TASKS,

@@ -1,0 +1,49 @@
+[
+  {
+    "id": "cal-2026-09-05",
+    "title": "Teachers' Day Special Schedule",
+    "date": "2026-09-05",
+    "type": "college_holiday",
+    "description": "College celebrations; afternoon lectures suspended",
+    "applicableBatch": "All",
+    "isSuspended": true
+  },
+  {
+    "id": "cal-2026-10-02",
+    "title": "Gandhi Jayanti",
+    "date": "2026-10-02",
+    "type": "public_holiday",
+    "description": "Gazetted national holiday in honor of Mahatma Gandhi",
+    "applicableBatch": "All",
+    "isSuspended": true
+  },
+  {
+    "id": "cal-2026-10-17",
+    "title": "Special Working Saturday (Monday Timetable)",
+    "date": "2026-10-17",
+    "type": "special_working_day",
+    "description": "Compensatory working day following Monday timetable for both batches",
+    "applicableBatch": "All",
+    "isSuspended": false,
+    "replacementDay": "Monday"
+  },
+  {
+    "id": "cal-2026-10-28",
+    "title": "Diwali Break",
+    "date": "2026-11-06",
+    "endDate": "2026-11-12",
+    "type": "college_holiday",
+    "description": "Deepavali festivities; regular classes suspended",
+    "applicableBatch": "All",
+    "isSuspended": true
+  },
+  {
+    "id": "cal-2026-11-15",
+    "title": "Guru Nanak Jayanti",
+    "date": "2026-11-15",
+    "type": "public_holiday",
+    "description": "Gazetted public holiday in observance of Guru Nanak Jayanti",
+    "applicableBatch": "All",
+    "isSuspended": true
+  }
+]

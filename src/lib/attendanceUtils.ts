@@ -16,13 +16,13 @@ export function calculateAttendanceMetrics(
 ): AttendanceCalculationResult {
   if (total === 0) {
     return {
-      currentPercentage: 100,
+      currentPercentage: 0,
       isSafe: true,
       bunkableClasses: 0,
       classesToAttend: 0,
       totalAttended: 0,
       totalConducted: 0,
-      statusText: 'No lectures conducted yet · Clean slate! 100% attendance by default.',
+      statusText: 'No lectures conducted yet · 0 classes recorded.',
       statusBadge: 'safe'
     };
   }

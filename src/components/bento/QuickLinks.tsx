@@ -5,7 +5,6 @@ import {
   BookOpen, 
   GraduationCap, 
   Wifi, 
-  Github, 
   Layers,
   Link2,
   LucideIcon
@@ -20,22 +19,21 @@ const ICON_MAP: Record<string, LucideIcon> = {
   BookOpen,
   Layers,
   Wifi,
-  Github,
   Globe
 };
 
 export const QuickLinks: React.FC = () => {
   return (
-    <div className="rounded-xl bg-[#0a0a0a] border border-[#222222] p-5 flex flex-col justify-between hover:border-[#333333] transition-colors">
+    <div className="rounded-xl bg-surface border border-border-subtle p-6 flex flex-col justify-between hover:border-border transition-colors">
       <div>
-        <div className="flex items-center gap-2 mb-3">
-          <Globe className="w-4 h-4 text-neutral-400" />
-          <h3 className="text-xs font-medium text-neutral-400 uppercase tracking-wider">
+        <div className="flex items-center gap-2 mb-4">
+          <Globe className="w-4 h-4 text-muted" />
+          <h3 className="text-[13px] font-medium text-secondary uppercase tracking-wide">
             Campus Portals
           </h3>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
           {linksData.campusPortals.map((item) => {
             const IconComponent = ICON_MAP[item.icon] || Link2;
             return (
@@ -44,35 +42,22 @@ export const QuickLinks: React.FC = () => {
                 href={item.url}
                 target="_blank"
                 rel="noreferrer"
-                className="group p-2.5 rounded-lg bg-[#111111] border border-[#1f1f1f] hover:border-[#333333] hover:bg-[#161616] transition-colors flex flex-col justify-between"
+                className="group p-3 rounded-lg border border-border-subtle hover:border-border hover:bg-surface-elevated/40 transition-colors flex flex-col justify-between"
               >
                 <div className="flex items-start justify-between mb-2">
-                  <IconComponent className="w-4 h-4 text-neutral-400 group-hover:text-white transition-colors" />
-                  <ExternalLink className="w-3 h-3 text-neutral-600 group-hover:text-neutral-400 transition-colors" />
+                  <IconComponent className="w-4 h-4 text-secondary group-hover:text-foreground transition-colors" />
+                  <ExternalLink className="w-3.5 h-3.5 text-muted group-hover:text-foreground transition-colors" />
                 </div>
                 <div>
-                  <h4 className="text-xs font-medium text-neutral-200 group-hover:text-white truncate transition-colors">
+                  <h4 className="text-[14px] font-medium text-foreground transition-colors">
                     {item.title}
                   </h4>
-                  <p className="text-[10px] text-neutral-500 truncate mt-0.5">{item.desc}</p>
+                  <p className="text-[12px] text-muted truncate mt-0.5">{item.desc}</p>
                 </div>
               </a>
             );
           })}
         </div>
-      </div>
-
-      <div className="mt-3 pt-3 border-t border-[#1c1c1c] flex items-center justify-between text-[11px] text-neutral-500">
-        <span>Single Sign-On with Institute Email</span>
-        <a 
-          href="https://github.com/Geetansh-Jangid/Section-V" 
-          target="_blank" 
-          rel="noreferrer" 
-          className="hover:text-neutral-300 transition-colors flex items-center gap-1"
-        >
-          <Github className="w-3 h-3" />
-          <span>GitHub</span>
-        </a>
       </div>
     </div>
   );

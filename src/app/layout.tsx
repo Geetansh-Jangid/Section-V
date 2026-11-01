@@ -1,11 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Navbar } from '../components/shared/Navbar.tsx';
-import { CommandPalette } from '../components/command/CommandPalette.tsx';
 import { ContributeModal } from '../components/shared/ContributeModal.tsx';
 import { 
   GitBranch, 
-  Terminal, 
-  Code,
   Github
 } from 'lucide-react';
 import linksDataRaw from '../data/links.json';
@@ -25,7 +22,6 @@ export const RootLayout: React.FC<LayoutProps> = ({
   activeTab,
   onSelectTab
 }) => {
-  const [commandOpen, setCommandOpen] = useState(false);
   const { theme, isContributeModalOpen, setContributeModalOpen } = useSectionVStore();
 
   useEffect(() => {
@@ -39,10 +35,9 @@ export const RootLayout: React.FC<LayoutProps> = ({
     }
   }, [theme]);
 
-  // Lock body scroll when ANY modal open
+  // Lock body scroll when contribute modal is open
   useEffect(() => {
-    const isAnyModalOpen = commandOpen || isContributeModalOpen;
-    if (isAnyModalOpen) {
+    if (isContributeModalOpen) {
       const scrollY = window.scrollY;
       document.body.style.position = 'fixed';
       document.body.style.top = `-${scrollY}px`;
@@ -56,73 +51,51 @@ export const RootLayout: React.FC<LayoutProps> = ({
         window.scrollTo(0, scrollY);
       };
     }
-  }, [commandOpen, isContributeModalOpen]);
+  }, [isContributeModalOpen]);
 
   return (
-    <div className="min-h-screen bg-black text-neutral-100 flex flex-col selection:bg-neutral-800 selection:text-white">
+    <div className="min-h-screen bg-background text-foreground flex flex-col selection:bg-accent-bg selection:text-foreground">
       {/* Top Navigation */}
       <Navbar
         activeTab={activeTab}
         onSelectTab={onSelectTab}
-        onOpenCommand={() => setCommandOpen(true)}
         onOpenContribute={() => setContributeModalOpen(true)}
       />
 
       {/* Main Content Area */}
-      <main className="flex-1 w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 max-w-[1600px]">
+      <main className="flex-1 w-full mx-auto px-4 sm:px-6 lg:px-8 py-5 sm:py-6 max-w-[1600px]">
         {children}
       </main>
 
-      {/* Global Command Palette & Contribute Modal */}
-      <CommandPalette
-        open={commandOpen}
-        onOpenChange={setCommandOpen}
-        onNavigate={onSelectTab}
-        onOpenContributeModal={() => setContributeModalOpen(true)}
-      />
-
+      {/* Global Contribute Modal */}
       <ContributeModal
         open={isContributeModalOpen}
         onClose={() => setContributeModalOpen(false)}
       />
 
       {/* Minimal Technical Footer */}
-      <footer className="border-t border-[#1a1a1a] bg-black py-6 text-sm text-neutral-500">
+      <footer className="border-t border-border-subtle bg-surface/50 py-6 text-sm text-secondary">
         <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-2">
-              <span className="font-semibold text-neutral-300">Section V</span>
-              <span className="text-neutral-600">·</span>
-              <span className="font-mono text-sm text-neutral-400">
+              <span className="font-semibold text-foreground">Section V</span>
+              <span className="text-muted">·</span>
+              <span className="font-mono text-sm text-secondary">
                 AI & DS · Batches V1 & V2
               </span>
             </div>
 
-            <div className="flex items-center gap-3 text-sm">
-              <button
-                onClick={() => setCommandOpen(true)}
-                className="flex items-center gap-1 px-2 py-0.5 rounded bg-[#111111] border border-[#222222] text-neutral-300 hover:text-white"
-              >
-                <Terminal className="w-3.5 h-3.5 text-neutral-400" />
-                <span>⌘K Search</span>
-              </button>
+            <div className="flex items-center gap-4 text-sm">
               <a
                 href="https://github.com/Geetansh-Jangid/Section-V"
                 target="_blank"
                 rel="noreferrer"
-                className="flex items-center gap-1 text-neutral-400 hover:text-white transition-colors"
+                className="flex items-center gap-1.5 text-secondary hover:text-foreground transition-colors"
                 title="GitHub Repository"
               >
                 <Github className="w-4 h-4" />
                 <span>GitHub</span>
               </a>
-              <button
-                onClick={() => setContributeModalOpen(true)}
-                className="flex items-center gap-1 text-neutral-400 hover:text-white transition-colors"
-              >
-                <Code className="w-3.5 h-3.5" />
-                <span>Submit Edit</span>
-              </button>
             </div>
           </div>
         </div>

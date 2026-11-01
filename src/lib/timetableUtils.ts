@@ -31,10 +31,11 @@ export function getActiveClassStatus(
   timetable: TimetableData,
   currentDayName: string,
   currentTimeHHMM: string,
-  sectionFilter: 'All' | 'V1' | 'V2' = 'All'
+  sectionFilter: 'All' | 'V1' | 'V2' = 'All',
+  customSchedule?: ScheduleItem[]
 ): ActiveClassStatus {
   const currentMinutes = timeToMinutes(currentTimeHHMM);
-  const rawDaySchedule = timetable.schedule[currentDayName] || [];
+  const rawDaySchedule = customSchedule ?? (timetable.schedule[currentDayName] || []);
   const daySchedule = rawDaySchedule.filter(c => 
     sectionFilter === 'All' || !c.section || c.section === 'Both' || c.section === sectionFilter
   );
