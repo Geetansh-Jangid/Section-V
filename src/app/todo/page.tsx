@@ -153,21 +153,21 @@ const userSection = useSectionVStore((s) => s.userSection);
     switch (priority) {
       case 'urgent':
         return (
-          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-mono font-semibold bg-rose-500/10 text-rose-400 border border-rose-500/20">
-            <span className="w-1.5 h-1.5 rounded-full bg-rose-400 animate-pulse" />
+          <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[11px] font-mono font-semibold text-red-500 dark:text-red-400 bg-red-500/10 border border-red-500/20">
+            <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
             Urgent
           </span>
         );
       case 'medium':
         return (
-          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-mono font-semibold bg-amber-500/10 text-amber-400 border border-amber-500/20">
+          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-mono font-medium text-amber-500 dark:text-amber-400 bg-amber-500/10 border border-amber-500/20">
             Medium
           </span>
         );
       case 'low':
       default:
         return (
-          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-mono font-medium bg-neutral-800 text-neutral-400 border border-neutral-700">
+          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-mono font-medium text-muted bg-surface-elevated border border-border-subtle">
             Low
           </span>
         );
@@ -185,15 +185,15 @@ const userSection = useSectionVStore((s) => s.userSection);
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
     if (diffDays < 0) {
-      return <span className="text-rose-400 font-mono text-[11px] font-semibold">Overdue ({Math.abs(diffDays)}d ago)</span>;
+      return <span className="text-red-500 dark:text-red-400 font-mono text-[12px] font-semibold">Overdue ({Math.abs(diffDays)}d ago)</span>;
     }
     if (diffDays === 0) {
-      return <span className="text-rose-400 font-mono text-[11px] font-semibold">Due Today</span>;
+      return <span className="text-red-500 dark:text-red-400 font-mono text-[12px] font-semibold">Due Today</span>;
     }
     if (diffDays === 1) {
-      return <span className="text-amber-400 font-mono text-[11px] font-semibold">Due Tomorrow</span>;
+      return <span className="text-amber-500 dark:text-amber-400 font-mono text-[12px] font-medium">Due Tomorrow</span>;
     }
-    return <span className="text-neutral-400 font-mono text-[11px]">Due in {diffDays} days</span>;
+    return <span className="text-muted font-mono text-[12px]">Due in {diffDays} days</span>;
   };
 
   return (
@@ -205,89 +205,78 @@ const userSection = useSectionVStore((s) => s.userSection);
         defaultSection={selectedSection}
       />
 
-      {/* Header Overview Banner */}
-      <div className="rounded-xl bg-[#0a0a0a] border border-[#222222] p-5 sm:p-6">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-[#1c1c1c]">
+      {/* Page Title & Add Action Outside Container */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <h1 className="text-2xl sm:text-[26px] font-semibold text-foreground tracking-tight">
+          Tasks
+        </h1>
+
+        <button
+          type="button"
+          onClick={() => setIsAddModalOpen(true)}
+          className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-foreground text-background text-sm font-semibold hover:opacity-90 transition-opacity cursor-pointer select-none shadow-xs w-fit"
+        >
+          <Plus className="w-4 h-4" />
+          <span>Add Task</span>
+        </button>
+      </div>
+
+      {/* Quick Stats Grid */}
+      <div className="rounded-xl bg-surface border border-border-subtle p-6 sm:p-7">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
           <div>
-            <div className="flex items-center gap-2">
-              <CheckSquare className="w-5 h-5 text-neutral-400" />
-              <h2 className="text-lg sm:text-xl font-semibold text-white tracking-tight">
-                Academic Tasks & Lab Work
-              </h2>
-            </div>
-            <p className="text-xs text-neutral-400 mt-1">
-              Lab sheets, assignments, tutorial sets, and academic deadlines for Section V.
-            </p>
-          </div>
-
-          <div className="flex items-center gap-2">
-            <button
-              type="button"
-              onClick={() => setIsAddModalOpen(true)}
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-white text-black text-xs font-semibold hover:bg-neutral-200 transition-colors cursor-pointer select-none"
-            >
-              <Plus className="w-4 h-4" />
-              <span>Add Work / Todo</span>
-            </button>
-          </div>
-        </div>
-
-        {/* Quick Stats Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-4">
-          <div className="p-3.5 rounded-lg bg-[#111111] border border-[#1f1f1f]">
-            <span className="text-[11px] font-medium text-neutral-400 uppercase tracking-wider block">Total Work Items</span>
-            <div className="flex items-baseline gap-2 mt-1">
-              <span className="text-2xl font-bold text-white font-mono">{totalCount}</span>
-              <span className="text-xs text-neutral-500">assignments</span>
+            <span className="text-[12px] font-medium text-secondary uppercase tracking-wider block">Total Tasks</span>
+            <div className="flex items-baseline gap-2 mt-1.5">
+              <span className="text-3xl sm:text-4xl font-semibold text-foreground font-mono">{totalCount}</span>
+              <span className="text-[13px] text-muted">items</span>
             </div>
           </div>
 
-          <div className="p-3.5 rounded-lg bg-[#111111] border border-[#1f1f1f]">
-            <span className="text-[11px] font-medium text-neutral-400 uppercase tracking-wider block">Pending</span>
-            <div className="flex items-baseline gap-2 mt-1">
-              <span className="text-2xl font-bold text-amber-400 font-mono">{pendingCount}</span>
-              <span className="text-xs text-neutral-500">to complete</span>
+          <div>
+            <span className="text-[12px] font-medium text-secondary uppercase tracking-wider block">Pending</span>
+            <div className="flex items-baseline gap-2 mt-1.5">
+              <span className="text-3xl sm:text-4xl font-semibold text-foreground font-mono">{pendingCount}</span>
+              <span className="text-[13px] text-muted">to complete</span>
             </div>
           </div>
 
-          <div className="p-3.5 rounded-lg bg-[#111111] border border-[#1f1f1f]">
-            <span className="text-[11px] font-medium text-neutral-400 uppercase tracking-wider block">Completed</span>
-            <div className="flex items-baseline gap-2 mt-1">
-              <span className="text-2xl font-bold text-emerald-400 font-mono">{completedCount}</span>
-              <span className="text-xs text-neutral-500">checked off</span>
+          <div>
+            <span className="text-[12px] font-medium text-secondary uppercase tracking-wider block">Completed</span>
+            <div className="flex items-baseline gap-2 mt-1.5">
+              <span className="text-3xl sm:text-4xl font-semibold text-muted font-mono">{completedCount}</span>
+              <span className="text-[13px] text-muted">checked off</span>
             </div>
           </div>
 
-          <div className="p-3.5 rounded-lg bg-[#111111] border border-[#1f1f1f]">
-            <span className="text-[11px] font-medium text-neutral-400 uppercase tracking-wider block">Urgent Action</span>
-            <div className="flex items-baseline gap-2 mt-1">
-              <span className={`text-2xl font-bold font-mono ${urgentPendingCount > 0 ? 'text-rose-400' : 'text-neutral-400'}`}>
+          <div>
+            <span className="text-[12px] font-medium text-secondary uppercase tracking-wider block">Urgent Action</span>
+            <div className="flex items-baseline gap-2 mt-1.5">
+              <span className={`text-3xl sm:text-4xl font-semibold font-mono ${urgentPendingCount > 0 ? 'text-red-500 dark:text-red-400' : 'text-muted'}`}>
                 {urgentPendingCount}
               </span>
-              <span className="text-xs text-neutral-500">urgent pending</span>
+              <span className="text-[13px] text-muted">urgent pending</span>
             </div>
           </div>
         </div>
       </div>
 
       {/* Filter and Search Controls */}
-      <div className="rounded-xl bg-[#0a0a0a] border border-[#222222] p-4 sm:p-5 space-y-4">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
+      <div className="rounded-xl bg-surface border border-border-subtle p-5 sm:p-6 space-y-4">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           {/* Section Filter Tabs: All, V1, V2 */}
-          <div className="flex items-center gap-2">
-            <span className="text-xs font-medium text-neutral-400 shrink-0 flex items-center gap-1.5">
-              <Layers className="w-3.5 h-3.5" />
-              <span>Section:</span>
+          <div className="flex items-center gap-2.5">
+            <span className="text-[13px] font-medium text-secondary shrink-0">
+              Section:
             </span>
-            <div className="inline-flex bg-[#121212] p-1 rounded-lg border border-[#222222]">
+            <div className="inline-flex bg-surface-elevated p-0.5 rounded-lg border border-border-subtle">
               {(['All', 'V1', 'V2'] as const).map((sec) => (
                 <button
                   key={sec}
                   onClick={() => setSelectedSection(sec)}
-                  className={`px-3 py-1 rounded-md text-xs font-mono font-semibold transition-colors cursor-pointer select-none ${
+                  className={`px-3 py-1 rounded-md text-xs font-mono font-bold transition-colors cursor-pointer select-none ${
                     selectedSection === sec
-                      ? 'bg-white text-black'
-                      : 'text-neutral-400 hover:text-white'
+                      ? 'bg-surface text-foreground shadow-xs'
+                      : 'text-secondary hover:text-foreground'
                   }`}
                 >
                   {sec === 'All' ? 'All (V1 + V2)' : `Batch ${sec}`}
@@ -298,15 +287,15 @@ const userSection = useSectionVStore((s) => s.userSection);
 
           {/* Status Filter */}
           <div className="flex flex-wrap items-center gap-2">
-            <div className="inline-flex bg-[#121212] p-1 rounded-lg border border-[#222222]">
+            <div className="inline-flex bg-surface-elevated p-0.5 rounded-lg border border-border-subtle">
               {(['all', 'pending', 'completed'] as const).map((st) => (
                 <button
                   key={st}
                   onClick={() => setStatusFilter(st)}
-                  className={`px-2.5 py-1 rounded-md text-xs capitalize font-medium transition-colors cursor-pointer select-none ${
+                  className={`px-3 py-1 rounded-md text-xs capitalize font-medium transition-colors cursor-pointer select-none ${
                     statusFilter === st
-                      ? 'bg-[#222222] text-white font-semibold'
-                      : 'text-neutral-400 hover:text-white'
+                      ? 'bg-surface text-foreground font-semibold shadow-xs'
+                      : 'text-secondary hover:text-foreground'
                   }`}
                 >
                   {st}
@@ -318,7 +307,7 @@ const userSection = useSectionVStore((s) => s.userSection);
             <select
               value={priorityFilter}
               onChange={(e) => setPriorityFilter(e.target.value as any)}
-              className="px-2.5 py-1.5 rounded-lg bg-[#121212] border border-[#222222] text-xs text-neutral-300 focus:outline-none cursor-pointer"
+              className="px-3 py-1.5 rounded-lg bg-surface-elevated border border-border-subtle text-xs text-foreground focus:outline-none focus:border-border-strong cursor-pointer"
             >
               <option value="all">All Priorities</option>
               <option value="urgent">Urgent Only</option>
@@ -330,13 +319,13 @@ const userSection = useSectionVStore((s) => s.userSection);
 
         {/* Search Bar */}
         <div className="relative">
-          <Search className="w-4 h-4 text-neutral-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
+          <Search className="w-4 h-4 text-muted absolute left-3.5 top-1/2 -translate-y-1/2" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search by assignment title, subject (PPS, DE, M...), or faculty name..."
-            className="w-full pl-9 pr-4 py-2.5 rounded-lg bg-[#121212] border border-[#222222] text-white text-xs sm:text-sm placeholder-neutral-500 focus:outline-none focus:border-neutral-400"
+            className="w-full pl-9 pr-4 py-2.5 rounded-lg bg-surface-elevated border border-border-subtle text-foreground text-[14px] placeholder-muted focus:outline-none focus:border-border-strong"
           />
         </div>
       </div>
@@ -344,19 +333,19 @@ const userSection = useSectionVStore((s) => s.userSection);
       {/* Task List */}
       <div className="space-y-3">
         {filteredTasks.length === 0 ? (
-          <div className="rounded-xl bg-[#0a0a0a] border border-[#222222] p-10 text-center space-y-3">
-            <div className="w-10 h-10 rounded-full bg-[#161616] text-neutral-400 flex items-center justify-center mx-auto">
-              <CheckSquare className="w-5 h-5" />
+          <div className="rounded-xl bg-surface border border-border-subtle p-12 text-center space-y-3">
+            <div className="w-12 h-12 rounded-full bg-surface-elevated text-muted flex items-center justify-center mx-auto">
+              <CheckSquare className="w-6 h-6" />
             </div>
-            <h3 className="text-sm font-semibold text-white">
+            <h3 className="text-[16px] font-semibold text-foreground">
               {searchQuery || statusFilter !== 'all' || selectedSection !== 'All'
                 ? 'No matching tasks found'
                 : 'All caught up · Great job!'}
             </h3>
-            <p className="text-xs text-neutral-400 max-w-sm mx-auto">
+            <p className="text-[14px] text-secondary max-w-sm mx-auto">
               {searchQuery || statusFilter !== 'all' || selectedSection !== 'All'
-                ? 'No assignments match the selected filters or search terms.'
-                : 'Inbox zero! No pending lab work or homework on your radar. Go watch a movie or take a nap.'}
+                ? 'No tasks match the selected filters or search terms.'
+                : 'Inbox zero! No pending tasks on your radar.'}
             </p>
             <div className="pt-2 flex items-center justify-center gap-2">
               {(searchQuery || statusFilter !== 'all' || priorityFilter !== 'all' || selectedSection !== 'All') && (
@@ -367,16 +356,16 @@ const userSection = useSectionVStore((s) => s.userSection);
                     setPriorityFilter('all');
                     setSearchQuery('');
                   }}
-                  className="px-3 py-1.5 rounded-lg bg-[#161616] border border-[#262626] text-xs text-neutral-300 hover:text-white cursor-pointer"
+                  className="px-3.5 py-2 rounded-lg bg-surface-elevated border border-border-subtle text-xs text-secondary hover:text-foreground cursor-pointer"
                 >
                   Clear Filters
                 </button>
               )}
               <button
                 onClick={() => setIsAddModalOpen(true)}
-                className="px-3 py-1.5 rounded-lg bg-white text-black text-xs font-semibold hover:bg-neutral-200 cursor-pointer"
+                className="px-4 py-2 rounded-lg bg-foreground text-background text-xs font-semibold hover:opacity-90 cursor-pointer shadow-xs"
               >
-                Add Work Item
+                Add Task
               </button>
             </div>
           </div>
@@ -386,14 +375,14 @@ const userSection = useSectionVStore((s) => s.userSection);
             return (
               <div
                 key={task.id}
-                className={`rounded-xl bg-[#0d0d0d] border p-4 sm:p-5 transition-all flex flex-col sm:flex-row sm:items-start justify-between gap-4 ${
+                className={`rounded-xl bg-surface border p-5 transition-all flex flex-col sm:flex-row sm:items-start justify-between gap-4 ${
                   isDone
-                    ? 'border-[#1a1a1a] opacity-60 bg-[#090909]'
-                    : 'border-[#222222] hover:border-[#333333]'
+                    ? 'border-border-subtle opacity-60 bg-surface-elevated/20'
+                    : 'border-border-subtle hover:border-border'
                 }`}
               >
                 {/* Left checkbox & details */}
-                <div className="flex items-start gap-3.5 flex-1">
+                <div className="flex items-start gap-4 flex-1">
                   <button
                     type="button"
                     onClick={() => {
@@ -403,39 +392,45 @@ const userSection = useSectionVStore((s) => s.userSection);
                         toggleTask(task.id);
                       }
                     }}
-                    className={`mt-0.5 p-1 rounded-lg transition-colors cursor-pointer shrink-0 ${
+                    className={`mt-1 p-1 rounded transition-colors cursor-pointer shrink-0 ${
                       isDone
-                        ? 'text-emerald-400 bg-emerald-500/10'
-                        : 'text-neutral-500 hover:text-white hover:bg-[#1a1a1a]'
+                        ? 'text-emerald-500 dark:text-emerald-400'
+                        : 'text-muted hover:text-foreground'
                     }`}
                     title={isDone ? 'Mark as pending' : 'Mark as completed'}
                   >
                     {isDone ? (
-                      <CheckCircle2 className="w-5 h-5 text-emerald-400" />
+                      <CheckCircle2 className="w-5 h-5 text-emerald-500 dark:text-emerald-400" />
                     ) : (
-                      <Square className="w-5 h-5 text-neutral-400" />
+                      <Square className="w-5 h-5 text-muted hover:text-foreground" />
                     )}
                   </button>
 
                   <div className="space-y-1.5 flex-1">
                     {/* Badges Row */}
                     <div className="flex flex-wrap items-center gap-2">
-                      <span className="font-mono text-xs font-bold px-1.5 py-0.5 rounded bg-black border border-neutral-700 text-white">
+                      <span className="font-mono text-xs font-semibold px-2 py-0.5 rounded bg-surface-elevated text-foreground">
                         {task.subjectCode}
                       </span>
 
-                      <span className="font-mono text-[10px] font-semibold px-2 py-0.5 rounded bg-[#161616] border border-[#2a2a2a] text-neutral-300">
+                      <span className={`font-mono text-[11px] font-medium px-2 py-0.5 rounded bg-surface-elevated ${
+                        task.section === 'V1'
+                          ? 'text-foreground'
+                          : task.section === 'V2'
+                          ? 'text-secondary'
+                          : 'text-muted'
+                      }`}>
                         {task.section === 'All' ? 'V1 & V2' : `Batch ${task.section}`}
                       </span>
 
                       {getPriorityBadge(task.priority)}
 
                       {task.isOfficial ? (
-                        <span className="text-[10px] font-mono text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-1.5 py-0.5 rounded">
-                          Official Section V
+                        <span className="text-[11px] font-mono text-blue-500 dark:text-blue-400 bg-blue-500/10 border border-blue-500/20 px-2 py-0.5 rounded font-medium">
+                          Official
                         </span>
                       ) : (
-                        <span className="text-[10px] font-mono text-neutral-400 bg-[#161616] border border-[#262626] px-1.5 py-0.5 rounded">
+                        <span className="text-[11px] font-mono text-secondary bg-surface-elevated px-2 py-0.5 rounded font-medium">
                           Personal
                         </span>
                       )}
@@ -443,8 +438,8 @@ const userSection = useSectionVStore((s) => s.userSection);
 
                     {/* Task Title */}
                     <h3
-                      className={`text-sm sm:text-base font-semibold tracking-tight transition-colors ${
-                        isDone ? 'line-through text-neutral-400' : 'text-white'
+                      className={`text-[15px] sm:text-[16px] font-semibold tracking-tight transition-colors ${
+                        isDone ? 'line-through text-muted' : 'text-foreground'
                       }`}
                     >
                       {task.title}
@@ -452,21 +447,21 @@ const userSection = useSectionVStore((s) => s.userSection);
 
                     {/* Description */}
                     {task.description && (
-                      <p className="text-xs text-neutral-400 leading-relaxed max-w-2xl">
+                      <p className="text-[13.5px] text-secondary leading-relaxed max-w-2xl">
                         {task.description}
                       </p>
                     )}
 
                     {/* Assigned By & Due Date Meta */}
-                    <div className="flex flex-wrap items-center gap-x-4 gap-y-1 pt-1 text-xs text-neutral-500">
-                      <span className="flex items-center gap-1">
-                        <UserCheck className="w-3.5 h-3.5 text-neutral-400" />
-                        <span>Assigned by: <strong className="text-neutral-300 font-normal">{task.assignedBy}</strong></span>
+                    <div className="flex flex-wrap items-center gap-x-5 gap-y-1 pt-1.5 text-[13px] text-muted">
+                      <span className="flex items-center gap-1.5">
+                        <UserCheck className="w-3.5 h-3.5 text-muted" />
+                        <span>Assigned by: <strong className="text-secondary font-normal">{task.assignedBy}</strong></span>
                       </span>
 
-                      <span className="flex items-center gap-1">
-                        <Calendar className="w-3.5 h-3.5 text-neutral-400" />
-                        <span>Due: <strong className="text-neutral-300 font-mono font-normal">{task.dueDate || 'No set deadline'}</strong></span>
+                      <span className="flex items-center gap-1.5">
+                        <Calendar className="w-3.5 h-3.5 text-muted" />
+                        <span>Due: <strong className="text-secondary font-mono font-normal">{task.dueDate || 'No set deadline'}</strong></span>
                       </span>
 
                       {getDaysRemainingText(task.dueDate)}
@@ -475,12 +470,12 @@ const userSection = useSectionVStore((s) => s.userSection);
                 </div>
 
                 {/* Right Actions */}
-                <div className="flex items-center justify-end gap-2 shrink-0 pt-2 sm:pt-0 border-t sm:border-t-0 border-[#1a1a1a]">
+                <div className="flex items-center justify-end gap-2 shrink-0 pt-2 sm:pt-0 border-t sm:border-t-0 border-border-subtle">
                   {!task.isOfficial && (
                     <button
                       type="button"
                       onClick={() => deleteTask(task.id)}
-                      className="p-1.5 rounded-lg text-neutral-500 hover:text-rose-400 hover:bg-[#1a1a1a] transition-colors cursor-pointer"
+                      className="p-1.5 rounded-lg text-muted hover:text-foreground hover:bg-surface-elevated transition-colors cursor-pointer"
                       title="Delete personal task"
                     >
                       <Trash2 className="w-4 h-4" />

@@ -305,7 +305,7 @@ Contributor: ${authorName || 'Section V Contributor'}`;
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.15 }}
-          className="fixed inset-0 z-[70] bg-black/80 backdrop-blur-md"
+          className="fixed inset-0 z-[70] modal-backdrop backdrop-blur-md"
           style={{ minHeight: '100dvh' }}
           onClick={onClose}
         >
@@ -317,27 +317,27 @@ Contributor: ${authorName || 'Section V Contributor'}`;
               exit={{ opacity: 0, scale: 0.96, y: 8 }}
               transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
               data-modal-card="true"
-              className="w-full max-w-[calc(100dvw-1.5rem)] sm:max-w-xl md:max-w-2xl lg:max-w-3xl xl:max-w-4xl bg-[#0c0c0c] border border-[#262626] rounded-2xl shadow-2xl flex flex-col max-h-[92dvh] sm:max-h-[88dvh] overflow-hidden m-auto"
+              className="w-full max-w-[calc(100dvw-1.5rem)] sm:max-w-xl md:max-w-2xl lg:max-w-3xl xl:max-w-4xl bg-surface border border-border-subtle rounded-2xl shadow-xl flex flex-col max-h-[92dvh] sm:max-h-[88dvh] overflow-hidden m-auto"
               onClick={(e) => e.stopPropagation()}
             >
             {/* Header */}
-            <div className="flex items-center justify-between px-5 py-4 sm:px-7 sm:py-5 border-b border-[#1f1f1f] shrink-0">
+            <div className="flex items-center justify-between px-5 py-4 sm:px-7 sm:py-5 border-b border-border-subtle shrink-0">
               <div className="flex items-center gap-3">
-                <div className="p-2 rounded-lg bg-[#141414] border border-[#262626] text-white flex items-center justify-center shrink-0">
-                  <MessageSquarePlus className="w-4 h-4 text-emerald-400" />
+                <div className="p-2 rounded-lg bg-surface-elevated border border-border text-muted flex items-center justify-center shrink-0">
+                  <MessageSquarePlus className="w-4 h-4 text-muted" />
                 </div>
                 <div>
-                  <h3 className="text-base sm:text-lg font-bold text-white tracking-tight">
+                  <h3 className="text-base sm:text-lg font-bold text-foreground tracking-tight">
                     Contribute to Section V
                   </h3>
-                  <p className="text-xs sm:text-sm text-neutral-400">
+                  <p className="text-xs sm:text-sm text-secondary">
                     Submit content updates for peer review.
                   </p>
                 </div>
               </div>
               <button
                 onClick={onClose}
-                className="p-1.5 sm:p-2 rounded-lg text-neutral-400 hover:text-white hover:bg-[#1a1a1a] transition-colors cursor-pointer"
+                className="p-1.5 sm:p-2 rounded-lg text-secondary hover:text-foreground hover:bg-surface-elevated transition-colors cursor-pointer"
                 aria-label="Close modal"
               >
                 <X className="w-4 h-4 sm:w-5 sm:h-5" />
@@ -348,7 +348,7 @@ Contributor: ${authorName || 'Section V Contributor'}`;
             <div className="flex-1 overflow-y-auto px-5 py-4 sm:px-7 sm:py-6 space-y-5 text-xs sm:text-sm">
               {/* Category Selector */}
               <div>
-                <label className="text-neutral-200 font-semibold block mb-2 text-xs sm:text-sm">
+                <label className="text-foreground font-semibold block mb-2 text-xs sm:text-sm">
                   1. What would you like to contribute?
                 </label>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-2.5">
@@ -362,11 +362,11 @@ Contributor: ${authorName || 'Section V Contributor'}`;
                         onClick={() => setSelectedCatId(cat.id)}
                         className={`flex items-center gap-2.5 sm:gap-3 p-3 sm:p-3.5 rounded-xl text-left transition-all cursor-pointer select-none ${
                           isSelected
-                            ? 'bg-white text-black font-semibold shadow-sm'
-                            : 'bg-[#141414] border border-[#222222] text-neutral-400 hover:text-white hover:border-[#333333]'
+                            ? 'bg-surface-elevated text-foreground font-semibold border border-border'
+                            : 'bg-surface-elevated/40 border border-border-subtle text-secondary hover:text-foreground hover:bg-surface-hover'
                         }`}
                       >
-                        <Icon className={`w-4 h-4 sm:w-4.5 sm:h-4.5 shrink-0 transition-colors ${isSelected ? 'text-current' : 'text-neutral-400'}`} />
+                        <Icon className={`w-4 h-4 sm:w-4.5 sm:h-4.5 shrink-0 transition-colors ${isSelected ? 'text-foreground' : 'text-muted'}`} />
                         <span className="text-xs sm:text-sm truncate font-medium">{cat.shortLabel}</span>
                       </button>
                     );
@@ -376,11 +376,11 @@ Contributor: ${authorName || 'Section V Contributor'}`;
 
               {/* Dedicated "Add Notes to Drive" Form */}
               {selectedCatId === 'notes' ? (
-                <div className="p-4 sm:p-5 rounded-xl bg-[#111111] border border-[#222222] space-y-3.5">
-                  <div className="flex items-center justify-between pb-2 border-b border-[#1c1c1c]">
+                <div className="p-4 sm:p-5 rounded-xl bg-surface-elevated/40 border border-border-subtle space-y-3.5">
+                  <div className="flex items-center justify-between pb-2 border-b border-border-subtle">
                     <div className="flex items-center gap-2">
-                      <FolderPlus className="w-4 h-4 text-emerald-400" />
-                      <span className="font-semibold text-white text-xs sm:text-sm">
+                      <FolderPlus className="w-4 h-4 text-muted" />
+                      <span className="font-semibold text-foreground text-xs sm:text-sm">
                         Add Notes to Google Drive
                       </span>
                     </div>
@@ -389,13 +389,13 @@ Contributor: ${authorName || 'Section V Contributor'}`;
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     {/* Subject Selector */}
                     <div>
-                      <label className="text-[11px] font-medium text-neutral-400 block mb-1">
+                      <label className="text-[11px] font-medium text-secondary block mb-1">
                         Select Subject
                       </label>
                       <select
                         value={selectedSubject}
                         onChange={(e) => setSelectedSubject(e.target.value)}
-                        className="w-full px-3 py-2 rounded-lg bg-[#161616] border border-[#282828] text-white text-xs focus:outline-none focus:border-neutral-400 cursor-pointer"
+                        className="w-full px-3 py-2 rounded-lg bg-surface border border-border-subtle text-foreground text-xs focus:outline-none focus:border-border-strong cursor-pointer"
                       >
                         {SUBJECT_OPTIONS.map((sub) => (
                           <option key={sub.code} value={sub.code}>
@@ -407,17 +407,17 @@ Contributor: ${authorName || 'Section V Contributor'}`;
 
                     {/* Resource Type */}
                     <div>
-                      <label className="text-[11px] font-medium text-neutral-400 block mb-1">
+                      <label className="text-[11px] font-medium text-secondary block mb-1">
                         Resource Type
                       </label>
                       <div className="grid grid-cols-3 gap-1.5">
                         <button
                           type="button"
                           onClick={() => setNoteResourceType('unit')}
-                          className={`py-1.5 px-2 rounded-md text-[11px] font-medium transition-colors text-center ${
+                          className={`py-1.5 px-2 rounded-md text-[11px] font-medium transition-colors text-center cursor-pointer ${
                             noteResourceType === 'unit'
-                              ? 'bg-neutral-200 text-black font-semibold'
-                              : 'bg-[#181818] text-neutral-400 hover:text-white border border-[#282828]'
+                              ? 'bg-surface-elevated text-foreground font-semibold border border-border'
+                              : 'bg-surface text-secondary hover:text-foreground border border-border-subtle'
                           }`}
                         >
                           Lecture Notes
@@ -425,10 +425,10 @@ Contributor: ${authorName || 'Section V Contributor'}`;
                         <button
                           type="button"
                           onClick={() => setNoteResourceType('folder')}
-                          className={`py-1.5 px-2 rounded-md text-[11px] font-medium transition-colors text-center ${
+                          className={`py-1.5 px-2 rounded-md text-[11px] font-medium transition-colors text-center cursor-pointer ${
                             noteResourceType === 'folder'
-                              ? 'bg-neutral-200 text-black font-semibold'
-                              : 'bg-[#181818] text-neutral-400 hover:text-white border border-[#282828]'
+                              ? 'bg-surface-elevated text-foreground font-semibold border border-border'
+                              : 'bg-surface text-secondary hover:text-foreground border border-border-subtle'
                           }`}
                         >
                           Drive Folder
@@ -436,10 +436,10 @@ Contributor: ${authorName || 'Section V Contributor'}`;
                         <button
                           type="button"
                           onClick={() => setNoteResourceType('pyq')}
-                          className={`py-1.5 px-2 rounded-md text-[11px] font-medium transition-colors text-center ${
+                          className={`py-1.5 px-2 rounded-md text-[11px] font-medium transition-colors text-center cursor-pointer ${
                             noteResourceType === 'pyq'
-                              ? 'bg-neutral-200 text-black font-semibold'
-                              : 'bg-[#181818] text-neutral-400 hover:text-white border border-[#282828]'
+                              ? 'bg-surface-elevated text-foreground font-semibold border border-border'
+                              : 'bg-surface text-secondary hover:text-foreground border border-border-subtle'
                           }`}
                         >
                           PYQ Paper
@@ -450,7 +450,7 @@ Contributor: ${authorName || 'Section V Contributor'}`;
 
                   {/* Google Drive Link Input */}
                   <div>
-                    <label className="text-[11px] font-medium text-neutral-300 block mb-1">
+                    <label className="text-[11px] font-medium text-secondary block mb-1">
                       Google Drive Link (Sharing set to "Anyone with link can view")
                     </label>
                     <input
@@ -458,14 +458,14 @@ Contributor: ${authorName || 'Section V Contributor'}`;
                       value={driveLink}
                       onChange={(e) => setDriveLink(e.target.value)}
                       placeholder="https://drive.google.com/file/d/your-lecture-notes..."
-                      className="w-full px-3.5 py-2.5 rounded-lg bg-[#161616] border border-[#282828] text-white placeholder-neutral-500 focus:outline-none focus:border-neutral-400 font-mono text-xs"
+                      className="w-full px-3.5 py-2.5 rounded-lg bg-surface border border-border-subtle text-foreground placeholder:text-muted focus:outline-none focus:border-accent font-mono text-xs"
                     />
                   </div>
 
                   {/* Notes Title & Contributor */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
-                      <label className="text-[11px] font-medium text-neutral-400 block mb-1">
+                      <label className="text-[11px] font-medium text-secondary block mb-1">
                         Topic or Unit Title
                       </label>
                       <input
@@ -473,11 +473,11 @@ Contributor: ${authorName || 'Section V Contributor'}`;
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
                         placeholder="e.g. Unit 2 Differential Calculus Notes"
-                        className="w-full px-3.5 py-2 rounded-lg bg-[#161616] border border-[#282828] text-white placeholder-neutral-500 focus:outline-none focus:border-neutral-400 text-xs"
+                        className="w-full px-3.5 py-2 rounded-lg bg-surface border border-border-subtle text-foreground placeholder:text-muted focus:outline-none focus:border-accent text-xs"
                       />
                     </div>
                     <div>
-                      <label className="text-[11px] font-medium text-neutral-400 block mb-1">
+                      <label className="text-[11px] font-medium text-secondary block mb-1">
                         Your Name / Roll No (optional)
                       </label>
                       <input
@@ -485,13 +485,13 @@ Contributor: ${authorName || 'Section V Contributor'}`;
                         value={authorName}
                         onChange={(e) => setAuthorName(e.target.value)}
                         placeholder="e.g. Yash (24AIDS042)"
-                        className="w-full px-3.5 py-2 rounded-lg bg-[#161616] border border-[#282828] text-white placeholder-neutral-500 focus:outline-none focus:border-neutral-400 text-xs"
+                        className="w-full px-3.5 py-2 rounded-lg bg-surface border border-border-subtle text-foreground placeholder:text-muted focus:outline-none focus:border-accent text-xs"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="text-[11px] font-medium text-neutral-400 block mb-1">
+                    <label className="text-[11px] font-medium text-secondary block mb-1">
                       Topics covered or extra details
                     </label>
                     <input
@@ -499,23 +499,23 @@ Contributor: ${authorName || 'Section V Contributor'}`;
                       value={description}
                       onChange={(e) => setDescription(e.target.value)}
                       placeholder="e.g. Rolle's Theorem, Taylor Series, Solved 2024 examples"
-                      className="w-full px-3.5 py-2 rounded-lg bg-[#161616] border border-[#282828] text-white placeholder-neutral-500 focus:outline-none focus:border-neutral-400 text-xs"
+                      className="w-full px-3.5 py-2 rounded-lg bg-surface border border-border-subtle text-foreground placeholder:text-muted focus:outline-none focus:border-accent text-xs"
                     />
                   </div>
                 </div>
               ) : (
                 /* General Form for Other Sections */
-                <div className="p-4 sm:p-5 rounded-xl bg-[#111111] border border-[#222222] space-y-3">
-                  <div className="flex items-center justify-between pb-2 border-b border-[#1c1c1c]">
+                <div className="p-4 sm:p-5 rounded-xl bg-surface-secondary border border-border-subtle space-y-3">
+                  <div className="flex items-center justify-between pb-2 border-b border-border-subtle">
                     <div className="flex items-center gap-2">
-                      <FileText className="w-4 h-4 text-neutral-400" />
-                      <span className="font-semibold text-white text-xs sm:text-sm">
+                      <FileText className="w-4 h-4 text-muted" />
+                      <span className="font-semibold text-foreground text-xs sm:text-sm">
                         {currentCategory.label}
                       </span>
                     </div>
                   </div>
 
-                  <p className="text-xs text-neutral-400">
+                  <p className="text-xs text-secondary">
                     {currentCategory.description}
                   </p>
 
@@ -525,14 +525,14 @@ Contributor: ${authorName || 'Section V Contributor'}`;
                       value={title}
                       onChange={(e) => setTitle(e.target.value)}
                       placeholder={currentCategory.placeholderTitle}
-                      className="w-full px-3.5 py-2.5 rounded-lg bg-[#141414] border border-[#222222] text-white placeholder-neutral-500 focus:outline-none focus:border-neutral-400 text-xs sm:text-sm"
+                      className="w-full px-3.5 py-2.5 rounded-lg bg-surface border border-border-subtle text-foreground placeholder:text-muted focus:outline-none focus:border-accent text-xs sm:text-sm"
                     />
                     <input
                       type="text"
                       value={authorName}
                       onChange={(e) => setAuthorName(e.target.value)}
                       placeholder="Your Name & Roll No (e.g. Yash - 24AIDS042)"
-                      className="w-full px-3.5 py-2.5 rounded-lg bg-[#141414] border border-[#222222] text-white placeholder-neutral-500 focus:outline-none focus:border-neutral-400 text-xs sm:text-sm"
+                      className="w-full px-3.5 py-2.5 rounded-lg bg-surface border border-border-subtle text-foreground placeholder:text-muted focus:outline-none focus:border-accent text-xs sm:text-sm"
                     />
                   </div>
                   <textarea
@@ -540,45 +540,45 @@ Contributor: ${authorName || 'Section V Contributor'}`;
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                     placeholder="Describe your change (e.g., room change, slot timing, or contact update)..."
-                    className="w-full px-3.5 py-2.5 rounded-lg bg-[#141414] border border-[#222222] text-white placeholder-neutral-500 focus:outline-none focus:border-neutral-400 text-xs sm:text-sm leading-relaxed"
+                    className="w-full px-3.5 py-2.5 rounded-lg bg-surface border border-border-subtle text-foreground placeholder:text-muted focus:outline-none focus:border-accent text-xs sm:text-sm leading-relaxed"
                   />
                 </div>
               )}
 
               {/* Systematic TXT Preview Box */}
-              <div className="rounded-xl bg-[#0a0a0a] border border-[#1f1f1f] p-3.5 sm:p-4 space-y-2">
+              <div className="rounded-xl bg-surface-secondary border border-border-subtle p-3.5 sm:p-4 space-y-2">
                 <div className="flex items-center justify-between">
-                  <span className="text-[11px] uppercase tracking-wider text-neutral-400 font-semibold flex items-center gap-1.5">
-                    <FileCode className="w-3.5 h-3.5 text-neutral-400" />
+                  <span className="text-[11px] uppercase tracking-wider text-secondary font-semibold flex items-center gap-1.5">
+                    <FileCode className="w-3.5 h-3.5 text-muted" />
                     Formatted Submission Payload
                   </span>
                   <div className="flex items-center gap-2">
                     <button
                       type="button"
                       onClick={() => setShowTemplate(!showTemplate)}
-                      className="text-[11px] text-neutral-400 hover:text-white underline cursor-pointer"
+                      className="text-[11px] text-secondary hover:text-foreground underline cursor-pointer"
                     >
                       {showTemplate ? 'Hide Template' : 'View Full Template'}
                     </button>
                     <button
                       type="button"
                       onClick={copyToClipboard}
-                      className="flex items-center gap-1 px-2 py-0.5 rounded bg-[#181818] border border-[#282828] text-neutral-300 hover:text-white text-[11px] cursor-pointer"
+                      className="flex items-center gap-1 px-2 py-0.5 rounded bg-surface border border-border-subtle text-secondary hover:text-foreground text-[11px] cursor-pointer"
                     >
-                      {copied ? <Check className="w-3 h-3 text-emerald-400" /> : <Copy className="w-3 h-3" />}
+                      {copied ? <Check className="w-3 h-3 text-foreground" /> : <Copy className="w-3 h-3" />}
                       <span>{copied ? 'Copied!' : 'Copy'}</span>
                     </button>
                   </div>
                 </div>
 
-                <pre className="p-3 rounded-lg bg-[#121212] border border-[#222222] text-emerald-300 font-mono text-[11px] overflow-x-auto whitespace-pre leading-relaxed max-h-32">
+                <pre className="p-3.5 rounded-lg bg-surface border border-border-subtle text-foreground font-mono text-[11.5px] overflow-x-auto whitespace-pre leading-relaxed max-h-32">
                   {showTemplate ? TEMPLATE_PREVIEWS[selectedCatId] : snippetText}
                 </pre>
               </div>
 
               {/* Two simple submission options */}
               <div>
-                <label className="text-neutral-200 font-semibold block mb-2 text-xs sm:text-sm">
+                <label className="text-foreground font-semibold block mb-2 text-xs sm:text-sm">
                   2. Choose how to submit:
                 </label>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -587,21 +587,21 @@ Contributor: ${authorName || 'Section V Contributor'}`;
                     href={githubIssueUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="p-4 sm:p-5 rounded-xl bg-[#141414] border border-[#262626] hover:border-[#444444] transition-all flex flex-col justify-between group shadow-sm"
+                    className="p-4 sm:p-5 rounded-xl bg-surface border border-border-subtle hover:border-border transition-all flex flex-col justify-between group shadow-xs cursor-pointer"
                   >
                     <div>
                       <div className="flex items-center justify-between">
-                        <span className="font-semibold text-white flex items-center gap-2 text-xs sm:text-sm">
-                          <MessageSquarePlus className="w-4 h-4 text-emerald-400" />
+                        <span className="font-semibold text-foreground flex items-center gap-2 text-xs sm:text-sm">
+                          <MessageSquarePlus className="w-4 h-4 text-muted" />
                           <span>1-Click Issue Ticket</span>
                         </span>
-                        <ExternalLink className="w-4 h-4 text-neutral-500 group-hover:text-white transition-colors" />
+                        <ExternalLink className="w-4 h-4 text-muted group-hover:text-foreground transition-colors" />
                       </div>
-                      <p className="text-xs text-neutral-400 mt-1.5 leading-relaxed">
+                      <p className="text-xs text-secondary mt-1.5 leading-relaxed">
                         Pre-fills an issue with your details. The CR team reviews and merges it.
                       </p>
                     </div>
-                    <span className="mt-3 text-xs font-mono text-emerald-400 group-hover:text-emerald-300 font-medium transition-colors flex items-center gap-1">
+                    <span className="mt-3 text-xs font-mono text-secondary group-hover:text-foreground group-hover:underline font-medium transition-colors flex items-center gap-1">
                       <span>Easiest for students</span>
                       <ArrowRight className="w-3 h-3" />
                     </span>
@@ -612,21 +612,21 @@ Contributor: ${authorName || 'Section V Contributor'}`;
                     href={currentCategory.directUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="p-4 sm:p-5 rounded-xl bg-[#141414] border border-[#262626] hover:border-[#444444] transition-all flex flex-col justify-between group shadow-sm"
+                    className="p-4 sm:p-5 rounded-xl bg-surface border border-border-subtle hover:border-border transition-all flex flex-col justify-between group shadow-xs cursor-pointer"
                   >
                     <div>
                       <div className="flex items-center justify-between">
-                        <span className="font-semibold text-white flex items-center gap-2 text-xs sm:text-sm">
-                          <FileText className="w-4 h-4 text-neutral-300" />
+                        <span className="font-semibold text-foreground flex items-center gap-2 text-xs sm:text-sm">
+                          <FileText className="w-4 h-4 text-muted" />
                           <span>Edit Directly on GitHub</span>
                         </span>
-                        <ExternalLink className="w-4 h-4 text-neutral-500 group-hover:text-white transition-colors" />
+                        <ExternalLink className="w-4 h-4 text-muted group-hover:text-foreground transition-colors" />
                       </div>
-                      <p className="text-xs text-neutral-400 mt-1.5 leading-relaxed">
+                      <p className="text-xs text-secondary mt-1.5 leading-relaxed">
                         Open GitHub to modify or add files directly and create a Pull Request.
                       </p>
                     </div>
-                    <span className="mt-3 text-xs font-mono text-neutral-400 group-hover:text-neutral-200 font-medium transition-colors flex items-center gap-1">
+                    <span className="mt-3 text-xs font-mono text-secondary group-hover:text-foreground font-medium transition-colors flex items-center gap-1">
                       <span>Direct Pull Request</span>
                       <ArrowRight className="w-3 h-3" />
                     </span>
@@ -636,13 +636,13 @@ Contributor: ${authorName || 'Section V Contributor'}`;
             </div>
 
             {/* Footer */}
-            <div className="px-5 py-3.5 sm:px-7 sm:py-4 border-t border-[#1f1f1f] bg-[#0c0c0c] shrink-0 flex flex-wrap items-center justify-between gap-3 text-xs sm:text-sm text-neutral-400">
+            <div className="px-5 py-3.5 sm:px-7 sm:py-4 border-t border-border-subtle bg-surface shrink-0 flex flex-wrap items-center justify-between gap-3 text-xs sm:text-sm text-secondary">
               <div className="flex flex-wrap items-center gap-3">
                 <a
                   href="https://github.com/Geetansh-Jangid/Section-V"
                   target="_blank"
                   rel="noreferrer"
-                  className="hover:text-white transition-colors py-1 px-1.5 flex items-center gap-1 text-xs"
+                  className="hover:text-foreground transition-colors py-1 px-1.5 flex items-center gap-1 text-xs"
                 >
                   <Github className="w-3.5 h-3.5" />
                   <span>GitHub Repository</span>
@@ -652,7 +652,7 @@ Contributor: ${authorName || 'Section V Contributor'}`;
                   href="https://github.com/Geetansh-Jangid/Section-V/pulls"
                   target="_blank"
                   rel="noreferrer"
-                  className="hover:text-white transition-colors py-1 px-1.5 text-xs"
+                  className="hover:text-foreground transition-colors py-1 px-1.5 text-xs"
                 >
                   Active PRs
                 </a>
@@ -662,7 +662,7 @@ Contributor: ${authorName || 'Section V Contributor'}`;
                 <button
                   type="button"
                   onClick={onClose}
-                  className="px-4 py-2 rounded-lg bg-[#161616] border border-[#262626] text-neutral-300 hover:text-white transition-colors cursor-pointer text-xs sm:text-sm font-medium"
+                  className="px-4 py-2 rounded-lg bg-surface-secondary border border-border-subtle text-secondary hover:text-foreground transition-colors cursor-pointer text-xs sm:text-sm font-medium"
                 >
                   Close
                 </button>
@@ -670,7 +670,7 @@ Contributor: ${authorName || 'Section V Contributor'}`;
                   href="https://github.com/Geetansh-Jangid/Section-V"
                   target="_blank"
                   rel="noreferrer"
-                  className="flex items-center gap-1.5 px-4 py-2 rounded-lg bg-[#161616] border border-[#262626] text-neutral-300 hover:text-white transition-colors text-xs sm:text-sm font-medium"
+                  className="flex items-center gap-1.5 px-4 py-2 rounded-lg bg-surface-secondary border border-border-subtle text-secondary hover:text-foreground transition-colors text-xs sm:text-sm font-medium"
                 >
                   <Github className="w-3.5 h-3.5" />
                   <span>Repo</span>

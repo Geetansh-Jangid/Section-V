@@ -1,39 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import {
-  Calendar,
-  BookOpen,
-  Users,
-  ShieldCheck,
-  Search,
-  GitPullRequest,
   Menu,
   X,
-  LayoutGrid,
   Sun,
   Moon,
-  CheckSquare,
-  Layers
+  GitPullRequest
 } from 'lucide-react';
 import { useSectionVStore } from '../../lib/store.ts';
 
 interface NavbarProps {
   activeTab: string;
   onSelectTab: (tab: string) => void;
-  onOpenCommand: () => void;
   onOpenContribute: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
   activeTab,
   onSelectTab,
-  onOpenCommand,
   onOpenContribute
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { theme, toggleTheme, userSection, setUserSection } = useSectionVStore();
 
-  // The menu already owns the viewport. Lock document scrolling without fixing
-  // the body, which can move a sticky header off-screen in Firefox Android.
+  // Lock document scrolling when mobile menu is open
   useEffect(() => {
     if (!mobileMenuOpen) return;
 
@@ -49,10 +38,9 @@ export const Navbar: React.FC<NavbarProps> = ({
     };
   }, [mobileMenuOpen]);
 
-  // The trigger is hidden on wide screens, so close an already-open menu when
-  // a resize crosses into the desktop layout.
+  // Close mobile menu when expanding to desktop viewport
   useEffect(() => {
-    const wideLayout = window.matchMedia('(min-width: 1460px)');
+    const wideLayout = window.matchMedia('(min-width: 1024px)');
     const closeOnWideLayout = () => {
       if (wideLayout.matches) setMobileMenuOpen(false);
     };
@@ -63,163 +51,151 @@ export const Navbar: React.FC<NavbarProps> = ({
   }, []);
 
   const navItems = [
-    { id: 'dashboard', label: 'Overview', icon: LayoutGrid },
-    { id: 'timetable', label: 'Timetable', icon: Calendar },
-    { id: 'todo', label: 'Todo', icon: CheckSquare },
-    { id: 'attendance', label: 'Attendance', icon: ShieldCheck },
-    { id: 'notes', label: 'Notes & Syllabus', icon: BookOpen },
-    { id: 'faculty', label: 'Faculty Directory', icon: Users }
+    { id: 'dashboard', label: 'Overview' },
+    { id: 'timetable', label: 'Timetable' },
+    { id: 'todo', label: 'Todo' },
+    { id: 'attendance', label: 'Attendance' },
+    { id: 'notes', label: 'Notes & Syllabus' },
+    { id: 'faculty', label: 'Faculty Directory' }
   ];
 
   return (
     <>
-      <header className={`${mobileMenuOpen ? 'fixed' : 'sticky'} top-0 inset-x-0 z-[60] w-full border-b border-[#1f1f1f] bg-black/95 backdrop-blur-md transition-colors`}>
-      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo & Section V Brand */}
-          <div className="flex items-center gap-3">
-            <button
-              onClick={() => onSelectTab('dashboard')}
-              className="flex items-center gap-2 text-left focus:outline-none cursor-pointer"
-            >
-              <div className="flex items-center gap-2">
-                <span className="text-lg font-bold tracking-tight text-white font-mono">
+      <header className={`${mobileMenuOpen ? 'fixed' : 'sticky'} top-0 inset-x-0 z-[60] w-full border-b border-border-subtle bg-nav-bg/95 backdrop-blur-md transition-colors`}>
+        <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-14 sm:h-15">
+            {/* Logo & Section V Brand (Far Left) */}
+            <div className="flex items-center gap-3 shrink-0">
+              <button
+                onClick={() => onSelectTab('dashboard')}
+                className="flex items-center gap-2 text-left focus:outline-none cursor-pointer group select-none"
+              >
+                <span className="text-[16px] sm:text-[17px] font-bold tracking-tight text-foreground font-mono">
                   Section V
                 </span>
-              </div>
-            </button>
-          </div>
+                <span className="hidden sm:inline-block text-[11px] font-mono text-muted uppercase tracking-wider pl-1.5 border-l border-divider-subtle">
+                  B.Tech AI & DS
+                </span>
+              </button>
+            </div>
 
-          {/* Desktop navigation is reserved for wide layouts; smaller widths use the menu. */}
-          <nav className="hidden min-[1460px]:flex items-center gap-1">
-            {navItems.map((item) => {
-              const Icon = item.icon;
-              const isActive = activeTab === item.id;
-              return (
-                <button
-                  key={item.id}
-                  onClick={() => onSelectTab(item.id)}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-colors duration-150 outline-none select-none cursor-pointer ${
-                    isActive
-                      ? 'bg-[#222222] text-white font-semibold'
-                      : 'text-neutral-400 hover:text-white hover:bg-[#121212]'
-                  }`}
-                >
-                  <Icon className="w-4 h-4 text-neutral-400" />
-                  <span>{item.label}</span>
-                </button>
-              );
-            })}
-          </nav>
+            {/* Right Side: All Navigation Links + Controls */}
+            <div className="flex items-center gap-1 sm:gap-2">
+              {/* Desktop Navigation Links */}
+              <nav className="hidden lg:flex items-center gap-1 mr-1">
+                {navItems.map((item) => {
+                  const isActive = activeTab === item.id;
+                  return (
+                    <button
+                      key={item.id}
+                      onClick={() => onSelectTab(item.id)}
+                      className={`px-3 py-1.5 rounded-md text-[14px] font-medium transition-colors duration-150 outline-none select-none cursor-pointer ${
+                        isActive
+                          ? 'text-foreground font-semibold bg-surface-elevated'
+                          : 'text-secondary hover:text-foreground hover:bg-surface-hover/60'
+                      }`}
+                    >
+                      {item.label}
+                    </button>
+                  );
+                })}
+              </nav>
 
-          {/* Right Action Buttons */}
-          <div className="flex items-center gap-2">
-            {/* Quick Cmd+K Search trigger */}
-            <button
-              onClick={onOpenCommand}
-              className="h-9 inline-flex items-center gap-2 px-3 rounded-md bg-[#0f0f0f] border border-[#222222] text-sm text-neutral-400 hover:text-white hover:border-[#333333] transition-colors cursor-pointer select-none"
-            >
-              <Search className="w-4 h-4 shrink-0" />
-              <span className="hidden sm:inline">Search...</span>
-              <kbd className="px-1.5 py-0.5 text-xs font-mono leading-none bg-[#1a1a1a] border border-[#2a2a2a] rounded text-neutral-400">
-                ⌘K
-              </kbd>
-            </button>
-
-            {/* Batch / Section Corner Toggle (V1 | V2) - Desktop only; mobile lives in hamburger menu */}
-            <div
-              className="hidden min-[1460px]:inline-flex h-9 items-center rounded-md bg-[#0f0f0f] border border-[#222222] overflow-hidden"
-              title={`Your Section: V${userSection === 'V1' ? '1' : '2'} · Switch to show your batch by default`}
-            >
-              <div className="flex items-center p-0.5">
+              {/* Batch Selector (V1 | V2) */}
+              <div
+                className="inline-flex items-center rounded-md bg-surface-elevated p-0.5 border border-border-subtle"
+                title={`Section View: V${userSection === 'V1' ? '1' : '2'}`}
+              >
                 {(['V1', 'V2'] as const).map((sec) => (
                   <button
                     key={sec}
                     onClick={() => setUserSection(sec)}
-                    className={`px-3 py-1.5 rounded-md text-xs font-mono font-bold transition-colors cursor-pointer select-none ${
+                    className={`px-2.5 py-1 rounded text-xs font-mono font-bold transition-colors cursor-pointer select-none ${
                       userSection === sec
-                        ? 'bg-white text-black'
-                        : 'text-neutral-400 hover:text-white'
+                        ? 'bg-surface text-foreground shadow-xs'
+                        : 'text-secondary hover:text-foreground'
                     }`}
                   >
                     {sec}
                   </button>
                 ))}
               </div>
+
+              {/* Contribute PR Button */}
+              <button
+                onClick={onOpenContribute}
+                className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-[14px] font-medium text-secondary hover:text-foreground hover:bg-surface-hover/60 transition-colors cursor-pointer select-none"
+                title="Contribute notes, updates, or fixes"
+              >
+                <GitPullRequest className="w-4 h-4 text-muted shrink-0" />
+                <span>Contribute</span>
+              </button>
+
+              {/* Theme Toggle (Dark / Light) */}
+              <button
+                onClick={toggleTheme}
+                aria-label="Toggle theme"
+                className="h-8.5 w-8.5 inline-flex items-center justify-center rounded-md text-secondary hover:text-foreground hover:bg-surface-hover transition-colors cursor-pointer select-none"
+                title={`Switch to ${theme === 'dark' ? 'Light' : 'Dark'} mode`}
+              >
+                {theme === 'dark' ? (
+                  <Sun className="w-4.5 h-4.5" />
+                ) : (
+                  <Moon className="w-4.5 h-4.5" />
+                )}
+              </button>
+
+              {/* Mobile Menu Button (< lg) */}
+              <button
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                aria-label="Toggle navigation menu"
+                className="lg:hidden h-8.5 w-8.5 inline-flex items-center justify-center rounded-md text-secondary hover:text-foreground hover:bg-surface-hover transition-colors cursor-pointer select-none"
+              >
+                {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              </button>
             </div>
-
-            {/* Contribute PR button */}
-            <button
-              onClick={onOpenContribute}
-              className="hidden sm:inline-flex h-9 items-center gap-2 px-3 rounded-md bg-[#0f0f0f] border border-[#222222] text-sm font-medium text-neutral-300 hover:text-white hover:border-[#333333] transition-colors cursor-pointer select-none"
-            >
-              <GitPullRequest className="w-4 h-4 text-neutral-400 shrink-0" />
-              <span>Contribute</span>
-            </button>
-
-            {/* Theme Toggle (Dark / Light) */}
-            <button
-              onClick={toggleTheme}
-              aria-label="Toggle theme"
-              className="h-9 w-9 inline-flex items-center justify-center rounded-md bg-[#0f0f0f] border border-[#222222] text-neutral-400 hover:text-white hover:border-[#333333] transition-colors cursor-pointer select-none"
-              title={`Switch to ${theme === 'dark' ? 'Light' : 'Dark'} mode`}
-            >
-              {theme === 'dark' ? <Sun className="w-4.5 h-4.5" /> : <Moon className="w-4.5 h-4.5 text-neutral-300" />}
-            </button>
-
-            {/* Hamburger menu is used below the wide desktop navigation breakpoint. */}
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              aria-label="Toggle navigation menu"
-              className="min-[1460px]:hidden h-9 w-9 inline-flex items-center justify-center rounded-md bg-[#0f0f0f] border border-[#222222] text-neutral-300 hover:text-white hover:border-[#333333] cursor-pointer select-none"
-            >
-              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-            </button>
           </div>
         </div>
-      </div>
       </header>
 
-      {/* Hamburger menu dropdown for layouts below 1460px. */}
+      {/* Responsive Navigation Drawer for screens below lg */}
       {mobileMenuOpen && (
-        <div className="min-[1460px]:hidden fixed inset-x-0 bottom-0 top-16 z-50 bg-black overflow-hidden">
-          <div className="h-full overflow-y-auto px-4 py-6 space-y-2">
-            {navItems.map((item) => {
-              const Icon = item.icon;
-              const isActive = activeTab === item.id;
-              return (
-                <button
-                  key={item.id}
-                  onClick={() => {
-                    onSelectTab(item.id);
-                    setMobileMenuOpen(false);
-                  }}
-                  className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors duration-150 outline-none cursor-pointer ${
-                    isActive
-                      ? 'bg-[#222222] text-white font-semibold'
-                      : 'text-neutral-400 hover:text-white hover:bg-[#111111]'
-                  }`}
-                >
-                  <Icon className="w-5 h-5 text-neutral-400" />
-                  <span>{item.label}</span>
-                </button>
-              );
-            })}
-            <div className="pt-4 border-t border-[#1a1a1a] mt-4 flex flex-col gap-2">
-              <div className="flex items-center justify-between gap-2 bg-[#111111] border border-[#222222] rounded-lg px-3 py-2.5">
-                <span className="text-xs font-medium text-neutral-400 flex items-center gap-1.5">
-                  <Layers className="w-3.5 h-3.5 text-neutral-500" />
-                  <span>Batch View</span>
-                </span>
-                <div className="flex items-center p-1 rounded-lg bg-[#0f0f0f] border border-[#222222]">
+        <div className="lg:hidden fixed inset-x-0 bottom-0 top-14 sm:top-15 z-50 bg-background border-b border-border-subtle overflow-hidden">
+          <div className="h-full overflow-y-auto px-5 py-6 space-y-2">
+            <div className="space-y-1">
+              {navItems.map((item) => {
+                const isActive = activeTab === item.id;
+                return (
+                  <button
+                    key={item.id}
+                    onClick={() => {
+                      onSelectTab(item.id);
+                      setMobileMenuOpen(false);
+                    }}
+                    className={`w-full text-left px-3.5 py-2.5 rounded-md text-[15px] font-medium transition-colors duration-150 outline-none cursor-pointer ${
+                      isActive
+                        ? 'text-foreground font-semibold bg-surface-elevated'
+                        : 'text-secondary hover:text-foreground hover:bg-surface-hover/50'
+                    }`}
+                  >
+                    {item.label}
+                  </button>
+                );
+              })}
+            </div>
+
+            <div className="pt-4 border-t border-divider-subtle mt-4 space-y-3">
+              <div className="flex items-center justify-between py-1">
+                <span className="text-[13px] text-secondary font-medium">Batch View</span>
+                <div className="inline-flex items-center rounded-md bg-surface-elevated p-0.5 border border-border-subtle">
                   {(['V1', 'V2'] as const).map((sec) => (
                     <button
                       key={sec}
                       onClick={() => setUserSection(sec)}
-                      className={`px-3 py-1.5 rounded-md text-xs font-mono font-bold transition-colors cursor-pointer select-none ${
+                      className={`px-3 py-1 rounded text-xs font-mono font-bold transition-colors cursor-pointer select-none ${
                         userSection === sec
-                          ? 'bg-white text-black'
-                          : 'text-neutral-400 hover:text-white'
+                          ? 'bg-surface text-foreground shadow-xs'
+                          : 'text-secondary hover:text-foreground'
                       }`}
                     >
                       {sec}
@@ -227,15 +203,16 @@ export const Navbar: React.FC<NavbarProps> = ({
                   ))}
                 </div>
               </div>
+
               <button
                 onClick={() => {
                   onOpenContribute();
                   setMobileMenuOpen(false);
                 }}
-                className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-lg text-sm font-medium bg-[#111111] text-neutral-300 border border-[#222222] hover:text-white cursor-pointer"
+                className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-md text-[14px] font-medium bg-surface-elevated text-foreground border border-border-subtle hover:bg-surface-hover cursor-pointer"
               >
-                <GitPullRequest className="w-4 h-4 text-neutral-400" />
-                <span>Submit Edit</span>
+                <GitPullRequest className="w-4 h-4 text-muted" />
+                <span>Contribute Content</span>
               </button>
             </div>
           </div>

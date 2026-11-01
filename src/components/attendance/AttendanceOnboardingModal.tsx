@@ -128,7 +128,7 @@ export const AttendanceOnboardingModal: React.FC<AttendanceOnboardingModalProps>
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.15 }}
-          className="fixed inset-0 z-[70] bg-black/80 backdrop-blur-md"
+          className="fixed inset-0 z-[70] bg-black/60 backdrop-blur-xs"
           style={{ minHeight: '100dvh' }}
           onClick={isReconfigure ? onClose : undefined}
         >
@@ -140,35 +140,22 @@ export const AttendanceOnboardingModal: React.FC<AttendanceOnboardingModalProps>
               exit={{ opacity: 0, scale: 0.96, y: 10 }}
               transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
               data-modal-card="true"
-              className="w-full max-w-[calc(100dvw-1.5rem)] sm:max-w-xl md:max-w-2xl bg-[#0c0c0c] border border-[#262626] rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[92dvh] sm:max-h-[88dvh] m-auto"
+              className="w-full max-w-[calc(100dvw-1.5rem)] sm:max-w-xl md:max-w-2xl bg-surface border border-border-subtle rounded-2xl shadow-xl overflow-hidden flex flex-col max-h-[92dvh] sm:max-h-[88dvh] m-auto"
               onClick={(e) => e.stopPropagation()}
             >
             {/* Header */}
-            <div className="flex items-center justify-between px-5 py-4 sm:px-6 sm:py-5 border-b border-[#1f1f1f] shrink-0">
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
-                  <ShieldCheck className="w-4 h-4 sm:w-5 sm:h-5" />
-                </div>
-                <div>
-                  <h3 className="text-base sm:text-lg font-bold text-white tracking-tight flex items-center gap-2">
-                    <span>{isReconfigure ? 'Edit Baseline Attendance' : 'Attendance Setup'}</span>
-                    <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-[#181818] text-neutral-400 border border-[#282828]">
-                      Step {step} of 2
-                    </span>
-                  </h3>
-                  <p className="text-xs text-neutral-400">
-                    {step === 1
-                      ? 'Set your target attendance and threshold.'
-                      : 'Enter your current attended and total lectures per subject.'}
-                  </p>
-                </div>
+            <div className="flex items-center justify-between px-5 py-4 sm:px-6 sm:py-5 border-b border-border-subtle shrink-0">
+              <div>
+                <h3 className="text-base sm:text-lg font-bold text-foreground tracking-tight">
+                  Edit Attendance
+                </h3>
               </div>
 
               {isReconfigure && (
                 <button
                   type="button"
                   onClick={onClose}
-                  className="p-1.5 rounded-lg text-neutral-400 hover:text-white hover:bg-[#1a1a1a] transition-colors cursor-pointer"
+                  className="p-1.5 rounded-lg text-muted hover:text-foreground hover:bg-surface-elevated transition-colors cursor-pointer"
                 >
                   <X className="w-4 h-4" />
                 </button>
@@ -179,18 +166,8 @@ export const AttendanceOnboardingModal: React.FC<AttendanceOnboardingModalProps>
             <div className="flex-1 overflow-y-auto px-5 py-4 sm:px-6 sm:py-5 space-y-5">
               {step === 1 ? (
                 <div className="space-y-4">
-                  <div className="p-4 rounded-xl bg-[#121212] border border-[#222222] space-y-2">
-                    <div className="flex items-center gap-2 text-white font-medium text-xs sm:text-sm">
-                      <Sparkles className="w-4 h-4 text-emerald-400" />
-                      <span>Private & Client-Side Attendance Ledger</span>
-                    </div>
-                    <p className="text-xs text-neutral-400 leading-relaxed">
-                      Your attendance counts remain strictly on this device in your browser. Calculate bunk margins and mandatory lectures accurately.
-                    </p>
-                  </div>
-
                   <div>
-                    <label className="text-neutral-200 font-semibold block mb-2 text-xs sm:text-sm">
+                    <label className="text-secondary font-semibold block mb-2 text-xs sm:text-sm">
                       Select Your Target Attendance:
                     </label>
 
@@ -203,8 +180,8 @@ export const AttendanceOnboardingModal: React.FC<AttendanceOnboardingModalProps>
                           onClick={() => setTarget(preset)}
                           className={`py-2.5 rounded-lg font-mono text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
                             target === preset
-                              ? 'bg-white text-black shadow-sm'
-                              : 'bg-[#141414] border border-[#222222] text-neutral-300 hover:text-white hover:border-[#333333]'
+                              ? 'bg-foreground text-background font-semibold shadow-xs'
+                              : 'bg-surface-elevated border border-border-subtle text-secondary hover:text-foreground hover:bg-surface-hover'
                           }`}
                         >
                           {preset}%
@@ -213,22 +190,22 @@ export const AttendanceOnboardingModal: React.FC<AttendanceOnboardingModalProps>
                     </div>
 
                     {/* Custom Stepper */}
-                    <div className="flex items-center justify-between p-3 rounded-xl bg-[#141414] border border-[#222222]">
+                    <div className="flex items-center justify-between p-3 rounded-xl bg-surface-elevated/40 border border-border-subtle">
                       <div className="flex items-center gap-2">
-                        <Sliders className="w-4 h-4 text-neutral-400" />
-                        <span className="text-xs sm:text-sm text-neutral-300">Custom Target:</span>
+                        <Sliders className="w-4 h-4 text-muted" />
+                        <span className="text-xs sm:text-sm text-secondary">Custom Target:</span>
                       </div>
 
                       <div className="flex items-center gap-2">
                         <button
                           type="button"
                           onClick={() => setTarget((t) => Math.max(50, t - 1))}
-                          className="w-7 h-7 flex items-center justify-center rounded-lg bg-[#1c1c1c] border border-[#2e2e2e] text-neutral-300 hover:text-white cursor-pointer"
+                          className="w-7 h-7 flex items-center justify-center rounded-lg bg-surface border border-border-subtle text-secondary hover:text-foreground cursor-pointer"
                         >
                           <Minus className="w-3.5 h-3.5" />
                         </button>
 
-                        <div className="flex items-center bg-[#0d0d0d] border border-[#2e2e2e] rounded-lg px-2 py-1">
+                        <div className="flex items-center bg-surface border border-border-subtle rounded-lg px-2 py-1">
                           <input
                             type="number"
                             min={50}
@@ -238,15 +215,15 @@ export const AttendanceOnboardingModal: React.FC<AttendanceOnboardingModalProps>
                               const val = parseInt(e.target.value, 10);
                               if (!isNaN(val)) setTarget(Math.min(100, Math.max(50, val)));
                             }}
-                            className="w-8 text-center text-xs sm:text-sm font-mono font-bold bg-transparent text-white outline-none"
+                            className="w-8 text-center text-xs sm:text-sm font-mono font-bold bg-transparent text-foreground outline-none"
                           />
-                          <span className="text-xs font-mono text-neutral-500">%</span>
+                          <span className="text-xs font-mono text-muted">%</span>
                         </div>
 
                         <button
                           type="button"
                           onClick={() => setTarget((t) => Math.min(100, t + 1))}
-                          className="w-7 h-7 flex items-center justify-center rounded-lg bg-[#1c1c1c] border border-[#2e2e2e] text-neutral-300 hover:text-white cursor-pointer"
+                          className="w-7 h-7 flex items-center justify-center rounded-lg bg-surface border border-border-subtle text-secondary hover:text-foreground cursor-pointer"
                         >
                           <Plus className="w-3.5 h-3.5" />
                         </button>
@@ -256,7 +233,7 @@ export const AttendanceOnboardingModal: React.FC<AttendanceOnboardingModalProps>
                 </div>
               ) : (
                 <div className="space-y-3">
-                  <div className="flex items-center justify-between text-xs text-neutral-400 px-1">
+                  <div className="flex items-center justify-between text-xs text-muted px-1">
                     <span>Subject</span>
                     <span className="font-mono">Attended / Total</span>
                   </div>
@@ -264,45 +241,45 @@ export const AttendanceOnboardingModal: React.FC<AttendanceOnboardingModalProps>
                   <div className="space-y-2 max-h-64 sm:max-h-72 overflow-y-auto pr-1 custom-scrollbar">
                     {subjects.map((subj) => {
                       const current = counts[subj.subjectCode] || { attended: subj.attended, total: subj.total };
-                      const pct = current.total > 0 ? ((current.attended / current.total) * 100).toFixed(0) : '100';
-                      const isSafe = Number(pct) >= target;
+                      const pct = current.total > 0 ? ((current.attended / current.total) * 100).toFixed(0) : '0';
+                      const isSafe = current.total === 0 ? true : Number(pct) >= target;
 
                       return (
                         <div
                           key={subj.subjectCode}
-                          className="p-3 rounded-xl bg-[#121212] border border-[#222222] flex flex-col sm:flex-row sm:items-center justify-between gap-3"
+                          className="p-3 rounded-xl bg-surface-elevated/40 border border-border-subtle flex flex-col sm:flex-row sm:items-center justify-between gap-3"
                         >
                           <div>
                             <div className="flex items-center gap-2">
-                              <span className="font-mono text-xs font-bold px-1.5 py-0.2 rounded bg-black border border-neutral-700 text-white">
+                              <span className="font-mono text-xs font-bold px-1.5 py-0.5 rounded bg-surface border border-border-subtle text-foreground">
                                 {subj.subjectCode}
                               </span>
-                              <span className="text-xs font-medium text-neutral-200 truncate max-w-[180px] sm:max-w-none">
+                              <span className="text-xs font-medium text-foreground truncate max-w-[180px] sm:max-w-none">
                                 {subj.subjectName}
                               </span>
                             </div>
                             <div className="flex items-center gap-2 mt-1">
-                              <span className={`text-[11px] font-mono font-bold ${isSafe ? 'text-emerald-400' : 'text-amber-400'}`}>
+                              <span className="text-[11px] font-mono font-bold text-foreground">
                                 {pct}%
                               </span>
-                              <span className="text-[10px] text-neutral-500 font-mono">
+                              <span className="text-[10px] text-muted font-mono">
                                 ({isSafe ? `Eligible ≥ ${target}%` : `Below ${target}% target`})
                               </span>
                             </div>
                           </div>
 
                           {/* Steppers */}
-                          <div className="flex items-center justify-between sm:justify-end gap-3 pt-2 sm:pt-0 border-t sm:border-t-0 border-[#1c1c1c]">
+                          <div className="flex items-center justify-between sm:justify-end gap-3 pt-2 sm:pt-0 border-t sm:border-t-0 border-border-subtle">
                             {/* Attended */}
                             <div className="flex flex-col items-center">
-                              <span className="text-[9px] uppercase tracking-wider text-neutral-500 font-semibold mb-0.5">
+                              <span className="text-[9px] uppercase tracking-wider text-muted font-semibold mb-0.5">
                                 Attended
                               </span>
-                              <div className="flex items-center gap-1 bg-[#181818] border border-[#2a2a2a] rounded-lg p-0.5">
+                              <div className="flex items-center gap-1 bg-surface border border-border-subtle rounded-lg p-0.5">
                                 <button
                                   type="button"
                                   onClick={() => handleUpdateCount(subj.subjectCode, 'attended', -1)}
-                                  className="w-5 h-5 flex items-center justify-center rounded text-neutral-400 hover:text-white cursor-pointer"
+                                  className="w-5 h-5 flex items-center justify-center rounded text-muted hover:text-foreground cursor-pointer"
                                 >
                                   <Minus className="w-3 h-3" />
                                 </button>
@@ -311,12 +288,12 @@ export const AttendanceOnboardingModal: React.FC<AttendanceOnboardingModalProps>
                                   min={0}
                                   value={current.attended}
                                   onChange={(e) => handleDirectInput(subj.subjectCode, 'attended', parseInt(e.target.value, 10) || 0)}
-                                  className="w-8 text-center text-xs font-mono font-bold bg-transparent text-white outline-none"
+                                  className="w-8 text-center text-xs font-mono font-bold bg-transparent text-foreground outline-none"
                                 />
                                 <button
                                   type="button"
                                   onClick={() => handleUpdateCount(subj.subjectCode, 'attended', 1)}
-                                  className="w-5 h-5 flex items-center justify-center rounded text-neutral-400 hover:text-white cursor-pointer"
+                                  className="w-5 h-5 flex items-center justify-center rounded text-muted hover:text-foreground cursor-pointer"
                                 >
                                   <Plus className="w-3 h-3" />
                                 </button>
@@ -325,14 +302,14 @@ export const AttendanceOnboardingModal: React.FC<AttendanceOnboardingModalProps>
 
                             {/* Total Conducted */}
                             <div className="flex flex-col items-center">
-                              <span className="text-[9px] uppercase tracking-wider text-neutral-500 font-semibold mb-0.5">
+                              <span className="text-[9px] uppercase tracking-wider text-muted font-semibold mb-0.5">
                                 Total
                               </span>
-                              <div className="flex items-center gap-1 bg-[#181818] border border-[#2a2a2a] rounded-lg p-0.5">
+                              <div className="flex items-center gap-1 bg-surface border border-border-subtle rounded-lg p-0.5">
                                 <button
                                   type="button"
                                   onClick={() => handleUpdateCount(subj.subjectCode, 'total', -1)}
-                                  className="w-5 h-5 flex items-center justify-center rounded text-neutral-400 hover:text-white cursor-pointer"
+                                  className="w-5 h-5 flex items-center justify-center rounded text-muted hover:text-foreground cursor-pointer"
                                 >
                                   <Minus className="w-3 h-3" />
                                 </button>
@@ -341,12 +318,12 @@ export const AttendanceOnboardingModal: React.FC<AttendanceOnboardingModalProps>
                                   min={0}
                                   value={current.total}
                                   onChange={(e) => handleDirectInput(subj.subjectCode, 'total', parseInt(e.target.value, 10) || 0)}
-                                  className="w-8 text-center text-xs font-mono font-bold bg-transparent text-white outline-none"
+                                  className="w-8 text-center text-xs font-mono font-bold bg-transparent text-foreground outline-none"
                                 />
                                 <button
                                   type="button"
                                   onClick={() => handleUpdateCount(subj.subjectCode, 'total', 1)}
-                                  className="w-5 h-5 flex items-center justify-center rounded text-neutral-400 hover:text-white cursor-pointer"
+                                  className="w-5 h-5 flex items-center justify-center rounded text-muted hover:text-foreground cursor-pointer"
                                 >
                                   <Plus className="w-3 h-3" />
                                 </button>
@@ -362,12 +339,12 @@ export const AttendanceOnboardingModal: React.FC<AttendanceOnboardingModalProps>
             </div>
 
             {/* Footer Navigation */}
-            <div className="px-5 py-3.5 sm:px-6 sm:py-4 border-t border-[#1f1f1f] bg-[#0c0c0c] shrink-0 flex items-center justify-between gap-3">
+            <div className="px-5 py-3.5 sm:px-6 sm:py-4 border-t border-border-subtle bg-surface-elevated/40 shrink-0 flex items-center justify-between gap-3">
               {step === 2 ? (
                 <button
                   type="button"
                   onClick={() => setStep(1)}
-                  className="px-3 py-1.5 rounded-lg bg-[#181818] border border-[#282828] text-xs font-medium text-neutral-300 hover:text-white cursor-pointer"
+                  className="px-3.5 py-1.5 rounded-lg bg-surface border border-border-subtle text-xs font-medium text-secondary hover:text-foreground cursor-pointer"
                 >
                   Back
                 </button>
@@ -379,7 +356,7 @@ export const AttendanceOnboardingModal: React.FC<AttendanceOnboardingModalProps>
                 <button
                   type="button"
                   onClick={() => setStep(2)}
-                  className="px-4 py-2 rounded-lg bg-white text-black text-xs font-semibold hover:bg-neutral-200 transition-colors flex items-center gap-1.5 cursor-pointer ml-auto"
+                  className="px-4 py-2 rounded-lg bg-foreground text-background text-xs font-semibold hover:opacity-90 transition-opacity flex items-center gap-1.5 cursor-pointer ml-auto shadow-xs"
                 >
                   <span>Next: Set Counts</span>
                   <ArrowRight className="w-3.5 h-3.5" />
@@ -388,7 +365,7 @@ export const AttendanceOnboardingModal: React.FC<AttendanceOnboardingModalProps>
                 <button
                   type="button"
                   onClick={handleSave}
-                  className="px-4 py-2 rounded-lg bg-white text-black text-xs font-semibold hover:bg-neutral-200 transition-colors flex items-center gap-1.5 cursor-pointer ml-auto"
+                  className="px-4 py-2 rounded-lg bg-foreground text-background text-xs font-semibold hover:opacity-90 transition-opacity flex items-center gap-1.5 cursor-pointer ml-auto shadow-xs"
                 >
                   <Check className="w-3.5 h-3.5" />
                   <span>Save & Start Tracking</span>

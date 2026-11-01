@@ -36,46 +36,38 @@ export const NotesPage: React.FC<NotesPageProps> = ({ onOpenContributeModal }) =
 
   return (
     <div className="space-y-6">
-      {/* Header */}
-      <div className="rounded-xl bg-[#0a0a0a] border border-[#222222] p-5 sm:p-6">
-        <div className="flex items-center gap-2">
-          <BookOpen className="w-5 h-5 text-neutral-300" />
-          <h2 className="text-lg sm:text-xl font-semibold text-white tracking-tight">
-            Subject Notes & Google Drive Links
-          </h2>
-        </div>
-        <p className="text-xs text-neutral-400 mt-1 max-w-2xl leading-relaxed">
-          Centralized Google Drive folders, unit notes, NotebookLM AI study guides per chapter, and solved past-year question papers (PYQs) for Section V.
-        </p>
-      </div>
+      {/* Page Heading Outside Container */}
+      <h1 className="text-2xl sm:text-[26px] font-semibold text-foreground tracking-tight">
+        Notes & Syllabus
+      </h1>
 
       {/* Subject Dropdown & Search Bar */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         {/* Subject Dropdown */}
-        <div className="flex items-center gap-2">
-          <label htmlFor="subject-select" className="text-xs text-neutral-400 font-medium shrink-0">
+        <div className="flex items-center gap-2.5">
+          <label htmlFor="subject-select" className="text-[13px] text-secondary font-medium shrink-0">
             Subject:
           </label>
-          <div className="relative min-w-[240px] sm:min-w-[280px]">
+          <div className="relative min-w-[260px] sm:min-w-[300px]">
             <select
               id="subject-select"
               value={selectedSubjectId}
               onChange={(e) => setSelectedSubjectId(e.target.value)}
-              className="w-full appearance-none px-3 py-1.5 pr-8 rounded-md bg-[#121212] border border-[#222222] text-xs font-medium text-white hover:border-[#333333] focus:outline-none focus:border-neutral-400 cursor-pointer transition-colors"
+              className="w-full appearance-none px-3.5 py-2 pr-9 rounded-lg bg-surface border border-border-subtle text-[13.5px] font-medium text-foreground hover:border-border focus:outline-none focus:border-border-strong cursor-pointer transition-colors"
             >
               {notesCatalog.map((subj) => (
-                <option key={subj.id} value={subj.id} className="bg-[#121212] text-white py-1">
+                <option key={subj.id} value={subj.id} className="bg-surface text-foreground py-1">
                   {subj.subjectCode} — {subj.subjectName}
                 </option>
               ))}
             </select>
-            <ChevronDown className="w-3.5 h-3.5 text-neutral-400 pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2" />
+            <ChevronDown className="w-4 h-4 text-muted pointer-events-none absolute right-3 top-1/2 -translate-y-1/2" />
           </div>
         </div>
 
         {/* Search Bar */}
-        <div className="relative w-full sm:w-64">
-          <Search className="w-3.5 h-3.5 text-neutral-500 absolute left-3 top-2.5" />
+        <div className="relative w-full sm:w-72">
+          <Search className="w-4 h-4 text-muted absolute left-3 top-1/2 -translate-y-1/2" />
           <input
             type="text"
             placeholder="Search topics or subjects..."
@@ -93,7 +85,7 @@ export const NotesPage: React.FC<NotesPageProps> = ({ onOpenContributeModal }) =
                 if (match) setSelectedSubjectId(match.id);
               }
             }}
-            className="w-full pl-8 pr-3 py-1.5 rounded-md bg-[#121212] border border-[#222222] text-xs text-white placeholder-neutral-500 focus:outline-none focus:border-neutral-400"
+            className="w-full pl-9 pr-3.5 py-2 rounded-lg bg-surface border border-border-subtle text-[13.5px] text-foreground placeholder-muted focus:outline-none focus:border-border-strong transition-colors"
           />
         </div>
       </div>
@@ -104,29 +96,29 @@ export const NotesPage: React.FC<NotesPageProps> = ({ onOpenContributeModal }) =
           {/* Left Column: Units & Topic Breakdown (Span 8) */}
           <div className="lg:col-span-8 space-y-4">
             {/* Subject Meta Card */}
-            <div className="rounded-xl bg-[#0a0a0a] border border-[#222222] p-5">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3">
+            <div className="rounded-xl bg-surface border border-border-subtle p-6">
+              <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-4">
                 <div>
-                  <div className="flex items-center gap-2">
-                    <span className="px-2 py-0.5 rounded text-xs font-mono font-bold bg-white text-black">
+                  <div className="flex items-center gap-2.5">
+                    <span className="px-2 py-0.5 rounded text-[12px] font-mono font-semibold bg-surface-elevated border border-border-subtle text-foreground">
                       {activeSubject.subjectCode}
                     </span>
-                    <span className="text-xs text-neutral-400">{activeSubject.credits} Credits · Semester 1</span>
+                    <span className="text-[13px] text-muted">{activeSubject.credits} Credits · Semester 1</span>
                     {activeSubject.contentFile && (
                       <a
                         href={`https://github.com/Geetansh-Jangid/Section-V/blob/main/${activeSubject.contentFile}`}
                         target="_blank"
                         rel="noreferrer"
-                        className="hidden sm:inline-flex items-center gap-1 text-[11px] font-mono text-neutral-500 hover:text-neutral-300 transition-colors"
+                        className="hidden sm:inline-flex items-center gap-1.5 text-[12px] font-mono text-muted hover:text-foreground transition-colors"
                         title="View source plain text content file"
                       >
-                        <FileCode className="w-3 h-3" />
+                        <FileCode className="w-3.5 h-3.5" />
                         <span>{activeSubject.contentFile}</span>
                       </a>
                     )}
                   </div>
-                  <h3 className="text-lg font-semibold text-white mt-1">{activeSubject.subjectName}</h3>
-                  <p className="text-xs text-neutral-400 mt-0.5">Faculty: {activeSubject.faculty}</p>
+                  <h3 className="text-xl sm:text-2xl font-semibold text-foreground mt-2">{activeSubject.subjectName}</h3>
+                  <p className="text-[14px] text-secondary mt-0.5">Faculty: {activeSubject.faculty}</p>
                 </div>
 
                 <div className="flex flex-wrap items-center gap-2">
@@ -134,28 +126,28 @@ export const NotesPage: React.FC<NotesPageProps> = ({ onOpenContributeModal }) =
                     href={activeSubject.driveUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-[#141414] border border-[#262626] text-xs font-medium text-neutral-200 hover:text-white transition-colors"
+                    className="flex items-center gap-2 px-3.5 py-2 rounded-lg bg-surface-elevated hover:bg-surface-hover border border-border-subtle text-[13.5px] font-medium text-foreground transition-colors group"
                     title="Open Google Drive folder for this subject"
                   >
-                    <FolderArchive className="w-3.5 h-3.5 text-emerald-400" />
+                    <FolderArchive className="w-4 h-4 text-blue-500 dark:text-blue-400" />
                     <span>Drive Folder</span>
-                    <ExternalLink className="w-3 h-3 text-neutral-500" />
+                    <ExternalLink className="w-3.5 h-3.5 text-muted group-hover:text-foreground transition-colors" />
                   </a>
                 </div>
               </div>
 
-              <div className="flex flex-wrap gap-1.5 items-center justify-between">
+              <div className="flex flex-wrap gap-2 items-center justify-between pt-3 border-t border-divider-subtle">
                 <div className="flex flex-wrap gap-1.5">
                   {activeSubject.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="px-2 py-0.5 rounded text-[10px] font-mono bg-[#141414] border border-[#222222] text-neutral-400"
+                      className="text-[12px] font-mono text-muted"
                     >
                       #{tag}
                     </span>
                   ))}
                 </div>
-                <span className="text-[10px] font-mono text-neutral-500">
+                <span className="text-[12px] font-mono text-muted">
                   Updated: {activeSubject.lastUpdated}
                 </span>
               </div>
@@ -164,10 +156,10 @@ export const NotesPage: React.FC<NotesPageProps> = ({ onOpenContributeModal }) =
             {/* Units Accordion */}
             <div className="space-y-2">
               <div className="flex items-center justify-between">
-                <h4 className="text-xs uppercase font-medium text-neutral-400 tracking-wider">
+                <h4 className="text-[13px] uppercase font-medium text-secondary tracking-wider">
                   Syllabus Units & Topics Covered
                 </h4>
-                <span className="text-[11px] text-neutral-500">
+                <span className="text-[12px] text-muted">
                   {activeSubject.units.length} Units Available
                 </span>
               </div>
@@ -177,50 +169,50 @@ export const NotesPage: React.FC<NotesPageProps> = ({ onOpenContributeModal }) =
                 return (
                   <div
                     key={unit.unitNumber}
-                    className="rounded-lg bg-[#0d0d0d] border border-[#1f1f1f] overflow-hidden"
+                    className="rounded-lg bg-surface border border-border-subtle overflow-hidden"
                   >
                     <div
                       onClick={() => setExpandedUnit(isExpanded ? null : unit.unitNumber)}
-                      className="flex items-center justify-between p-3.5 cursor-pointer select-none bg-[#111111] hover:bg-[#161616] transition-colors"
+                      className="flex items-center justify-between p-4 cursor-pointer select-none hover:bg-surface-elevated/40 transition-colors"
                     >
-                      <div className="flex items-center gap-2.5">
-                        <span className="w-6 h-6 rounded bg-[#1c1c1c] border border-[#2c2c2c] text-neutral-200 font-mono text-xs font-bold flex items-center justify-center">
+                      <div className="flex items-center gap-3">
+                        <span className="w-7 h-7 rounded bg-surface-elevated border border-border-subtle text-foreground font-mono text-xs font-semibold flex items-center justify-center">
                           U{unit.unitNumber}
                         </span>
-                        <span className="text-xs sm:text-sm font-medium text-white">{unit.title}</span>
+                        <span className="text-[15px] font-medium text-foreground">{unit.title}</span>
                       </div>
 
                       <div className="flex items-center gap-2">
                         {isExpanded ? (
-                          <ChevronUp className="w-4 h-4 text-neutral-400" />
+                          <ChevronUp className="w-4 h-4 text-muted" />
                         ) : (
-                          <ChevronDown className="w-4 h-4 text-neutral-400" />
+                          <ChevronDown className="w-4 h-4 text-muted" />
                         )}
                       </div>
                     </div>
 
                     {isExpanded && (
-                      <div className="p-3.5 bg-[#0a0a0a] border-t border-[#1a1a1a] space-y-3">
+                      <div className="p-4 sm:p-5 bg-surface border-t border-divider-subtle space-y-4">
                         <div>
-                          <span className="text-[11px] font-medium text-neutral-400 uppercase tracking-wider block mb-1.5">
+                          <span className="text-[12px] font-medium text-muted uppercase tracking-wider block mb-2.5">
                             Core Topics Covered
                           </span>
-                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
+                          <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2.5">
                             {unit.topics.map((t, idx) => (
-                              <div
+                              <li
                                 key={idx}
-                                className="flex items-start gap-2 text-xs text-neutral-300 p-2 rounded bg-[#111111] border border-[#1f1f1f]"
+                                className="flex items-start gap-2.5 text-[13.5px] text-secondary leading-relaxed"
                               >
-                                <span className="w-1.5 h-1.5 rounded-full bg-neutral-500 shrink-0 mt-1" />
-                                <span className="break-words line-clamp-2 leading-snug">{t}</span>
-                              </div>
+                                <span className="w-1.5 h-1.5 rounded-full bg-muted/60 shrink-0 mt-2" />
+                                <span>{t}</span>
+                              </li>
                             ))}
-                          </div>
+                          </ul>
                         </div>
 
-                        <div className="pt-2 flex flex-wrap items-center justify-between gap-2 border-t border-[#161616]">
-                          <span className="text-[11px] text-neutral-500 font-mono">
-                            Unit Resources & Study Guides
+                        <div className="pt-3 flex flex-wrap items-center justify-between gap-2.5">
+                          <span className="text-[12px] text-muted font-mono">
+                            Unit Resources
                           </span>
                           <div className="flex items-center gap-2">
                             {(unit.slidesUrl || activeSubject.driveUrl) && (
@@ -228,11 +220,11 @@ export const NotesPage: React.FC<NotesPageProps> = ({ onOpenContributeModal }) =
                                 href={unit.slidesUrl || activeSubject.driveUrl}
                                 target="_blank"
                                 rel="noreferrer"
-                                className="flex items-center gap-1.5 text-xs text-emerald-400 hover:text-emerald-300 font-medium px-2.5 py-1 rounded bg-[#161616] border border-[#262626] transition-colors"
+                                className="flex items-center gap-1.5 text-[13px] text-secondary hover:text-foreground font-medium px-3 py-1.5 rounded-md bg-surface-elevated hover:bg-surface-hover border border-border-subtle transition-colors"
                               >
-                                <FolderArchive className="w-3.5 h-3.5 text-emerald-400" />
+                                <FolderArchive className="w-3.5 h-3.5 text-muted" />
                                 <span>Drive Link</span>
-                                <ExternalLink className="w-3 h-3 text-neutral-500" />
+                                <ExternalLink className="w-3 h-3 text-muted" />
                               </a>
                             )}
                             {unit.notebookLmUrl && (
@@ -240,11 +232,11 @@ export const NotesPage: React.FC<NotesPageProps> = ({ onOpenContributeModal }) =
                                 href={unit.notebookLmUrl}
                                 target="_blank"
                                 rel="noreferrer"
-                                className="flex items-center gap-1.5 text-xs text-cyan-400 hover:text-cyan-300 font-medium px-2.5 py-1 rounded bg-[#161616] border border-[#262626] transition-colors"
+                                className="flex items-center gap-1.5 text-[13px] text-secondary hover:text-foreground font-medium px-3 py-1.5 rounded-md bg-surface-elevated hover:bg-surface-hover border border-border-subtle transition-colors"
                               >
-                                <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
+                                <Sparkles className="w-3.5 h-3.5 text-blue-500 dark:text-blue-400" />
                                 <span>NotebookLM</span>
-                                <ExternalLink className="w-3 h-3 text-neutral-500" />
+                                <ExternalLink className="w-3 h-3 text-muted" />
                               </a>
                             )}
                           </div>
@@ -259,15 +251,15 @@ export const NotesPage: React.FC<NotesPageProps> = ({ onOpenContributeModal }) =
 
           {/* Right Column: PYQs (Span 4) */}
           <div className="lg:col-span-4 space-y-4">
-            <div className="rounded-xl bg-[#0a0a0a] border border-[#222222] p-5">
-              <div className="flex items-center justify-between mb-3">
-                <h4 className="text-xs uppercase font-medium text-neutral-400 tracking-wider">
+            <div className="rounded-xl bg-surface border border-border-subtle p-5 sm:p-6">
+              <div className="flex items-center justify-between mb-4">
+                <h4 className="text-[13px] uppercase font-medium text-secondary tracking-wider">
                   Previous Exam Papers (PYQs)
                 </h4>
-                <span className="text-[11px] text-neutral-500 font-mono">Drive</span>
+                <span className="text-[12px] text-muted font-mono">Archive</span>
               </div>
 
-              <div className="space-y-2">
+              <div className="space-y-1">
                 {activeSubject.pyqs && activeSubject.pyqs.length > 0 ? (
                   activeSubject.pyqs.map((pyq, idx) => (
                     <a
@@ -275,35 +267,35 @@ export const NotesPage: React.FC<NotesPageProps> = ({ onOpenContributeModal }) =
                       href={pyq.url}
                       target="_blank"
                       rel="noreferrer"
-                      className="flex items-center justify-between p-2.5 rounded-lg bg-[#111111] border border-[#1f1f1f] hover:border-[#333333] hover:bg-[#161616] transition-colors group"
+                      className="py-2.5 px-2 flex items-center justify-between hover:bg-surface-elevated/40 rounded-lg transition-colors group"
                       title="Open paper on Google Drive"
                     >
                       <div>
-                        <div className="text-xs font-medium text-neutral-200 group-hover:text-white transition-colors">
+                        <div className="text-[14px] font-medium text-foreground transition-colors group-hover:text-foreground">
                           {pyq.year}
                         </div>
-                        <div className="text-[10px] text-neutral-500 font-mono mt-0.5">
+                        <div className="text-[12px] text-muted font-mono mt-0.5">
                           {pyq.examType}
                         </div>
                       </div>
-                      <ExternalLink className="w-3.5 h-3.5 text-neutral-500 group-hover:text-white transition-colors" />
+                      <ExternalLink className="w-4 h-4 text-muted group-hover:text-foreground transition-colors" />
                     </a>
                   ))
                 ) : (
-                  <p className="text-xs text-neutral-500 py-2">No PYQs uploaded yet for this subject.</p>
+                  <p className="text-[13px] text-muted py-3">No PYQs uploaded yet for this subject.</p>
                 )}
               </div>
 
               {activeSubject.pyqDriveUrl && (
-                <div className="mt-4 pt-3 border-t border-[#1a1a1a]">
+                <div className="mt-4 pt-3 border-t border-border-subtle/50">
                   <a
                     href={activeSubject.pyqDriveUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="w-full flex items-center justify-center gap-1.5 py-1.5 rounded bg-[#141414] border border-[#262626] text-xs text-neutral-300 hover:text-white transition-colors"
+                    className="w-full flex items-center justify-center gap-2 py-2 rounded-lg bg-surface-elevated hover:bg-surface-hover border border-border-subtle text-[13px] font-medium text-secondary hover:text-foreground transition-colors"
                   >
                     <span>Browse All Solved Papers</span>
-                    <ExternalLink className="w-3 h-3" />
+                    <ExternalLink className="w-3.5 h-3.5 text-muted" />
                   </a>
                 </div>
               )}
@@ -314,22 +306,22 @@ export const NotesPage: React.FC<NotesPageProps> = ({ onOpenContributeModal }) =
       )}
 
       {/* Contribute Box at End of Page */}
-      <div className="rounded-xl bg-[#0a0a0a] border border-[#222222] p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="rounded-xl bg-surface border border-border-subtle p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <div className="flex items-center gap-2 text-white font-semibold">
-            <GitPullRequest className="w-4 h-4 text-emerald-400" />
-            <h3 className="text-base font-semibold text-white">Contribute by adding content</h3>
+          <div className="flex items-center gap-2.5">
+            <GitPullRequest className="w-4 h-4 text-muted" />
+            <h3 className="text-[16px] font-semibold text-foreground">Contribute Academic Materials</h3>
           </div>
-          <p className="text-xs text-neutral-400 mt-1 max-w-2xl leading-relaxed">
+          <p className="text-[14px] text-secondary mt-1 max-w-2xl leading-relaxed">
             Have lecture slides, handwritten notes, NotebookLM study guides, or past papers? Share them with Section V.
           </p>
         </div>
 
         <button
           onClick={onOpenContributeModal}
-          className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-white text-black text-xs font-semibold hover:bg-neutral-200 transition-colors shrink-0 cursor-pointer shadow-sm"
+          className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-foreground text-background text-[13.5px] font-semibold hover:opacity-90 transition-opacity shrink-0 cursor-pointer shadow-xs"
         >
-          <FolderPlus className="w-4 h-4 text-black" />
+          <FolderPlus className="w-4 h-4 text-background" />
           <span>Contribute Content</span>
         </button>
       </div>

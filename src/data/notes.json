@@ -32,7 +32,7 @@
           "Numerical problems based on Hardness and Zeolite process"
         ],
         "slidesUrl": "https://drive.google.com/drive/folders/1wZfK9thARhXMuVBTB6bi5nZ6OUzydoE1",
-        "notebookLmUrl": "https://google.com/"
+        "notebookLmUrl": "https://notebooklm.link.google/gkh3np9JL4Li"
       },
       {
         "unitNumber": 2,
@@ -69,14 +69,13 @@
     "id": "sub-csk",
     "subjectCode": "CSK",
     "subjectName": "Communication Skills",
-    "faculty": "Prof. S.H. Bhatia (SHB)",
+    "faculty": "Shivani ma'am",
     "credits": 2,
     "semester": 1,
-    "driveUrl": "https://drive.google.com/drive/folders/section-v-csk",
-    "pyqDriveUrl": "https://drive.google.com/drive/folders/section-v-csk-pyqs",
-    "lastUpdated": "2026-09-14",
+    "driveUrl": "https://drive.google.com/drive/folders/1gl7aeC7Af2vKQclOaTZ_XfCrdXbP1rqW",
+    "lastUpdated": "2026-10-07",
     "tags": [
-      "Soft Skills",
+      "Communication",
       "Technical Writing",
       "Presentation",
       "Vocabulary"
@@ -84,34 +83,26 @@
     "units": [
       {
         "unitNumber": 1,
-        "title": "Communication Dynamics & Grammar",
+        "title": "Fundamentals of Oral Communication",
         "topics": [
-          "Barriers to Effective Communication",
-          "Active Listening Techniques",
-          "Technical Vocabulary & Common Errors",
-          "Email & Formal Memo Writing"
+          "Communication process; verbal and non-verbal communication; barriers to communication; interpersonal and group communication; telephonic and online communication; effective listening and speaking strategies."
         ],
-        "slidesUrl": "https://drive.google.com/file/d/csk-unit1.pdf"
+        "slidesUrl": "https://drive.google.com/drive/folders/12gIc1soyC57ynUDOASJUkhlyUcjYiM0p?usp=drive_link"
       },
       {
         "unitNumber": 2,
-        "title": "Report Writing & Professional Presentations",
+        "title": "Professional and Business Communication",
         "topics": [
-          "Structure of Technical Reports",
-          "Proposal Writing Fundamentals",
-          "Slide Deck Design Principles",
-          "Interviewing & GD Strategies"
+          "Principles of business correspondence; email; formal letters including enquiry",
+          "complaint",
+          "request",
+          "permission",
+          "and appreciation ; letters; business meetings; agenda preparation; minutes of meetings; professional communication etiquette."
         ],
-        "slidesUrl": "https://drive.google.com/file/d/csk-unit2.pdf"
+        "slidesUrl": "https://drive.google.com/drive/folders/1XMgTrtXmxck7criGWKjhaQtEafuucmzL?usp=drive_link"
       }
     ],
-    "pyqs": [
-      {
-        "year": "2025 Mid-Sem",
-        "examType": "Mid-Sem",
-        "url": "https://drive.google.com/file/d/csk-2025-mid.pdf"
-      }
-    ]
+    "pyqs": []
   },
   {
     "contentFile": "content/notes/digital_electronics.txt",
