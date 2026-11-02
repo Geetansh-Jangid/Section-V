@@ -13,3 +13,13 @@
 #Category: Exam
 #Tags: Mid-Sem, Mandatory, Exam Cell
 #Summary: Mid-Semester exams commence September 28. Review allocated halls, row seats, and strict 09:45 AM reporting rules.
+
+[ANNOUNCEMENT]
+ID: notice-2026-001
+Title: Diwali Holidays! From 6 to 12 November 2026 
+Author: Academic Cell & CR
+Date: 
+Priority: normal
+Category: Holidays
+Tags: Holidays, Diwali
+Summary: Enjoy Diwali Holidays
