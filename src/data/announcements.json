@@ -1,1 +1,15 @@
-[]
+[
+  {
+    "contentFile": "content/announcements/announcements.txt",
+    "id": "notice-2026-001",
+    "title": "Diwali Holidays! From 6 to 12 November 2026",
+    "date": "2026-11-06",
+    "priority": "normal",
+    "category": "Holidays",
+    "tags": [
+      "Holidays",
+      "Diwali"
+    ],
+    "summary": "Enjoy Diwali Holidays"
+  }
+]

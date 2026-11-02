@@ -76,7 +76,7 @@ export const QuickAnnounce: React.FC<QuickAnnounceProps> = () => {
               </div>
 
               <div className="flex items-center justify-between text-[12px] text-muted">
-                <span>By {item.author}</span>
+                {item.author ? <span>By {item.author}</span> : <span />}
                 <ChevronRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-opacity" />
               </div>
             </div>
@@ -182,7 +182,7 @@ export const QuickAnnounce: React.FC<QuickAnnounceProps> = () => {
                       </p>
 
                       <div className="flex items-center justify-between pt-1 text-xs text-muted border-t border-border-subtle">
-                        <span>Signed: {item.author}</span>
+                        {item.author ? <span>Signed: {item.author}</span> : <span />}
                         <span className="text-xs font-medium text-secondary group-hover:text-foreground flex items-center gap-1 transition-colors">
                           Read full notice <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
                         </span>
@@ -277,7 +277,11 @@ export const QuickAnnounce: React.FC<QuickAnnounceProps> = () => {
                   </div>
 
                   <div className="pt-4 border-t border-border-subtle flex flex-wrap justify-between items-center gap-3 text-xs sm:text-sm text-secondary">
-                    <span className="font-medium">Signed: {selectedNotice.author}</span>
+                    {selectedNotice.author ? (
+                      <span className="font-medium">Signed: {selectedNotice.author}</span>
+                    ) : (
+                      <span />
+                    )}
                     <button
                       type="button"
                       onClick={() => setSelectedNotice(null)}

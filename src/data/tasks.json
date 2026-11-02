@@ -1,26 +1,26 @@
 [
   {
     "contentFile": "content/tasks/tasks.txt",
-    "id": "task-001",
-    "title": "Matrix & Fourier Series Assignment",
-    "subjectCode": "M",
+    "id": "task-92108",
+    "title": "CSK Assignment 4",
+    "subjectCode": "CSK",
     "section": "All",
-    "dueDate": "2026-10-05",
+    "dueDate": "2026-11-18",
     "priority": "urgent",
-    "assignedBy": "Geeta Ma'am",
-    "description": "Complete the given 10 questions per assignment.",
+    "assignedBy": "Shivani Ma'am",
+    "description": "Write the solutions of csk mtt-1 paper in assignment copy.",
     "completed": false
   },
   {
     "contentFile": "content/tasks/tasks.txt",
     "id": "task-319710",
-    "title": "CSK Lab manual experiment 1 and 2",
-    "subjectCode": "CSK",
+    "title": "IP Lab PPT - Experiment No 5",
+    "subjectCode": "IP Lab",
     "section": "V1",
-    "dueDate": "2026-10-05",
+    "dueDate": "2026-11-13",
     "priority": "urgent",
-    "assignedBy": "Renu ma'am",
-    "description": "Complete experiment 1 and 2 of csk lab manual",
+    "assignedBy": "Swarnima Ma'am",
+    "description": "Make a ppt with your group",
     "completed": false
   }
 ]

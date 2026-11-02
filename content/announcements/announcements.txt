@@ -7,7 +7,6 @@
 #[ANNOUNCEMENT]
 #ID: notice-2026-001
 #Title: Mid-Term Examination Schedule & Room Allotments Released
-#Author: Academic Cell & CR
 #Date: 2026-09-18
 #Priority: urgent/high/medium/normal
 #Category: Exam
@@ -17,8 +16,7 @@
 [ANNOUNCEMENT]
 ID: notice-2026-001
 Title: Diwali Holidays! From 6 to 12 November 2026 
-Author: Academic Cell & CR
-Date: 
+Date: 2026-11-06
 Priority: normal
 Category: Holidays
 Tags: Holidays, Diwali

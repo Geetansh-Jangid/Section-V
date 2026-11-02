@@ -157,62 +157,70 @@
     "contentFile": "content/notes/fcseh_ethics.txt",
     "id": "sub-fcseh",
     "subjectCode": "FCSEH",
-    "subjectName": "Foundation Course in Science, Ethics & Human Values",
-    "faculty": "Dr. S. Mukherjee (SM)",
+    "subjectName": "Fundamental Of Cyber Security And Ethical Hacking",
+    "faculty": "Soumitra Sir",
     "credits": 3,
     "semester": 1,
-    "driveUrl": "https://drive.google.com/drive/folders/section-v-fcseh",
-    "pyqDriveUrl": "https://drive.google.com/drive/folders/section-v-fcseh-pyqs",
-    "lastUpdated": "2026-09-15",
+    "lastUpdated": "2026-11-02",
     "tags": [
-      "Ethics",
-      "Values",
-      "Scientific Method",
-      "Society"
+      "cybersecurity",
+      "infosec",
+      "data-protection",
+      "network-security",
+      "malware",
+      "hacking",
+      "ethical-hacking",
+      "phishing",
+      "ransomware",
+      "cyber-attack",
+      "vulnerability",
+      "penetration-testing",
+      "cloud-security",
+      "encryption",
+      "firewall",
+      "threat-intelligence"
     ],
     "units": [
       {
         "unitNumber": 1,
-        "title": "Understanding Human Values & Harmony",
+        "title": "Introduction to Cyber Security",
         "topics": [
-          "Self-Exploration & Natural Acceptance",
-          "Harmony in Human Being & Family",
-          "Trust",
-          "Respect & Ethical Relationships"
-        ],
-        "slidesUrl": "https://drive.google.com/file/d/fcseh-unit1.pdf"
+          "Defining Cyberspace and Overview of Computer and Web-technology",
+          "Architecture of cyberspace",
+          "Regulation of cyberspace",
+          "Concept of cybersecurity",
+          "Issues and challenges of cyber security"
+        ]
       },
       {
         "unitNumber": 2,
-        "title": "Scientific Temper & Professional Ethics",
+        "title": "Cyber Crime and Cyber Law",
         "topics": [
-          "Philosophy of Scientific Inquiry",
-          "Engineering Codes of Conduct",
-          "Intellectual Property & Integrity",
-          "Social Responsibility of Engineers"
-        ],
-        "slidesUrl": "https://drive.google.com/file/d/fcseh-unit2.pdf"
+          "malware and ransomware attacks",
+          "virus",
+          "trojans",
+          "data breach",
+          "zero day and zero click attacks",
+          "Cybercriminals",
+          "Reporting of cyber crimes",
+          "Legal perspective of cyber crime",
+          "IT Act 2000 and its amendments",
+          "Cyber crime and offences",
+          "Organizations dealing with Cyber crime and Cyber security in India."
+        ]
       }
     ],
-    "pyqs": [
-      {
-        "year": "2025 Mid-Sem",
-        "examType": "Mid-Sem",
-        "url": "https://drive.google.com/file/d/fcseh-2025-mid.pdf"
-      }
-    ]
+    "pyqs": []
   },
   {
     "contentFile": "content/notes/mathematics.txt",
     "id": "sub-m",
     "subjectCode": "M",
     "subjectName": "Mathematics",
-    "faculty": "Prof. G.C. Sharma (GC)",
+    "faculty": "Geeta Ma'am",
     "credits": 4,
     "semester": 1,
-    "driveUrl": "https://drive.google.com/drive/folders/section-v-maths",
-    "pyqDriveUrl": "https://drive.google.com/drive/folders/section-v-maths-pyqs",
-    "lastUpdated": "2026-09-18",
+    "lastUpdated": "2026-11-02",
     "tags": [
       "Calculus",
       "Linear Algebra",
@@ -222,62 +230,50 @@
     "units": [
       {
         "unitNumber": 1,
-        "title": "Differential & Integral Calculus",
+        "title": "Matrix Algebra",
         "topics": [
-          "Rolle's & Mean Value Theorems",
-          "Taylor's Series",
-          "Indeterminate Forms",
-          "Definite Integrals & Applications"
-        ],
-        "slidesUrl": "https://drive.google.com/file/d/maths-unit1.pdf"
+          "Rank of a matrix",
+          "Solution of linear simultaneous equations. Eigenvalues and Eigenvectors of a matrix",
+          "Cayley-Hamilton theorem (Statement only)",
+          "Diagonalization of a matrix"
+        ]
       },
       {
         "unitNumber": 2,
-        "title": "Matrices & Linear Systems",
+        "title": "Multivariable Calculus",
         "topics": [
-          "Rank of Matrix",
-          "Gauss Elimination & Jordan",
-          "Eigenvalues & Eigenvectors",
-          "Cayley-Hamilton Theorem"
-        ],
-        "slidesUrl": "https://drive.google.com/file/d/maths-unit2.pdf"
+          "Functions of two variables: Limit",
+          "Continuity",
+          "Partial derivatives",
+          "Euler’s theorem on homogeneous functions",
+          "Chain rule",
+          "total derivative",
+          "Jacobians",
+          "Taylor’s theorem for two variables (Statement only)",
+          "Maxima and minima of functions of two or more variables",
+          "Lagrange’s method of undetermined multipliers",
+          "Multiple Integration: Double and triple integrals"
+        ]
       },
       {
         "unitNumber": 3,
-        "title": "Multivariable Calculus",
+        "title": "Fourier series",
         "topics": [
-          "Partial Derivatives",
-          "Euler's Theorem on Homogeneous Functions",
-          "Maxima & Minima of Two Variables",
-          "Lagrange Multipliers"
-        ],
-        "slidesUrl": "https://drive.google.com/file/d/maths-unit3.pdf"
+          "Fourier series and its convergence. Fourier series of even and odd functions. Fourier half-range series"
+        ]
       }
     ],
-    "pyqs": [
-      {
-        "year": "2025 Mid-Term",
-        "examType": "Mid-Sem",
-        "url": "https://drive.google.com/file/d/maths-2025-mid.pdf"
-      },
-      {
-        "year": "2024 End-Sem",
-        "examType": "End-Sem",
-        "url": "https://drive.google.com/file/d/maths-2024-end.pdf"
-      }
-    ]
+    "pyqs": []
   },
   {
     "contentFile": "content/notes/programming_pps.txt",
     "id": "sub-pps",
     "subjectCode": "PPS",
     "subjectName": "Programming for Problem Solving",
-    "faculty": "Prof. G.S. Rathore (GS)",
-    "credits": 4,
+    "faculty": "Gajendra Sharma Sir",
+    "credits": 2,
     "semester": 1,
-    "driveUrl": "https://drive.google.com/drive/folders/section-v-pps",
-    "pyqDriveUrl": "https://drive.google.com/drive/folders/section-v-pps-pyqs",
-    "lastUpdated": "2026-09-19",
+    "lastUpdated": "2026-11-02",
     "tags": [
       "C Programming",
       "Algorithms",
@@ -287,55 +283,46 @@
     "units": [
       {
         "unitNumber": 1,
-        "title": "Introduction to Programming & Algorithms",
+        "title": "Fundamentals of Computer",
         "topics": [
-          "Flowcharts & Pseudocode",
-          "Variables",
-          "Data Types & Operators",
-          "Conditional Branches (if-else",
-          "switch)",
-          "Loops (while",
-          "for",
-          "do-while)"
-        ],
-        "slidesUrl": "https://drive.google.com/file/d/pps-unit1.pdf"
+          "Stored program architecture of computers",
+          "Storage devices",
+          "Primary memory and Secondary storage",
+          "Random",
+          "Direct",
+          "Sequential access methods",
+          "Concepts of High-level",
+          "Assembly and Low-level languages",
+          "Representing algorithms through flowchart and pseudo code"
+        ]
       },
       {
         "unitNumber": 2,
-        "title": "Arrays, Strings & Functions",
+        "title": "Number System",
         "topics": [
-          "1D and 2D Arrays",
-          "String Manipulation & Library Functions",
-          "Function Prototypes & Scope",
-          "Recursion Principles"
-        ],
-        "slidesUrl": "https://drive.google.com/file/d/pps-unit2.pdf"
+          "Data representations",
+          "Concepts of radix and representation of numbers in radix r with special cases of r=2",
+          "8",
+          "10 and 16 with conversion from radix r1 to r2",
+          "r's and (r-1)'s complement",
+          "Binary addition",
+          "Binary subtraction",
+          "Representation of alphabets"
+        ]
       },
       {
         "unitNumber": 3,
-        "title": "Pointers & Dynamic Memory",
+        "title": "C Programming",
         "topics": [
-          "Pointer Basics & Address Arithmetic",
-          "Passing Pointers to Functions",
-          "Dynamic Memory Allocation (malloc",
-          "calloc",
-          "free)",
-          "Structures & Unions"
-        ],
-        "slidesUrl": "https://drive.google.com/file/d/pps-unit3.pdf"
+          "Problem specification",
+          "flow chart",
+          "data types",
+          "assignment statements",
+          "input output statements",
+          "developing simple C programs"
+        ]
       }
     ],
-    "pyqs": [
-      {
-        "year": "2025 Mid-Sem",
-        "examType": "Mid-Sem",
-        "url": "https://drive.google.com/file/d/pps-2025-mid.pdf"
-      },
-      {
-        "year": "2024 End-Sem",
-        "examType": "End-Sem",
-        "url": "https://drive.google.com/file/d/pps-2024-end.pdf"
-      }
-    ]
+    "pyqs": []
   }
 ]

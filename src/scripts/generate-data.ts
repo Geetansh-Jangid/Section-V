@@ -281,7 +281,6 @@ function parseAnnouncementsFile(): Announcement[] {
     }
 
     if (item.title) {
-      if (!item.author) item.author = 'Admin';
       announcements.push(AnnouncementSchema.parse(item));
     }
   }
