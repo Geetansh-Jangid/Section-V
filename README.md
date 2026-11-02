@@ -1,356 +1,239 @@
 # Section V
 
-> **An all-in-one academic dashboard for Section V — built to keep your college life in one place.**
+Academic dashboard for **Section V (AI & DS), B.Tech**. It keeps the timetable, attendance, tasks, notes, faculty/CR contacts, announcements, and campus links in one place.
 
-**Section V** is a student-focused academic platform designed for **Section V (AI & DS)**. It brings timetables, faculty information, study notes, announcements, tasks, class representatives, useful portals, and other academic resources into a single interface.
+Academic data is stored as plain text under `content/`. A generation script validates it with Zod and writes the JSON files the React app imports. No database or login is required.
 
-🌐 **Live:** https://v.geetansh.tech/  
-📦 **Repository:** https://github.com/Geetansh-Jangid/Section-V
+- Live: https://v.geetansh.tech/
+- Repository: https://github.com/Geetansh-Jangid/Section-V
 
----
+## Features
 
-## ✨ Features
+| Area | What it does |
+|---|---|
+| Dashboard | Current class, attendance summary, pending tasks, latest announcement, quick links |
+| Timetable | Weekly schedule with V1/V2 batch filtering; holidays and replacement days from the academic calendar; temporary proxy, room change, and cancellation overrides |
+| Attendance | Per-subject counters, configurable target percentage, and "how many can I miss / need to attend" projection |
+| Tasks | Official tasks from `content/tasks/tasks.txt` plus personal tasks, with section, status, priority, and search filters |
+| Notes | Subject syllabus units, topics, Drive links, NotebookLM links, and previous-year papers |
+| Faculty & CRs | Faculty directory with cabins, contacts, subjects, office hours; class representative contacts |
+| Links | Campus portals, WhatsApp community, and shared Drive folders |
+| Contributions | In-app form that validates an entry and opens a GitHub pull request against the content files |
 
-### 📅 Timetable
-- Weekly class schedule
-- Subject, faculty and room information
-- Slot-based timetable structure
-- Support for theory and practical classes
-- Section/batch-specific scheduling
+## Tech stack
 
-### 📚 Study Notes
-- Subject-wise notes
-- Unit and topic organization
-- Previous-year question papers
-- Google Drive resources
-- Subject metadata including credits, semester and faculty
+React 19, TypeScript, Vite, Tailwind CSS 4, Zustand, Zod, Express, and Vercel serverless functions.
 
-### 👨‍🏫 Faculty Directory
-- Faculty profiles
-- Department and designation
-- Contact information
-- Office hours
-- Subjects taught
-- Research interests
+## Run locally
 
-### 📢 Announcements
-- Centralized announcements feed
-- Categories and priorities
-- Dates and authors
-- Tags for easier organization
-
-### ✅ Tasks
-- Academic task tracking
-- Subject association
-- Due dates
-- Priority levels
-- Assignment information
-
-### 👥 Class Representatives
-- CR directory
-- Section and role information
-- Responsibilities
-- Contact and social links
-- Office hours
-
-### 🔗 Useful Links
-- Campus portals
-- Google Drive resources
-- WhatsApp community
-- GitHub repository
-- Other frequently used academic resources
-
-### 🧮 Attendance
-- Attendance calculation tools
-- Helps determine current attendance status and requirements
-
----
-
-## 🧠 Data-Driven Architecture
-
-One of the core ideas behind Section V is keeping **content separate from the application UI**.
-
-Instead of hardcoding academic information throughout React components, the project stores editable content in structured text files under `content/`.
-
-The build process then converts those files into validated JSON consumed by the application.
-
-```text
-content/
-├── announcements/
-├── cr/
-├── faculty/
-├── links/
-├── notes/
-├── tasks/
-└── timetable/
-
-          ↓
-
-   generate-data.ts
-
-          ↓
-
-src/data/
-├── announcements.json
-├── cr.json
-├── faculty.json
-├── links.json
-├── notes.json
-├── tasks.json
-└── timetable.json
-
-          ↓
-
-       React App
-```
-
-This makes updating academic information possible without modifying the actual UI components.
-
----
-
-## 🛠️ Tech Stack
-
-- **React 19**
-- **TypeScript**
-- **Vite**
-- **Tailwind CSS**
-- **Zod** — runtime data validation
-- **Zustand** — state management
-- **Motion** — animations
-- **Lucide React** — icons
-- **Express**
-- **tsx**
-- **Vercel** — deployment
-
----
-
-## 📂 Project Structure
-
-```text
-Section-V/
-├── content/
-│   ├── announcements/
-│   ├── cr/
-│   ├── faculty/
-│   ├── links/
-│   ├── notes/
-│   ├── tasks/
-│   └── timetable/
-│
-├── src/
-│   ├── data/
-│   ├── lib/
-│   ├── scripts/
-│   └── ...
-│
-├── .env.example
-├── index.html
-├── metadata.json
-├── package.json
-├── tsconfig.json
-├── vite.config.ts
-└── ...
-```
-
----
-
-## 🚀 Getting Started
-
-### Prerequisites
-
-Make sure you have:
-
-- [Node.js](https://nodejs.org/) installed
-- npm, pnpm or another compatible package manager
-
-### Clone the repository
+Requirements: Node.js 20.19+ (or 22.12+) and npm.
 
 ```bash
 git clone https://github.com/Geetansh-Jangid/Section-V.git
 cd Section-V
-```
-
-### Install dependencies
-
-```bash
 npm install
-```
-
-### Start the development server
-
-```bash
 npm run dev
 ```
 
-The development server runs on:
+Open http://localhost:3000. `npm run dev` generates the JSON data first, then starts Vite. While the dev server is running, changes to `content/**/*.txt` are regenerated and the page reloads automatically.
 
-```text
-http://localhost:3000
-```
+## Environment variables
 
----
-
-## 📜 Available Scripts
-
-| Command | Description |
-|---|---|
-| `npm run dev` | Start the development server |
-| `npm run build` | Generate data and create a production build |
-| `npm run preview` | Preview the production build |
-| `npm run generate` | Generate JSON data from content files |
-| `npm run validate` | Validate generated data against Zod schemas |
-| `npm run lint` | Run TypeScript type checking |
-| `npm run clean` | Remove generated build/server files |
-
-### Build pipeline
-
-The production build automatically runs the data generator before Vite builds the application:
+The app runs without these. They are only needed for the in-app contribution flow to create real GitHub pull requests.
 
 ```bash
-npm run build
+cp .env.example .env
 ```
 
-is effectively:
+```ini
+GITHUB_TOKEN=ghp_...
+GITHUB_REPO=Geetansh-Jangid/Section-V
+GITHUB_BASE_BRANCH=v2
+```
+
+- `GITHUB_TOKEN`: a personal access token with permission to write contents and open pull requests on `GITHUB_REPO`. For a classic token, use the `repo` scope.
+- `GITHUB_REPO`: `owner/repo` that receives the contribution.
+- `GITHUB_BASE_BRANCH`: branch the pull request targets.
+
+If `GITHUB_TOKEN` is missing, the form still validates the entry and returns the formatted text block; it just does not open a PR.
+
+## Commands
+
+| Command | Purpose |
+|---|---|
+| `npm run dev` | Generate data and start Vite on port 3000 |
+| `npm run build` | Generate data and build the production app into `dist/` |
+| `npm run preview` | Serve the built app with Vite (static only; no contribution API) |
+| `npm run generate` | Rebuild `src/data/*.json` from `content/` |
+| `npm run validate` | Validate the generated JSON against the Zod schemas |
+| `npm run lint` | Run TypeScript type checking |
+| `npm run test` | Run the contribution-system and optional-field test scripts |
+| `npm run clean` | Remove `dist/` |
+
+## How content works
 
 ```text
-Content TXT files
-       ↓
-generate-data.ts
-       ↓
-Validated JSON
-       ↓
-Vite build
-       ↓
-Production application
+content/*.txt
+    |
+    v
+src/scripts/generate-data.ts   (parse + Zod validation)
+    |
+    v
+src/data/*.json                (generated; imported by the UI)
+    |
+    v
+React app
 ```
 
----
+`content/` is the source of truth. Do not edit files in `src/data/` by hand; they are overwritten on the next generation.
 
-## ✍️ Updating Content
-
-Most academic information can be changed without touching the React code.
-
-For example, subject information lives inside:
-
-```text
-content/notes/
-```
-
-Faculty information:
-
-```text
-content/faculty/faculty.txt
-```
-
-Announcements:
-
-```text
-content/announcements/announcements.txt
-```
-
-Timetable:
-
-```text
-content/timetable/timetable.txt
-```
-
-After modifying content, regenerate the structured data:
+After changing content:
 
 ```bash
 npm run generate
-```
-
-Then validate it:
-
-```bash
 npm run validate
 ```
 
-If everything is valid, build the project:
+Commit both the `content/` change and the regenerated files in `src/data/`, because validation and CI read the generated JSON.
+
+## Content file reference
+
+All files use `Key: Value` lines. Lines starting with `#` are comments. Each record starts with the block marker shown below.
+
+| File | Block marker | Required fields |
+|---|---|---|
+| `content/notes/*.txt` | none for subject; `[UNIT]`, `[PYQ]` | `Subject Code`, `Subject Name` |
+| `content/timetable/timetable.txt` | `[Monday]` ... `[Saturday]` | `Slot` and `Code` on each `Slot:` line |
+| `content/faculty/faculty.txt` | `[FACULTY]` | `ID`, `Name`, `Designation`, `Subjects`, `Avatar` |
+| `content/cr/cr.txt` | `[CR]` | `ID`, `Name`, `Section`, `Avatar` |
+| `content/announcements/announcements.txt` | `[ANNOUNCEMENT]` | `ID`, `Title`, `Priority`, `Category` |
+| `content/tasks/tasks.txt` | `[TASK]` | `ID`, `Title`, `Subject` |
+| `content/links/links.txt` | `[PORTAL]` | `ID`, `Title`, `Description`, `URL`, `Icon` |
+| `content/calendar/calendar.txt` | `[EVENT]` | `Title`, `Date`, `Type` |
+
+### Notes example
+
+```text
+Subject Code: M
+Subject Name: Mathematics
+Faculty: Prof. G.C. Sharma (GC)
+Credits: 4
+Semester: 1
+Drive Folder URL: https://drive.google.com/drive/folders/...
+Tags: Calculus, Matrices
+Last Updated: 2026-11-02
+
+[UNIT]
+Unit Number: 1
+Title: Matrix Algebra
+Topics: Rank, Eigenvalues, Cayley-Hamilton theorem, Diagonalization
+Drive Link: https://drive.google.com/file/d/...
+
+[PYQ]
+Year: 2025 Mid-Sem
+Exam Type: Mid-Sem
+Drive Link: https://drive.google.com/file/d/...
+```
+
+`Topics` is comma-separated. `Drive Folder URL` and unit `Drive Link` may be left blank; a `[PYQ]` without a link is still listed. Each `[UNIT]` needs a `Title`, and each `[PYQ]` needs a `Year`.
+
+Subject-level optional fields: `Drive Folder URL`, `PYQ Drive URL`, `Notes URL`. A `[UNIT]` also accepts `Notes`, `Slides`, and `NotebookLM` keys.
+
+Other field formats:
+
+- Faculty `Subjects`: `CODE: Name; CODE2: Name2`
+- Announcement `Priority`: `normal`, `high`, or `urgent`
+- Task `Priority`: `urgent`, `medium`, or `low`; `Section`: `All`, `V1`, or `V2`
+- Link `Icon`: a [Lucide](https://lucide.dev/icons/) icon name such as `GraduationCap` or `BookOpen`
+
+### Timetable example
+
+```text
+[Monday]
+Slot: 1 | Code: M | Name: Mathematics | Faculty: GC | Room: CT-12 | Type: Theory | Batch: Both | Color: #84cc16
+Slot: 6 | Code: CSK LAB | Name: Communication Skills Lab | Faculty: RR | Room: CS-22 | Type: Lab | Batch: V1
+```
+
+`Batch` is `Both`, `V1`, or `V2`. `Type` is normally `Theory`, `Lab`, or `Tutorial`. If `Room`, `Faculty`, `Type`, or `Batch` is omitted, the generator applies defaults.
+
+Note: `[SECTION_META]` and `[TIME_SLOTS]` in the timetable file are currently ignored. The semester metadata and the seven time slots are defined in `src/scripts/generate-data.ts`; change them there if the schedule format changes.
+
+### Calendar example
+
+```text
+[EVENT]
+ID: cal-2026-11-06
+Title: Diwali Break
+Date: 2026-11-06
+End Date: 2026-11-12
+Type: college_holiday
+Description: Regular classes suspended
+Batch: All
+Classes Suspended: true
+```
+
+Valid `Type` values: `public_holiday`, `college_holiday`, `exam`, `special_working_day`, `timetable_exception`, `event`. Valid `Batch` values: `All`, `V1`, `V2`. To run a Monday timetable on another day, set `Type: special_working_day`, `Classes Suspended: false`, and `Replacement Day: Monday`.
+
+Starter files for each content type are in `content/templates/`.
+
+## Contribution flow
+
+The "Contribute" form in the app accepts notes, timetable changes, faculty entries, announcements, and links. On submit:
+
+1. The payload is validated with Zod and rate-limited (10 requests per minute per IP).
+2. The server formats the entry as a content block.
+3. If a GitHub token is configured, it creates a branch, commits the updated file, and opens a pull request against `GITHUB_BASE_BRANCH`.
+
+The endpoint is `/api/contribute` (POST). It is available through the Vite dev server, the Vercel function in `api/contribute.ts`, and `server.js` when self-hosting. `npm run preview` does not serve this endpoint.
+
+## Deployment
+
+### Vercel
+
+Import the repository, set the environment variables above, and use the default settings:
+
+- Build command: `npm run build`
+- Output directory: `dist`
+
+`vercel.json` rewrites `/api/*` to the serverless function and all other routes to `index.html`.
+
+### Self-hosted
 
 ```bash
+npm ci
 npm run build
+npx tsx server.js
 ```
 
----
+`server.js` serves `dist/` and the contribution endpoint. The port defaults to `3000` and can be changed with `PORT`.
 
-## 🧩 Why This Exists
+## Local-only data
 
-College information tends to end up scattered across:
+Attendance, personal tasks, theme, selected batch, and timetable overrides are stored in the browser's `localStorage`. There is no account system or server sync, so this data does not follow the user across devices and clearing site data resets it.
 
-- WhatsApp groups
-- Google Drive
-- PDFs
-- Random links
-- Messages from faculty
-- Personal notes
-- Different student groups
+- App state key: `section-v-portal-storage-v2`
+- Official task checkmarks: `section-v-completed-official-tasks`
 
-Section V is an attempt to put that information behind **one organized interface**.
+## Project structure
 
-Instead of asking:
-
-> *"Bhai timetable kaha hai?"*
-
-you should just open Section V.
-
----
-
-## 🤝 Contributing
-
-Contributions, improvements and bug reports are welcome.
-
-1. Fork the repository
-2. Create a branch
-
-```bash
-git checkout -b feature/your-feature
+```text
+content/                 Plain-text academic data and templates
+src/app/                 Dashboard, timetable, tasks, attendance, notes, faculty pages
+src/components/          UI components for those pages
+src/data/                Generated JSON consumed by the app
+src/lib/                 Zod schemas, Zustand store, timetable/attendance/calendar helpers
+src/scripts/             Data generation, validation, and tests
+src/api/                 Contribution formatting and GitHub PR logic
+api/contribute.ts        Vercel serverless entry point
+server.js                Optional Express server for self-hosting
 ```
 
-3. Make your changes
-4. Validate the project
+## CI and validation
 
-```bash
-npm run validate
-npm run lint
-```
+`npm run validate` checks every generated JSON file against its Zod schema. The GitHub Actions workflow `.github/workflows/validate-data.yml` runs the same validation on pushes and pull requests to `main` that touch `content/` or `src/data/`.
 
-5. Commit your changes
+Validation reads `src/data/`, not `content/` directly. Run `npm run generate` before `npm run validate` after editing content.
 
-```bash
-git commit -m "feat: add your feature"
-```
+## License
 
-6. Push your branch
-
-```bash
-git push origin feature/your-feature
-```
-
-7. Open a pull request
-
----
-
-## 📌 Project Status
-
-Section V is actively being developed and refined.
-
-The project is publicly available on GitHub.
-
----
-
-## 👨‍💻 Author
-
-**Geetansh Jangid**
-
-Built for **Section V — AI & DS**.
-
-[GitHub](https://github.com/Geetansh-Jangid)
-
----
-
-## 📄 License
-
-This project is licensed under the **MIT License**.
-
-See the [LICENSE](LICENSE) file for details.
+MIT. See [LICENSE](LICENSE).
