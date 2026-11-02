@@ -16,14 +16,14 @@ Unit Number: 1
 Title: Introduction to Cyber Security
 Topics: Defining Cyberspace and Overview of Computer and Web-technology, Architecture of cyberspace, Regulation of cyberspace, Concept of cybersecurity, Issues and challenges of cyber security
 Drive Link: 
-NotebookLM Link: https://notebooklm.link.google/gkh3np9JL4Li
+NotebookLM Link: 
 
 [UNIT]
 Unit Number: 2
 Title: Cyber Crime and Cyber Law
 Topics: malware and ransomware attacks, virus, trojans, data breach, zero day and zero click attacks, Cybercriminals, Reporting of cyber crimes, Legal perspective of cyber crime, IT Act 2000 and its amendments, Cyber crime and offences, Organizations dealing with Cyber crime and Cyber security in India.
 Drive Link: 
-NotebookLM Link: https://notebooklm.link.google/gkh3np9JL4Li
+NotebookLM Link: 
 
 #[PYQ]
 #Year: 2025 Mid-Sem
