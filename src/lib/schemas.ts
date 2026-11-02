@@ -1,5 +1,21 @@
 import { z } from 'zod';
 
+// Preprocessing helper: treats null, undefined, empty strings and whitespace-only strings as undefined
+export const emptyStringToUndefined = (val: unknown): unknown => {
+  if (val === null || val === undefined) return undefined;
+  if (typeof val === 'string') {
+    const trimmed = val.trim();
+    return trimmed === '' ? undefined : trimmed;
+  }
+  return val;
+};
+
+// Reusable schema for optional URL fields that gracefully handles blank/whitespace strings
+export const optionalUrl = z.preprocess(
+  emptyStringToUndefined,
+  z.string().url().optional()
+);
+
 // Time format regex (HH:MM in 24-hour format)
 const timeRegex = /^([01]\d|2[0-3]):([0-5]\d)$/;
 
@@ -49,12 +65,12 @@ export const FacultySchema = z.object({
   id: z.string(),
   name: z.string().min(2),
   designation: z.string(),
-  department: z.string(),
-  cabin: z.string(),
-  email: z.string().email().or(z.literal('')),
-  phone: z.string(),
+  department: z.string().optional().default(''),
+  cabin: z.string().optional().default(''),
+  email: z.preprocess(emptyStringToUndefined, z.string().email().optional()),
+  phone: z.string().optional().default(''),
   subjects: z.array(FacultySubjectSchema),
-  officeHours: z.string(),
+  officeHours: z.string().optional().default(''),
   researchInterests: z.array(z.string()),
   avatar: z.string()
 });
@@ -65,15 +81,15 @@ export const CRSchema = z.object({
   name: z.string(),
   role: z.string().optional(),
   section: z.string(),
-  rollNo: z.string().or(z.literal('')),
-  email: z.string().email().or(z.literal('')),
-  phone: z.string().or(z.literal('')),
+  rollNo: z.preprocess(emptyStringToUndefined, z.string().optional()),
+  email: z.preprocess(emptyStringToUndefined, z.string().email().optional()),
+  phone: z.preprocess(emptyStringToUndefined, z.string().optional()),
   officeHours: z.string().optional(),
   primaryResponsibilities: z.array(z.string()).optional(),
   social: z.object({
-    github: z.string().url().optional(),
-    linkedin: z.string().url().optional(),
-    whatsapp: z.string().url().optional()
+    github: optionalUrl,
+    linkedin: optionalUrl,
+    whatsapp: optionalUrl
   }).optional(),
   avatar: z.string()
 });
@@ -108,14 +124,15 @@ export const UnitTopicSchema = z.object({
   unitNumber: z.number().int().positive(),
   title: z.string(),
   topics: z.array(z.string()),
-  slidesUrl: z.string().url().optional(),
-  notebookLmUrl: z.string().url().optional()
+  slidesUrl: optionalUrl,
+  notesUrl: optionalUrl,
+  notebookLmUrl: optionalUrl
 });
 
 export const PyqSchema = z.object({
   year: z.string(),
   examType: z.string(),
-  url: z.string().url()
+  url: optionalUrl
 });
 
 export const NoteSchema = z.object({
@@ -126,8 +143,9 @@ export const NoteSchema = z.object({
   faculty: z.string(),
   credits: z.number(),
   semester: z.number(),
-  driveUrl: z.string().url(),
-  pyqDriveUrl: z.string().url().optional(),
+  driveUrl: optionalUrl,
+  pyqDriveUrl: optionalUrl,
+  notesUrl: optionalUrl,
   lastUpdated: z.string(),
   tags: z.array(z.string()),
   units: z.array(UnitTopicSchema),
@@ -145,8 +163,8 @@ export const CampusPortalSchema = z.object({
 export const LinksSchema = z.object({
   contentFile: z.string().optional(),
   githubRepoUrl: z.string().url(),
-  whatsappCommunityUrl: z.string().url().optional(),
-  generalDriveUrl: z.string().url().optional(),
+  whatsappCommunityUrl: optionalUrl,
+  generalDriveUrl: optionalUrl,
   campusPortals: z.array(CampusPortalSchema)
 });
 

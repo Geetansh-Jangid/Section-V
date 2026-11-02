@@ -6,7 +6,6 @@
     "designation": "Mathematics teacher",
     "department": "",
     "cabin": "CG-19",
-    "email": "",
     "phone": "",
     "subjects": [
       {
@@ -25,7 +24,6 @@
     "designation": "Digital Electronics Teacher",
     "department": "",
     "cabin": "",
-    "email": "",
     "phone": "",
     "subjects": [
       {
@@ -44,7 +42,6 @@
     "designation": "PPS teacher and PPS Lab teacher",
     "department": "",
     "cabin": "CS-14",
-    "email": "",
     "phone": "",
     "subjects": [
       {
@@ -67,7 +64,6 @@
     "designation": "Fundamental of Cyber Security & Ethical Hacking teacher",
     "department": "",
     "cabin": "CS-14",
-    "email": "",
     "phone": "",
     "subjects": [
       {
@@ -86,7 +82,6 @@
     "designation": "Chemistry teacher and Chemistry Lab teacher (Batch V2)",
     "department": "",
     "cabin": "CG-20",
-    "email": "",
     "phone": "",
     "subjects": [
       {
@@ -109,7 +104,6 @@
     "designation": "Communication Skills teacher",
     "department": "",
     "cabin": "",
-    "email": "",
     "phone": "",
     "subjects": [
       {
@@ -128,7 +122,6 @@
     "designation": "Communication Skills Lab teacher (batch V1)",
     "department": "",
     "cabin": "",
-    "email": "",
     "phone": "",
     "subjects": [
       {
@@ -147,7 +140,6 @@
     "designation": "Induction Program Lab teacher (Batch V2)",
     "department": "",
     "cabin": "",
-    "email": "",
     "phone": "",
     "subjects": [
       {
@@ -166,7 +158,6 @@
     "designation": "PPS Lab teacher (Batch V1)",
     "department": "Computer Science",
     "cabin": "",
-    "email": "",
     "phone": "",
     "subjects": [
       {
@@ -185,7 +176,6 @@
     "designation": "Induction Program Lab teacher (Batch V1)",
     "department": "",
     "cabin": "",
-    "email": "",
     "phone": "",
     "subjects": [
       {
@@ -204,7 +194,6 @@
     "designation": "Chemistry Lab teacher (Batch V1)",
     "department": "",
     "cabin": "",
-    "email": "",
     "phone": "",
     "subjects": [
       {

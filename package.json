@@ -11,7 +11,7 @@
     "generate": "tsx src/scripts/generate-data.ts",
     "validate": "tsx src/scripts/validate.ts",
     "lint": "tsc --noEmit",
-    "test": "tsx src/scripts/test-contribution-system.ts"
+    "test": "tsx src/scripts/test-contribution-system.ts && tsx src/scripts/test-optional-fields.ts"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.3.3",

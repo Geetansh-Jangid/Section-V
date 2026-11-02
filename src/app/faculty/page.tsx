@@ -68,26 +68,28 @@ export const FacultyPage: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="mt-3.5 flex flex-wrap gap-3 text-[13px] text-secondary">
-                  {cr.email && (
-                    <a
-                      href={`mailto:${cr.email}`}
-                      className="flex items-center gap-1.5 hover:text-foreground transition-colors"
-                    >
-                      <Mail className="w-3.5 h-3.5 text-muted" />
-                      <span>{cr.email}</span>
-                    </a>
-                  )}
-                  {cr.phone && (
-                    <a
-                      href={`tel:${cr.phone}`}
-                      className="flex items-center gap-1.5 hover:text-foreground transition-colors"
-                    >
-                      <Phone className="w-3.5 h-3.5 text-muted" />
-                      <span>{cr.phone}</span>
-                    </a>
-                  )}
-                </div>
+                {(cr.email || cr.phone) && (
+                  <div className="mt-3.5 flex flex-wrap gap-3 text-[13px] text-secondary">
+                    {cr.email && (
+                      <a
+                        href={`mailto:${cr.email}`}
+                        className="flex items-center gap-1.5 hover:text-foreground transition-colors"
+                      >
+                        <Mail className="w-3.5 h-3.5 text-muted" />
+                        <span>{cr.email}</span>
+                      </a>
+                    )}
+                    {cr.phone && (
+                      <a
+                        href={`tel:${cr.phone}`}
+                        className="flex items-center gap-1.5 hover:text-foreground transition-colors"
+                      >
+                        <Phone className="w-3.5 h-3.5 text-muted" />
+                        <span>{cr.phone}</span>
+                      </a>
+                    )}
+                  </div>
+                )}
               </div>
 
               <div className="mt-4 pt-3 border-t border-divider-subtle flex items-center justify-between text-[12px]">
@@ -155,19 +157,21 @@ export const FacultyPage: React.FC = () => {
                 </div>
               </div>
 
-              <div className="mt-4 pt-3 border-t border-divider-subtle flex items-center justify-between text-[12px] text-muted">
-                {fac.email ? (
-                  <a
-                    href={`mailto:${fac.email}`}
-                    className="hover:text-foreground transition-colors truncate max-w-[180px]"
-                  >
-                    {fac.email}
-                  </a>
-                ) : (
-                  <span className="truncate max-w-[180px]"></span>
-                )}
-                <span className="text-right font-mono text-[11.5px]">{fac.officeHours}</span>
-              </div>
+              {(fac.email || fac.officeHours) && (
+                <div className="mt-4 pt-3 border-t border-divider-subtle flex items-center justify-between text-[12px] text-muted">
+                  {fac.email ? (
+                    <a
+                      href={`mailto:${fac.email}`}
+                      className="hover:text-foreground transition-colors truncate max-w-[180px]"
+                    >
+                      {fac.email}
+                    </a>
+                  ) : <span />}
+                  {fac.officeHours && (
+                    <span className="text-right font-mono text-[11.5px]">{fac.officeHours}</span>
+                  )}
+                </div>
+              )}
             </div>
           ))}
         </div>

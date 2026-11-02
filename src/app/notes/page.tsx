@@ -121,36 +121,42 @@ export const NotesPage: React.FC<NotesPageProps> = ({ onOpenContributeModal }) =
                   <p className="text-[14px] text-secondary mt-0.5">Faculty: {activeSubject.faculty}</p>
                 </div>
 
-                <div className="flex flex-wrap items-center gap-2">
-                  <a
-                    href={activeSubject.driveUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="flex items-center gap-2 px-3.5 py-2 rounded-lg bg-surface-elevated hover:bg-surface-hover border border-border-subtle text-[13.5px] font-medium text-foreground transition-colors group"
-                    title="Open Google Drive folder for this subject"
-                  >
-                    <FolderArchive className="w-4 h-4 text-blue-500 dark:text-blue-400" />
-                    <span>Drive Folder</span>
-                    <ExternalLink className="w-3.5 h-3.5 text-muted group-hover:text-foreground transition-colors" />
-                  </a>
-                </div>
+                {activeSubject.driveUrl && (
+                  <div className="flex flex-wrap items-center gap-2">
+                    <a
+                      href={activeSubject.driveUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="flex items-center gap-2 px-3.5 py-2 rounded-lg bg-surface-elevated hover:bg-surface-hover border border-border-subtle text-[13.5px] font-medium text-foreground transition-colors group"
+                      title="Open Google Drive folder for this subject"
+                    >
+                      <FolderArchive className="w-4 h-4 text-blue-500 dark:text-blue-400" />
+                      <span>Drive Folder</span>
+                      <ExternalLink className="w-3.5 h-3.5 text-muted group-hover:text-foreground transition-colors" />
+                    </a>
+                  </div>
+                )}
               </div>
 
-              <div className="flex flex-wrap gap-2 items-center justify-between pt-3 border-t border-divider-subtle">
-                <div className="flex flex-wrap gap-1.5">
-                  {activeSubject.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="text-[12px] font-mono text-muted"
-                    >
-                      #{tag}
+              {((activeSubject.tags && activeSubject.tags.length > 0) || activeSubject.lastUpdated) && (
+                <div className="flex flex-wrap gap-2 items-center justify-between pt-3 border-t border-divider-subtle">
+                  <div className="flex flex-wrap gap-1.5">
+                    {activeSubject.tags?.map((tag) => (
+                      <span
+                        key={tag}
+                        className="text-[12px] font-mono text-muted"
+                      >
+                        #{tag}
+                      </span>
+                    ))}
+                  </div>
+                  {activeSubject.lastUpdated && (
+                    <span className="text-[12px] font-mono text-muted">
+                      Updated: {activeSubject.lastUpdated}
                     </span>
-                  ))}
+                  )}
                 </div>
-                <span className="text-[12px] font-mono text-muted">
-                  Updated: {activeSubject.lastUpdated}
-                </span>
-              </div>
+              )}
             </div>
 
             {/* Units Accordion */}
@@ -166,6 +172,9 @@ export const NotesPage: React.FC<NotesPageProps> = ({ onOpenContributeModal }) =
 
               {activeSubject.units.map((unit) => {
                 const isExpanded = expandedUnit === unit.unitNumber;
+                const hasTopics = Boolean(unit.topics && unit.topics.length > 0);
+                const hasUnitResources = Boolean(unit.slidesUrl || unit.notesUrl || unit.notebookLmUrl);
+
                 return (
                   <div
                     key={unit.unitNumber}
@@ -193,54 +202,74 @@ export const NotesPage: React.FC<NotesPageProps> = ({ onOpenContributeModal }) =
 
                     {isExpanded && (
                       <div className="p-4 sm:p-5 bg-surface border-t border-divider-subtle space-y-4">
-                        <div>
-                          <span className="text-[12px] font-medium text-muted uppercase tracking-wider block mb-2.5">
-                            Core Topics Covered
-                          </span>
-                          <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2.5">
-                            {unit.topics.map((t, idx) => (
-                              <li
-                                key={idx}
-                                className="flex items-start gap-2.5 text-[13.5px] text-secondary leading-relaxed"
-                              >
-                                <span className="w-1.5 h-1.5 rounded-full bg-muted/60 shrink-0 mt-2" />
-                                <span>{t}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-
-                        <div className="pt-3 flex flex-wrap items-center justify-between gap-2.5">
-                          <span className="text-[12px] text-muted font-mono">
-                            Unit Resources
-                          </span>
-                          <div className="flex items-center gap-2">
-                            {(unit.slidesUrl || activeSubject.driveUrl) && (
-                              <a
-                                href={unit.slidesUrl || activeSubject.driveUrl}
-                                target="_blank"
-                                rel="noreferrer"
-                                className="flex items-center gap-1.5 text-[13px] text-secondary hover:text-foreground font-medium px-3 py-1.5 rounded-md bg-surface-elevated hover:bg-surface-hover border border-border-subtle transition-colors"
-                              >
-                                <FolderArchive className="w-3.5 h-3.5 text-muted" />
-                                <span>Drive Link</span>
-                                <ExternalLink className="w-3 h-3 text-muted" />
-                              </a>
-                            )}
-                            {unit.notebookLmUrl && (
-                              <a
-                                href={unit.notebookLmUrl}
-                                target="_blank"
-                                rel="noreferrer"
-                                className="flex items-center gap-1.5 text-[13px] text-secondary hover:text-foreground font-medium px-3 py-1.5 rounded-md bg-surface-elevated hover:bg-surface-hover border border-border-subtle transition-colors"
-                              >
-                                <Sparkles className="w-3.5 h-3.5 text-blue-500 dark:text-blue-400" />
-                                <span>NotebookLM</span>
-                                <ExternalLink className="w-3 h-3 text-muted" />
-                              </a>
-                            )}
+                        {hasTopics && (
+                          <div>
+                            <span className="text-[12px] font-medium text-muted uppercase tracking-wider block mb-2.5">
+                              Core Topics Covered
+                            </span>
+                            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2.5">
+                              {unit.topics.map((t, idx) => (
+                                <li
+                                  key={idx}
+                                  className="flex items-start gap-2.5 text-[13.5px] text-secondary leading-relaxed"
+                                >
+                                  <span className="w-1.5 h-1.5 rounded-full bg-muted/60 shrink-0 mt-2" />
+                                  <span>{t}</span>
+                                </li>
+                              ))}
+                            </ul>
                           </div>
-                        </div>
+                        )}
+
+                        {hasUnitResources && (
+                          <div className={`flex flex-wrap items-center justify-between gap-2.5 ${hasTopics ? 'pt-3' : ''}`}>
+                            <span className="text-[12px] text-muted font-mono">
+                              Unit Resources
+                            </span>
+                            <div className="flex items-center gap-2">
+                              {unit.slidesUrl && (
+                                <a
+                                  href={unit.slidesUrl}
+                                  target="_blank"
+                                  rel="noreferrer"
+                                  className="flex items-center gap-1.5 text-[13px] text-secondary hover:text-foreground font-medium px-3 py-1.5 rounded-md bg-surface-elevated hover:bg-surface-hover border border-border-subtle transition-colors"
+                                >
+                                  <FolderArchive className="w-3.5 h-3.5 text-muted" />
+                                  <span>Drive Link</span>
+                                  <ExternalLink className="w-3 h-3 text-muted" />
+                                </a>
+                              )}
+                              {unit.notesUrl && (
+                                <a
+                                  href={unit.notesUrl}
+                                  target="_blank"
+                                  rel="noreferrer"
+                                  className="flex items-center gap-1.5 text-[13px] text-secondary hover:text-foreground font-medium px-3 py-1.5 rounded-md bg-surface-elevated hover:bg-surface-hover border border-border-subtle transition-colors"
+                                >
+                                  <BookOpen className="w-3.5 h-3.5 text-emerald-500 dark:text-emerald-400" />
+                                  <span>Notes</span>
+                                  <ExternalLink className="w-3 h-3 text-muted" />
+                                </a>
+                              )}
+                              {unit.notebookLmUrl && (
+                                <a
+                                  href={unit.notebookLmUrl}
+                                  target="_blank"
+                                  rel="noreferrer"
+                                  className="flex items-center gap-1.5 text-[13px] text-secondary hover:text-foreground font-medium px-3 py-1.5 rounded-md bg-surface-elevated hover:bg-surface-hover border border-border-subtle transition-colors"
+                                >
+                                  <Sparkles className="w-3.5 h-3.5 text-blue-500 dark:text-blue-400" />
+                                  <span>NotebookLM</span>
+                                  <ExternalLink className="w-3 h-3 text-muted" />
+                                </a>
+                              )}
+                            </div>
+                          </div>
+                        )}
+
+                        {!hasTopics && !hasUnitResources && (
+                          <p className="text-[13px] text-muted">No syllabus topics or resources uploaded yet for this unit.</p>
+                        )}
                       </div>
                     )}
                   </div>
@@ -262,24 +291,40 @@ export const NotesPage: React.FC<NotesPageProps> = ({ onOpenContributeModal }) =
               <div className="space-y-1">
                 {activeSubject.pyqs && activeSubject.pyqs.length > 0 ? (
                   activeSubject.pyqs.map((pyq, idx) => (
-                    <a
-                      key={idx}
-                      href={pyq.url}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="py-2.5 px-2 flex items-center justify-between hover:bg-surface-elevated/40 rounded-lg transition-colors group"
-                      title="Open paper on Google Drive"
-                    >
-                      <div>
-                        <div className="text-[14px] font-medium text-foreground transition-colors group-hover:text-foreground">
-                          {pyq.year}
+                    pyq.url ? (
+                      <a
+                        key={idx}
+                        href={pyq.url}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="py-2.5 px-2 flex items-center justify-between hover:bg-surface-elevated/40 rounded-lg transition-colors group"
+                        title="Open paper on Google Drive"
+                      >
+                        <div>
+                          <div className="text-[14px] font-medium text-foreground transition-colors group-hover:text-foreground">
+                            {pyq.year}
+                          </div>
+                          <div className="text-[12px] text-muted font-mono mt-0.5">
+                            {pyq.examType}
+                          </div>
                         </div>
-                        <div className="text-[12px] text-muted font-mono mt-0.5">
-                          {pyq.examType}
+                        <ExternalLink className="w-4 h-4 text-muted group-hover:text-foreground transition-colors" />
+                      </a>
+                    ) : (
+                      <div
+                        key={idx}
+                        className="py-2.5 px-2 flex items-center justify-between rounded-lg"
+                      >
+                        <div>
+                          <div className="text-[14px] font-medium text-foreground">
+                            {pyq.year}
+                          </div>
+                          <div className="text-[12px] text-muted font-mono mt-0.5">
+                            {pyq.examType}
+                          </div>
                         </div>
                       </div>
-                      <ExternalLink className="w-4 h-4 text-muted group-hover:text-foreground transition-colors" />
-                    </a>
+                    )
                   ))
                 ) : (
                   <p className="text-[13px] text-muted py-3">No PYQs uploaded yet for this subject.</p>

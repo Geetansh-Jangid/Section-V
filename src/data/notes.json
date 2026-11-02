@@ -109,75 +109,49 @@
     "id": "sub-de",
     "subjectCode": "DE",
     "subjectName": "Digital Electronics",
-    "faculty": "Prof. R.S. Evans (RSE)",
-    "credits": 4,
+    "faculty": "Ram Singh Sir",
+    "credits": 2,
     "semester": 1,
-    "driveUrl": "https://drive.google.com/drive/folders/section-v-de",
-    "pyqDriveUrl": "https://drive.google.com/drive/folders/section-v-de-pyqs",
-    "lastUpdated": "2026-09-17",
-    "tags": [
-      "Logic Gates",
-      "K-Maps",
-      "Flip-Flops",
-      "Combinational Circuits"
-    ],
+    "lastUpdated": "2026-11-02",
+    "tags": [],
     "units": [
       {
         "unitNumber": 1,
-        "title": "Boolean Algebra & Logic Simplification",
+        "title": "Fundamental concepts",
         "topics": [
-          "Number Systems & Codes",
-          "Logic Gates (AND",
-          "OR",
-          "NOT",
-          "NAND",
-          "NOR",
-          "XOR)",
-          "De Morgan's Laws",
-          "Karnaugh Maps (2",
-          "3",
-          "4 variables)"
-        ],
-        "slidesUrl": "https://drive.google.com/file/d/de-unit1.pdf"
+          "Fundamental concepts: Number systems and codes",
+          "Basic logic Gates and Boolean algebra: Sign & magnitude representation",
+          "Fixed point representation",
+          "complement notation",
+          "various codes & arithmetic in different codes & their inter conversion",
+          "Features of logic algebra",
+          "postulates of Boolean algebra",
+          "Theorems of Boolean algebra"
+        ]
       },
       {
         "unitNumber": 2,
-        "title": "Combinational Logic Design",
+        "title": "Minimization Techniques and Logic Gates",
         "topics": [
-          "Adders & Subtractors (Half/Full)",
-          "Multiplexers & Demultiplexers",
-          "Encoders & Decoders",
-          "Code Converters"
-        ],
-        "slidesUrl": "https://drive.google.com/file/d/de-unit2.pdf"
-      },
-      {
-        "unitNumber": 3,
-        "title": "Sequential Logic Circuits",
-        "topics": [
-          "Latches vs Flip-Flops (SR",
-          "JK",
-          "D",
-          "T)",
-          "Master-Slave Flip Flops",
-          "Synchronous & Asynchronous Counters",
-          "Shift Registers"
-        ],
-        "slidesUrl": "https://drive.google.com/file/d/de-unit3.pdf"
+          "Minimization Techniques and Logic Gates: AND",
+          "OR",
+          "NOT",
+          "NOR",
+          "NAND",
+          "XOR",
+          "XNOR and their properties",
+          "Principle of Duality",
+          "Boolean expression ; Minimization of Boolean expressions",
+          "Minterm",
+          "Maxterm",
+          "Sum of Products (SOP)",
+          "Product of Sums (POS)",
+          "Karnaugh map Minimization",
+          "Don’t care conditions."
+        ]
       }
     ],
-    "pyqs": [
-      {
-        "year": "2025 Mid-Sem",
-        "examType": "Mid-Sem",
-        "url": "https://drive.google.com/file/d/de-2025-mid.pdf"
-      },
-      {
-        "year": "2024 End-Sem",
-        "examType": "End-Sem",
-        "url": "https://drive.google.com/file/d/de-2024-end.pdf"
-      }
-    ]
+    "pyqs": []
   },
   {
     "contentFile": "content/notes/fcseh_ethics.txt",

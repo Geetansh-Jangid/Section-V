@@ -109,10 +109,16 @@ function parseNotesDirectory(): SubjectNote[] {
             currentSubject.semester = Number(val) || 1;
             break;
           case 'drive folder url':
+          case 'drive url':
             currentSubject.driveUrl = val;
             break;
           case 'pyq drive url':
+          case 'pyq url':
             currentSubject.pyqDriveUrl = val;
+            break;
+          case 'notes url':
+          case 'notes link':
+            currentSubject.notesUrl = val;
             break;
           case 'tags':
             currentSubject.tags = val.split(',').map(t => t.trim()).filter(Boolean);
@@ -134,7 +140,14 @@ function parseNotesDirectory(): SubjectNote[] {
             break;
           case 'drive link':
           case 'slides url':
+          case 'slides link':
+          case 'slides':
             currentUnit.slidesUrl = val;
+            break;
+          case 'notes url':
+          case 'notes link':
+          case 'notes':
+            currentUnit.notesUrl = val;
             break;
           case 'notebooklm url':
           case 'notebooklm link':
@@ -167,7 +180,6 @@ function parseNotesDirectory(): SubjectNote[] {
 
     if (currentSubject.subjectCode && currentSubject.subjectName) {
       if (!currentSubject.lastUpdated) currentSubject.lastUpdated = new Date().toISOString().split('T')[0];
-      if (!currentSubject.driveUrl) currentSubject.driveUrl = 'https://drive.google.com';
       subjects.push(NoteSchema.parse(currentSubject));
     }
   }
@@ -374,6 +386,9 @@ function parseCrFile(): ClassRepresentative[] {
     }
 
     if (item.name) {
+      if (item.social && !item.social.github && !item.social.linkedin && !item.social.whatsapp) {
+        delete item.social;
+      }
       crs.push(CRSchema.parse(item));
     }
   }
