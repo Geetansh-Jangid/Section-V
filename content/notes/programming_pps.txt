@@ -3,38 +3,33 @@
 
 Subject Code: PPS
 Subject Name: Programming for Problem Solving
-Faculty: Prof. G.S. Rathore (GS)
-Credits: 4
+Faculty: Gajendra Sharma Sir
+Credits: 2
 Semester: 1
-Drive Folder URL: https://drive.google.com/drive/folders/section-v-pps
-PYQ Drive URL: https://drive.google.com/drive/folders/section-v-pps-pyqs
+Drive Folder URL: 
+PYQ Drive URL: 
 Tags: C Programming, Algorithms, Pointers, Data Structures
-Last Updated: 2026-09-19
+Last Updated: 2026-11-02
 
 [UNIT]
 Unit Number: 1
-Title: Introduction to Programming & Algorithms
-Topics: Flowcharts & Pseudocode, Variables, Data Types & Operators, Conditional Branches (if-else, switch), Loops (while, for, do-while)
-Drive Link: https://drive.google.com/file/d/pps-unit1.pdf
+Title: Fundamentals of Computer
+Topics: Stored program architecture of computers, Storage devices, Primary memory and Secondary storage, Random, Direct, Sequential access methods, Concepts of High-level, Assembly and Low-level languages, Representing algorithms through flowchart and pseudo code
+Drive Link: 
 
 [UNIT]
 Unit Number: 2
-Title: Arrays, Strings & Functions
-Topics: 1D and 2D Arrays, String Manipulation & Library Functions, Function Prototypes & Scope, Recursion Principles
-Drive Link: https://drive.google.com/file/d/pps-unit2.pdf
+Title: Number System
+Topics: Data representations, Concepts of radix and representation of numbers in radix r with special cases of r=2, 8, 10 and 16 with conversion from radix r1 to r2, r's and (r-1)'s complement, Binary addition, Binary subtraction, Representation of alphabets
+Drive Link: 
 
 [UNIT]
 Unit Number: 3
-Title: Pointers & Dynamic Memory
-Topics: Pointer Basics & Address Arithmetic, Passing Pointers to Functions, Dynamic Memory Allocation (malloc, calloc, free), Structures & Unions
-Drive Link: https://drive.google.com/file/d/pps-unit3.pdf
+Title: C Programming
+Topics: Problem specification, flow chart, data types, assignment statements, input output statements, developing simple C programs
+Drive Link: 
 
-[PYQ]
-Year: 2025 Mid-Sem
-Exam Type: Mid-Sem
-Drive Link: https://drive.google.com/file/d/pps-2025-mid.pdf
-
-[PYQ]
-Year: 2024 End-Sem
-Exam Type: End-Sem
-Drive Link: https://drive.google.com/file/d/pps-2024-end.pdf
+#[PYQ]
+#Year: 2025 Mid-Sem
+#Exam Type: Mid-Sem
+#Drive Link: https://drive.google.com/file/d/pps-2025-mid.pdf
