@@ -8,21 +8,21 @@
 # ==============================================================================
 
 [TASK]
-ID: task-001
-Title: Matrix & Fourier Series Assignment
-Subject: M
+ID: task-92108
+Title: CSK Assignment 4
+Subject: CSK
 Section: All
-Due Date: 2026-10-05
+Due Date: 2026-11-18
 Priority: urgent
-Assigned By: Geeta Ma'am
-Description: Complete the given 10 questions per assignment.
+Assigned By: Shivani Ma'am
+Description: Write the solutions of csk mtt-1 paper in assignment copy.
 
 [TASK]
 ID: task-319710
-Title: CSK Lab manual experiment 1 and 2
-Subject: CSK
+Title: IP Lab PPT - Experiment No 5
+Subject: IP Lab
 Section: V1
-Due Date: 2026-10-05
+Due Date: 2026-11-13
 Priority: urgent
-Assigned By: Renu ma'am
-Description: Complete experiment 1 and 2 of csk lab manual
+Assigned By: Swarnima Ma'am
+Description: Make a ppt with your group
