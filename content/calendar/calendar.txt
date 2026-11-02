@@ -3,33 +3,15 @@
 # Content File: content/calendar/calendar.txt
 # ==============================================================================
 
-[EVENT]
-ID: cal-2026-09-05
-Title: Teachers' Day Special Schedule
-Date: 2026-09-05
-Type: college_holiday
-Description: College celebrations; afternoon lectures suspended
-Batch: All
-Classes Suspended: true
-
-[EVENT]
-ID: cal-2026-10-02
-Title: Gandhi Jayanti
-Date: 2026-10-02
-Type: public_holiday
-Description: Gazetted national holiday in honor of Mahatma Gandhi
-Batch: All
-Classes Suspended: true
-
-[EVENT]
-ID: cal-2026-10-17
-Title: Special Working Saturday (Monday Timetable)
-Date: 2026-10-17
-Type: special_working_day
-Description: Compensatory working day following Monday timetable for both batches
-Batch: All
-Classes Suspended: false
-Replacement Day: Monday
+#[EVENT]
+#ID: cal-2026-10-17
+#Title: Special Working Saturday (Monday Timetable)
+#Date: 2026-10-17
+#Type: special_working_day
+#Description: Compensatory working day following Monday timetable for both batches
+#Batch: All
+#Classes Suspended: false
+#Replacement Day: Monday
 
 [EVENT]
 ID: cal-2026-10-28
@@ -38,14 +20,5 @@ Date: 2026-11-06
 End Date: 2026-11-12
 Type: college_holiday
 Description: Deepavali festivities; regular classes suspended
-Batch: All
-Classes Suspended: true
-
-[EVENT]
-ID: cal-2026-11-15
-Title: Guru Nanak Jayanti
-Date: 2026-11-15
-Type: public_holiday
-Description: Gazetted public holiday in observance of Guru Nanak Jayanti
 Batch: All
 Classes Suspended: true
