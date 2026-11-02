@@ -3,38 +3,33 @@
 
 Subject Code: M
 Subject Name: Mathematics
-Faculty: Prof. G.C. Sharma (GC)
+Faculty: Geeta Ma'am
 Credits: 4
 Semester: 1
-Drive Folder URL: https://drive.google.com/drive/folders/section-v-maths
-PYQ Drive URL: https://drive.google.com/drive/folders/section-v-maths-pyqs
+Drive Folder URL: 
+PYQ Drive URL: 
 Tags: Calculus, Linear Algebra, Matrices, Differential Equations
-Last Updated: 2026-09-18
+Last Updated: 2026-11-02
 
 [UNIT]
 Unit Number: 1
-Title: Differential & Integral Calculus
-Topics: Rolle's & Mean Value Theorems, Taylor's Series, Indeterminate Forms, Definite Integrals & Applications
-Drive Link: https://drive.google.com/file/d/maths-unit1.pdf
+Title: Matrix Algebra
+Topics: Rank of a matrix, Solution of linear simultaneous equations. Eigenvalues and Eigenvectors of a matrix, Cayley-Hamilton theorem (Statement only), Diagonalization of a matrix
+Drive Link: 
 
 [UNIT]
 Unit Number: 2
-Title: Matrices & Linear Systems
-Topics: Rank of Matrix, Gauss Elimination & Jordan, Eigenvalues & Eigenvectors, Cayley-Hamilton Theorem
-Drive Link: https://drive.google.com/file/d/maths-unit2.pdf
+Title: Multivariable Calculus
+Topics: Functions of two variables: Limit, Continuity, Partial derivatives, Euler’s theorem on homogeneous functions, Chain rule, total derivative, Jacobians, Taylor’s theorem for two variables (Statement only), Maxima and minima of functions of two or more variables, Lagrange’s method of undetermined multipliers, Multiple Integration: Double and triple integrals
+Drive Link: 
 
 [UNIT]
 Unit Number: 3
-Title: Multivariable Calculus
-Topics: Partial Derivatives, Euler's Theorem on Homogeneous Functions, Maxima & Minima of Two Variables, Lagrange Multipliers
-Drive Link: https://drive.google.com/file/d/maths-unit3.pdf
+Title: Fourier series
+Topics: Fourier series and its convergence. Fourier series of even and odd functions. Fourier half-range series
+Drive Link: 
 
-[PYQ]
-Year: 2025 Mid-Term
-Exam Type: Mid-Sem
-Drive Link: https://drive.google.com/file/d/maths-2025-mid.pdf
-
-[PYQ]
-Year: 2024 End-Sem
-Exam Type: End-Sem
-Drive Link: https://drive.google.com/file/d/maths-2024-end.pdf
+#[PYQ]
+#Year: 2025 Mid-Term
+#Exam Type: Mid-Sem
+#Drive Link: https://drive.google.com/file/d/maths-2025-mid.pdf
