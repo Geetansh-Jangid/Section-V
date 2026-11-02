@@ -4,6 +4,7 @@
  */
 
 import React, { useEffect } from 'react';
+import { Analytics } from '@vercel/analytics/react';
 import { RootLayout } from './app/layout.tsx';
 import { DashboardPage } from './app/page.tsx';
 import { TimetablePage } from './app/timetable/page.tsx';
@@ -56,6 +57,7 @@ export default function App() {
       )}
 
       {activeTab === 'faculty' && <FacultyPage />}
+      <Analytics />
     </RootLayout>
   );
 }
