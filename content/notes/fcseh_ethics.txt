@@ -2,28 +2,30 @@
 # Content File: content/notes/fcseh_ethics.txt
 
 Subject Code: FCSEH
-Subject Name: Foundation Course in Science, Ethics & Human Values
-Faculty: Dr. S. Mukherjee (SM)
+Subject Name: Fundamental Of Cyber Security And Ethical Hacking
+Faculty: Soumitra Sir
 Credits: 3
 Semester: 1
-Drive Folder URL: https://drive.google.com/drive/folders/section-v-fcseh
-PYQ Drive URL: https://drive.google.com/drive/folders/section-v-fcseh-pyqs
-Tags: Ethics, Values, Scientific Method, Society
-Last Updated: 2026-09-15
+Drive Folder URL: 
+PYQ Drive URL: 
+Tags: cybersecurity, infosec, data-protection, network-security, malware, hacking, ethical-hacking, phishing, ransomware, cyber-attack, vulnerability, penetration-testing, cloud-security, encryption, firewall, threat-intelligence
+Last Updated: 2026-11-02
 
 [UNIT]
 Unit Number: 1
-Title: Understanding Human Values & Harmony
-Topics: Self-Exploration & Natural Acceptance, Harmony in Human Being & Family, Trust, Respect & Ethical Relationships
-Drive Link: https://drive.google.com/file/d/fcseh-unit1.pdf
+Title: Introduction to Cyber Security
+Topics: Defining Cyberspace and Overview of Computer and Web-technology, Architecture of cyberspace, Regulation of cyberspace, Concept of cybersecurity, Issues and challenges of cyber security
+Drive Link: 
+NotebookLM Link: https://notebooklm.link.google/gkh3np9JL4Li
 
 [UNIT]
 Unit Number: 2
-Title: Scientific Temper & Professional Ethics
-Topics: Philosophy of Scientific Inquiry, Engineering Codes of Conduct, Intellectual Property & Integrity, Social Responsibility of Engineers
-Drive Link: https://drive.google.com/file/d/fcseh-unit2.pdf
+Title: Cyber Crime and Cyber Law
+Topics: malware and ransomware attacks, virus, trojans, data breach, zero day and zero click attacks, Cybercriminals, Reporting of cyber crimes, Legal perspective of cyber crime, IT Act 2000 and its amendments, Cyber crime and offences, Organizations dealing with Cyber crime and Cyber security in India.
+Drive Link: 
+NotebookLM Link: https://notebooklm.link.google/gkh3np9JL4Li
 
-[PYQ]
-Year: 2025 Mid-Sem
-Exam Type: Mid-Sem
-Drive Link: https://drive.google.com/file/d/fcseh-2025-mid.pdf
+#[PYQ]
+#Year: 2025 Mid-Sem
+#Exam Type: Mid-Sem
+#Drive Link: https://drive.google.com/file/d/fcseh-2025-mid.pdf
