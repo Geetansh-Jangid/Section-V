@@ -3,38 +3,27 @@
 
 Subject Code: DE
 Subject Name: Digital Electronics
-Faculty: Prof. R.S. Evans (RSE)
-Credits: 4
+Faculty: Ram Singh Sir
+Credits: 2
 Semester: 1
-Drive Folder URL: https://drive.google.com/drive/folders/section-v-de
-PYQ Drive URL: https://drive.google.com/drive/folders/section-v-de-pyqs
-Tags: Logic Gates, K-Maps, Flip-Flops, Combinational Circuits
-Last Updated: 2026-09-17
+Drive Folder URL: 
+PYQ Drive URL: 
+Tags: 
+Last Updated: 2026-11-02
 
 [UNIT]
 Unit Number: 1
-Title: Boolean Algebra & Logic Simplification
-Topics: Number Systems & Codes, Logic Gates (AND, OR, NOT, NAND, NOR, XOR), De Morgan's Laws, Karnaugh Maps (2, 3, 4 variables)
-Drive Link: https://drive.google.com/file/d/de-unit1.pdf
+Title: Fundamental concepts
+Topics: Fundamental concepts: Number systems and codes, Basic logic Gates and Boolean algebra: Sign & magnitude representation, Fixed point representation, complement notation, various codes & arithmetic in different codes & their inter conversion, Features of logic algebra, postulates of Boolean algebra, Theorems of Boolean algebra
+Drive Link: 
 
 [UNIT]
 Unit Number: 2
-Title: Combinational Logic Design
-Topics: Adders & Subtractors (Half/Full), Multiplexers & Demultiplexers, Encoders & Decoders, Code Converters
-Drive Link: https://drive.google.com/file/d/de-unit2.pdf
+Title: Minimization Techniques and Logic Gates
+Topics: Minimization Techniques and Logic Gates: AND, OR, NOT, NOR, NAND, XOR, XNOR and their properties, Principle of Duality, Boolean expression ; Minimization of Boolean expressions, Minterm, Maxterm, Sum of Products (SOP), Product of Sums (POS), Karnaugh map Minimization, Don’t care conditions.
+Drive Link: 
 
-[UNIT]
-Unit Number: 3
-Title: Sequential Logic Circuits
-Topics: Latches vs Flip-Flops (SR, JK, D, T), Master-Slave Flip Flops, Synchronous & Asynchronous Counters, Shift Registers
-Drive Link: https://drive.google.com/file/d/de-unit3.pdf
-
-[PYQ]
-Year: 2025 Mid-Sem
-Exam Type: Mid-Sem
-Drive Link: https://drive.google.com/file/d/de-2025-mid.pdf
-
-[PYQ]
-Year: 2024 End-Sem
-Exam Type: End-Sem
-Drive Link: https://drive.google.com/file/d/de-2024-end.pdf
+#[PYQ]
+#Year: 2025 Mid-Sem
+#Exam Type: Mid-Sem
+#Drive Link: https://drive.google.com/file/d/de-2025-mid.pdf
