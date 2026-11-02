@@ -332,27 +332,91 @@ export const ContributeModal: React.FC<ContributeModalProps> = ({
   };
 
   const handleSubmitContribution = async () => {
+    if (isSubmitting) return;
+
     setIsSubmitting(true);
     setSubmissionError(null);
     setSubmitResult(null);
 
     try {
-      const response = await fetch('/api/contribute', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(currentPayload)
-      });
+      let response: Response;
+      try {
+        response = await fetch('/api/contribute', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(currentPayload)
+        });
+      } catch (fetchErr: any) {
+        throw new Error(
+          'Network connection error: Unable to reach the contribution API. Please check your internet connection and try again.'
+        );
+      }
 
-      const data = await response.json();
-      if (!response.ok || !data.success) {
+      // Safely read response text without assuming JSON format
+      let responseText = '';
+      try {
+        responseText = await response.text();
+      } catch (readErr: any) {
+        throw new Error(`Unable to read server response: ${readErr?.message || 'Connection terminated early'}`);
+      }
+
+      // Safely parse JSON if content is available
+      let data: any = null;
+      if (responseText && responseText.trim().length > 0) {
+        try {
+          data = JSON.parse(responseText);
+        } catch {
+          // Response body is not valid JSON (e.g. plain-text or HTML 404/500/502 page)
+        }
+      }
+
+      // Handle HTTP error responses (non-2xx)
+      if (!response.ok) {
+        if (data && typeof data.error === 'string' && data.error.trim().length > 0) {
+          throw new Error(data.error);
+        }
+        if (data && typeof data.message === 'string' && data.message.trim().length > 0) {
+          throw new Error(data.message);
+        }
+
+        if (response.status === 404) {
+          throw new Error(
+            'Contribution API endpoint not found (404). Please ensure the backend is properly deployed.'
+          );
+        }
+        if (response.status === 405) {
+          throw new Error('HTTP Method Not Allowed (405). The server only accepts POST submissions.');
+        }
+        if (response.status === 429) {
+          throw new Error('Submission rate limit reached (429). Please wait a minute before submitting again.');
+        }
+        if (response.status >= 500) {
+          throw new Error(
+            `Server error (${response.status}). The server encountered an issue processing your contribution. Please try again shortly or use the manual GitHub issue link below.`
+          );
+        }
+
+        throw new Error(
+          `Contribution submission failed with HTTP status ${response.status}${response.statusText ? ` (${response.statusText})` : ''}.`
+        );
+      }
+
+      // If status is 2xx but body is not valid JSON
+      if (!data || typeof data !== 'object') {
+        throw new Error(
+          'Unexpected server response format: Expected JSON but received HTML or plain text. Please verify the API deployment or use the manual GitHub issue link below.'
+        );
+      }
+
+      if (!data.success) {
         throw new Error(data.error || 'Failed to submit contribution.');
       }
 
       setSubmitResult(data);
     } catch (err: any) {
-      setSubmissionError(err.message || 'Network error occurred while submitting.');
+      setSubmissionError(err?.message || 'An unexpected error occurred while submitting your contribution.');
     } finally {
       setIsSubmitting(false);
     }

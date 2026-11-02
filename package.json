@@ -7,10 +7,11 @@
     "dev": "tsx src/scripts/generate-data.ts && vite --port=3000 --host=0.0.0.0",
     "build": "tsx src/scripts/generate-data.ts && vite build",
     "preview": "vite preview",
-    "clean": "rm -rf dist server.js",
+    "clean": "rm -rf dist",
     "generate": "tsx src/scripts/generate-data.ts",
     "validate": "tsx src/scripts/validate.ts",
-    "lint": "tsc --noEmit"
+    "lint": "tsc --noEmit",
+    "test": "tsx src/scripts/test-contribution-system.ts"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.3.3",

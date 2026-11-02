@@ -178,6 +178,18 @@ Contributor: ${payload.author}\n`;
   }
 }
 
+async function extractGitHubErrorMessage(res: Response, fallback: string): Promise<string> {
+  try {
+    const errData = await res.json();
+    if (errData && typeof errData.message === 'string') {
+      return `${fallback}: ${errData.message}`;
+    }
+  } catch {
+    // Ignore JSON parsing errors for error payload
+  }
+  return `${fallback}: ${res.statusText || res.status}`;
+}
+
 /**
  * Executes server-side PR creation via GitHub REST API.
  */
@@ -211,9 +223,10 @@ export async function processContribution(
     };
   }
 
-  const githubToken = process.env.GITHUB_TOKEN || process.env.GH_TOKEN;
-  const repo = process.env.GITHUB_REPO || 'Geetansh-Jangid/Section-V';
-  const baseBranch = process.env.GITHUB_BASE_BRANCH || 'v2';
+  const rawToken = process.env.GITHUB_TOKEN || process.env.GH_TOKEN;
+  const githubToken = rawToken ? rawToken.trim() : '';
+  const repo = (process.env.GITHUB_REPO || 'Geetansh-Jangid/Section-V').trim();
+  const baseBranch = (process.env.GITHUB_BASE_BRANCH || 'v2').trim();
 
   if (!githubToken) {
     // Graceful simulation mode when GITHUB_TOKEN is not configured
@@ -237,7 +250,7 @@ export async function processContribution(
     // 1. Get base branch commit SHA
     const baseRefRes = await fetch(`https://api.github.com/repos/${repo}/git/ref/heads/${baseBranch}`, { headers });
     if (!baseRefRes.ok) {
-      throw new Error(`Failed to fetch base branch ref (${baseBranch}): ${baseRefRes.statusText}`);
+      throw new Error(await extractGitHubErrorMessage(baseRefRes, `Failed to fetch base branch ref (${baseBranch})`));
     }
     const baseRefData = await baseRefRes.json();
     const baseSha = baseRefData.object.sha;
@@ -253,7 +266,7 @@ export async function processContribution(
       })
     });
     if (!createBranchRes.ok) {
-      throw new Error(`Failed to create branch: ${createBranchRes.statusText}`);
+      throw new Error(await extractGitHubErrorMessage(createBranchRes, 'Failed to create branch'));
     }
 
     // 3. Get existing file content & SHA
@@ -282,7 +295,7 @@ export async function processContribution(
       })
     });
     if (!commitRes.ok) {
-      throw new Error(`Failed to commit file to branch: ${commitRes.statusText}`);
+      throw new Error(await extractGitHubErrorMessage(commitRes, 'Failed to commit file to branch'));
     }
 
     // 5. Create Pull Request
@@ -313,7 +326,7 @@ ${block}
     });
 
     if (!prRes.ok) {
-      throw new Error(`Failed to create PR: ${prRes.statusText}`);
+      throw new Error(await extractGitHubErrorMessage(prRes, 'Failed to create PR'));
     }
 
     const prData = await prRes.json();

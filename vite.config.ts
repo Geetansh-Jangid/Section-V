@@ -3,7 +3,7 @@ import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
 import { defineConfig, Plugin } from 'vite';
-import { processContribution } from './src/api/contributeHandler.ts';
+import contributeHandler from './api/contribute.ts';
 import { generateAllData } from './src/scripts/generate-data.ts';
 
 function contentWatcherPlugin(): Plugin {
@@ -40,29 +40,7 @@ function contributeApiPlugin(): Plugin {
     name: 'contribute-api-plugin',
     configureServer(server) {
       server.middlewares.use('/api/contribute', (req, res) => {
-        if (req.method === 'POST') {
-          let body = '';
-          req.on('data', (chunk) => {
-            body += chunk;
-          });
-          req.on('end', async () => {
-            try {
-              const data = JSON.parse(body);
-              const clientIp = req.socket.remoteAddress || 'local';
-              const result = await processContribution(data, clientIp);
-              res.setHeader('Content-Type', 'application/json');
-              res.statusCode = result.success ? 200 : 400;
-              res.end(JSON.stringify(result));
-            } catch (err: any) {
-              res.setHeader('Content-Type', 'application/json');
-              res.statusCode = 500;
-              res.end(JSON.stringify({ success: false, error: err.message || 'Server error' }));
-            }
-          });
-        } else {
-          res.statusCode = 405;
-          res.end('Method Not Allowed');
-        }
+        contributeHandler(req, res);
       });
     }
   };
@@ -70,7 +48,7 @@ function contributeApiPlugin(): Plugin {
 
 export default defineConfig(() => {
   return {
-    plugins: [react(), tailwindcss(), contentWatcherPlugin(), contributeApiPlugin()],
+    plugins: [react() as any, tailwindcss() as any, contentWatcherPlugin(), contributeApiPlugin()],
     resolve: {
       alias: {
         '@': path.resolve(import.meta.dirname, '.'),

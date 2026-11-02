@@ -2,7 +2,7 @@ import 'dotenv/config';
 import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { processContribution } from './src/api/contributeHandler.ts';
+import contributeHandler from './api/contribute.ts';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -13,14 +13,8 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 
 // API Contribution Endpoint
-app.post('/api/contribute', async (req, res) => {
-  try {
-    const clientIp = req.ip || req.socket.remoteAddress || 'unknown';
-    const result = await processContribution(req.body, clientIp);
-    res.status(result.success ? 200 : 400).json(result);
-  } catch (err) {
-    res.status(500).json({ success: false, error: err.message || 'Internal server error' });
-  }
+app.all('/api/contribute', (req, res) => {
+  contributeHandler(req, res);
 });
 
 // Serve static frontend assets
